@@ -1095,7 +1095,9 @@
             "unavailableLinux": "Nem érhető el kompatibilis rendszertálca. A Fluux bezárása kilép az alkalmazásból."
         },
         "contactStatusMessage": "Állapotüzenetek megjelenítése",
-        "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett."
+        "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett.",
+        "markdown": "Markdown megjelenítése",
+        "markdownDescription": "Címsorok, listák, táblázatok és címkézett hivatkozások megjelenítése az üzenetekben. A félkövér, dőlt, kód és idézetek mindig megjelennek."
     },
     "update": {
         "title": "Frissítés elérhető",

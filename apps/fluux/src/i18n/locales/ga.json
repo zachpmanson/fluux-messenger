@@ -1101,7 +1101,9 @@
             "unavailableLinux": "Níl tráidire córais comhoiriúnach ar fáil. Scoirfear Fluux nuair a dhúnfar é."
         },
         "contactStatusMessage": "Taispeáin teachtaireachtaí stádais",
-        "contactStatusMessageDescription": "Taispeáin téacs stádais an teagmhálaí in ionad „Ar líne“ nó „Ná cuir isteach“."
+        "contactStatusMessageDescription": "Taispeáin téacs stádais an teagmhálaí in ionad „Ar líne“ nó „Ná cuir isteach“.",
+        "markdown": "Rindreáil Markdown",
+        "markdownDescription": "Taispeáin ceannteidil, liostaí, táblaí agus naisc ainmnithe i dteachtaireachtaí. Taispeántar cló trom, iodálach, cód agus athfhriotail i gcónaí."
     },
     "update": {
         "title": "Nuashonrú ar Fáil",

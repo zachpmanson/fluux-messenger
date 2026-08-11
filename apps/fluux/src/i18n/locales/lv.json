@@ -1098,7 +1098,9 @@
             "unavailableLinux": "Saderīga sistēmas tekne nav pieejama. Aizverot Fluux, lietotne tiks izslēgta."
         },
         "contactStatusMessage": "Rādīt statusa ziņojumus",
-        "contactStatusMessageDescription": "Rādīt kontakta statusa tekstu vietā „Tiešsaistē“ vai „Netraucēt“."
+        "contactStatusMessageDescription": "Rādīt kontakta statusa tekstu vietā „Tiešsaistē“ vai „Netraucēt“.",
+        "markdown": "Attēlot Markdown",
+        "markdownDescription": "Rādīt virsrakstus, sarakstus, tabulas un nosauktas saites ziņojumos. Treknraksts, kursīvs, kods un citāti tiek rādīti vienmēr."
     },
     "update": {
         "title": "Pieejams atjauninājums",

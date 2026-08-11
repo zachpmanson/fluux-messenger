@@ -1095,7 +1095,9 @@
             "unavailableLinux": "No compatible system tray is available. Closing Fluux will quit the app."
         },
         "contactStatusMessage": "Show status messages",
-        "contactStatusMessageDescription": "Show a contact's own status text in place of \"Online\" or \"Do not disturb\"."
+        "contactStatusMessageDescription": "Show a contact's own status text in place of \"Online\" or \"Do not disturb\".",
+        "markdown": "Render Markdown",
+        "markdownDescription": "Show headings, lists, tables and labelled links in messages. Bold, italic, code and quotes always render."
     },
     "update": {
         "title": "Update Available",

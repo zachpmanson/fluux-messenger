@@ -1099,7 +1099,9 @@
             "unavailableLinux": "Nu este disponibilă o zonă de notificare compatibilă. Închiderea va opri Fluux."
         },
         "contactStatusMessage": "Afișează mesajele de stare",
-        "contactStatusMessageDescription": "Afișează textul de stare al contactului în locul „Online” sau „Nu deranja”."
+        "contactStatusMessageDescription": "Afișează textul de stare al contactului în locul „Online” sau „Nu deranja”.",
+        "markdown": "Afișează Markdown",
+        "markdownDescription": "Afișează titluri, liste, tabele și linkuri cu etichetă în mesaje. Aldinul, cursivul, codul și citatele se afișează întotdeauna."
     },
     "update": {
         "title": "Actualizare disponibilă",

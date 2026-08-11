@@ -1099,7 +1099,9 @@
             "unavailableLinux": "Não está disponível uma área de notificação compatível. Fechar o Fluux termina a aplicação."
         },
         "contactStatusMessage": "Mostrar mensagens de estado",
-        "contactStatusMessageDescription": "Mostrar o texto de estado do contacto em vez de «Online» ou «Não perturbar»."
+        "contactStatusMessageDescription": "Mostrar o texto de estado do contacto em vez de «Online» ou «Não perturbar».",
+        "markdown": "Renderizar Markdown",
+        "markdownDescription": "Mostrar títulos, listas, tabelas e ligações com etiqueta nas mensagens. Negrito, itálico, código e citações são sempre mostrados."
     },
     "update": {
         "title": "Atualização disponível",

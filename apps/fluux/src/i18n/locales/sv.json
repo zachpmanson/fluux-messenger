@@ -1095,7 +1095,9 @@
             "unavailableLinux": "Inget kompatibelt systemfält är tillgängligt. Fluux avslutas när fönstret stängs."
         },
         "contactStatusMessage": "Visa statusmeddelanden",
-        "contactStatusMessageDescription": "Visa kontaktens egen statustext i stället för ”Online” eller ”Stör ej”."
+        "contactStatusMessageDescription": "Visa kontaktens egen statustext i stället för ”Online” eller ”Stör ej”.",
+        "markdown": "Visa Markdown",
+        "markdownDescription": "Visa rubriker, listor, tabeller och namngivna länkar i meddelanden. Fet, kursiv, kod och citat visas alltid."
     },
     "update": {
         "title": "Uppdatering tillgänglig",

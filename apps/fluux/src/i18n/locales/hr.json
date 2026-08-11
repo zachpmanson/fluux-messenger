@@ -1097,7 +1097,9 @@
             "unavailableLinux": "Kompatibilno područje obavijesti nije dostupno. Zatvaranje će ugasiti Fluux."
         },
         "contactStatusMessage": "Prikaži statusne poruke",
-        "contactStatusMessageDescription": "Prikaži vlastiti statusni tekst kontakta umjesto „Na mreži“ ili „Ne uznemiravaj“."
+        "contactStatusMessageDescription": "Prikaži vlastiti statusni tekst kontakta umjesto „Na mreži“ ili „Ne uznemiravaj“.",
+        "markdown": "Prikaži Markdown",
+        "markdownDescription": "Prikaži naslove, popise, tablice i imenovane veze u poruci. Podebljano, kurziv, kod i citati prikazuju se uvijek."
     },
     "update": {
         "title": "Dostupno ažuriranje",

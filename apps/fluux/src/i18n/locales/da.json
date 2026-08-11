@@ -1095,7 +1095,9 @@
             "unavailableLinux": "Der er ikke noget kompatibelt statusområde. Fluux afsluttes, når vinduet lukkes."
         },
         "contactStatusMessage": "Vis statusbeskeder",
-        "contactStatusMessageDescription": "Vis kontaktens egen statustekst i stedet for \"Online\" eller \"Forstyr ikke\"."
+        "contactStatusMessageDescription": "Vis kontaktens egen statustekst i stedet for \"Online\" eller \"Forstyr ikke\".",
+        "markdown": "Vis Markdown",
+        "markdownDescription": "Vis overskrifter, lister, tabeller og navngivne links i beskeder. Fed, kursiv, kode og citater vises altid."
     },
     "update": {
         "title": "Opdatering tilgængelig",

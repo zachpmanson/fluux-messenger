@@ -1095,7 +1095,9 @@
             "unavailableLinux": "Yhteensopivaa ilmaisinalueen tukea ei ole saatavilla. Fluux lopetetaan suljettaessa."
         },
         "contactStatusMessage": "Näytä tilaviestit",
-        "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla."
+        "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla.",
+        "markdown": "Näytä Markdown",
+        "markdownDescription": "Näytä otsikot, luettelot, taulukot ja nimetyt linkit viesteissä. Lihavointi, kursivointi, koodi ja lainaukset näytetään aina."
     },
     "update": {
         "title": "Päivitys saatavilla",

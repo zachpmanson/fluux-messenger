@@ -1097,7 +1097,9 @@
             "unavailableLinux": "Kein kompatibler Infobereich ist verfügbar. Beim Schließen wird Fluux beendet."
         },
         "contactStatusMessage": "Statusmeldungen anzeigen",
-        "contactStatusMessageDescription": "Den eigenen Statustext eines Kontakts anstelle von „Online“ oder „Bitte nicht störenb“ anzeigen."
+        "contactStatusMessageDescription": "Den eigenen Statustext eines Kontakts anstelle von „Online“ oder „Bitte nicht störenb“ anzeigen.",
+        "markdown": "Markdown darstellen",
+        "markdownDescription": "Überschriften, Listen, Tabellen und benannte Links in Nachrichten anzeigen. Fett, Kursiv, Code und Zitate werden immer dargestellt."
     },
     "update": {
         "title": "Update verfügbar",

@@ -1095,7 +1095,9 @@
             "unavailableLinux": "Samhæfur kerfisbakki er ekki tiltækur. Fluux hættir þegar glugganum er lokað."
         },
         "contactStatusMessage": "Sýna stöðuskeyti",
-        "contactStatusMessageDescription": "Sýna eigin stöðutexta tengiliðar í stað „Á neti“ eða „Ónáðið ekki“."
+        "contactStatusMessageDescription": "Sýna eigin stöðutexta tengiliðar í stað „Á neti“ eða „Ónáðið ekki“.",
+        "markdown": "Sýna Markdown",
+        "markdownDescription": "Sýna fyrirsagnir, lista, töflur og nefnda tengla í skeytum. Feitt, skáletrað, kóði og tilvitnanir birtast alltaf."
     },
     "update": {
         "title": "Uppfærsla tiltæk",

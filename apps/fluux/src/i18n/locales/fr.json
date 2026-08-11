@@ -1098,7 +1098,9 @@
             "unavailableLinux": "Aucune zone de notification compatible n'est disponible. Fermer Fluux quittera l'application."
         },
         "contactStatusMessage": "Afficher les messages de statut",
-        "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger »."
+        "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger ».",
+        "markdown": "Afficher le Markdown",
+        "markdownDescription": "Afficher les titres, listes, tableaux et liens nommés dans les messages. Le gras, l’italique, le code et les citations s’affichent toujours."
     },
     "update": {
         "title": "Mise à jour disponible",

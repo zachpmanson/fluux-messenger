@@ -1095,7 +1095,9 @@
             "unavailableLinux": "호환 가능한 시스템 트레이를 사용할 수 없습니다. Fluux를 닫으면 앱이 종료됩니다."
         },
         "contactStatusMessage": "상태 메시지 표시",
-        "contactStatusMessageDescription": "\"온라인\" 또는 \"방해 금지\" 대신 상대방이 설정한 상태 텍스트를 표시합니다."
+        "contactStatusMessageDescription": "\"온라인\" 또는 \"방해 금지\" 대신 상대방이 설정한 상태 텍스트를 표시합니다.",
+        "markdown": "Markdown 표시",
+        "markdownDescription": "메시지에서 제목, 목록, 표, 이름이 있는 링크를 표시합니다. 굵게, 기울임꼴, 코드, 인용은 항상 표시됩니다."
     },
     "update": {
         "title": "업데이트 가능",

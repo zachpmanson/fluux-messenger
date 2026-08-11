@@ -1099,7 +1099,9 @@
             "unavailableLinux": "Suderinamas sistemos dėklas nepasiekiamas. Uždarius Fluux programa bus baigta."
         },
         "contactStatusMessage": "Rodyti būsenos pranešimus",
-        "contactStatusMessageDescription": "Rodyti kontakto būsenos tekstą vietoje „Prisijungęs“ arba „Netrikdyti“."
+        "contactStatusMessageDescription": "Rodyti kontakto būsenos tekstą vietoje „Prisijungęs“ arba „Netrikdyti“.",
+        "markdown": "Atvaizduoti Markdown",
+        "markdownDescription": "Rodyti antraštes, sąrašus, lenteles ir pavadintas nuorodas pranešimuose. Paryškintas, kursyvas, kodas ir citatos rodomi visada."
     },
     "update": {
         "title": "Pasiekiamas atnaujinimas",

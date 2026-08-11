@@ -1095,7 +1095,9 @@
             "unavailableLinux": "没有可用的兼容系统托盘。关闭 Fluux 将退出应用。"
         },
         "contactStatusMessage": "显示状态消息",
-        "contactStatusMessageDescription": "显示联系人自己的状态文字，替代“在线”或“请勿打扰”。"
+        "contactStatusMessageDescription": "显示联系人自己的状态文字，替代“在线”或“请勿打扰”。",
+        "markdown": "渲染 Markdown",
+        "markdownDescription": "在消息中显示标题、列表、表格和带标签的链接。粗体、斜体、代码和引用始终显示。"
     },
     "update": {
         "title": "更新可用",

@@ -1101,7 +1101,9 @@
             "unavailableLinux": "Kompatibilní oznamovací oblast není dostupná. Zavřením se Fluux ukončí."
         },
         "contactStatusMessage": "Zobrazovat stavové zprávy",
-        "contactStatusMessageDescription": "Zobrazovat vlastní stavový text kontaktu místo „Online“ nebo „Nerušit“."
+        "contactStatusMessageDescription": "Zobrazovat vlastní stavový text kontaktu místo „Online“ nebo „Nerušit“.",
+        "markdown": "Vykreslovat Markdown",
+        "markdownDescription": "Zobrazovat nadpisy, seznamy, tabulky a pojmenované odkazy ve zprávách. Tučné, kurzíva, kód a citace se zobrazují vždy."
     },
     "update": {
         "title": "Dostupná aktualizace",

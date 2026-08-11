@@ -1095,7 +1095,9 @@
             "unavailableLinux": "Er is geen compatibel systeemvak beschikbaar. Fluux wordt afgesloten wanneer u het venster sluit."
         },
         "contactStatusMessage": "Statusberichten weergeven",
-        "contactStatusMessageDescription": "De eigen statustekst van een contact weergeven in plaats van „Online“ of „Niet storen“."
+        "contactStatusMessageDescription": "De eigen statustekst van een contact weergeven in plaats van „Online“ of „Niet storen“.",
+        "markdown": "Markdown weergeven",
+        "markdownDescription": "Koppen, lijsten, tabellen en gelabelde links in berichten weergeven. Vet, cursief, code en citaten worden altijd weergegeven."
     },
     "update": {
         "title": "Update beschikbaar",

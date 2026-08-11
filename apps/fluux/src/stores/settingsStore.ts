@@ -21,6 +21,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  markdownEnabled: boolean
+  setMarkdownEnabled: (enabled: boolean) => void
   showInChatReactionNotifications: boolean
   setShowInChatReactionNotifications: (enabled: boolean) => void
   showStatusMessage: boolean
@@ -70,6 +72,7 @@ export interface ArchiveOverride {
 
 const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const IN_CHAT_REACTION_NOTIFICATIONS_KEY = 'fluux-in-chat-reaction-notifications'
+const MARKDOWN_KEY = 'fluux-markdown'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -305,6 +308,17 @@ function getInitialShowInChatReactionNotifications(): boolean {
   }
 }
 
+function getInitialMarkdownEnabled(): boolean {
+  try {
+    const stored = localStorage.getItem(MARKDOWN_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -453,4 +467,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     try { localStorage.setItem(IN_CHAT_REACTION_NOTIFICATIONS_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ showInChatReactionNotifications: enabled })
   },
+  markdownEnabled: getInitialMarkdownEnabled(),
+
+  setMarkdownEnabled: (enabled) => {
+    try { localStorage.setItem(MARKDOWN_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ markdownEnabled: enabled })
+  },
+
 }))
