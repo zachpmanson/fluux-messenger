@@ -695,6 +695,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostorna razporeditev in večji avatarji.",
         "densityCompactDescription": "Tesnejša razporeditev za prikaz več vsebine na zaslonu.",
+        "contactStatusMessage": "Prikaži sporočila o stanju",
+        "contactStatusMessageDescription": "Prikaži lastno besedilo stanja stika namesto »Na zvezi« ali »Ne moti«.",
         "accentColor": "Barva poudarka",
         "accentThemeDefault": "Privzeto teme",
         "fontSize": "Velikost pisave",

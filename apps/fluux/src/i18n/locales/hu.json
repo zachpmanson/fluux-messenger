@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Tágas elrendezés és nagyobb avatarok.",
         "densityCompactDescription": "Sűrűbb elrendezés, hogy több férjen el a képernyőn.",
+        "contactStatusMessage": "Állapotüzenetek megjelenítése",
+        "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",
