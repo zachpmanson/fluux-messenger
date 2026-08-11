@@ -693,6 +693,8 @@
         "densityCompactDescription": "Spațiere mai strânsă pentru mai mult conținut pe ecran.",
         "markdown": "Afișează Markdown",
         "markdownDescription": "Afișează titluri, liste, tabele și linkuri cu etichetă în mesaje. Aldinul, cursivul, codul și citatele se afișează întotdeauna.",
+        "slashCommands": "Comenzi cu bară oblică",
+        "slashCommandsDescription": "Tratează „/cuvânt” ca o comandă. Dezactivează pentru a trimite fiecare mesaj așa cum a fost scris — paleta de comenzi funcționează în continuare.",
         "accentColor": "Culoare de accent",
         "accentThemeDefault": "Implicit temă",
         "fontSize": "Dimensiune font",

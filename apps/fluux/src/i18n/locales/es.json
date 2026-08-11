@@ -693,6 +693,8 @@
         "densityCompactDescription": "Espaciado más ajustado para mostrar más contenido en pantalla.",
         "markdown": "Representar Markdown",
         "markdownDescription": "Mostrar encabezados, listas, tablas y enlaces con etiqueta en los mensajes. La negrita, la cursiva, el código y las citas se muestran siempre.",
+        "slashCommands": "Comandos con barra",
+        "slashCommandsDescription": "Tratar «/palabra» como un comando. Desactívalo para enviar cada mensaje tal como se escribe; la paleta de comandos sigue funcionando.",
         "accentColor": "Color de acento",
         "accentThemeDefault": "Predeterminado del tema",
         "fontSize": "Tamaño de fuente",

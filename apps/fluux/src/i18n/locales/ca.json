@@ -693,6 +693,8 @@
         "densityCompactDescription": "Espaiat més estret per mostrar més contingut a la pantalla.",
         "markdown": "Renderitza Markdown",
         "markdownDescription": "Mostra encapçalaments, llistes, taules i enllaços amb etiqueta als missatges. La negreta, la cursiva, el codi i les citacions es mostren sempre.",
+        "slashCommands": "Ordres amb barra",
+        "slashCommandsDescription": "Tracta «/paraula» com una ordre. Desactiva-ho per enviar cada missatge tal com s'escriu; la paleta d'ordres continua funcionant.",
         "accentColor": "Color d'accent",
         "accentThemeDefault": "Per defecte del tema",
         "fontSize": "Mida de la lletra",

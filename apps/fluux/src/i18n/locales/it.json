@@ -693,6 +693,8 @@
         "densityCompactDescription": "Spaziatura ridotta per mostrare più contenuti sullo schermo.",
         "markdown": "Mostra Markdown",
         "markdownDescription": "Mostra titoli, elenchi, tabelle e collegamenti con etichetta nei messaggi. Grassetto, corsivo, codice e citazioni vengono sempre mostrati.",
+        "slashCommands": "Comandi slash",
+        "slashCommandsDescription": "Trattare «/parola» come un comando. Disattiva per inviare ogni messaggio così come è scritto — la palette dei comandi resta disponibile.",
         "accentColor": "Colore di accento",
         "accentThemeDefault": "Predefinito del tema",
         "fontSize": "Dimensione carattere",

@@ -691,6 +691,8 @@
         "densityCompactDescription": "ריווח צפוף יותר להצגת תוכן רב יותר על המסך.",
         "markdown": "הצגת Markdown",
         "markdownDescription": "הצגת כותרות, רשימות, טבלאות וקישורים מתויגים בהודעות. מודגש, נטוי, קוד וציטוטים מוצגים תמיד.",
+        "slashCommands": "פקודות לוכסן",
+        "slashCommandsDescription": "התייחס ל־\"/מילה\" כפקודה. כבה כדי לשלוח כל הודעה כפי שהוקלדה — לוח הפקודות ממשיך לעבוד.",
         "accentColor": "צבע הדגשה",
         "accentThemeDefault": "ברירת מחדל של ערכת נושא",
         "fontSize": "גודל גופן",
