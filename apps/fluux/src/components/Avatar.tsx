@@ -120,8 +120,10 @@ export interface AvatarProps {
   forceOffline?: boolean
 
   /**
-   * Avatar shape. Rooms/groups pass 'square' explicitly. Left unset, a person's
-   * avatar follows the user's `avatarShape` setting (circular by default).
+   * Avatar shape. Rooms/groups pass 'square' explicitly and get the rounded
+   * square (see SQUARE_RADIUS). Left unset, a person's avatar follows the user's
+   * `avatarShape` setting — circular by default, and a true square when they
+   * opt in, so people and rooms stay distinguishable either way.
    */
   shape?: 'circle' | 'square'
 }
@@ -328,7 +330,14 @@ export function Avatar({
   // Get size classes
   const sizeClasses = SIZES[size]
 
-  const radiusClass = effectiveShape === 'square' ? SQUARE_RADIUS : 'rounded-full'
+  // Two different squares, deliberately: a room's rounded square (28%) is what
+  // distinguishes it from a person at a glance, so a person who opts into
+  // "square" gets a TRUE square. Keeping both on 28% would erase the
+  // distinction the room shape exists to draw.
+  const radiusClass =
+    effectiveShape !== 'square' ? 'rounded-full'
+      : shape === 'square' ? SQUARE_RADIUS
+        : 'rounded-none'
 
   // Determine presence color
   // Uses CSS custom properties for smooth color transitions between states
