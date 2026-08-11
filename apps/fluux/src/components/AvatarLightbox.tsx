@@ -7,6 +7,7 @@ import { X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Avatar } from './Avatar'
 import { useCloseOnEscape } from '@/hooks/useCloseOnEscape'
+import { useSettingsStore } from '@/stores/settingsStore'
 
 interface AvatarLightboxProps {
   /** Avatar image URL (if available) */
@@ -23,6 +24,8 @@ interface AvatarLightboxProps {
 
 export function AvatarLightbox({ avatarUrl, identifier, name, fallbackColor, onClose }: AvatarLightboxProps) {
   const { t } = useTranslation()
+  // Enlarging an avatar must not change its shape.
+  const avatarShape = useSettingsStore((s) => s.avatarShape)
 
   useCloseOnEscape(onClose)
 
@@ -53,7 +56,7 @@ export function AvatarLightbox({ avatarUrl, identifier, name, fallbackColor, onC
         <img
           src={avatarUrl}
           alt={name || identifier}
-          className="relative z-10 size-48 rounded-full object-cover shadow-2xl"
+          className={`relative z-10 size-48 object-cover shadow-2xl ${avatarShape === 'square' ? 'rounded-none' : 'rounded-full'}`}
           draggable={false}
         />
       ) : (
