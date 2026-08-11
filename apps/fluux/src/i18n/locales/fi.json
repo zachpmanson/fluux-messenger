@@ -689,6 +689,8 @@
         "compact": "Tiivis",
         "densityComfortableDescription": "Tilava asettelu ja suuremmat avatarit.",
         "densityCompactDescription": "Tiiviimpi asettelu, jotta mahtuu enemmän näyttöön.",
+        "slashCommands": "Kauttaviivakomennot",
+        "slashCommandsDescription": "Käsittele ”/sana” komentona. Poista käytöstä, niin jokainen viesti lähetetään kirjoitetussa muodossa — komentopaletti toimii silti.",
         "accentColor": "Korostusväri",
         "accentThemeDefault": "Teeman oletus",
         "fontSize": "Fonttikoko",

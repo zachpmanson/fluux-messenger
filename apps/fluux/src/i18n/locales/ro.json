@@ -693,6 +693,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Spațiere generoasă și avataruri mai mari.",
         "densityCompactDescription": "Spațiere mai strânsă pentru mai mult conținut pe ecran.",
+        "slashCommands": "Comenzi cu bară oblică",
+        "slashCommandsDescription": "Tratează „/cuvânt” ca o comandă. Dezactivează pentru a trimite fiecare mesaj așa cum a fost scris — paleta de comenzi funcționează în continuare.",
         "accentColor": "Culoare de accent",
         "accentThemeDefault": "Implicit temă",
         "fontSize": "Dimensiune font",

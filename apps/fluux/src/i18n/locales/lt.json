@@ -693,6 +693,8 @@
         "compact": "Kompaktiškas",
         "densityComfortableDescription": "Erdvus tarpas ir didesni avatarai.",
         "densityCompactDescription": "Tankesnis tarpas, kad daugiau tilptų ekrane.",
+        "slashCommands": "Pasvirojo brūkšnio komandos",
+        "slashCommandsDescription": "Laikyti „/žodis“ komanda. Išjunkite, kad kiekvienas pranešimas būtų išsiųstas taip, kaip parašytas — komandų paletė vis tiek veikia.",
         "accentColor": "Akcento spalva",
         "accentThemeDefault": "Temos numatytoji",
         "fontSize": "Šrifto dydis",

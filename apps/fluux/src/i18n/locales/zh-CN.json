@@ -689,6 +689,8 @@
         "compact": "紧凑",
         "densityComfortableDescription": "宽松的间距，更大的头像。",
         "densityCompactDescription": "更紧凑的间距，屏幕上可显示更多内容。",
+        "slashCommands": "斜杠命令",
+        "slashCommandsDescription": "将“/词”视为命令。关闭后所有消息按原样发送——命令面板仍然可用。",
         "accentColor": "强调色",
         "accentThemeDefault": "主题默认",
         "fontSize": "字体大小",

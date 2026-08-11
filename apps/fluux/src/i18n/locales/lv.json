@@ -692,6 +692,8 @@
         "compact": "Kompakts",
         "densityComfortableDescription": "Plašs atstarpes un lielāki avatāri.",
         "densityCompactDescription": "Blīvākas atstarpes, lai ekrānā ietilptu vairāk.",
+        "slashCommands": "Slīpsvītras komandas",
+        "slashCommandsDescription": "Uzskatīt „/vārds“ par komandu. Izslēdziet, lai katrs ziņojums tiktu nosūtīts tāds, kāds ierakstīts — komandu palete joprojām darbojas.",
         "accentColor": "Akcenta krāsa",
         "accentThemeDefault": "Tēmas noklusējums",
         "fontSize": "Fonta lielums",

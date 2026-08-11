@@ -697,6 +697,8 @@
         "compact": "Kompatt",
         "densityComfortableDescription": "Spazju ġeneruż u avatars akbar.",
         "densityCompactDescription": "Spazju idjaq biex jidhru aktar fuq l-iskrin.",
+        "slashCommands": "Kmandi bis-slash",
+        "slashCommandsDescription": "Ittratta „/kelma“ bħala kmand. Itfi biex kull messaġġ jintbagħat kif inhu miktub — il-palett tal-kmandi xorta jaħdem.",
         "accentColor": "Kulur tal-aċċent",
         "accentThemeDefault": "Predefinit tat-tema",
         "fontSize": "Daqs tal-font",

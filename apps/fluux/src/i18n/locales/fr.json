@@ -721,6 +721,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Espacement généreux et avatars plus grands.",
         "densityCompactDescription": "Espacement réduit pour afficher plus de contenu à l'écran.",
+        "slashCommands": "Commandes slash",
+        "slashCommandsDescription": "Traiter « /mot » comme une commande. Désactivez pour envoyer chaque message tel quel — la palette de commandes reste disponible.",
         "accentColor": "Couleur d'accentuation",
         "accentThemeDefault": "Défaut du thème",
         "fontSize": "Taille de police",

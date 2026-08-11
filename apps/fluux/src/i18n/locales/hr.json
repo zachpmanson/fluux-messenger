@@ -691,6 +691,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostrani razmak i veći avatari.",
         "densityCompactDescription": "Manji razmak kako bi se više prikazalo na zaslonu.",
+        "slashCommands": "Naredbe s kosom crtom",
+        "slashCommandsDescription": "Tretiraj „/riječ“ kao naredbu. Isključite da bi se svaka poruka poslala kako je napisana — paleta naredbi i dalje radi.",
         "accentColor": "Boja naglaska",
         "accentThemeDefault": "Zadano teme",
         "fontSize": "Veličina fonta",

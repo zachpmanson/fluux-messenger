@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Tágas elrendezés és nagyobb avatarok.",
         "densityCompactDescription": "Sűrűbb elrendezés, hogy több férjen el a képernyőn.",
+        "slashCommands": "Perjeles parancsok",
+        "slashCommandsDescription": "A „/szó” parancsként kezelése. Kikapcsolva minden üzenet a beírt formában megy el — a parancspaletta továbbra is működik.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",

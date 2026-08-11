@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Romslig mellomrom og større avatarer.",
         "densityCompactDescription": "Tettere mellomrom slik at mer får plass på skjermen.",
+        "slashCommands": "Skråstrekkommandoer",
+        "slashCommandsDescription": "Behandle «/ord» som en kommando. Slå av for å sende hver melding slik den er skrevet — kommandopaletten virker fortsatt.",
         "accentColor": "Aksentfarge",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",
