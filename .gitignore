@@ -83,3 +83,8 @@ packages/fluux-sdk/bench/results/
 # Scratch project written by scripts/check-jsdoc-examples.mjs; removed on exit,
 # but a killed run must not leave it staged.
 packages/fluux-sdk/.jsdoc-examples-*
+
+# nix / direnv (flake.nix + .envrc are tracked; their output isn't)
+.direnv/
+result
+result-*
