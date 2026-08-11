@@ -11,6 +11,7 @@ import { useRosterStore, useContactTime, useLastActivity } from '@fluux/sdk/reac
 import { Avatar } from './Avatar'
 import { useWindowDrag, useAnchoredMenu } from '@/hooks'
 import { getTranslatedStatusText } from '@/utils/statusText'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { Tooltip } from './Tooltip'
 import { Archive, ArchiveRestore, ArrowLeft, Clock, Hash, Loader2, Lock, Search, Shield, ShieldAlert, ShieldCheck, ShieldOff, ShieldX, User } from 'lucide-react'
 import type { ConversationEncryptionState } from '@/hooks/useConversationEncryptionState'
@@ -64,6 +65,7 @@ export function ChatHeader({
   // for presence display. This is a focused selector — only re-renders when
   // this specific contact changes, not when other contacts update.
   const fullContact = useRosterStore((s) => jid ? s.contacts.get(jid) : undefined)
+  const showStatusMessage = useSettingsStore((s) => s.showStatusMessage)
   const contactTime = useContactTime(!isGroupChat ? jid : null)
   useLastActivity(!isGroupChat ? jid : null)
 
@@ -128,7 +130,7 @@ export function ChatHeader({
         {!isGroupChat && (
           <div className="flex items-center gap-1.5">
             <p className="text-xs text-fluux-muted truncate">
-              {fullContact ? getTranslatedStatusText(fullContact, t) : jid}
+              {fullContact ? getTranslatedStatusText(fullContact, t, showStatusMessage) : jid}
             </p>
             {contactTime && (
               <Tooltip content={t('presence.localTime')} position="bottom" className="hidden @[400px]:inline-flex items-center">
