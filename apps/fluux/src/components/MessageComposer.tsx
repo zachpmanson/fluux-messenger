@@ -25,6 +25,7 @@ import { platform } from '@/platform'
 import { photoBlocksSend, type PendingAttachment } from '@/hooks/usePendingAttachment'
 import { PendingPhotoDetails } from './composer/PendingPhotoDetails'
 import type { ComposerChangeEvent, ComposerInputElement, ComposerSelectEvent } from './composer/composerInput'
+import { useSettingsStore } from '@/stores/settingsStore'
 
 // Format file size for display
 function formatFileSize(bytes: number): string {
@@ -250,6 +251,9 @@ interface MessageComposerProps {
    * literal text. Set by callers for non-default send modes such as whisper,
    * where a typed "/kick ..." must go to the recipient as text, never execute.
    * Reply mode disables commands automatically (see {@link replyingTo}).
+   *
+   * The user's `slashCommandsEnabled` setting is folded in on top of this: with
+   * it off, commands are inert no matter what the caller passes.
    */
   commandsEnabled?: boolean
 }
@@ -374,6 +378,12 @@ export function MessageComposer({
     isOpen: isEmojiAutocompleteActive,
     activeOptionKey: selectedEmojiMatch?.id,
   })
+  // Slash commands are live only when the caller allows them (whisper mode and
+  // reply mode don't) AND the user hasn't switched them off, in which case "/"
+  // is just a character and every body is sent as typed.
+  const slashCommandsEnabled = useSettingsStore((s) => s.slashCommandsEnabled)
+  const commandsActive = commandsEnabled !== false && slashCommandsEnabled
+
   // Which glyph the send button shows (send / command / unknown). Derived from
   // the live text so it can never go stale — clearing the input after a command
   // runs, an edit cancels, etc. reverts the icon automatically, whereas a
@@ -381,8 +391,8 @@ export function MessageComposer({
   // Commands are inert in reply/whisper modes, so the indicator stays 'send'
   // there, matching handleSubmit's gate (the button never implies a command).
   const inputClass: InputClass = useMemo(
-    () => (commandsEnabled !== false && !replyingTo && classifyInput ? classifyInput(text) : 'send'),
-    [text, commandsEnabled, replyingTo, classifyInput]
+    () => (commandsActive && !replyingTo && classifyInput ? classifyInput(text) : 'send'),
+    [text, commandsActive, replyingTo, classifyInput]
   )
   const inputRef = useRef<ComposerInputElement>(null)
 
@@ -748,7 +758,7 @@ export function MessageComposer({
     let failureKey = 'chat.failedToSendMessage'
     try {
       let outgoingText = trimmed
-      if (commandsEnabled !== false && !replyingTo && !editingMessage && trimmed && resolveInput) {
+      if (commandsActive && !replyingTo && !editingMessage && trimmed && resolveInput) {
         const outcome = await resolveInput(trimmed)
         if (outcome === 'consumed') {
           inputRef.current?.focus()
