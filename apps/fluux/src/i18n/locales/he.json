@@ -691,6 +691,8 @@
         "compact": "קומפקטי",
         "densityComfortableDescription": "ריווח נדיב ואווטרים גדולים יותר.",
         "densityCompactDescription": "ריווח צפוף יותר להצגת תוכן רב יותר על המסך.",
+        "slashCommands": "פקודות לוכסן",
+        "slashCommandsDescription": "התייחס ל־\"/מילה\" כפקודה. כבה כדי לשלוח כל הודעה כפי שהוקלדה — לוח הפקודות ממשיך לעבוד.",
         "accentColor": "צבע הדגשה",
         "accentThemeDefault": "ברירת מחדל של ערכת נושא",
         "fontSize": "גודל גופן",

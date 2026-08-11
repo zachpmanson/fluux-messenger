@@ -689,6 +689,8 @@
         "compact": "Þétt",
         "densityComfortableDescription": "Rúmgott bil og stærri myndir.",
         "densityCompactDescription": "Þéttara bil til að sýna meira á skjánum.",
+        "slashCommands": "Skástriksskipanir",
+        "slashCommandsDescription": "Túlka „/orð“ sem skipun. Slökktu til að senda hvert skeyti eins og það er slegið inn — skipanaleitin virkar samt.",
         "accentColor": "Áherslulitur",
         "accentThemeDefault": "Sjálfgefið þema",
         "fontSize": "Leturstærð",

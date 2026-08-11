@@ -691,6 +691,8 @@
         "compact": "Kompaktne",
         "densityComfortableDescription": "Rohke vahe ja suuremad avatarid.",
         "densityCompactDescription": "Tihedam paigutus, et mahutada rohkem ekraanile.",
+        "slashCommands": "Kaldkriipsukäsud",
+        "slashCommandsDescription": "Käsitle „/sõna“ käsuna. Lülita välja, et saata iga sõnum täpselt nii, nagu see on kirjutatud — käsupalett töötab edasi.",
         "accentColor": "Rõhuvärv",
         "accentThemeDefault": "Teema vaikeväärtus",
         "fontSize": "Kirjasuurus",

@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Generöst mellanrum och större avatarer.",
         "densityCompactDescription": "Tätare mellanrum för att få plats med mer på skärmen.",
+        "slashCommands": "Snedstreckskommandon",
+        "slashCommandsDescription": "Behandla ”/ord” som ett kommando. Stäng av för att skicka varje meddelande som det skrivits — kommandopaletten fungerar ändå.",
         "accentColor": "Accentfärg",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Teckenstorlek",

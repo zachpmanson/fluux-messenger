@@ -693,6 +693,8 @@
         "compact": "Compacto",
         "densityComfortableDescription": "Espaciado amplio y avatares más grandes.",
         "densityCompactDescription": "Espaciado más ajustado para mostrar más contenido en pantalla.",
+        "slashCommands": "Comandos con barra",
+        "slashCommandsDescription": "Tratar «/palabra» como un comando. Desactívalo para enviar cada mensaje tal como se escribe; la paleta de comandos sigue funcionando.",
         "accentColor": "Color de acento",
         "accentThemeDefault": "Predeterminado del tema",
         "fontSize": "Tamaño de fuente",

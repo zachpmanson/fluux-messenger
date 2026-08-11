@@ -694,6 +694,8 @@
         "compact": "Kompaktné",
         "densityComfortableDescription": "Priestranné odsadenie a väčšie avatary.",
         "densityCompactDescription": "Tesnejšie odsadenie pre zobrazenie viac obsahu na obrazovke.",
+        "slashCommands": "Príkazy s lomkou",
+        "slashCommandsDescription": "Považovať „/slovo“ za príkaz. Vypnutím sa každá správa odošle tak, ako je napísaná — paleta príkazov funguje ďalej.",
         "accentColor": "Farba zvýraznenia",
         "accentThemeDefault": "Predvolené témy",
         "fontSize": "Veľkosť písma",

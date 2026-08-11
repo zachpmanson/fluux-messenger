@@ -689,6 +689,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Ruime spatiering en grotere avatars.",
         "densityCompactDescription": "Dichter spatiering zodat er meer op het scherm past.",
+        "slashCommands": "Slash-opdrachten",
+        "slashCommandsDescription": "„/woord“ als opdracht behandelen. Zet uit om elk bericht te verzenden zoals het is getypt — het opdrachtenpalet blijft werken.",
         "accentColor": "Accentkleur",
         "accentThemeDefault": "Themastandaard",
         "fontSize": "Lettergrootte",

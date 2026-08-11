@@ -879,6 +879,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Roomy spacing, larger avatars.",
         "densityCompactDescription": "Tighter spacing so more fits on screen.",
+        "slashCommands": "Slash commands",
+        "slashCommandsDescription": "Treat \"/word\" as a command. Turn this off to send every message as typed — the command palette still works.",
         "accentColor": "Accent Color",
         "accentThemeDefault": "Theme Default",
         "fontSize": "Font Size",

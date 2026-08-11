@@ -693,6 +693,8 @@
         "compact": "Compacte",
         "densityComfortableDescription": "Espaiat ampli i avatars més grans.",
         "densityCompactDescription": "Espaiat més estret per mostrar més contingut a la pantalla.",
+        "slashCommands": "Ordres amb barra",
+        "slashCommandsDescription": "Tracta «/paraula» com una ordre. Desactiva-ho per enviar cada missatge tal com s'escriu; la paleta d'ordres continua funcionant.",
         "accentColor": "Color d'accent",
         "accentThemeDefault": "Per defecte del tema",
         "fontSize": "Mida de la lletra",

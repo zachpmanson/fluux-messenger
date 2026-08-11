@@ -695,6 +695,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostorna razporeditev in večji avatarji.",
         "densityCompactDescription": "Tesnejša razporeditev za prikaz več vsebine na zaslonu.",
+        "slashCommands": "Ukazi s poševnico",
+        "slashCommandsDescription": "Obravnavaj »/beseda« kot ukaz. Izklopite, da se vsako sporočilo pošlje tako, kot je natipkano — ukazna paleta še vedno deluje.",
         "accentColor": "Barva poudarka",
         "accentThemeDefault": "Privzeto teme",
         "fontSize": "Velikost pisave",

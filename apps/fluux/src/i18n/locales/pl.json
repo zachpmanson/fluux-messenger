@@ -695,6 +695,8 @@
         "compact": "Kompaktowy",
         "densityComfortableDescription": "Przestronne odstępy i większe awatary.",
         "densityCompactDescription": "Ciaśniejsze odstępy, aby więcej zmieściło się na ekranie.",
+        "slashCommands": "Polecenia z ukośnikiem",
+        "slashCommandsDescription": "Traktuj „/słowo” jako polecenie. Wyłącz, aby każda wiadomość była wysyłana dokładnie tak, jak ją wpisano — paleta poleceń nadal działa.",
         "accentColor": "Kolor akcentu",
         "accentThemeDefault": "Domyślny motywu",
         "fontSize": "Rozmiar czcionki",

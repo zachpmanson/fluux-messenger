@@ -697,6 +697,8 @@
         "compact": "مضغوط",
         "densityComfortableDescription": "تباعد واسع وصور أكبر.",
         "densityCompactDescription": "تباعد أضيق لعرض المزيد على الشاشة.",
+        "slashCommands": "أوامر الشرطة المائلة",
+        "slashCommandsDescription": "التعامل مع \"/كلمة\" كأمر. أوقف هذا لإرسال كل رسالة كما هي مكتوبة — لوحة الأوامر تبقى متاحة.",
         "accentColor": "لون التمييز",
         "accentThemeDefault": "الافتراضي للسمة",
         "fontSize": "حجم الخط",
