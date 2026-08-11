@@ -1101,7 +1101,9 @@
         "markdown": "Показване на Markdown",
         "markdownDescription": "Показвайте заглавия, списъци, таблици и наименувани връзки в съобщенията. Полужирният, курсивът, кодът и цитатите се показват винаги.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Команди с наклонена черта",
+        "slashCommandsDescription": "Третиране на „/дума“ като команда. Изключете, за да изпращате всяко съобщение както е въведено — палитрата с команди продължава да работи."
     },
     "update": {
         "title": "Налична актуализация",

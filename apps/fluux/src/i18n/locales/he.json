@@ -1103,7 +1103,9 @@
         "markdown": "הצגת Markdown",
         "markdownDescription": "הצגת כותרות, רשימות, טבלאות וקישורים מתויגים בהודעות. מודגש, נטוי, קוד וציטוטים מוצגים תמיד.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "פקודות לוכסן",
+        "slashCommandsDescription": "התייחס ל־\"/מילה\" כפקודה. כבה כדי לשלוח כל הודעה כפי שהוקלדה — לוח הפקודות ממשיך לעבוד."
     },
     "update": {
         "title": "עדכון זמין",

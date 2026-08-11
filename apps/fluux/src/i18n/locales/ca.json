@@ -1105,7 +1105,9 @@
         "markdown": "Renderitza Markdown",
         "markdownDescription": "Mostra encapçalaments, llistes, taules i enllaços amb etiqueta als missatges. La negreta, la cursiva, el codi i les citacions es mostren sempre.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Ordres amb barra",
+        "slashCommandsDescription": "Tracta «/paraula» com una ordre. Desactiva-ho per enviar cada missatge tal com s'escriu; la paleta d'ordres continua funcionant."
     },
     "update": {
         "title": "Actualització disponible",

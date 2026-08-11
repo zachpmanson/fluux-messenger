@@ -1107,7 +1107,9 @@
         "markdown": "Rindreáil Markdown",
         "markdownDescription": "Taispeáin ceannteidil, liostaí, táblaí agus naisc ainmnithe i dteachtaireachtaí. Taispeántar cló trom, iodálach, cód agus athfhriotail i gcónaí.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Orduithe slaise",
+        "slashCommandsDescription": "Caith le „/focal“ mar ordú. Múch é chun gach teachtaireacht a sheoladh mar a clóscríobhadh í — oibríonn pailéad na n-orduithe fós."
     },
     "update": {
         "title": "Nuashonrú ar Fáil",

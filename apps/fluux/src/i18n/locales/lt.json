@@ -1105,7 +1105,9 @@
         "markdown": "Atvaizduoti Markdown",
         "markdownDescription": "Rodyti antraštes, sąrašus, lenteles ir pavadintas nuorodas pranešimuose. Paryškintas, kursyvas, kodas ir citatos rodomi visada.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Pasvirojo brūkšnio komandos",
+        "slashCommandsDescription": "Laikyti „/žodis“ komanda. Išjunkite, kad kiekvienas pranešimas būtų išsiųstas taip, kaip parašytas — komandų paletė vis tiek veikia."
     },
     "update": {
         "title": "Pasiekiamas atnaujinimas",

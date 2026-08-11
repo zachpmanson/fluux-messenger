@@ -1103,7 +1103,9 @@
         "markdown": "Prikaži Markdown",
         "markdownDescription": "Prikaži naslove, popise, tablice i imenovane veze u poruci. Podebljano, kurziv, kod i citati prikazuju se uvijek.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Naredbe s kosom crtom",
+        "slashCommandsDescription": "Tretiraj „/riječ“ kao naredbu. Isključite da bi se svaka poruka poslala kako je napisana — paleta naredbi i dalje radi."
     },
     "update": {
         "title": "Dostupno ažuriranje",

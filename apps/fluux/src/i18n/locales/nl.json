@@ -1101,7 +1101,9 @@
         "markdown": "Markdown weergeven",
         "markdownDescription": "Koppen, lijsten, tabellen en gelabelde links in berichten weergeven. Vet, cursief, code en citaten worden altijd weergegeven.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Slash-opdrachten",
+        "slashCommandsDescription": "„/woord“ als opdracht behandelen. Zet uit om elk bericht te verzenden zoals het is getypt — het opdrachtenpalet blijft werken."
     },
     "update": {
         "title": "Update beschikbaar",

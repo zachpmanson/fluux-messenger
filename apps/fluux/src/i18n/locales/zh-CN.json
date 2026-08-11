@@ -1101,7 +1101,9 @@
         "markdown": "渲染 Markdown",
         "markdownDescription": "在消息中显示标题、列表、表格和带标签的链接。粗体、斜体、代码和引用始终显示。",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "斜杠命令",
+        "slashCommandsDescription": "将“/词”视为命令。关闭后所有消息按原样发送——命令面板仍然可用。"
     },
     "update": {
         "title": "更新可用",

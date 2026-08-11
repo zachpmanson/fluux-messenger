@@ -1105,7 +1105,9 @@
         "markdown": "Representar Markdown",
         "markdownDescription": "Mostrar encabezados, listas, tablas y enlaces con etiqueta en los mensajes. La negrita, la cursiva, el código y las citas se muestran siempre.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Comandos con barra",
+        "slashCommandsDescription": "Tratar «/palabra» como un comando. Desactívalo para enviar cada mensaje tal como se escribe; la paleta de comandos sigue funcionando."
     },
     "update": {
         "title": "Actualizacion Disponible",

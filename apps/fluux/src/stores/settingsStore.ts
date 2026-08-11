@@ -21,6 +21,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  slashCommandsEnabled: boolean
+  setSlashCommandsEnabled: (enabled: boolean) => void
   sendReadReceipts: boolean
   setSendReadReceipts: (enabled: boolean) => void
   markdownEnabled: boolean
@@ -76,6 +78,7 @@ const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const IN_CHAT_REACTION_NOTIFICATIONS_KEY = 'fluux-in-chat-reaction-notifications'
 const MARKDOWN_KEY = 'fluux-markdown'
 const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
+const SLASH_COMMANDS_KEY = 'fluux-slash-commands'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -335,6 +338,17 @@ function getInitialSendReadReceipts(): boolean {
   return true
 }
 
+function getInitialSlashCommandsEnabled(): boolean {
+  try {
+    const stored = localStorage.getItem(SLASH_COMMANDS_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -495,6 +509,13 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   setSendReadReceipts: (enabled) => {
     try { localStorage.setItem(READ_RECEIPTS_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ sendReadReceipts: enabled })
+  },
+
+  slashCommandsEnabled: getInitialSlashCommandsEnabled(),
+
+  setSlashCommandsEnabled: (enabled) => {
+    try { localStorage.setItem(SLASH_COMMANDS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ slashCommandsEnabled: enabled })
   },
 
 }))

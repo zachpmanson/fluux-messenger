@@ -1101,7 +1101,9 @@
         "markdown": "Visa Markdown",
         "markdownDescription": "Visa rubriker, listor, tabeller och namngivna länkar i meddelanden. Fet, kursiv, kod och citat visas alltid.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Snedstreckskommandon",
+        "slashCommandsDescription": "Behandla ”/ord” som ett kommando. Stäng av för att skicka varje meddelande som det skrivits — kommandopaletten fungerar ändå."
     },
     "update": {
         "title": "Uppdatering tillgänglig",

@@ -1101,7 +1101,9 @@
         "markdown": "Markdown megjelenítése",
         "markdownDescription": "Címsorok, listák, táblázatok és címkézett hivatkozások megjelenítése az üzenetekben. A félkövér, dőlt, kód és idézetek mindig megjelennek.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Perjeles parancsok",
+        "slashCommandsDescription": "A „/szó” parancsként kezelése. Kikapcsolva minden üzenet a beírt formában megy el — a parancspaletta továbbra is működik."
     },
     "update": {
         "title": "Frissítés elérhető",

@@ -1105,7 +1105,9 @@
         "markdown": "Отображать Markdown",
         "markdownDescription": "Показывать заголовки, списки, таблицы и именованные ссылки в сообщениях. Полужирный, курсив, код и цитаты отображаются всегда.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Команды со слешем",
+        "slashCommandsDescription": "Считать «/слово» командой. Отключите, чтобы каждое сообщение отправлялось как набрано — палитра команд продолжит работать."
     },
     "update": {
         "title": "Доступно обновление",

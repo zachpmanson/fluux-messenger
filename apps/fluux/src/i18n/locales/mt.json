@@ -1109,7 +1109,9 @@
         "markdown": "Uri l-Markdown",
         "markdownDescription": "Uri intestaturi, listi, tabelli u links b’tikketta fil-messaġġi. Il-grassett, il-korsiv, il-kodiċi u l-kwotazzjonijiet dejjem jidhru.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Kmandi bis-slash",
+        "slashCommandsDescription": "Ittratta „/kelma“ bħala kmand. Itfi biex kull messaġġ jintbagħat kif inhu miktub — il-palett tal-kmandi xorta jaħdem."
     },
     "update": {
         "title": "Aġġornament Disponibbli",

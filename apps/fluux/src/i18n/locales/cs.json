@@ -1107,7 +1107,9 @@
         "markdown": "Vykreslovat Markdown",
         "markdownDescription": "Zobrazovat nadpisy, seznamy, tabulky a pojmenované odkazy ve zprávách. Tučné, kurzíva, kód a citace se zobrazují vždy.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Příkazy s lomítkem",
+        "slashCommandsDescription": "Považovat „/slovo“ za příkaz. Vypnutím se každá zpráva odešle tak, jak je napsaná — paleta příkazů funguje dál."
     },
     "update": {
         "title": "Dostupná aktualizace",

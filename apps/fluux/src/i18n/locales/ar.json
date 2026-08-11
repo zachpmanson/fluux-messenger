@@ -1109,7 +1109,9 @@
         "markdown": "عرض Markdown",
         "markdownDescription": "إظهار العناوين والقوائم والجداول والروابط المسمّاة في الرسائل. يظل العريض والمائل والرمز والاقتباسات معروضة دائمًا.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "أوامر الشرطة المائلة",
+        "slashCommandsDescription": "التعامل مع \"/كلمة\" كأمر. أوقف هذا لإرسال كل رسالة كما هي مكتوبة — لوحة الأوامر تبقى متاحة."
     },
     "update": {
         "title": "تحديث متاح",

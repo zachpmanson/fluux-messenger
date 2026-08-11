@@ -1101,7 +1101,9 @@
         "markdown": "Vis Markdown",
         "markdownDescription": "Vis overskrifter, lister, tabeller og navngitte lenker i meldinger. Fet, kursiv, kode og sitater vises alltid.",
         "sendReadReceipts": "Read receipts",
-        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Skråstrekkommandoer",
+        "slashCommandsDescription": "Behandle «/ord» som en kommando. Slå av for å sende hver melding slik den er skrevet — kommandopaletten virker fortsatt."
     },
     "update": {
         "title": "Oppdatering tilgjengelig",
