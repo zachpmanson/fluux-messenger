@@ -700,6 +700,8 @@
         "avatarShapeSquare": "Квадрат",
         "avatarShapeCircleDescription": "Людей показано у вигляді кіл.",
         "avatarShapeSquareDescription": "Людей показано у вигляді квадратів із заокругленими кутами, як і кімнати.",
+        "contactStatusMessage": "Показувати повідомлення про статус",
+        "contactStatusMessageDescription": "Показувати власний текст статусу контакту замість «У мережі» або «Не турбувати».",
         "accentColor": "Колір акценту",
         "accentThemeDefault": "За замовчуванням теми",
         "fontSize": "Розмір шрифту",

@@ -5,6 +5,7 @@ import { type Contact, type VCardInfo, useBlocking, useXMPPContext } from '@fluu
 import { useBlockingStore, useConnectionStore, useLastActivity } from '@fluux/sdk/react'
 import { APP_OFFLINE_PRESENCE_COLOR, PRESENCE_COLORS } from '@/constants/ui'
 import { getTranslatedStatusText } from '@/utils/statusText'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { useWindowDrag } from '@/hooks'
 import { useConversationEncryptionState } from '@/hooks/useConversationEncryptionState'
 import { useVerifiedPeerKeysStore } from '@/stores/verifiedPeerKeysStore'
@@ -77,7 +78,8 @@ export function ContactProfileView({
   )
 
   const presenceColor = forceOffline ? APP_OFFLINE_PRESENCE_COLOR : PRESENCE_COLORS[contact.presence]
-  const statusText = forceOffline ? t('presence.offline') : getTranslatedStatusText(contact, t)
+  const showStatusMessage = useSettingsStore((s) => s.showStatusMessage)
+  const statusText = forceOffline ? t('presence.offline') : getTranslatedStatusText(contact, t, showStatusMessage)
 
   // Reset transient state when the displayed contact changes.
   useEffect(() => {

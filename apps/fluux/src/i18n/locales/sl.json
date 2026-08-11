@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Kvadrat",
         "avatarShapeCircleDescription": "Osebe so prikazane kot krogi.",
         "avatarShapeSquareDescription": "Osebe so prikazane kot kvadrati z zaobljenimi robovi, tako kot sobe.",
+        "contactStatusMessage": "Prikaži sporočila o stanju",
+        "contactStatusMessageDescription": "Prikaži lastno besedilo stanja stika namesto »Na zvezi« ali »Ne moti«.",
         "accentColor": "Barva poudarka",
         "accentThemeDefault": "Privzeto teme",
         "fontSize": "Velikost pisave",

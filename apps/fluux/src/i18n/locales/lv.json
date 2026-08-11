@@ -699,6 +699,8 @@
         "avatarShapeSquare": "Kvadrāts",
         "avatarShapeCircleDescription": "Cilvēki tiek attēloti kā apļi.",
         "avatarShapeSquareDescription": "Cilvēki tiek attēloti kā kvadrāti ar noapaļotiem stūriem, tāpat kā istabas.",
+        "contactStatusMessage": "Rādīt statusa ziņojumus",
+        "contactStatusMessageDescription": "Rādīt kontakta statusa tekstu vietā „Tiešsaistē“ vai „Netraucēt“.",
         "accentColor": "Akcenta krāsa",
         "accentThemeDefault": "Tēmas noklusējums",
         "fontSize": "Fonta lielums",

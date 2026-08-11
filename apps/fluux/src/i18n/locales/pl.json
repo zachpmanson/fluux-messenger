@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Kwadrat",
         "avatarShapeCircleDescription": "Osoby są pokazywane jako koła.",
         "avatarShapeSquareDescription": "Osoby są pokazywane jako kwadraty z zaokrąglonymi narożnikami, tak jak pokoje.",
+        "contactStatusMessage": "Pokazuj komunikaty statusu",
+        "contactStatusMessageDescription": "Pokazuj własny tekst statusu kontaktu zamiast „Dostępny” lub „Nie przeszkadzać”.",
         "accentColor": "Kolor akcentu",
         "accentThemeDefault": "Domyślny motywu",
         "fontSize": "Rozmiar czcionki",

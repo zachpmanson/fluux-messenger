@@ -728,6 +728,8 @@
         "avatarShapeSquare": "Carré",
         "avatarShapeCircleDescription": "Les personnes sont affichées en cercles.",
         "avatarShapeSquareDescription": "Les personnes sont affichées en carrés arrondis, comme les salons.",
+        "contactStatusMessage": "Afficher les messages de statut",
+        "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger ».",
         "accentColor": "Couleur d'accentuation",
         "accentThemeDefault": "Défaut du thème",
         "fontSize": "Taille de police",

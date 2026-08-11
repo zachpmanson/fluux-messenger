@@ -696,6 +696,8 @@
         "avatarShapeSquare": "Vierkant",
         "avatarShapeCircleDescription": "Personen worden als cirkels weergegeven.",
         "avatarShapeSquareDescription": "Personen worden als afgeronde vierkanten weergegeven, net als groepen.",
+        "contactStatusMessage": "Statusberichten weergeven",
+        "contactStatusMessageDescription": "De eigen statustekst van een contact weergeven in plaats van „Online“ of „Niet storen“.",
         "accentColor": "Accentkleur",
         "accentThemeDefault": "Themastandaard",
         "fontSize": "Lettergrootte",

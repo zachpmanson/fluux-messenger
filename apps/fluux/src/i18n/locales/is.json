@@ -696,6 +696,8 @@
         "avatarShapeSquare": "Kassi",
         "avatarShapeCircleDescription": "Fólk er sýnt sem hringir.",
         "avatarShapeSquareDescription": "Fólk er sýnt sem kassar með rúnnuðum hornum, eins og hópar.",
+        "contactStatusMessage": "Sýna stöðuskeyti",
+        "contactStatusMessageDescription": "Sýna eigin stöðutexta tengiliðar í stað „Á neti“ eða „Ónáðið ekki“.",
         "accentColor": "Áherslulitur",
         "accentThemeDefault": "Sjálfgefið þema",
         "fontSize": "Leturstærð",

@@ -696,6 +696,8 @@
         "avatarShapeSquare": "Neliö",
         "avatarShapeCircleDescription": "Henkilöt näytetään ympyröinä.",
         "avatarShapeSquareDescription": "Henkilöt näytetään pyöristettyinä neliöinä, kuten huoneet.",
+        "contactStatusMessage": "Näytä tilaviestit",
+        "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla.",
         "accentColor": "Korostusväri",
         "accentThemeDefault": "Teeman oletus",
         "fontSize": "Fonttikoko",

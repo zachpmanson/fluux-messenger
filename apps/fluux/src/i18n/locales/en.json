@@ -886,6 +886,8 @@
         "avatarShapeSquare": "Square",
         "avatarShapeCircleDescription": "People are shown as circles.",
         "avatarShapeSquareDescription": "People are shown as rounded squares, like rooms.",
+        "contactStatusMessage": "Show status messages",
+        "contactStatusMessageDescription": "Show a contact's own status text in place of \"Online\" or \"Do not disturb\".",
         "accentColor": "Accent Color",
         "accentThemeDefault": "Theme Default",
         "fontSize": "Font Size",

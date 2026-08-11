@@ -704,6 +704,8 @@
         "avatarShapeSquare": "Kwadru",
         "avatarShapeCircleDescription": "In-nies jidhru bħala ċrieki.",
         "avatarShapeSquareDescription": "In-nies jidhru bħala kwadri bl-imnifsin imdawra, bħall-kmamar.",
+        "contactStatusMessage": "Uri l-messaġġi tal-istat",
+        "contactStatusMessageDescription": "Uri t-test tal-istat tal-kuntatt minflok „Online“ jew „Tiddisturbax“.",
         "accentColor": "Kulur tal-aċċent",
         "accentThemeDefault": "Predefinit tat-tema",
         "fontSize": "Daqs tal-font",

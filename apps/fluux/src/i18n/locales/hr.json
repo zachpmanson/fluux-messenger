@@ -698,6 +698,8 @@
         "avatarShapeSquare": "Kvadrat",
         "avatarShapeCircleDescription": "Osobe se prikazuju kao krugovi.",
         "avatarShapeSquareDescription": "Osobe se prikazuju kao kvadrati zaobljenih kutova, kao i sobe.",
+        "contactStatusMessage": "Prikaži statusne poruke",
+        "contactStatusMessageDescription": "Prikaži vlastiti statusni tekst kontakta umjesto „Na mreži“ ili „Ne uznemiravaj“.",
         "accentColor": "Boja naglaska",
         "accentThemeDefault": "Zadano teme",
         "fontSize": "Veličina fonta",

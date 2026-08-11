@@ -697,6 +697,8 @@
         "avatarShapeSquare": "Τετράγωνο",
         "avatarShapeCircleDescription": "Τα άτομα εμφανίζονται ως κύκλοι.",
         "avatarShapeSquareDescription": "Τα άτομα εμφανίζονται ως τετράγωνα με στρογγυλεμένες γωνίες, όπως τα δωμάτια.",
+        "contactStatusMessage": "Εμφάνιση μηνυμάτων κατάστασης",
+        "contactStatusMessageDescription": "Εμφάνιση του κειμένου κατάστασης της επαφής αντί για «Συνδεδεμένος» ή «Μην ενοχλείτε».",
         "accentColor": "Χρώμα τονισμού",
         "accentThemeDefault": "Προεπιλογή θέματος",
         "fontSize": "Μέγεθος γραμματοσειράς",

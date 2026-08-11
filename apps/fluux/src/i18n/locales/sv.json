@@ -696,6 +696,8 @@
         "avatarShapeSquare": "Kvadrat",
         "avatarShapeCircleDescription": "Personer visas som cirklar.",
         "avatarShapeSquareDescription": "Personer visas som kvadrater med rundade hörn, precis som rum.",
+        "contactStatusMessage": "Visa statusmeddelanden",
+        "contactStatusMessageDescription": "Visa kontaktens egen statustext i stället för ”Online” eller ”Stör ej”.",
         "accentColor": "Accentfärg",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Teckenstorlek",
