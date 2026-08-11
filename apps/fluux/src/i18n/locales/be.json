@@ -693,6 +693,8 @@
         "compact": "Кампактны",
         "densityComfortableDescription": "Прасторны інтэрвал і вялікія аватары.",
         "densityCompactDescription": "Шчыльнейшы інтэрвал для большага адлюстравання на экране.",
+        "contactStatusMessage": "Паказваць паведамленні стану",
+        "contactStatusMessageDescription": "Паказваць уласны тэкст стану кантакту замест «У сетцы» або «Не турбаваць».",
         "accentColor": "Колер акцэнту",
         "accentThemeDefault": "Стандартны тэмы",
         "fontSize": "Памер шрыфту",

@@ -693,6 +693,8 @@
         "compact": "Compatto",
         "densityComfortableDescription": "Spaziatura ampia e avatar più grandi.",
         "densityCompactDescription": "Spaziatura ridotta per mostrare più contenuti sullo schermo.",
+        "contactStatusMessage": "Mostra i messaggi di stato",
+        "contactStatusMessageDescription": "Mostra il testo di stato del contatto al posto di «Online» o «Non disturbare».",
         "accentColor": "Colore di accento",
         "accentThemeDefault": "Predefinito del tema",
         "fontSize": "Dimensione carattere",

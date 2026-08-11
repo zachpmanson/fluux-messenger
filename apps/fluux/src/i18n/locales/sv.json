@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Generöst mellanrum och större avatarer.",
         "densityCompactDescription": "Tätare mellanrum för att få plats med mer på skärmen.",
+        "contactStatusMessage": "Visa statusmeddelanden",
+        "contactStatusMessageDescription": "Visa kontaktens egen statustext i stället för ”Online” eller ”Stör ej”.",
         "accentColor": "Accentfärg",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Teckenstorlek",

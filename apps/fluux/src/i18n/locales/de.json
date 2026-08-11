@@ -691,6 +691,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Großzügige Abstände und größere Avatare.",
         "densityCompactDescription": "Engere Abstände, damit mehr auf den Bildschirm passt.",
+        "contactStatusMessage": "Statusmeldungen anzeigen",
+        "contactStatusMessageDescription": "Den eigenen Statustext eines Kontakts anstelle von „Online“ oder „Bitte nicht störenb“ anzeigen.",
         "accentColor": "Akzentfarbe",
         "accentThemeDefault": "Theme-Standard",
         "fontSize": "Schriftgröße",

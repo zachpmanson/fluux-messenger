@@ -689,6 +689,8 @@
         "compact": "Tiivis",
         "densityComfortableDescription": "Tilava asettelu ja suuremmat avatarit.",
         "densityCompactDescription": "Tiiviimpi asettelu, jotta mahtuu enemmän näyttöön.",
+        "contactStatusMessage": "Näytä tilaviestit",
+        "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla.",
         "accentColor": "Korostusväri",
         "accentThemeDefault": "Teeman oletus",
         "fontSize": "Fonttikoko",

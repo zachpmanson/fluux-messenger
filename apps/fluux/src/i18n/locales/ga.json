@@ -695,6 +695,8 @@
         "compact": "Dlúth",
         "densityComfortableDescription": "Spás fairsing agus avatáranna níos mó.",
         "densityCompactDescription": "Spás níos dlúithe chun níos mó a thaispeáint ar an scáileán.",
+        "contactStatusMessage": "Taispeáin teachtaireachtaí stádais",
+        "contactStatusMessageDescription": "Taispeáin téacs stádais an teagmhálaí in ionad „Ar líne“ nó „Ná cuir isteach“.",
         "accentColor": "Dath béime",
         "accentThemeDefault": "Réamhshocrú an téama",
         "fontSize": "Méid cló",

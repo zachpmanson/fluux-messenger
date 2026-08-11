@@ -693,6 +693,8 @@
         "compact": "Компактний",
         "densityComfortableDescription": "Просторні відступи та більші аватари.",
         "densityCompactDescription": "Щільніші відступи, щоб більше вмістилось на екрані.",
+        "contactStatusMessage": "Показувати повідомлення про статус",
+        "contactStatusMessageDescription": "Показувати власний текст статусу контакту замість «У мережі» або «Не турбувати».",
         "accentColor": "Колір акценту",
         "accentThemeDefault": "За замовчуванням теми",
         "fontSize": "Розмір шрифту",

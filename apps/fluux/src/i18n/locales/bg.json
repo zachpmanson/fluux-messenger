@@ -689,6 +689,8 @@
         "compact": "Компактен",
         "densityComfortableDescription": "Просторно разредяване и по-големи аватари.",
         "densityCompactDescription": "По-тясно разредяване, за да се вижда повече на екрана.",
+        "contactStatusMessage": "Показване на съобщения за състояние",
+        "contactStatusMessageDescription": "Показвайте собствения текст за състояние на контакта вместо „На линия“ или „Не безпокойте“.",
         "accentColor": "Акцентен цвят",
         "accentThemeDefault": "По подразбиране на темата",
         "fontSize": "Размер на шрифта",
