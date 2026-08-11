@@ -28,6 +28,8 @@ interface SettingsState {
   setTransparencyMode: (value: TransparencyMode) => void
   densityMode: DensityMode
   setDensityMode: (mode: DensityMode) => void
+  markdownEnabled: boolean
+  setMarkdownEnabled: (enabled: boolean) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -41,6 +43,7 @@ const MEDIA_AUTO_DOWNLOAD_KEY = 'fluux-media-autodownload'
 const MOTION_KEY = 'fluux-motion'
 const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
+const MARKDOWN_KEY = 'fluux-markdown'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 
@@ -149,6 +152,25 @@ function getInitialDensity(): DensityMode {
 }
 
 /**
+ * Get initial Markdown rendering preference from localStorage, default to true.
+ *
+ * This governs the Markdown-only block constructs (headings, lists, tables,
+ * labelled links). XEP-0393 message styling — *bold*, _italic_, ~strike~,
+ * `code`, ``` blocks and > quotes — is the XMPP standard for styled bodies and
+ * stays on regardless.
+ */
+function getInitialMarkdownEnabled(): boolean {
+  try {
+    const stored = localStorage.getItem(MARKDOWN_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
+/**
  * Get initial sound enabled preference from localStorage, default to true.
  */
 function getInitialSoundEnabled(): boolean {
@@ -248,6 +270,13 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setDensityMode: (mode) => {
     try { localStorage.setItem(DENSITY_KEY, mode) } catch { /* localStorage not available */ }
     set({ densityMode: mode })
+  },
+
+  markdownEnabled: getInitialMarkdownEnabled(),
+
+  setMarkdownEnabled: (enabled) => {
+    try { localStorage.setItem(MARKDOWN_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ markdownEnabled: enabled })
   },
 
   soundEnabled: getInitialSoundEnabled(),
