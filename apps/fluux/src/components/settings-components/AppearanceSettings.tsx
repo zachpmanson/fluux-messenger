@@ -201,6 +201,8 @@ export function AppearanceSettings() {
   const setDensityMode = useSettingsStore((s) => s.setDensityMode)
   const collapseLongMessages = useSettingsStore((s) => s.collapseLongMessages)
   const setCollapseLongMessages = useSettingsStore((s) => s.setCollapseLongMessages)
+  const showStatusMessage = useSettingsStore((s) => s.showStatusMessage)
+  const setShowStatusMessage = useSettingsStore((s) => s.setShowStatusMessage)
 
   const activeThemeId = useThemeStore((s) => s.activeThemeId)
   const setActiveTheme = useThemeStore((s) => s.setActiveTheme)
@@ -320,6 +322,18 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted">
               {t('settings.collapseLongMessagesDescription')}
+          {/* Contact status message */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <label className="text-sm font-medium text-fluux-text">{t('settings.contactStatusMessage')}</label>
+              <Toggle
+                checked={showStatusMessage}
+                onChange={setShowStatusMessage}
+                aria-label={t('settings.contactStatusMessage')}
+              />
+            </div>
+            <p className="text-xs text-fluux-muted">
+              {t('settings.contactStatusMessageDescription')}
             </p>
           </div>
 

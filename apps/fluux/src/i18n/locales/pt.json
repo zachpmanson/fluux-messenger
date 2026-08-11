@@ -695,6 +695,8 @@
         "densityCompactDescription": "Espaçamento menor para exibir mais na tela.",
         "collapseLongMessages": "Recolher mensagens longas",
         "collapseLongMessagesDescription": "Mostrar o início de mensagens longas com um botão «Mostrar mais». Desative para mostrar sempre a mensagem completa.",
+        "contactStatusMessage": "Mostrar mensagens de estado",
+        "contactStatusMessageDescription": "Mostrar o texto de estado do contacto em vez de «Online» ou «Não perturbar».",
         "accentColor": "Cor de destaque",
         "accentThemeDefault": "Padrão do tema",
         "fontSize": "Tamanho da fonte",

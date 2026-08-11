@@ -691,6 +691,8 @@
         "densityCompactDescription": "Tættere mellemrum så mere passer på skærmen.",
         "collapseLongMessages": "Fold lange beskeder sammen",
         "collapseLongMessagesDescription": "Vis starten af lange beskeder med en knap 'Vis mere'. Slå fra for altid at vise hele beskeden.",
+        "contactStatusMessage": "Vis statusbeskeder",
+        "contactStatusMessageDescription": "Vis kontaktens egen statustekst i stedet for \"Online\" eller \"Forstyr ikke\".",
         "accentColor": "Accentfarve",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",

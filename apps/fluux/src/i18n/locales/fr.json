@@ -723,6 +723,8 @@
         "densityCompactDescription": "Espacement réduit pour afficher plus de contenu à l'écran.",
         "collapseLongMessages": "Réduire les messages longs",
         "collapseLongMessagesDescription": "Afficher le début des messages longs avec un bouton « Afficher plus ». Désactivez pour toujours afficher le message complet.",
+        "contactStatusMessage": "Afficher les messages de statut",
+        "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger ».",
         "accentColor": "Couleur d'accentuation",
         "accentThemeDefault": "Défaut du thème",
         "fontSize": "Taille de police",

@@ -697,6 +697,8 @@
         "densityCompactDescription": "Spás níos dlúithe chun níos mó a thaispeáint ar an scáileán.",
         "collapseLongMessages": "Fill an teachtaireachtaí fada",
         "collapseLongMessagesDescription": "Taispeáin tús teachtaireachtaí fada le cnaipe \"Taispeáin níos mó\". Múch é seo chun an teachtaireacht iomlán a thaispeáint i gcónaí.",
+        "contactStatusMessage": "Taispeáin teachtaireachtaí stádais",
+        "contactStatusMessageDescription": "Taispeáin téacs stádais an teagmhálaí in ionad „Ar líne“ nó „Ná cuir isteach“.",
         "accentColor": "Dath béime",
         "accentThemeDefault": "Réamhshocrú an téama",
         "fontSize": "Méid cló",

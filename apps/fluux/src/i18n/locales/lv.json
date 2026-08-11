@@ -694,6 +694,8 @@
         "densityCompactDescription": "Blīvākas atstarpes, lai ekrānā ietilptu vairāk.",
         "collapseLongMessages": "Sakļaut garas ziņas",
         "collapseLongMessagesDescription": "Rādīt garu ziņojumu sākumu ar pogu “Rādīt vairāk”. Izslēdziet, lai vienmēr rādītu pilnu ziņojumu.",
+        "contactStatusMessage": "Rādīt statusa ziņojumus",
+        "contactStatusMessageDescription": "Rādīt kontakta statusa tekstu vietā „Tiešsaistē“ vai „Netraucēt“.",
         "accentColor": "Akcenta krāsa",
         "accentThemeDefault": "Tēmas noklusējums",
         "fontSize": "Fonta lielums",

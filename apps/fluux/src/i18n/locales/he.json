@@ -693,6 +693,8 @@
         "densityCompactDescription": "ריווח צפוף יותר להצגת תוכן רב יותר על המסך.",
         "collapseLongMessages": "כיווץ הודעות ארוכות",
         "collapseLongMessagesDescription": "הצגת תחילת הודעות ארוכות עם כפתור \"הצג עוד\". כבה אפשרות זו כדי להציג תמיד את ההודעה המלאה.",
+        "contactStatusMessage": "הצגת הודעות מצב",
+        "contactStatusMessageDescription": "הצגת טקסט המצב של איש הקשר במקום \"מחובר\" או \"אין להפריע\".",
         "accentColor": "צבע הדגשה",
         "accentThemeDefault": "ברירת מחדל של ערכת נושא",
         "fontSize": "גודל גופן",
