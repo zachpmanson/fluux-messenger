@@ -168,6 +168,75 @@ describe('Markdown rendering', () => {
     })
   })
 
+  describe('task lists', () => {
+    it('renders "- [ ] todo" as an unchecked checkbox', () => {
+      const container = renderMd('- [ ] buy milk')
+      const box = container.querySelector('input[type="checkbox"]') as HTMLInputElement
+      expect(box).toBeTruthy()
+      expect(box.checked).toBe(false)
+      expect(container.querySelector('li')?.textContent).toBe('buy milk')
+    })
+
+    it('renders "- [x] done" as a checked checkbox, upper or lower case', () => {
+      for (const marker of ['x', 'X']) {
+        const container = renderMd(`- [${marker}] ship it`)
+        const box = container.querySelector('input[type="checkbox"]') as HTMLInputElement
+        expect(box.checked).toBe(true)
+      }
+    })
+
+    it('is read-only — a received checkbox is the sender\'s text, not our state', () => {
+      const container = renderMd('- [ ] not yours to tick')
+      const box = container.querySelector('input[type="checkbox"]') as HTMLInputElement
+      expect(box.readOnly).toBe(true)
+    })
+
+    it('drops the bullet on task rows but keeps it on prose rows in the same list', () => {
+      const container = renderMd(['- [x] a task', '- just a bullet'].join('\n'))
+      const items = container.querySelectorAll('li')
+      expect(items).toHaveLength(2)
+      expect(items[0].className).toContain('list-none')
+      expect(items[1].className).not.toContain('list-none')
+    })
+
+    it('styles the text after the checkbox', () => {
+      const container = renderMd('- [ ] *urgent* thing')
+      expect(container.querySelector('li strong')?.textContent).toBe('urgent')
+    })
+
+    it('handles a nested task under a task', () => {
+      const container = renderMd(['- [x] parent', '  - [ ] child'].join('\n'))
+      const boxes = container.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>
+      expect(boxes).toHaveLength(2)
+      expect(boxes[0].checked).toBe(true)
+      expect(boxes[1].checked).toBe(false)
+      expect(container.querySelector('ul li ul li')?.textContent).toBe('child')
+    })
+
+    it('works in ordered lists too', () => {
+      const container = renderMd('1. [x] first')
+      expect(container.querySelector('ol')).toBeTruthy()
+      expect((container.querySelector('input[type="checkbox"]') as HTMLInputElement).checked).toBe(true)
+    })
+
+    it('leaves a bracket that is not a task marker alone', () => {
+      const container = renderMd('- [nope] not a task')
+      expect(container.querySelector('input[type="checkbox"]')).toBeNull()
+      expect(container.querySelector('li')?.textContent).toBe('[nope] not a task')
+    })
+
+    it('needs the space after the bracket', () => {
+      const container = renderMd('- [x]nospace')
+      expect(container.querySelector('input[type="checkbox"]')).toBeNull()
+    })
+
+    it('renders no checkbox when markdown is off', () => {
+      const container = renderMd('- [ ] todo', false)
+      expect(container.querySelector('input[type="checkbox"]')).toBeNull()
+      expect(container.textContent).toContain('- [ ] todo')
+    })
+  })
+
   describe('markdown disabled', () => {
     it('leaves a table as plain text', () => {
       const container = renderMd(['| A | B |', '| --- | --- |', '| 1 | 2 |'].join('\n'), false)
