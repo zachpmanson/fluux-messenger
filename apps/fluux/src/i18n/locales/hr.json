@@ -689,6 +689,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostrani razmak i veći avatari.",
         "densityCompactDescription": "Manji razmak kako bi se više prikazalo na zaslonu.",
+        "markdown": "Prikaži Markdown",
+        "markdownDescription": "Prikaži naslove, popise, tablice i imenovane veze u poruci. Podebljano, kurziv, kod i citati prikazuju se uvijek.",
         "accentColor": "Boja naglaska",
         "accentThemeDefault": "Zadano teme",
         "fontSize": "Veličina fonta",

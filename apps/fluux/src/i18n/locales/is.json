@@ -687,6 +687,8 @@
         "compact": "Þétt",
         "densityComfortableDescription": "Rúmgott bil og stærri myndir.",
         "densityCompactDescription": "Þéttara bil til að sýna meira á skjánum.",
+        "markdown": "Sýna Markdown",
+        "markdownDescription": "Sýna fyrirsagnir, lista, töflur og nefnda tengla í skeytum. Feitt, skáletrað, kóði og tilvitnanir birtast alltaf.",
         "accentColor": "Áherslulitur",
         "accentThemeDefault": "Sjálfgefið þema",
         "fontSize": "Leturstærð",
