@@ -364,7 +364,7 @@ export function AppearanceSettings() {
                   >
                     <span
                       aria-hidden
-                      className={`size-6 shrink-0 bg-fluux-muted ${option.value === 'square' ? 'rounded-[28%]' : 'rounded-full'}`}
+                      className={`size-6 shrink-0 bg-fluux-muted ${option.value === 'square' ? 'rounded-none' : 'rounded-full'}`}
                     />
                     <span className={`min-w-0 text-sm font-medium leading-tight ${isSelected ? 'text-fluux-text' : 'text-fluux-muted'}`}>
                       {t(option.labelKey)}
