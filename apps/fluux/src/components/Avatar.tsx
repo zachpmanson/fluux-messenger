@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react'
 import { generateConsistentColorHexSync, type PresenceStatus, type PresenceShow } from '@fluux/sdk'
 import { APP_OFFLINE_PRESENCE_COLOR, PRESENCE_COLORS } from '@/constants/ui'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { ensureContrastWithWhite } from '@/utils/contrastColor'
 
 /**
@@ -119,8 +120,8 @@ export interface AvatarProps {
   forceOffline?: boolean
 
   /**
-   * Avatar shape. People are circular; rooms/groups are rounded squares.
-   * @default 'circle'
+   * Avatar shape. Rooms/groups pass 'square' explicitly. Left unset, a person's
+   * avatar follows the user's `avatarShape` setting (circular by default).
    */
   shape?: 'circle' | 'square'
 }
@@ -310,8 +311,12 @@ export function Avatar({
   fallbackTextColor,
   presenceHalo = false,
   forceOffline = false,
-  shape = 'circle',
+  shape,
 }: AvatarProps) {
+  // Rooms pass shape explicitly and keep their rounded square; people follow the
+  // user's preference.
+  const preferredShape = useSettingsStore((s) => s.avatarShape)
+  const effectiveShape = shape ?? preferredShape
   // Generate consistent background color from identifier, or use custom fallbackColor
   const backgroundColor = fallbackColor
     || ensureContrastWithWhite(generateConsistentColorHexSync(identifier, { saturation: 60, lightness: 45 }))
@@ -323,7 +328,7 @@ export function Avatar({
   // Get size classes
   const sizeClasses = SIZES[size]
 
-  const radiusClass = shape === 'square' ? SQUARE_RADIUS : 'rounded-full'
+  const radiusClass = effectiveShape === 'square' ? SQUARE_RADIUS : 'rounded-full'
 
   // Determine presence color
   // Uses CSS custom properties for smooth color transitions between states

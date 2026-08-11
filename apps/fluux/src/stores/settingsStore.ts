@@ -1,3 +1,4 @@
+export type AvatarShape = 'circle' | 'square'
 import { create } from 'zustand'
 import { persistPushSoundEnabled, SOUND_KEY, SOUND_CHANGED_AT_KEY } from '../utils/pushSoundPreference'
 import type { ArchivingDefault } from '@fluux/sdk'
@@ -21,6 +22,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  avatarShape: AvatarShape
+  setAvatarShape: (shape: AvatarShape) => void
   themeMode: ThemeMode
   setThemeMode: (mode: ThemeMode) => void
   timeFormat: TimeFormat
@@ -62,6 +65,7 @@ export interface ArchiveOverride {
   original: ArchivingDefault
 }
 
+const AVATAR_SHAPE_KEY = 'fluux-avatar-shape'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -260,6 +264,16 @@ function saveArchiveOverrides(overrides: Record<string, ArchiveOverride>): void 
   try { localStorage.setItem(ARCHIVE_OVERRIDES_KEY, JSON.stringify(overrides)) } catch { /* localStorage not available */ }
 }
 
+function getInitialAvatarShape(): AvatarShape {
+  try {
+    const stored = localStorage.getItem(AVATAR_SHAPE_KEY)
+    if (stored === 'circle' || stored === 'square') return stored
+  } catch {
+    // localStorage not available
+  }
+  return 'circle'
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -388,4 +402,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     saveArchiveOverrides(archiveOverrides)
     set({ archiveOverrides })
   },
+  avatarShape: getInitialAvatarShape(),
+
+  setAvatarShape: (shape) => {
+    try { localStorage.setItem(AVATAR_SHAPE_KEY, shape) } catch { /* localStorage not available */ }
+    set({ avatarShape: shape })
+  },
+
 }))
