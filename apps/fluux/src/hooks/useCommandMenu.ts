@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useSettingsStore } from '../stores/settingsStore'
 import { visibleCommands } from '../commands/registry'
 import type { CommandContextKind, CommandSelf, SlashCommand } from '../commands/types'
 
@@ -30,6 +31,7 @@ export function useCommandMenu(
 ) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [dismissed, setDismissed] = useState(false)
+  const commandsEnabled = useSettingsStore((s) => s.slashCommandsEnabled)
 
   const { isActive, matches } = useMemo(
     () => matchCommandMenu(text, cursor, kind, self),
@@ -42,7 +44,8 @@ export function useCommandMenu(
     setDismissed(false)
   }, [text])
 
-  const active = isActive && !dismissed
+  // With slash commands off, "/" is just a character — never open the menu.
+  const active = commandsEnabled && isActive && !dismissed
 
   return {
     state: { isActive: active, matches, selectedIndex: Math.min(selectedIndex, Math.max(0, matches.length - 1)) },
