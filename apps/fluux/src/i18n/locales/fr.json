@@ -727,6 +727,8 @@
         "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger ».",
         "markdown": "Afficher le Markdown",
         "markdownDescription": "Afficher les titres, listes, tableaux et liens nommés dans les messages. Le gras, l’italique, le code et les citations s’affichent toujours.",
+        "slashCommands": "Commandes slash",
+        "slashCommandsDescription": "Traiter « /mot » comme une commande. Désactivez pour envoyer chaque message tel quel — la palette de commandes reste disponible.",
         "accentColor": "Couleur d'accentuation",
         "accentThemeDefault": "Défaut du thème",
         "fontSize": "Taille de police",

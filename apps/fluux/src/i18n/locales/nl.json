@@ -695,6 +695,8 @@
         "contactStatusMessageDescription": "De eigen statustekst van een contact weergeven in plaats van „Online“ of „Niet storen“.",
         "markdown": "Markdown weergeven",
         "markdownDescription": "Koppen, lijsten, tabellen en gelabelde links in berichten weergeven. Vet, cursief, code en citaten worden altijd weergegeven.",
+        "slashCommands": "Slash-opdrachten",
+        "slashCommandsDescription": "„/woord“ als opdracht behandelen. Zet uit om elk bericht te verzenden zoals het is getypt — het opdrachtenpalet blijft werken.",
         "accentColor": "Accentkleur",
         "accentThemeDefault": "Themastandaard",
         "fontSize": "Lettergrootte",

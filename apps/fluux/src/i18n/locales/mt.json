@@ -703,6 +703,8 @@
         "contactStatusMessageDescription": "Uri t-test tal-istat tal-kuntatt minflok „Online“ jew „Tiddisturbax“.",
         "markdown": "Uri l-Markdown",
         "markdownDescription": "Uri intestaturi, listi, tabelli u links b’tikketta fil-messaġġi. Il-grassett, il-korsiv, il-kodiċi u l-kwotazzjonijiet dejjem jidhru.",
+        "slashCommands": "Kmandi bis-slash",
+        "slashCommandsDescription": "Ittratta „/kelma“ bħala kmand. Itfi biex kull messaġġ jintbagħat kif inhu miktub — il-palett tal-kmandi xorta jaħdem.",
         "accentColor": "Kulur tal-aċċent",
         "accentThemeDefault": "Predefinit tat-tema",
         "fontSize": "Daqs tal-font",

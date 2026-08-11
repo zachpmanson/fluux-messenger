@@ -695,6 +695,8 @@
         "contactStatusMessageDescription": "Vis kontaktens egen statustekst i stedet for \"Online\" eller \"Forstyr ikke\".",
         "markdown": "Vis Markdown",
         "markdownDescription": "Vis overskrifter, lister, tabeller og navngivne links i beskeder. Fed, kursiv, kode og citater vises altid.",
+        "slashCommands": "Skråstregskommandoer",
+        "slashCommandsDescription": "Behandl \"/ord\" som en kommando. Slå fra for at sende hver besked, som den er skrevet — kommandopaletten virker stadig.",
         "accentColor": "Accentfarve",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",
