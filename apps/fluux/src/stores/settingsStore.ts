@@ -9,6 +9,8 @@ export type MotionPreference = 'system' | 'full' | 'reduced'
 export type TransparencyMode = 'system' | 'full' | 'reduced'
 /** Display density: normal spacing or compact spacing. */
 export type DensityMode = 'comfortable' | 'compact'
+/** Shape of a person's avatar. Rooms/groups are always rounded squares. */
+export type AvatarShape = 'circle' | 'square'
 
 /** Font size as percentage of default (100 = normal). Range: 75–150. */
 export type FontSize = number
@@ -28,6 +30,8 @@ interface SettingsState {
   setTransparencyMode: (value: TransparencyMode) => void
   densityMode: DensityMode
   setDensityMode: (mode: DensityMode) => void
+  avatarShape: AvatarShape
+  setAvatarShape: (shape: AvatarShape) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -41,6 +45,7 @@ const MEDIA_AUTO_DOWNLOAD_KEY = 'fluux-media-autodownload'
 const MOTION_KEY = 'fluux-motion'
 const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
+const AVATAR_SHAPE_KEY = 'fluux-avatar-shape'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 
@@ -149,6 +154,21 @@ function getInitialDensity(): DensityMode {
 }
 
 /**
+ * Get the initial avatar shape from localStorage, default to 'circle'.
+ * Only affects people — rooms and groups keep their rounded square so the two
+ * stay visually distinguishable in the sidebar.
+ */
+function getInitialAvatarShape(): AvatarShape {
+  try {
+    const stored = localStorage.getItem(AVATAR_SHAPE_KEY)
+    if (stored === 'circle' || stored === 'square') return stored
+  } catch {
+    // localStorage not available
+  }
+  return 'circle'
+}
+
+/**
  * Get initial sound enabled preference from localStorage, default to true.
  */
 function getInitialSoundEnabled(): boolean {
@@ -248,6 +268,13 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setDensityMode: (mode) => {
     try { localStorage.setItem(DENSITY_KEY, mode) } catch { /* localStorage not available */ }
     set({ densityMode: mode })
+  },
+
+  avatarShape: getInitialAvatarShape(),
+
+  setAvatarShape: (shape) => {
+    try { localStorage.setItem(AVATAR_SHAPE_KEY, shape) } catch { /* localStorage not available */ }
+    set({ avatarShape: shape })
   },
 
   soundEnabled: getInitialSoundEnabled(),
