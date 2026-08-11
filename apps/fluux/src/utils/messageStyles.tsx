@@ -12,6 +12,7 @@
  *   by indenting two spaces per level
  * - Ordered lists (lines starting with 1., 2., etc.), likewise nestable
  * - Headings (# H1, ## H2, ### H3, #### H4)
+ * - Task lists ("- [ ] todo", "- [x] done"), rendered as read-only checkboxes
  * - Tables (GFM pipe tables, with :--- / :---: / ---: alignment)
  * - URLs (auto-linked) and [label](url) labelled links
  * - @mentions (highlighted)
@@ -707,6 +708,20 @@ interface ListItem {
   number?: number
 }
 
+/**
+ * A GFM task-list item: "- [ ] todo" / "- [x] done". Applies to the *content* of
+ * an already-recognised list item, so the leading marker is gone by now.
+ * Deliberately read-only — a checkbox in a received message reflects what the
+ * sender typed; toggling it would have to edit and resend their message.
+ */
+function parseTaskItem(content: string): { isTask: boolean; checked: boolean; content: string } {
+  const match = content.match(/^\[([ xX])\]\s+(.*)$/)
+  if (match) {
+    return { isTask: true, checked: match[1].toLowerCase() === 'x', content: match[2] }
+  }
+  return { isTask: false, checked: false, content }
+}
+
 /** Column alignment from a table's delimiter row. */
 type ColumnAlign = 'left' | 'center' | 'right'
 
@@ -925,9 +940,21 @@ function renderList(
     while (end < items.length && items[end].depth > item.depth) end++
     const nested = items.slice(i + 1, end)
 
+    const task = parseTaskItem(item.content)
+    // A task item replaces the bullet/number with its checkbox, so drop the
+    // marker for that row only — a list mixing tasks and prose keeps both.
     children.push(
-      <li key={`${keyPrefix}-li-${i}`} className="text-fluux-text">
-        {renderItem(item.content, item.offset, i)}
+      <li key={`${keyPrefix}-li-${i}`} className={task.isTask ? 'text-fluux-text list-none' : 'text-fluux-text'}>
+        {task.isTask && (
+          <input
+            type="checkbox"
+            checked={task.checked}
+            readOnly
+            aria-label={task.content}
+            className="me-1.5 align-middle accent-fluux-brand pointer-events-none"
+          />
+        )}
+        {renderItem(task.content, item.offset + (item.content.length - task.content.length), i)}
         {nested.length > 0 && renderList(nested, ordered, `${keyPrefix}-${i}`, renderItem)}
       </li>
     )
