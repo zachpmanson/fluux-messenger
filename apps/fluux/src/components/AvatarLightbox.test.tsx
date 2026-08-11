@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi, afterEach } from 'vitest'
+import { render, fireEvent, screen } from '@testing-library/react'
 import { AvatarLightbox } from './AvatarLightbox'
+import { useSettingsStore } from '@/stores/settingsStore'
 
 vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (k: string) => k }) }))
 vi.mock('./Avatar', () => ({ Avatar: () => null }))
@@ -27,5 +28,25 @@ describe('AvatarLightbox Escape handling', () => {
     } finally {
       window.removeEventListener('keydown', windowKeydown)
     }
+  })
+})
+
+describe('AvatarLightbox — avatar shape setting (issue #6)', () => {
+  afterEach(() => {
+    useSettingsStore.getState().setAvatarShape('circle')
+  })
+
+  it('shows a round enlarged image by default', () => {
+    render(<AvatarLightbox avatarUrl="https://example.com/a.jpg" identifier="a@b.c" name="A" onClose={() => {}} />)
+    const img = screen.getByAltText('A')
+    expect(img.className).toContain('rounded-full')
+  })
+
+  it('squares the enlarged image when the setting is square — enlarging must not change the shape', () => {
+    useSettingsStore.getState().setAvatarShape('square')
+    render(<AvatarLightbox avatarUrl="https://example.com/a.jpg" identifier="a@b.c" name="A" onClose={() => {}} />)
+    const img = screen.getByAltText('A')
+    expect(img.className).toContain('rounded-none')
+    expect(img.className).not.toContain('rounded-full')
   })
 })
