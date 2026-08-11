@@ -8,12 +8,20 @@
  * - `code` (inline preformatted)
  * - ```code block``` (preformatted block)
  * - > blockquote (lines starting with >)
- * - Unordered lists (lines starting with -, +, or * followed by space)
- * - Ordered lists (lines starting with 1., 2., etc.)
+ * - Unordered lists (lines starting with -, +, or * followed by space), nestable
+ *   by indenting two spaces per level
+ * - Ordered lists (lines starting with 1., 2., etc.), likewise nestable
  * - Headings (# H1, ## H2, ### H3, #### H4)
- * - URLs (auto-linked)
+ * - Tables (GFM pipe tables, with :--- / :---: / ---: alignment)
+ * - URLs (auto-linked) and [label](url) labelled links
  * - @mentions (highlighted)
- * - Escape sequences (\* \_ \~ \` \> \#)
+ * - Escape sequences (\* \_ \~ \` \> \# \[)
+ *
+ * The block constructs Markdown adds on top of XEP-0393 — headings, lists,
+ * tables, labelled links — are gated behind the `markdown` parameter, which
+ * callers wire to the user's `markdownEnabled` setting. XEP-0393's own styling
+ * (emphasis, code, code fences, quotes) is the XMPP standard for styled bodies
+ * and always renders.
  */
 
 import React, { useState } from 'react'
@@ -65,11 +73,18 @@ const MENTION_REGEX = /(?:^|(?<=\s))(@[\p{L}\p{N}_]+)(?![\p{L}\p{N}_]|\.[\p{L}\p
 // Escape sequences: \* \_ \~ \` \>
 const ESCAPE_PLACEHOLDER = '\u0000'
 
+// Markdown labelled link: [label](https://example.com). Only http(s) targets are
+// linkified — a bare [text](foo) stays literal rather than becoming a link to an
+// unknown scheme, which keeps javascript:/data: out of message bodies entirely.
+const LABELLED_LINK_REGEX = /\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g
+
 interface StyledSegment {
   type: 'text' | 'bold' | 'italic' | 'strike' | 'code' | 'link' | 'mention'
   content: string
   /** For mentions: identifier used to generate consistent user color (nick extracted from URI or @text) */
   identifier?: string
+  /** For links: the target, when it differs from the visible text (Markdown labelled links) */
+  href?: string
 }
 
 /** Mention range with optional URI for nick extraction */
@@ -89,7 +104,8 @@ function parseInlineStyles(
   text: string,
   mentionRanges: MentionRange[] | null = null,
   textOffset: number = 0,
-  disableMentionFallback: boolean = false
+  disableMentionFallback: boolean = false,
+  markdown: boolean = true
 ): StyledSegment[] {
   const segments: StyledSegment[] = []
 
@@ -98,18 +114,66 @@ function parseInlineStyles(
   const escapeMap: Map<string, string> = new Map()
   let escapeIndex = 0
 
-  escaped = escaped.replace(/\\([*_~`>#])/g, (_, char) => {
+  escaped = escaped.replace(/\\([*_~`>#[])/g, (_, char) => {
     const placeholder = `${ESCAPE_PLACEHOLDER}${escapeIndex}${ESCAPE_PLACEHOLDER}`
     escapeMap.set(placeholder, char)
     escapeIndex++
     return placeholder
   })
 
-  // Split by URLs first
-  const urlParts = escaped.split(URL_REGEX)
-
   // Track position in the original text for mention matching
   let currentPos = textOffset
+
+  // Pull out Markdown labelled links before the bare-URL split, otherwise the
+  // URL inside the parens gets linkified on its own and the label is left as
+  // stray brackets.
+  if (markdown) {
+    let lastIndex = 0
+    let linkMatch: RegExpExecArray | null
+    LABELLED_LINK_REGEX.lastIndex = 0
+
+    while ((linkMatch = LABELLED_LINK_REGEX.exec(escaped)) !== null) {
+      if (linkMatch.index > lastIndex) {
+        const before = escaped.slice(lastIndex, linkMatch.index)
+        currentPos = parseUrlsAndStyles(before, segments, escapeMap, mentionRanges, currentPos, disableMentionFallback)
+      }
+
+      segments.push({
+        type: 'link',
+        content: restoreEscapes(linkMatch[1], escapeMap),
+        href: restoreEscapes(linkMatch[2], escapeMap),
+      })
+
+      lastIndex = linkMatch.index + linkMatch[0].length
+      currentPos += linkMatch[0].length
+    }
+
+    if (lastIndex > 0) {
+      if (lastIndex < escaped.length) {
+        parseUrlsAndStyles(escaped.slice(lastIndex), segments, escapeMap, mentionRanges, currentPos, disableMentionFallback)
+      }
+      return segments
+    }
+  }
+
+  parseUrlsAndStyles(escaped, segments, escapeMap, mentionRanges, currentPos, disableMentionFallback)
+  return segments
+}
+
+/**
+ * Split a span on bare URLs, parsing mentions and inline styling in between.
+ * Returns the position reached in the original message (for mention matching).
+ */
+function parseUrlsAndStyles(
+  escaped: string,
+  segments: StyledSegment[],
+  escapeMap: Map<string, string>,
+  mentionRanges: MentionRange[] | null,
+  startPos: number,
+  disableMentionFallback: boolean
+): number {
+  const urlParts = escaped.split(URL_REGEX)
+  let currentPos = startPos
 
   for (const part of urlParts) {
     if (URL_REGEX.test(part)) {
@@ -123,7 +187,7 @@ function parseInlineStyles(
     }
   }
 
-  return segments
+  return currentPos
 }
 
 /**
@@ -328,7 +392,11 @@ function renderSegment(segment: StyledSegment, index: number, isDarkMode?: boole
         </code>
       )
     case 'link':
-      return <MessageLink key={index} href={segment.content} />
+      // Labelled links carry the target in `href` and the visible text in
+      // `content`; bare URLs put the URL in `content` and MessageLink shows it.
+      return segment.href
+        ? <MessageLink key={index} href={segment.href}>{segment.content}</MessageLink>
+        : <MessageLink key={index} href={segment.content} />
     case 'mention': {
       // Use per-user consistent color when identifier is available, otherwise fall back to brand.
       // Prefer the caller's resolver (which mirrors the sender-name color, including a roster
@@ -593,27 +661,109 @@ export function renderQuotePreview(text: string): React.ReactNode {
   return result
 }
 
+/** Two spaces per nesting level, the CommonMark-ish convention; tabs count as one level. */
+const INDENT_WIDTH = 2
+/** Deeper than this and the indentation is almost certainly not a list. */
+const MAX_LIST_DEPTH = 5
+
+/** Leading-whitespace width of a line, in nesting levels. */
+function indentDepth(line: string): number {
+  const leading = line.match(/^[ \t]*/)?.[0] ?? ''
+  const spaces = leading.replace(/\t/g, ' '.repeat(INDENT_WIDTH)).length
+  return Math.min(Math.floor(spaces / INDENT_WIDTH), MAX_LIST_DEPTH)
+}
+
 /**
  * Check if a line is an unordered list item (starts with -, +, or * followed by space)
  * Note: * must be followed by space to distinguish from *bold* formatting
+ * Leading whitespace sets the nesting depth.
  */
-function isUnorderedListItem(line: string): { isList: boolean; content: string; marker: string } {
-  const match = line.match(/^([-+*])\s+(.*)$/)
+function isUnorderedListItem(line: string): { isList: boolean; content: string; marker: string; depth: number } {
+  const match = line.match(/^[ \t]*([-+*])\s+(.*)$/)
   if (match) {
-    return { isList: true, marker: match[1], content: match[2] }
+    return { isList: true, marker: match[1], content: match[2], depth: indentDepth(line) }
   }
-  return { isList: false, marker: '', content: line }
+  return { isList: false, marker: '', content: line, depth: 0 }
 }
 
 /**
  * Check if a line is an ordered list item (starts with number. followed by space)
+ * Leading whitespace sets the nesting depth.
  */
-function isOrderedListItem(line: string): { isList: boolean; number: number; content: string } {
-  const match = line.match(/^(\d+)\.\s+(.*)$/)
+function isOrderedListItem(line: string): { isList: boolean; number: number; content: string; depth: number } {
+  const match = line.match(/^[ \t]*(\d+)\.\s+(.*)$/)
   if (match) {
-    return { isList: true, number: parseInt(match[1], 10), content: match[2] }
+    return { isList: true, number: parseInt(match[1], 10), content: match[2], depth: indentDepth(line) }
   }
-  return { isList: false, number: 0, content: line }
+  return { isList: false, number: 0, content: line, depth: 0 }
+}
+
+/** A buffered list item, flattened; `depth` drives the nesting when it's flushed. */
+interface ListItem {
+  depth: number
+  content: string
+  offset: number
+  /** Ordered lists only: the literal number the sender typed. */
+  number?: number
+}
+
+/** Column alignment from a table's delimiter row. */
+type ColumnAlign = 'left' | 'center' | 'right'
+
+/**
+ * Split a table row on unescaped pipes, dropping the optional leading/trailing
+ * ones. "| a | b |" and "a | b" both yield ["a", "b"].
+ */
+function splitTableRow(line: string): string[] {
+  const trimmed = line.trim().replace(/^\|/, '').replace(/\|$/, '')
+  const cells: string[] = []
+  let cell = ''
+
+  for (let i = 0; i < trimmed.length; i++) {
+    const char = trimmed[i]
+    if (char === '\\' && trimmed[i + 1] === '|') {
+      cell += '|'
+      i++
+    } else if (char === '|') {
+      cells.push(cell.trim())
+      cell = ''
+    } else {
+      cell += char
+    }
+  }
+  cells.push(cell.trim())
+  return cells
+}
+
+/**
+ * Is this the delimiter row under a table header? Every cell must be dashes,
+ * optionally colon-anchored on either side: |---|:--|--:|:-:|
+ */
+function parseTableDelimiter(line: string): ColumnAlign[] | null {
+  if (!line.includes('-') || !line.includes('|')) return null
+
+  const cells = splitTableRow(line)
+  if (cells.length === 0) return null
+
+  const aligns: ColumnAlign[] = []
+  for (const cell of cells) {
+    const match = cell.match(/^(:?)-+(:?)$/)
+    if (!match) return null
+    const [, left, right] = match
+    aligns.push(left && right ? 'center' : right ? 'right' : left ? 'left' : 'left')
+  }
+  return aligns
+}
+
+/**
+ * Does a table start at `lines[i]`? Requires a header row containing a pipe
+ * immediately followed by a delimiter row, which keeps prose that merely
+ * contains a "|" from being swallowed as a one-column table.
+ */
+function tableStartsAt(lines: string[], i: number): ColumnAlign[] | null {
+  if (!lines[i]?.includes('|')) return null
+  if (i + 1 >= lines.length) return null
+  return parseTableDelimiter(lines[i + 1])
 }
 
 /**
@@ -673,8 +823,10 @@ export function renderTextWithLinks(text: string): React.ReactNode {
  * @param text - The message body
  * @param mentions - Optional XEP-0372 mention references for precise highlighting
  * @param nickname - Optional user nickname for IRC-style mention detection fallback
+ * @param markdown - Render Markdown-only constructs (headings, lists, tables,
+ *   labelled links). XEP-0393 styling is unaffected and always renders.
  */
-export function renderStyledMessage(text: string, mentions?: MentionReference[], nickname?: string, knownNicks?: ReadonlySet<string>, isDarkMode?: boolean, resolveMentionColor?: (identifier: string) => string | undefined): React.ReactNode {
+export function renderStyledMessage(text: string, mentions?: MentionReference[], nickname?: string, knownNicks?: ReadonlySet<string>, isDarkMode?: boolean, resolveMentionColor?: (identifier: string) => string | undefined, markdown: boolean = true): React.ReactNode {
   // Normalize line endings: CRLF -> LF, CR -> LF
   const normalizedText = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
 
@@ -720,7 +872,7 @@ export function renderStyledMessage(text: string, mentions?: MentionReference[],
     // Render text before code block
     if (match.index > lastIndex) {
       const before = normalizedText.slice(lastIndex, match.index)
-      parts.push(...renderTextBlock(before, partIndex, mentionRanges, lastIndex, isDarkMode, disableMentionFallback, resolveMentionColor))
+      parts.push(...renderTextBlock(before, partIndex, mentionRanges, lastIndex, isDarkMode, disableMentionFallback, resolveMentionColor, markdown))
       partIndex += 100 // Leave room for sub-indices
     }
 
@@ -736,19 +888,110 @@ export function renderStyledMessage(text: string, mentions?: MentionReference[],
 
   // Render remaining text
   if (lastIndex < normalizedText.length) {
-    parts.push(...renderTextBlock(normalizedText.slice(lastIndex), partIndex, mentionRanges, lastIndex, isDarkMode, disableMentionFallback, resolveMentionColor))
+    parts.push(...renderTextBlock(normalizedText.slice(lastIndex), partIndex, mentionRanges, lastIndex, isDarkMode, disableMentionFallback, resolveMentionColor, markdown))
   }
 
   // If no code blocks, render the whole thing
   if (parts.length === 0) {
-    return renderTextBlock(normalizedText, 0, mentionRanges, 0, isDarkMode, disableMentionFallback, resolveMentionColor)
+    return renderTextBlock(normalizedText, 0, mentionRanges, 0, isDarkMode, disableMentionFallback, resolveMentionColor, markdown)
   }
 
   return parts
 }
 
 /**
- * Render a text block (handles blockquotes, lists, and inline styles)
+ * Render a buffered run of list items as nested <ul>/<ol>.
+ *
+ * Items arrive flat with a `depth` each; a run of deeper items immediately
+ * following an item becomes that item's sublist. Nesting is within a single list
+ * type — an indented "-" under a "1." continues the ordered list rather than
+ * switching to a bullet, which keeps the buffering in renderTextBlock simple and
+ * matches how most senders actually write.
+ */
+function renderList(
+  items: ListItem[],
+  ordered: boolean,
+  keyPrefix: string,
+  renderItem: (content: string, offset: number, key: number) => React.ReactNode
+): React.ReactElement {
+  const baseDepth = Math.min(...items.map((item) => item.depth))
+  const children: React.ReactNode[] = []
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+
+    // Collect the deeper run that follows this item — its sublist.
+    let end = i + 1
+    while (end < items.length && items[end].depth > item.depth) end++
+    const nested = items.slice(i + 1, end)
+
+    children.push(
+      <li key={`${keyPrefix}-li-${i}`} className="text-fluux-text">
+        {renderItem(item.content, item.offset, i)}
+        {nested.length > 0 && renderList(nested, ordered, `${keyPrefix}-${i}`, renderItem)}
+      </li>
+    )
+
+    i = end - 1
+  }
+
+  const className = ordered
+    ? 'list-decimal list-inside my-1 space-y-0.5 [&_ol]:ml-4 [&_ol]:my-0'
+    : 'list-disc list-inside my-1 space-y-0.5 [&_ul]:ml-4 [&_ul]:my-0'
+
+  if (ordered) {
+    const startNum = items.find((item) => item.depth === baseDepth)?.number ?? 1
+    return <ol key={keyPrefix} start={startNum} className={className}>{children}</ol>
+  }
+  return <ul key={keyPrefix} className={className}>{children}</ul>
+}
+
+/** Render a GFM-style pipe table. */
+function renderTable(
+  header: string[],
+  aligns: ColumnAlign[],
+  rows: string[][],
+  keyPrefix: string,
+  renderCell: (content: string, key: number) => React.ReactNode
+): React.ReactElement {
+  const alignClass = (col: number) =>
+    aligns[col] === 'center' ? 'text-center' : aligns[col] === 'right' ? 'text-right' : 'text-left'
+
+  return (
+    // Tables are the one construct that can genuinely exceed the bubble width, so
+    // it scrolls inside its own box rather than widening the message column.
+    <div key={keyPrefix} className="my-1 overflow-x-auto">
+      <table className="border-collapse text-sm">
+        <thead>
+          <tr>
+            {header.map((cell, i) => (
+              <th
+                key={i}
+                className={`border border-fluux-border px-2 py-1 font-semibold ${alignClass(i)}`}
+              >
+                {renderCell(cell, i)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, r) => (
+            <tr key={r}>
+              {header.map((_, c) => (
+                <td key={c} className={`border border-fluux-border px-2 py-1 ${alignClass(c)}`}>
+                  {renderCell(row[c] ?? '', (r + 1) * 100 + c)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+/**
+ * Render a text block (handles blockquotes, lists, tables, and inline styles)
  */
 function renderTextBlock(
   text: string,
@@ -757,13 +1000,14 @@ function renderTextBlock(
   textOffset: number = 0,
   isDarkMode?: boolean,
   disableMentionFallback: boolean = false,
-  resolveMentionColor?: (identifier: string) => string | undefined
+  resolveMentionColor?: (identifier: string) => string | undefined,
+  markdown: boolean = true
 ): React.ReactNode[] {
   const lines = text.split('\n')
   const result: React.ReactNode[] = []
   let quoteBuffer: { depth: number; content: string; offset: number }[] | null = null
-  let ulBuffer: { lines: string[]; lineOffsets: number[] } | null = null
-  let olBuffer: { items: { number: number; content: string; offset: number }[] } | null = null
+  let ulBuffer: ListItem[] | null = null
+  let olBuffer: ListItem[] | null = null
   let index = startIndex
   let currentOffset = textOffset
 
@@ -774,7 +1018,7 @@ function renderTextBlock(
           quoteBuffer,
           1,
           index,
-          (content, idx, offset) => renderInline(content, idx, mentionRanges, offset, isDarkMode, disableMentionFallback, resolveMentionColor),
+          (content, idx, offset) => renderInline(content, idx, mentionRanges, offset, isDarkMode, disableMentionFallback, resolveMentionColor, markdown),
           true
         )
       )
@@ -783,43 +1027,21 @@ function renderTextBlock(
     }
   }
 
+  const renderListItem = (content: string, offset: number, key: number) =>
+    renderInline(content, index + key, mentionRanges, offset, isDarkMode, disableMentionFallback, resolveMentionColor, markdown)
+
   const flushUnorderedList = () => {
-    if (ulBuffer && ulBuffer.lines.length > 0) {
-      result.push(
-        <ul
-          key={`ul-${index++}`}
-          className="list-disc list-inside my-1 space-y-0.5"
-        >
-          {ulBuffer.lines.map((line, i) => (
-            <li key={i} className="text-fluux-text">
-              {renderInline(line, index + i, mentionRanges, ulBuffer!.lineOffsets[i], isDarkMode, disableMentionFallback, resolveMentionColor)}
-            </li>
-          ))}
-        </ul>
-      )
-      index += ulBuffer.lines.length
+    if (ulBuffer && ulBuffer.length > 0) {
+      result.push(renderList(ulBuffer, false, `ul-${index++}`, renderListItem))
+      index += ulBuffer.length
       ulBuffer = null
     }
   }
 
   const flushOrderedList = () => {
-    if (olBuffer && olBuffer.items.length > 0) {
-      // Use the first item's number as the start attribute
-      const startNum = olBuffer.items[0].number
-      result.push(
-        <ol
-          key={`ol-${index++}`}
-          start={startNum}
-          className="list-decimal list-inside my-1 space-y-0.5"
-        >
-          {olBuffer.items.map((item, i) => (
-            <li key={i} className="text-fluux-text">
-              {renderInline(item.content, index + i, mentionRanges, item.offset, isDarkMode, disableMentionFallback, resolveMentionColor)}
-            </li>
-          ))}
-        </ol>
-      )
-      index += olBuffer.items.length
+    if (olBuffer && olBuffer.length > 0) {
+      result.push(renderList(olBuffer, true, `ol-${index++}`, renderListItem))
+      index += olBuffer.length
       olBuffer = null
     }
   }
@@ -850,35 +1072,64 @@ function renderTextBlock(
       continue
     }
 
+    // Check for a table: header row + delimiter row, then rows until a
+    // non-table line. Tables are Markdown-only (XEP-0393 has no table syntax).
+    if (markdown) {
+      const aligns = tableStartsAt(lines, i)
+      if (aligns) {
+        flushAllBuffers()
+
+        const header = splitTableRow(line)
+        const rows: string[][] = []
+        currentOffset += line.length + 1 + lines[i + 1].length + 1
+
+        let r = i + 2
+        while (r < lines.length && lines[r].includes('|') && lines[r].trim() !== '') {
+          rows.push(splitTableRow(lines[r]))
+          currentOffset += lines[r].length + 1
+          r++
+        }
+
+        result.push(
+          renderTable(header, aligns, rows, `table-${index++}`, (content, key) =>
+            renderInline(content, index + key, null, 0, isDarkMode, true, resolveMentionColor, markdown)
+          )
+        )
+
+        i = r - 1
+        continue
+      }
+    }
+
     // Check for unordered list item
     const ulCheck = isUnorderedListItem(line)
-    if (ulCheck.isList) {
+    if (markdown && ulCheck.isList) {
       // Flush other buffers before starting/continuing unordered list
       flushQuote()
       flushOrderedList()
 
       if (!ulBuffer) {
-        ulBuffer = { lines: [], lineOffsets: [] }
+        ulBuffer = []
       }
       const prefixLength = line.length - ulCheck.content.length
-      ulBuffer.lines.push(ulCheck.content)
-      ulBuffer.lineOffsets.push(lineOffset + prefixLength)
+      ulBuffer.push({ depth: ulCheck.depth, content: ulCheck.content, offset: lineOffset + prefixLength })
       currentOffset += line.length + 1
       continue
     }
 
     // Check for ordered list item
     const olCheck = isOrderedListItem(line)
-    if (olCheck.isList) {
+    if (markdown && olCheck.isList) {
       // Flush other buffers before starting/continuing ordered list
       flushQuote()
       flushUnorderedList()
 
       if (!olBuffer) {
-        olBuffer = { items: [] }
+        olBuffer = []
       }
       const prefixLength = line.length - olCheck.content.length
-      olBuffer.items.push({
+      olBuffer.push({
+        depth: olCheck.depth,
         number: olCheck.number,
         content: olCheck.content,
         offset: lineOffset + prefixLength
@@ -889,7 +1140,7 @@ function renderTextBlock(
 
     // Check for heading (# Title, ## Subtitle, etc.)
     const headingCheck = isHeading(line)
-    if (headingCheck.isHeading) {
+    if (markdown && headingCheck.isHeading) {
       flushAllBuffers()
 
       const level = headingCheck.level
@@ -915,7 +1166,7 @@ function renderTextBlock(
     if (line || i < lines.length - 1) {
       result.push(
         <React.Fragment key={`line-${index++}`}>
-          {renderInline(line, index, mentionRanges, lineOffset, isDarkMode, disableMentionFallback, resolveMentionColor)}
+          {renderInline(line, index, mentionRanges, lineOffset, isDarkMode, disableMentionFallback, resolveMentionColor, markdown)}
           {i < lines.length - 1 && <br />}
         </React.Fragment>
       )
@@ -939,10 +1190,11 @@ function renderInline(
   textOffset: number = 0,
   isDarkMode?: boolean,
   disableMentionFallback: boolean = false,
-  resolveMentionColor?: (identifier: string) => string | undefined
+  resolveMentionColor?: (identifier: string) => string | undefined,
+  markdown: boolean = true
 ): React.ReactNode {
   if (!text) return null
-  const segments = parseInlineStyles(text, mentionRanges, textOffset, disableMentionFallback)
+  const segments = parseInlineStyles(text, mentionRanges, textOffset, disableMentionFallback, markdown)
   if (segments.length === 1 && segments[0].type === 'text') {
     return segments[0].content
   }
