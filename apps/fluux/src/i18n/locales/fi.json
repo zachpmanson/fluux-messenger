@@ -687,6 +687,8 @@
         "compact": "Tiivis",
         "densityComfortableDescription": "Tilava asettelu ja suuremmat avatarit.",
         "densityCompactDescription": "Tiiviimpi asettelu, jotta mahtuu enemmän näyttöön.",
+        "markdown": "Näytä Markdown",
+        "markdownDescription": "Näytä otsikot, luettelot, taulukot ja nimetyt linkit viesteissä. Lihavointi, kursivointi, koodi ja lainaukset näytetään aina.",
         "accentColor": "Korostusväri",
         "accentThemeDefault": "Teeman oletus",
         "fontSize": "Fonttikoko",

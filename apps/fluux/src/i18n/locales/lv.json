@@ -690,6 +690,8 @@
         "compact": "Kompakts",
         "densityComfortableDescription": "Plašs atstarpes un lielāki avatāri.",
         "densityCompactDescription": "Blīvākas atstarpes, lai ekrānā ietilptu vairāk.",
+        "markdown": "Attēlot Markdown",
+        "markdownDescription": "Rādīt virsrakstus, sarakstus, tabulas un nosauktas saites ziņojumos. Treknraksts, kursīvs, kods un citāti tiek rādīti vienmēr.",
         "accentColor": "Akcenta krāsa",
         "accentThemeDefault": "Tēmas noklusējums",
         "fontSize": "Fonta lielums",

@@ -691,6 +691,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Spațiere generoasă și avataruri mai mari.",
         "densityCompactDescription": "Spațiere mai strânsă pentru mai mult conținut pe ecran.",
+        "markdown": "Afișează Markdown",
+        "markdownDescription": "Afișează titluri, liste, tabele și linkuri cu etichetă în mesaje. Aldinul, cursivul, codul și citatele se afișează întotdeauna.",
         "accentColor": "Culoare de accent",
         "accentThemeDefault": "Implicit temă",
         "fontSize": "Dimensiune font",

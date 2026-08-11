@@ -719,6 +719,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Espacement généreux et avatars plus grands.",
         "densityCompactDescription": "Espacement réduit pour afficher plus de contenu à l'écran.",
+        "markdown": "Afficher le Markdown",
+        "markdownDescription": "Afficher les titres, listes, tableaux et liens nommés dans les messages. Le gras, l’italique, le code et les citations s’affichent toujours.",
         "accentColor": "Couleur d'accentuation",
         "accentThemeDefault": "Défaut du thème",
         "fontSize": "Taille de police",
