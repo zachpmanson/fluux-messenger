@@ -84,20 +84,44 @@ function getLastSeenInfo(contact: Contact, t: TranslateFn): { text: string; isAc
 }
 
 /**
+ * A contact's own `<status>` text, normalised for a single-line display, or
+ * undefined when they haven't set one. Whitespace is collapsed because a status
+ * may legitimately contain newlines, which would otherwise break the header's
+ * one-line layout.
+ */
+function statusMessageOf(contact: Contact): string | undefined {
+  const raw = contact.statusMessage?.replace(/\s+/g, ' ').trim()
+  return raw ? raw : undefined
+}
+
+/**
  * Get translated combined status text for a contact
  * This is the translated version of getStatusText from the SDK
+ *
+ * When the contact has set a custom `<status>` and `preferStatusMessage` is on,
+ * that message replaces the show label — "In a meeting" says everything
+ * "Online" does and more, so printing both is noise. The idle / last-seen
+ * suffix is untouched either way, so an offline contact who left a status reads
+ * "on holiday · last seen 2h ago".
  */
-export function getTranslatedStatusText(contact: Contact, t: TranslateFn): string {
+export function getTranslatedStatusText(
+  contact: Contact,
+  t: TranslateFn,
+  preferStatusMessage: boolean = true
+): string {
+  const statusMessage = preferStatusMessage ? statusMessageOf(contact) : undefined
   const presenceLabel = getPresenceLabel(contact.presence, t)
   const lastSeenInfo = getLastSeenInfo(contact, t)
 
   if (contact.presence === 'offline') {
-    return lastSeenInfo.text
+    return statusMessage ? `${statusMessage} · ${lastSeenInfo.text}` : lastSeenInfo.text
   }
+
+  const label = statusMessage ?? presenceLabel
 
   if (lastSeenInfo.isActive) {
-    return presenceLabel
+    return label
   }
 
-  return `${presenceLabel} · ${lastSeenInfo.text}`
+  return `${label} · ${lastSeenInfo.text}`
 }
