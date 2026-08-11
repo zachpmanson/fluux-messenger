@@ -79,3 +79,8 @@ CLAUDE.md
 
 # Benchmark output (regenerated; the numbers that matter live in the design doc)
 packages/fluux-sdk/bench/results/
+
+# nix / direnv (flake.nix + .envrc are tracked; their output isn't)
+.direnv/
+result
+result-*
