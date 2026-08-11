@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Квадрат",
         "avatarShapeCircleDescription": "Люди отображаются в виде кругов.",
         "avatarShapeSquareDescription": "Люди отображаются в виде квадратов с закруглёнными углами, как комнаты.",
+        "contactStatusMessage": "Показывать сообщения о статусе",
+        "contactStatusMessageDescription": "Показывать собственный текст статуса контакта вместо «В сети» или «Не беспокоить».",
         "accentColor": "Цвет акцента",
         "accentThemeDefault": "По умолчанию темы",
         "fontSize": "Размер шрифта",

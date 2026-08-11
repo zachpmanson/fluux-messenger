@@ -706,6 +706,8 @@
         "avatarShapeSquare": "مربع",
         "avatarShapeCircleDescription": "تظهر صور الأشخاص كدوائر.",
         "avatarShapeSquareDescription": "تظهر صور الأشخاص كمربعات مستديرة الأركان، مثل الغرف.",
+        "contactStatusMessage": "إظهار رسائل الحالة",
+        "contactStatusMessageDescription": "إظهار نص حالة المراسل بدلاً من «متصل» أو «لا تقاطعني».",
         "accentColor": "لون التمييز",
         "accentThemeDefault": "الافتراضي للسمة",
         "fontSize": "حجم الخط",

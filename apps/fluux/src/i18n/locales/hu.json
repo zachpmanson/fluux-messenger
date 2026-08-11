@@ -698,6 +698,8 @@
         "avatarShapeSquare": "Négyzet",
         "avatarShapeCircleDescription": "A személyek körként jelennek meg.",
         "avatarShapeSquareDescription": "A személyek lekerekített négyzetként jelennek meg, mint a szobák.",
+        "contactStatusMessage": "Állapotüzenetek megjelenítése",
+        "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",

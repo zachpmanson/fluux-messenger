@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Quadrat",
         "avatarShapeCircleDescription": "Les persones es mostren com a cercles.",
         "avatarShapeSquareDescription": "Les persones es mostren com a quadrats arrodonits, com les sales.",
+        "contactStatusMessage": "Mostra els missatges d'estat",
+        "contactStatusMessageDescription": "Mostra el text d'estat del contacte en lloc de «En línia» o «No molesteu».",
         "accentColor": "Color d'accent",
         "accentThemeDefault": "Per defecte del tema",
         "fontSize": "Mida de la lletra",

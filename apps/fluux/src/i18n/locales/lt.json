@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Kvadratas",
         "avatarShapeCircleDescription": "Žmonės rodomi kaip apskritimai.",
         "avatarShapeSquareDescription": "Žmonės rodomi kaip kvadratai suapvalintais kampais, kaip ir kambariai.",
+        "contactStatusMessage": "Rodyti būsenos pranešimus",
+        "contactStatusMessageDescription": "Rodyti kontakto būsenos tekstą vietoje „Prisijungęs“ arba „Netrikdyti“.",
         "accentColor": "Akcento spalva",
         "accentThemeDefault": "Temos numatytoji",
         "fontSize": "Šrifto dydis",

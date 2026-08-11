@@ -698,6 +698,8 @@
         "avatarShapeSquare": "方形",
         "avatarShapeCircleDescription": "联系人显示为圆形。",
         "avatarShapeSquareDescription": "联系人显示为圆角方形，与群组一致。",
+        "contactStatusMessage": "显示状态消息",
+        "contactStatusMessageDescription": "显示联系人自己的状态文字，替代“在线”或“请勿打扰”。",
         "accentColor": "强调色",
         "accentThemeDefault": "主题默认",
         "fontSize": "字体大小",

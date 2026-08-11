@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Pătrat",
         "avatarShapeCircleDescription": "Persoanele sunt afișate ca cercuri.",
         "avatarShapeSquareDescription": "Persoanele sunt afișate ca pătrate rotunjite, la fel ca încăperile.",
+        "contactStatusMessage": "Afișează mesajele de stare",
+        "contactStatusMessageDescription": "Afișează textul de stare al contactului în locul „Online” sau „Nu deranja”.",
         "accentColor": "Culoare de accent",
         "accentThemeDefault": "Implicit temă",
         "fontSize": "Dimensiune font",

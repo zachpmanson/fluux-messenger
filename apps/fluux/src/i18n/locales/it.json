@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Quadrato",
         "avatarShapeCircleDescription": "Le persone sono mostrate come cerchi.",
         "avatarShapeSquareDescription": "Le persone sono mostrate come quadrati arrotondati, come le stanze.",
+        "contactStatusMessage": "Mostra i messaggi di stato",
+        "contactStatusMessageDescription": "Mostra il testo di stato del contatto al posto di «Online» o «Non disturbare».",
         "accentColor": "Colore di accento",
         "accentThemeDefault": "Predefinito del tema",
         "fontSize": "Dimensione carattere",

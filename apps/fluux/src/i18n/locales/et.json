@@ -700,6 +700,8 @@
         "avatarShapeSquare": "Ruut",
         "avatarShapeCircleDescription": "Inimesi kuvatakse ringidena.",
         "avatarShapeSquareDescription": "Inimesi kuvatakse ümarate nurkadega ruutudena, nagu jututubasid.",
+        "contactStatusMessage": "Näita olekuteateid",
+        "contactStatusMessageDescription": "Näita kontakti enda olekuteksti „Võrgus“ või „Mitte segada“ asemel.",
         "accentColor": "Rõhuvärv",
         "accentThemeDefault": "Teema vaikeväärtus",
         "fontSize": "Kirjasuurus",

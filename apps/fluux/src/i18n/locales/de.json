@@ -700,6 +700,8 @@
         "avatarShapeSquare": "Quadrat",
         "avatarShapeCircleDescription": "Personen werden als Kreise dargestellt.",
         "avatarShapeSquareDescription": "Personen werden als abgerundete Quadrate dargestellt, wie Räume.",
+        "contactStatusMessage": "Statusmeldungen anzeigen",
+        "contactStatusMessageDescription": "Den eigenen Statustext eines Kontakts anstelle von „Online“ oder „Bitte nicht störenb“ anzeigen.",
         "accentColor": "Akzentfarbe",
         "accentThemeDefault": "Theme-Standard",
         "fontSize": "Schriftgröße",

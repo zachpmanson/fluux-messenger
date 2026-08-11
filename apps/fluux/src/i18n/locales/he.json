@@ -700,6 +700,8 @@
         "avatarShapeSquare": "ריבוע",
         "avatarShapeCircleDescription": "אנשים מוצגים כעיגולים.",
         "avatarShapeSquareDescription": "אנשים מוצגים כריבועים מעוגלים, כמו חדרים.",
+        "contactStatusMessage": "הצגת הודעות מצב",
+        "contactStatusMessageDescription": "הצגת טקסט המצב של איש הקשר במקום \"מחובר\" או \"אין להפריע\".",
         "accentColor": "צבע הדגשה",
         "accentThemeDefault": "ברירת מחדל של ערכת נושא",
         "fontSize": "גודל גופן",

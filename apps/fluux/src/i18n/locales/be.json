@@ -702,6 +702,8 @@
         "avatarShapeSquare": "Квадрат",
         "avatarShapeCircleDescription": "Людзі паказваюцца ў выглядзе кругоў.",
         "avatarShapeSquareDescription": "Людзі паказваюцца ў выглядзе квадратаў са скругленымі кутамі, як пакоі.",
+        "contactStatusMessage": "Паказваць паведамленні стану",
+        "contactStatusMessageDescription": "Паказваць уласны тэкст стану кантакту замест «У сетцы» або «Не турбаваць».",
         "accentColor": "Колер акцэнту",
         "accentThemeDefault": "Стандартны тэмы",
         "fontSize": "Памер шрыфту",

@@ -888,6 +888,8 @@
         "avatarShapeSquare": "사각형",
         "avatarShapeCircleDescription": "사람은 원형으로 표시됩니다.",
         "avatarShapeSquareDescription": "사람은 대화방처럼 둥근 사각형으로 표시됩니다.",
+        "contactStatusMessage": "상태 메시지 표시",
+        "contactStatusMessageDescription": "\"온라인\" 또는 \"방해 금지\" 대신 상대방이 설정한 상태 텍스트를 표시합니다.",
         "accentColor": "강조 색상",
         "accentThemeDefault": "테마 기본값",
         "fontSize": "글꼴 크기",

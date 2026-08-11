@@ -704,6 +704,8 @@
         "avatarShapeSquare": "Čtverec",
         "avatarShapeCircleDescription": "Lidé se zobrazují jako kruhy.",
         "avatarShapeSquareDescription": "Lidé se zobrazují jako čtverce se zakulacenými rohy, stejně jako místnosti.",
+        "contactStatusMessage": "Zobrazovat stavové zprávy",
+        "contactStatusMessageDescription": "Zobrazovat vlastní stavový text kontaktu místo „Online“ nebo „Nerušit“.",
         "accentColor": "Barva zvýraznění",
         "accentThemeDefault": "Výchozí motiv",
         "fontSize": "Velikost písma",

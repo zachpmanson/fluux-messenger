@@ -703,6 +703,8 @@
         "avatarShapeSquare": "Štvorec",
         "avatarShapeCircleDescription": "Ľudia sa zobrazujú ako kruhy.",
         "avatarShapeSquareDescription": "Ľudia sa zobrazujú ako štvorce so zaoblenými rohmi, rovnako ako miestnosti.",
+        "contactStatusMessage": "Zobrazovať stavové správy",
+        "contactStatusMessageDescription": "Zobrazovať vlastný stavový text kontaktu namiesto „Online“ alebo „Nevyrušovať“.",
         "accentColor": "Farba zvýraznenia",
         "accentThemeDefault": "Predvolené témy",
         "fontSize": "Veľkosť písma",
