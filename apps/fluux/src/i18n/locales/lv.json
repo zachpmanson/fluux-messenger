@@ -698,6 +698,8 @@
         "contactStatusMessageDescription": "Rādīt kontakta statusa tekstu vietā „Tiešsaistē“ vai „Netraucēt“.",
         "markdown": "Attēlot Markdown",
         "markdownDescription": "Rādīt virsrakstus, sarakstus, tabulas un nosauktas saites ziņojumos. Treknraksts, kursīvs, kods un citāti tiek rādīti vienmēr.",
+        "slashCommands": "Slīpsvītras komandas",
+        "slashCommandsDescription": "Uzskatīt „/vārds“ par komandu. Izslēdziet, lai katrs ziņojums tiktu nosūtīts tāds, kāds ierakstīts — komandu palete joprojām darbojas.",
         "accentColor": "Akcenta krāsa",
         "accentThemeDefault": "Tēmas noklusējums",
         "fontSize": "Fonta lielums",

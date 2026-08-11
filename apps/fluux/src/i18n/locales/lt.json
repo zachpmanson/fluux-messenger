@@ -699,6 +699,8 @@
         "contactStatusMessageDescription": "Rodyti kontakto būsenos tekstą vietoje „Prisijungęs“ arba „Netrikdyti“.",
         "markdown": "Atvaizduoti Markdown",
         "markdownDescription": "Rodyti antraštes, sąrašus, lenteles ir pavadintas nuorodas pranešimuose. Paryškintas, kursyvas, kodas ir citatos rodomi visada.",
+        "slashCommands": "Pasvirojo brūkšnio komandos",
+        "slashCommandsDescription": "Laikyti „/žodis“ komanda. Išjunkite, kad kiekvienas pranešimas būtų išsiųstas taip, kaip parašytas — komandų paletė vis tiek veikia.",
         "accentColor": "Akcento spalva",
         "accentThemeDefault": "Temos numatytoji",
         "fontSize": "Šrifto dydis",

@@ -695,6 +695,8 @@
         "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla.",
         "markdown": "Näytä Markdown",
         "markdownDescription": "Näytä otsikot, luettelot, taulukot ja nimetyt linkit viesteissä. Lihavointi, kursivointi, koodi ja lainaukset näytetään aina.",
+        "slashCommands": "Kauttaviivakomennot",
+        "slashCommandsDescription": "Käsittele ”/sana” komentona. Poista käytöstä, niin jokainen viesti lähetetään kirjoitetussa muodossa — komentopaletti toimii silti.",
         "accentColor": "Korostusväri",
         "accentThemeDefault": "Teeman oletus",
         "fontSize": "Fonttikoko",

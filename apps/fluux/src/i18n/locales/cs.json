@@ -701,6 +701,8 @@
         "contactStatusMessageDescription": "Zobrazovat vlastní stavový text kontaktu místo „Online“ nebo „Nerušit“.",
         "markdown": "Vykreslovat Markdown",
         "markdownDescription": "Zobrazovat nadpisy, seznamy, tabulky a pojmenované odkazy ve zprávách. Tučné, kurzíva, kód a citace se zobrazují vždy.",
+        "slashCommands": "Příkazy s lomítkem",
+        "slashCommandsDescription": "Považovat „/slovo“ za příkaz. Vypnutím se každá zpráva odešle tak, jak je napsaná — paleta příkazů funguje dál.",
         "accentColor": "Barva zvýraznění",
         "accentThemeDefault": "Výchozí motiv",
         "fontSize": "Velikost písma",
