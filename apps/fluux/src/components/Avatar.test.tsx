@@ -8,6 +8,7 @@
 import { describe, it, expect, vi, test, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Avatar, getConsistentTextColor } from './Avatar'
+import { useSettingsStore } from '@/stores/settingsStore'
 
 // Mock the SDK color generation
 vi.mock('@fluux/sdk', () => ({
@@ -241,6 +242,10 @@ describe('Avatar', () => {
   })
 
   describe('Shape', () => {
+    afterEach(() => {
+      useSettingsStore.getState().setAvatarShape('circle')
+    })
+
     test('Avatar defaults to a circle', () => {
       const { container } = render(<Avatar identifier="emma@fluux.chat" name="Emma" />)
       expect((container.firstChild as HTMLElement).className).toContain('rounded-full')
@@ -251,6 +256,22 @@ describe('Avatar', () => {
       const root = container.firstChild as HTMLElement
       expect(root.className).toContain('rounded-[28%]')
       expect(root.className).not.toContain('rounded-full')
+    })
+
+    test('a person follows the avatarShape setting when no shape prop is given', () => {
+      useSettingsStore.getState().setAvatarShape('square')
+      const { container } = render(<Avatar identifier="emma@fluux.chat" name="Emma" />)
+      const root = container.firstChild as HTMLElement
+      expect(root.className).toContain('rounded-[28%]')
+      expect(root.className).not.toContain('rounded-full')
+    })
+
+    test('an explicit shape prop wins over the setting, so rooms stay square', () => {
+      useSettingsStore.getState().setAvatarShape('circle')
+      const { container } = render(
+        <Avatar identifier="team@conference.fluux.chat" name="Team" shape="square" />
+      )
+      expect((container.firstChild as HTMLElement).className).toContain('rounded-[28%]')
     })
 
     test('square avatar uses a proportional radius so it stays square at every size (a fixed 12px is a circle at 24px)', () => {
