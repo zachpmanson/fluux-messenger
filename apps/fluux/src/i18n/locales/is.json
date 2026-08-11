@@ -689,6 +689,8 @@
         "compact": "Þétt",
         "densityComfortableDescription": "Rúmgott bil og stærri myndir.",
         "densityCompactDescription": "Þéttara bil til að sýna meira á skjánum.",
+        "contactStatusMessage": "Sýna stöðuskeyti",
+        "contactStatusMessageDescription": "Sýna eigin stöðutexta tengiliðar í stað „Á neti“ eða „Ónáðið ekki“.",
         "accentColor": "Áherslulitur",
         "accentThemeDefault": "Sjálfgefið þema",
         "fontSize": "Leturstærð",

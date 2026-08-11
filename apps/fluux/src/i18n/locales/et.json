@@ -691,6 +691,8 @@
         "compact": "Kompaktne",
         "densityComfortableDescription": "Rohke vahe ja suuremad avatarid.",
         "densityCompactDescription": "Tihedam paigutus, et mahutada rohkem ekraanile.",
+        "contactStatusMessage": "Näita olekuteateid",
+        "contactStatusMessageDescription": "Näita kontakti enda olekuteksti „Võrgus“ või „Mitte segada“ asemel.",
         "accentColor": "Rõhuvärv",
         "accentThemeDefault": "Teema vaikeväärtus",
         "fontSize": "Kirjasuurus",

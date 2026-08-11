@@ -721,6 +721,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Espacement généreux et avatars plus grands.",
         "densityCompactDescription": "Espacement réduit pour afficher plus de contenu à l'écran.",
+        "contactStatusMessage": "Afficher les messages de statut",
+        "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger ».",
         "accentColor": "Couleur d'accentuation",
         "accentThemeDefault": "Défaut du thème",
         "fontSize": "Taille de police",

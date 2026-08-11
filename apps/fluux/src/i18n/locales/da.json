@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Rummeligt mellemrum og større avatarer.",
         "densityCompactDescription": "Tættere mellemrum så mere passer på skærmen.",
+        "contactStatusMessage": "Vis statusbeskeder",
+        "contactStatusMessageDescription": "Vis kontaktens egen statustekst i stedet for \"Online\" eller \"Forstyr ikke\".",
         "accentColor": "Accentfarve",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",

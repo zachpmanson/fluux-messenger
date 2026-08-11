@@ -689,6 +689,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Ruime spatiering en grotere avatars.",
         "densityCompactDescription": "Dichter spatiering zodat er meer op het scherm past.",
+        "contactStatusMessage": "Statusberichten weergeven",
+        "contactStatusMessageDescription": "De eigen statustekst van een contact weergeven in plaats van „Online“ of „Niet storen“.",
         "accentColor": "Accentkleur",
         "accentThemeDefault": "Themastandaard",
         "fontSize": "Lettergrootte",

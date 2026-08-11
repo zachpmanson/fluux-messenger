@@ -693,6 +693,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Spațiere generoasă și avataruri mai mari.",
         "densityCompactDescription": "Spațiere mai strânsă pentru mai mult conținut pe ecran.",
+        "contactStatusMessage": "Afișează mesajele de stare",
+        "contactStatusMessageDescription": "Afișează textul de stare al contactului în locul „Online” sau „Nu deranja”.",
         "accentColor": "Culoare de accent",
         "accentThemeDefault": "Implicit temă",
         "fontSize": "Dimensiune font",

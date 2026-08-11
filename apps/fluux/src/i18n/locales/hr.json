@@ -691,6 +691,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostrani razmak i veći avatari.",
         "densityCompactDescription": "Manji razmak kako bi se više prikazalo na zaslonu.",
+        "contactStatusMessage": "Prikaži statusne poruke",
+        "contactStatusMessageDescription": "Prikaži vlastiti statusni tekst kontakta umjesto „Na mreži“ ili „Ne uznemiravaj“.",
         "accentColor": "Boja naglaska",
         "accentThemeDefault": "Zadano teme",
         "fontSize": "Veličina fonta",

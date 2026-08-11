@@ -689,6 +689,8 @@
         "compact": "紧凑",
         "densityComfortableDescription": "宽松的间距，更大的头像。",
         "densityCompactDescription": "更紧凑的间距，屏幕上可显示更多内容。",
+        "contactStatusMessage": "显示状态消息",
+        "contactStatusMessageDescription": "显示联系人自己的状态文字，替代“在线”或“请勿打扰”。",
         "accentColor": "强调色",
         "accentThemeDefault": "主题默认",
         "fontSize": "字体大小",

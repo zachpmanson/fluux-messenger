@@ -697,6 +697,8 @@
         "compact": "مضغوط",
         "densityComfortableDescription": "تباعد واسع وصور أكبر.",
         "densityCompactDescription": "تباعد أضيق لعرض المزيد على الشاشة.",
+        "contactStatusMessage": "إظهار رسائل الحالة",
+        "contactStatusMessageDescription": "إظهار نص حالة المراسل بدلاً من «متصل» أو «لا تقاطعني».",
         "accentColor": "لون التمييز",
         "accentThemeDefault": "الافتراضي للسمة",
         "fontSize": "حجم الخط",

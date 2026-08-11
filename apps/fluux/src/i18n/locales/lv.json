@@ -692,6 +692,8 @@
         "compact": "Kompakts",
         "densityComfortableDescription": "Plašs atstarpes un lielāki avatāri.",
         "densityCompactDescription": "Blīvākas atstarpes, lai ekrānā ietilptu vairāk.",
+        "contactStatusMessage": "Rādīt statusa ziņojumus",
+        "contactStatusMessageDescription": "Rādīt kontakta statusa tekstu vietā „Tiešsaistē“ vai „Netraucēt“.",
         "accentColor": "Akcenta krāsa",
         "accentThemeDefault": "Tēmas noklusējums",
         "fontSize": "Fonta lielums",
