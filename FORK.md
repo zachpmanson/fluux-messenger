@@ -17,10 +17,24 @@ rebasing forever.
 | `feat/*` | One feature per branch, each a candidate PR to upstream | Rebased onto `main` |
 | `master` | **The deploy branch.** `nix` plus whichever `feat/*` branches aren't upstreamed yet | Repo default; what naboo builds |
 
-`master` is the repository's default branch, so `~/nix`'s flake input
-(`github:zachpmanson/fluux-messenger`) resolves to it without an explicit
-`?ref=`. Feature branches open PRs against `master`, not `main` — `main` is a
-read-only mirror.
+`master` is the repository's default branch, and `~/nix` pins `?ref=master`
+explicitly.
+
+**`master` is a build product — rebuild it, don't merge into it.** It is
+`main` + `nix` + the carried `feat/*` branches, reconstructed by
+`sync-upstream.sh` on every sync, so force-pushing it is routine rather than a
+recovery. Merging a PR into it via GitHub is what to avoid: rebase-merge rewrites
+the commit, after which the branch's own copy is no longer the same SHA, and the
+next follow-up PR from that branch shows every commit again and conflicts. (Hit
+on 2026-08-11 with the Markdown follow-up, PR #10 — resolved by rebuilding.)
+
+So: reserve pull requests for **upstream**, where they're reviewed by someone
+other than you. To land a feature locally, add it to the carried set and rebuild:
+
+```sh
+git checkout -B master nix && git cherry-pick main..feat/whatever
+git push --force-with-lease origin master
+```
 
 Rebase rather than merge. With a handful of commits it keeps the fork's diff
 readable as "here is what we changed", which is exactly what handing a feature to
