@@ -883,6 +883,8 @@
         "collapseLongMessagesDescription": "Show the start of long messages with a \"Show more\" button. Turn this off to always show the full message.",
         "contactStatusMessage": "Show status messages",
         "contactStatusMessageDescription": "Show a contact's own status text in place of \"Online\" or \"Do not disturb\".",
+        "markdown": "Render Markdown",
+        "markdownDescription": "Show headings, lists, tables and labelled links in messages. Bold, italic, code and quotes always render.",
         "accentColor": "Accent Color",
         "accentThemeDefault": "Theme Default",
         "fontSize": "Font Size",

@@ -699,6 +699,8 @@
         "collapseLongMessagesDescription": "Zobrazit začátek dlouhých zpráv s tlačítkem „Zobrazit více“. Vypnutím vždy zobrazíte celou zprávu.",
         "contactStatusMessage": "Zobrazovat stavové zprávy",
         "contactStatusMessageDescription": "Zobrazovat vlastní stavový text kontaktu místo „Online“ nebo „Nerušit“.",
+        "markdown": "Vykreslovat Markdown",
+        "markdownDescription": "Zobrazovat nadpisy, seznamy, tabulky a pojmenované odkazy ve zprávách. Tučné, kurzíva, kód a citace se zobrazují vždy.",
         "accentColor": "Barva zvýraznění",
         "accentThemeDefault": "Výchozí motiv",
         "fontSize": "Velikost písma",

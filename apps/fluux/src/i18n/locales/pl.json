@@ -699,6 +699,8 @@
         "collapseLongMessagesDescription": "Pokazuj początek długich wiadomości z przyciskiem „Pokaż więcej”. Wyłącz, aby zawsze pokazywać całą wiadomość.",
         "contactStatusMessage": "Pokazuj komunikaty statusu",
         "contactStatusMessageDescription": "Pokazuj własny tekst statusu kontaktu zamiast „Dostępny” lub „Nie przeszkadzać”.",
+        "markdown": "Renderuj Markdown",
+        "markdownDescription": "Pokazuj nagłówki, listy, tabele i nazwane odnośniki w wiadomościach. Pogrubienie, kursywa, kod i cytaty są zawsze wyświetlane.",
         "accentColor": "Kolor akcentu",
         "accentThemeDefault": "Domyślny motywu",
         "fontSize": "Rozmiar czcionki",

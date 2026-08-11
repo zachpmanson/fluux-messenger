@@ -693,6 +693,8 @@
         "collapseLongMessagesDescription": "Sýna upphaf langra skilaboða með hnappinum „Sýna meira“. Slökktu á þessu til að sýna alltaf öll skilaboðin.",
         "contactStatusMessage": "Sýna stöðuskeyti",
         "contactStatusMessageDescription": "Sýna eigin stöðutexta tengiliðar í stað „Á neti“ eða „Ónáðið ekki“.",
+        "markdown": "Sýna Markdown",
+        "markdownDescription": "Sýna fyrirsagnir, lista, töflur og nefnda tengla í skeytum. Feitt, skáletrað, kóði og tilvitnanir birtast alltaf.",
         "accentColor": "Áherslulitur",
         "accentThemeDefault": "Sjálfgefið þema",
         "fontSize": "Leturstærð",

@@ -693,6 +693,8 @@
         "collapseLongMessagesDescription": "Toon het begin van lange berichten met een knop 'Meer weergeven'. Schakel dit uit om altijd het volledige bericht te tonen.",
         "contactStatusMessage": "Statusberichten weergeven",
         "contactStatusMessageDescription": "De eigen statustekst van een contact weergeven in plaats van „Online“ of „Niet storen“.",
+        "markdown": "Markdown weergeven",
+        "markdownDescription": "Koppen, lijsten, tabellen en gelabelde links in berichten weergeven. Vet, cursief, code en citaten worden altijd weergegeven.",
         "accentColor": "Accentkleur",
         "accentThemeDefault": "Themastandaard",
         "fontSize": "Lettergrootte",

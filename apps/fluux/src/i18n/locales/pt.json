@@ -697,6 +697,8 @@
         "collapseLongMessagesDescription": "Mostrar o início de mensagens longas com um botão «Mostrar mais». Desative para mostrar sempre a mensagem completa.",
         "contactStatusMessage": "Mostrar mensagens de estado",
         "contactStatusMessageDescription": "Mostrar o texto de estado do contacto em vez de «Online» ou «Não perturbar».",
+        "markdown": "Renderizar Markdown",
+        "markdownDescription": "Mostrar títulos, listas, tabelas e ligações com etiqueta nas mensagens. Negrito, itálico, código e citações são sempre mostrados.",
         "accentColor": "Cor de destaque",
         "accentThemeDefault": "Padrão do tema",
         "fontSize": "Tamanho da fonte",

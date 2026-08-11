@@ -693,6 +693,8 @@
         "collapseLongMessagesDescription": "A hosszú üzenetek elejének megjelenítése „Továbbiak“ gombbal. Kapcsold ki, hogy mindig a teljes üzenet jelenjen meg.",
         "contactStatusMessage": "Állapotüzenetek megjelenítése",
         "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett.",
+        "markdown": "Markdown megjelenítése",
+        "markdownDescription": "Címsorok, listák, táblázatok és címkézett hivatkozások megjelenítése az üzenetekben. A félkövér, dőlt, kód és idézetek mindig megjelennek.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",

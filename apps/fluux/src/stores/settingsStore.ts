@@ -30,6 +30,8 @@ interface SettingsState {
   setDensityMode: (mode: DensityMode) => void
   showStatusMessage: boolean
   setShowStatusMessage: (enabled: boolean) => void
+  markdownEnabled: boolean
+  setMarkdownEnabled: (enabled: boolean) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -46,6 +48,7 @@ const MOTION_KEY = 'fluux-motion'
 const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
 const STATUS_MESSAGE_KEY = 'fluux-status-message'
+const MARKDOWN_KEY = 'fluux-markdown'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 const COLLAPSE_LONG_KEY = 'fluux-collapse-long'
@@ -163,6 +166,16 @@ function getInitialDensity(): DensityMode {
 function getInitialShowStatusMessage(): boolean {
   try {
     const stored = localStorage.getItem(STATUS_MESSAGE_KEY)
+ * Get initial Markdown rendering preference from localStorage, default to true.
+ *
+ * This governs the Markdown-only block constructs (headings, lists, tables,
+ * labelled links). XEP-0393 message styling — *bold*, _italic_, ~strike~,
+ * `code`, ``` blocks and > quotes — is the XMPP standard for styled bodies and
+ * stays on regardless.
+ */
+function getInitialMarkdownEnabled(): boolean {
+  try {
+    const stored = localStorage.getItem(MARKDOWN_KEY)
     if (stored === 'false') return false
     if (stored === 'true') return true
   } catch {
@@ -295,6 +308,11 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setShowStatusMessage: (enabled) => {
     try { localStorage.setItem(STATUS_MESSAGE_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ showStatusMessage: enabled })
+  markdownEnabled: getInitialMarkdownEnabled(),
+
+  setMarkdownEnabled: (enabled) => {
+    try { localStorage.setItem(MARKDOWN_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ markdownEnabled: enabled })
   },
 
   soundEnabled: getInitialSoundEnabled(),
