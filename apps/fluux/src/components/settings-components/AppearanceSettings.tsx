@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Sun, Moon, Monitor, Upload, Trash2, Pencil, Plus, RotateCcw } from 'lucide-react'
-import { useSettingsStore, type ThemeMode, type DensityMode } from '@/stores/settingsStore'
+import { useSettingsStore, type ThemeMode, type DensityMode, type AvatarShape } from '@/stores/settingsStore'
 import { useThemeStore } from '@/stores/themeStore'
 import type { ThemeDefinition, AccentPreset } from '@/themes/types'
 import { getBuiltinTheme } from '@/themes/builtins'
@@ -21,6 +21,11 @@ const themeOptions: { value: ThemeMode; labelKey: string; icon: typeof Sun; desc
 const densityOptions: { value: DensityMode; labelKey: string; descriptionKey: string }[] = [
   { value: 'comfortable', labelKey: 'settings.comfortable', descriptionKey: 'settings.densityComfortableDescription' },
   { value: 'compact', labelKey: 'settings.compact', descriptionKey: 'settings.densityCompactDescription' },
+]
+
+const avatarShapeOptions: { value: AvatarShape; labelKey: string; descriptionKey: string }[] = [
+  { value: 'circle', labelKey: 'settings.avatarShapeCircle', descriptionKey: 'settings.avatarShapeCircleDescription' },
+  { value: 'square', labelKey: 'settings.avatarShapeSquare', descriptionKey: 'settings.avatarShapeSquareDescription' },
 ]
 
 /** Render a strip of color swatches for a theme */
@@ -209,6 +214,8 @@ export function AppearanceSettings() {
   const setSendReadReceipts = useSettingsStore((s) => s.setSendReadReceipts)
   const slashCommandsEnabled = useSettingsStore((s) => s.slashCommandsEnabled)
   const setSlashCommandsEnabled = useSettingsStore((s) => s.setSlashCommandsEnabled)
+  const avatarShape = useSettingsStore((s) => s.avatarShape)
+  const setAvatarShape = useSettingsStore((s) => s.setAvatarShape)
 
   const activeThemeId = useThemeStore((s) => s.activeThemeId)
   const setActiveTheme = useThemeStore((s) => s.setActiveTheme)
@@ -376,6 +383,34 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted">
               {t('settings.slashCommandsDescription')}
+          {/* Avatar shape */}
+          <div className="space-y-3">
+            <label className="text-sm font-medium text-fluux-text">{t('settings.avatarShape')}</label>
+            <div className="grid w-full grid-cols-2 gap-3">
+              {avatarShapeOptions.map((option) => {
+                const isSelected = avatarShape === option.value
+                return (
+                  <button
+                    type="button"
+                    key={option.value}
+                    onClick={() => setAvatarShape(option.value)}
+                    aria-pressed={isSelected}
+                    className={`flex min-h-16 min-w-0 flex-col items-center justify-center gap-2 rounded-lg border-2 p-4 text-center transition-all
+                      ${isSelected ? 'border-fluux-brand bg-fluux-brand/10' : 'border-fluux-border bg-fluux-bg hover:border-fluux-muted'}`}
+                  >
+                    <span
+                      aria-hidden
+                      className={`size-6 shrink-0 bg-fluux-muted ${option.value === 'square' ? 'rounded-[28%]' : 'rounded-full'}`}
+                    />
+                    <span className={`min-w-0 text-sm font-medium leading-tight ${isSelected ? 'text-fluux-text' : 'text-fluux-muted'}`}>
+                      {t(option.labelKey)}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+            <p className="text-xs text-fluux-muted mt-2">
+              {t(avatarShapeOptions.find(o => o.value === avatarShape)?.descriptionKey || '')}
             </p>
           </div>
 
