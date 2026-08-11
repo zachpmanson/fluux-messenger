@@ -689,6 +689,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Ruime spatiering en grotere avatars.",
         "densityCompactDescription": "Dichter spatiering zodat er meer op het scherm past.",
+        "markdown": "Markdown weergeven",
+        "markdownDescription": "Koppen, lijsten, tabellen en gelabelde links in berichten weergeven. Vet, cursief, code en citaten worden altijd weergegeven.",
         "accentColor": "Accentkleur",
         "accentThemeDefault": "Themastandaard",
         "fontSize": "Lettergrootte",

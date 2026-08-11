@@ -879,6 +879,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Roomy spacing, larger avatars.",
         "densityCompactDescription": "Tighter spacing so more fits on screen.",
+        "markdown": "Render Markdown",
+        "markdownDescription": "Show headings, lists, tables and labelled links in messages. Bold, italic, code and quotes always render.",
         "accentColor": "Accent Color",
         "accentThemeDefault": "Theme Default",
         "fontSize": "Font Size",

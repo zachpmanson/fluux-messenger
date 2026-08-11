@@ -697,6 +697,8 @@
         "compact": "مضغوط",
         "densityComfortableDescription": "تباعد واسع وصور أكبر.",
         "densityCompactDescription": "تباعد أضيق لعرض المزيد على الشاشة.",
+        "markdown": "عرض Markdown",
+        "markdownDescription": "إظهار العناوين والقوائم والجداول والروابط المسمّاة في الرسائل. يظل العريض والمائل والرمز والاقتباسات معروضة دائمًا.",
         "accentColor": "لون التمييز",
         "accentThemeDefault": "الافتراضي للسمة",
         "fontSize": "حجم الخط",
