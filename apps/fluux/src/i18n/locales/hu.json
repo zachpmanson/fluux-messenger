@@ -691,6 +691,8 @@
         "densityCompactDescription": "Sűrűbb elrendezés, hogy több férjen el a képernyőn.",
         "collapseLongMessages": "Hosszú üzenetek összecsukása",
         "collapseLongMessagesDescription": "A hosszú üzenetek elejének megjelenítése „Továbbiak“ gombbal. Kapcsold ki, hogy mindig a teljes üzenet jelenjen meg.",
+        "contactStatusMessage": "Állapotüzenetek megjelenítése",
+        "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",

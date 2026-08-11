@@ -696,6 +696,8 @@
         "densityCompactDescription": "Tesnejšie odsadenie pre zobrazenie viac obsahu na obrazovke.",
         "collapseLongMessages": "Zbaliť dlhé správy",
         "collapseLongMessagesDescription": "Zobraziť začiatok dlhých správ tlačidlom „Zobraziť viac“. Vypnite, aby sa vždy zobrazila celá správa.",
+        "contactStatusMessage": "Zobrazovať stavové správy",
+        "contactStatusMessageDescription": "Zobrazovať vlastný stavový text kontaktu namiesto „Online“ alebo „Nevyrušovať“.",
         "accentColor": "Farba zvýraznenia",
         "accentThemeDefault": "Predvolené témy",
         "fontSize": "Veľkosť písma",

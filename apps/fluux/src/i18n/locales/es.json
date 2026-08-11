@@ -695,6 +695,8 @@
         "densityCompactDescription": "Espaciado más ajustado para mostrar más contenido en pantalla.",
         "collapseLongMessages": "Contraer mensajes largos",
         "collapseLongMessagesDescription": "Mostrar el inicio de los mensajes largos con un botón «Mostrar más». Desactívalo para mostrar siempre el mensaje completo.",
+        "contactStatusMessage": "Mostrar mensajes de estado",
+        "contactStatusMessageDescription": "Mostrar el texto de estado del contacto en lugar de «En línea» o «No molestar».",
         "accentColor": "Color de acento",
         "accentThemeDefault": "Predeterminado del tema",
         "fontSize": "Tamaño de fuente",
