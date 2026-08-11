@@ -145,3 +145,65 @@ describe('getTranslatedStatusText', () => {
     })
   })
 })
+
+describe('getTranslatedStatusText — custom status message (issue #4)', () => {
+  const MINUTE_MS = 60 * 1000
+
+  it('replaces the show label with the status message when online and active', () => {
+    const contact = makeContact({ presence: 'online', statusMessage: 'In a meeting' })
+    expect(getTranslatedStatusText(contact, t)).toBe('In a meeting')
+  })
+
+  it('replaces the show label for dnd too — "Do not disturb" adds nothing', () => {
+    const contact = makeContact({ presence: 'dnd', statusMessage: 'Heads down until 3' })
+    expect(getTranslatedStatusText(contact, t)).toBe('Heads down until 3')
+  })
+
+  it('keeps the idle suffix alongside the message', () => {
+    const contact = makeContact({
+      presence: 'online',
+      statusMessage: 'In a meeting',
+      lastInteraction: new Date(Date.now() - 5 * MINUTE_MS),
+    })
+    expect(getTranslatedStatusText(contact, t)).toBe('In a meeting · presence.idle 5m')
+  })
+
+  it('shows the message alongside last-seen when the contact is offline', () => {
+    const contact = makeContact({
+      presence: 'offline',
+      statusMessage: 'on holiday',
+      lastSeen: new Date(Date.now() - 2 * 60 * MINUTE_MS),
+    })
+    expect(getTranslatedStatusText(contact, t)).toBe('on holiday · presence.lastSeen:presence.hoursAgo:2')
+  })
+
+  it('falls back to the show label when there is no status message', () => {
+    expect(getTranslatedStatusText(makeContact({ presence: 'online' }), t)).toBe('presence.online')
+  })
+
+  it('ignores a blank or whitespace-only status message', () => {
+    for (const statusMessage of ['', '   ', '\n\t']) {
+      const contact = makeContact({ presence: 'online', statusMessage })
+      expect(getTranslatedStatusText(contact, t)).toBe('presence.online')
+    }
+  })
+
+  it('collapses newlines so a multi-line status cannot break the one-line header', () => {
+    const contact = makeContact({ presence: 'online', statusMessage: 'away\nback at 4' })
+    expect(getTranslatedStatusText(contact, t)).toBe('away back at 4')
+  })
+
+  it('shows the show label when the preference is off, even with a message set', () => {
+    const contact = makeContact({ presence: 'online', statusMessage: 'In a meeting' })
+    expect(getTranslatedStatusText(contact, t, false)).toBe('presence.online')
+  })
+
+  it('with the preference off, an offline contact reads exactly as before', () => {
+    const contact = makeContact({
+      presence: 'offline',
+      statusMessage: 'on holiday',
+      lastSeen: new Date(Date.now() - 2 * 60 * MINUTE_MS),
+    })
+    expect(getTranslatedStatusText(contact, t, false)).toBe('presence.lastSeen:presence.hoursAgo:2')
+  })
+})
