@@ -1103,7 +1103,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Snedstreckskommandon",
-        "slashCommandsDescription": "Behandla ”/ord” som ett kommando. Stäng av för att skicka varje meddelande som det skrivits — kommandopaletten fungerar ändå."
+        "slashCommandsDescription": "Behandla ”/ord” som ett kommando. Stäng av för att skicka varje meddelande som det skrivits — kommandopaletten fungerar ändå.",
+        "avatarShape": "Profilbildens form",
+        "avatarShapeCircle": "Cirkel",
+        "avatarShapeSquare": "Kvadrat",
+        "avatarShapeCircleDescription": "Personer visas som cirklar.",
+        "avatarShapeSquareDescription": "Personer visas som kvadrater med rundade hörn, precis som rum."
     },
     "update": {
         "title": "Uppdatering tillgänglig",

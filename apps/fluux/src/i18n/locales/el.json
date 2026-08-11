@@ -1104,7 +1104,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Εντολές με κάθετο",
-        "slashCommandsDescription": "Αντιμετώπιση του «/λέξη» ως εντολής. Απενεργοποιήστε το για να στέλνετε κάθε μήνυμα όπως γράφτηκε — η παλέτα εντολών εξακολουθεί να λειτουργεί."
+        "slashCommandsDescription": "Αντιμετώπιση του «/λέξη» ως εντολής. Απενεργοποιήστε το για να στέλνετε κάθε μήνυμα όπως γράφτηκε — η παλέτα εντολών εξακολουθεί να λειτουργεί.",
+        "avatarShape": "Σχήμα εικόνας προφίλ",
+        "avatarShapeCircle": "Κύκλος",
+        "avatarShapeSquare": "Τετράγωνο",
+        "avatarShapeCircleDescription": "Τα άτομα εμφανίζονται ως κύκλοι.",
+        "avatarShapeSquareDescription": "Τα άτομα εμφανίζονται ως τετράγωνα με στρογγυλεμένες γωνίες, όπως τα δωμάτια."
     },
     "update": {
         "title": "Διαθέσιμη ενημέρωση",

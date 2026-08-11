@@ -1109,7 +1109,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Polecenia z ukośnikiem",
-        "slashCommandsDescription": "Traktuj „/słowo” jako polecenie. Wyłącz, aby każda wiadomość była wysyłana dokładnie tak, jak ją wpisano — paleta poleceń nadal działa."
+        "slashCommandsDescription": "Traktuj „/słowo” jako polecenie. Wyłącz, aby każda wiadomość była wysyłana dokładnie tak, jak ją wpisano — paleta poleceń nadal działa.",
+        "avatarShape": "Kształt zdjęcia profilowego",
+        "avatarShapeCircle": "Koło",
+        "avatarShapeSquare": "Kwadrat",
+        "avatarShapeCircleDescription": "Osoby są pokazywane jako koła.",
+        "avatarShapeSquareDescription": "Osoby są pokazywane jako kwadraty z zaokrąglonymi narożnikami, tak jak pokoje."
     },
     "update": {
         "title": "Dostępna aktualizacja",

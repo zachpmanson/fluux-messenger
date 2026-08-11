@@ -1111,7 +1111,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "أوامر الشرطة المائلة",
-        "slashCommandsDescription": "التعامل مع \"/كلمة\" كأمر. أوقف هذا لإرسال كل رسالة كما هي مكتوبة — لوحة الأوامر تبقى متاحة."
+        "slashCommandsDescription": "التعامل مع \"/كلمة\" كأمر. أوقف هذا لإرسال كل رسالة كما هي مكتوبة — لوحة الأوامر تبقى متاحة.",
+        "avatarShape": "شكل صورة الملف الشخصي",
+        "avatarShapeCircle": "دائرة",
+        "avatarShapeSquare": "مربع",
+        "avatarShapeCircleDescription": "تظهر صور الأشخاص كدوائر.",
+        "avatarShapeSquareDescription": "تظهر صور الأشخاص كمربعات مستديرة الأركان، مثل الغرف."
     },
     "update": {
         "title": "تحديث متاح",

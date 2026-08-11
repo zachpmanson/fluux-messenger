@@ -1103,7 +1103,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Kauttaviivakomennot",
-        "slashCommandsDescription": "Käsittele ”/sana” komentona. Poista käytöstä, niin jokainen viesti lähetetään kirjoitetussa muodossa — komentopaletti toimii silti."
+        "slashCommandsDescription": "Käsittele ”/sana” komentona. Poista käytöstä, niin jokainen viesti lähetetään kirjoitetussa muodossa — komentopaletti toimii silti.",
+        "avatarShape": "Profiilikuvan muoto",
+        "avatarShapeCircle": "Ympyrä",
+        "avatarShapeSquare": "Neliö",
+        "avatarShapeCircleDescription": "Henkilöt näytetään ympyröinä.",
+        "avatarShapeSquareDescription": "Henkilöt näytetään pyöristettyinä neliöinä, kuten huoneet."
     },
     "update": {
         "title": "Päivitys saatavilla",

@@ -1111,7 +1111,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Kmandi bis-slash",
-        "slashCommandsDescription": "Ittratta „/kelma“ bħala kmand. Itfi biex kull messaġġ jintbagħat kif inhu miktub — il-palett tal-kmandi xorta jaħdem."
+        "slashCommandsDescription": "Ittratta „/kelma“ bħala kmand. Itfi biex kull messaġġ jintbagħat kif inhu miktub — il-palett tal-kmandi xorta jaħdem.",
+        "avatarShape": "Il-forma tar-ritratt tal-profil",
+        "avatarShapeCircle": "Ċirku",
+        "avatarShapeSquare": "Kwadru",
+        "avatarShapeCircleDescription": "In-nies jidhru bħala ċrieki.",
+        "avatarShapeSquareDescription": "In-nies jidhru bħala kwadri bl-imnifsin imdawra, bħall-kmamar."
     },
     "update": {
         "title": "Aġġornament Disponibbli",

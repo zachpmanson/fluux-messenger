@@ -1107,7 +1107,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Команды со слешем",
-        "slashCommandsDescription": "Считать «/слово» командой. Отключите, чтобы каждое сообщение отправлялось как набрано — палитра команд продолжит работать."
+        "slashCommandsDescription": "Считать «/слово» командой. Отключите, чтобы каждое сообщение отправлялось как набрано — палитра команд продолжит работать.",
+        "avatarShape": "Форма изображения профиля",
+        "avatarShapeCircle": "Круг",
+        "avatarShapeSquare": "Квадрат",
+        "avatarShapeCircleDescription": "Люди отображаются в виде кругов.",
+        "avatarShapeSquareDescription": "Люди отображаются в виде квадратов с закруглёнными углами, как комнаты."
     },
     "update": {
         "title": "Доступно обновление",

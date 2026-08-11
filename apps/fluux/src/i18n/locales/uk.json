@@ -1107,7 +1107,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Команди зі слешем",
-        "slashCommandsDescription": "Вважати «/слово» командою. Вимкніть, щоб кожне повідомлення надсилалося як набрано — палітра команд працює далі."
+        "slashCommandsDescription": "Вважати «/слово» командою. Вимкніть, щоб кожне повідомлення надсилалося як набрано — палітра команд працює далі.",
+        "avatarShape": "Форма зображення профілю",
+        "avatarShapeCircle": "Коло",
+        "avatarShapeSquare": "Квадрат",
+        "avatarShapeCircleDescription": "Людей показано у вигляді кіл.",
+        "avatarShapeSquareDescription": "Людей показано у вигляді квадратів із заокругленими кутами, як і кімнати."
     },
     "update": {
         "title": "Доступне оновлення",

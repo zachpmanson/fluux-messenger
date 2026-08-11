@@ -1107,7 +1107,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Pasvirojo brūkšnio komandos",
-        "slashCommandsDescription": "Laikyti „/žodis“ komanda. Išjunkite, kad kiekvienas pranešimas būtų išsiųstas taip, kaip parašytas — komandų paletė vis tiek veikia."
+        "slashCommandsDescription": "Laikyti „/žodis“ komanda. Išjunkite, kad kiekvienas pranešimas būtų išsiųstas taip, kaip parašytas — komandų paletė vis tiek veikia.",
+        "avatarShape": "Profilio paveikslėlio forma",
+        "avatarShapeCircle": "Apskritimas",
+        "avatarShapeSquare": "Kvadratas",
+        "avatarShapeCircleDescription": "Žmonės rodomi kaip apskritimai.",
+        "avatarShapeSquareDescription": "Žmonės rodomi kaip kvadratai suapvalintais kampais, kaip ir kambariai."
     },
     "update": {
         "title": "Pasiekiamas atnaujinimas",

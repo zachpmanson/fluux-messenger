@@ -1106,7 +1106,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Slīpsvītras komandas",
-        "slashCommandsDescription": "Uzskatīt „/vārds“ par komandu. Izslēdziet, lai katrs ziņojums tiktu nosūtīts tāds, kāds ierakstīts — komandu palete joprojām darbojas."
+        "slashCommandsDescription": "Uzskatīt „/vārds“ par komandu. Izslēdziet, lai katrs ziņojums tiktu nosūtīts tāds, kāds ierakstīts — komandu palete joprojām darbojas.",
+        "avatarShape": "Profila attēla forma",
+        "avatarShapeCircle": "Aplis",
+        "avatarShapeSquare": "Kvadrāts",
+        "avatarShapeCircleDescription": "Cilvēki tiek attēloti kā apļi.",
+        "avatarShapeSquareDescription": "Cilvēki tiek attēloti kā kvadrāti ar noapaļotiem stūriem, tāpat kā istabas."
     },
     "update": {
         "title": "Pieejams atjauninājums",

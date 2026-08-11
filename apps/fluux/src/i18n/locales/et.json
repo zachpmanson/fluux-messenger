@@ -1105,7 +1105,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Kaldkriipsukäsud",
-        "slashCommandsDescription": "Käsitle „/sõna“ käsuna. Lülita välja, et saata iga sõnum täpselt nii, nagu see on kirjutatud — käsupalett töötab edasi."
+        "slashCommandsDescription": "Käsitle „/sõna“ käsuna. Lülita välja, et saata iga sõnum täpselt nii, nagu see on kirjutatud — käsupalett töötab edasi.",
+        "avatarShape": "Profiilipildi kuju",
+        "avatarShapeCircle": "Ring",
+        "avatarShapeSquare": "Ruut",
+        "avatarShapeCircleDescription": "Inimesi kuvatakse ringidena.",
+        "avatarShapeSquareDescription": "Inimesi kuvatakse ümarate nurkadega ruutudena, nagu jututubasid."
     },
     "update": {
         "title": "Värskendus saadaval",

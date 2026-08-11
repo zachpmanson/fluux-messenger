@@ -1107,7 +1107,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Comandos con barra",
-        "slashCommandsDescription": "Tratar «/palabra» como un comando. Desactívalo para enviar cada mensaje tal como se escribe; la paleta de comandos sigue funcionando."
+        "slashCommandsDescription": "Tratar «/palabra» como un comando. Desactívalo para enviar cada mensaje tal como se escribe; la paleta de comandos sigue funcionando.",
+        "avatarShape": "Forma de la foto de perfil",
+        "avatarShapeCircle": "Círculo",
+        "avatarShapeSquare": "Cuadrado",
+        "avatarShapeCircleDescription": "Las personas se muestran como círculos.",
+        "avatarShapeSquareDescription": "Las personas se muestran como cuadrados redondeados, igual que las salas."
     },
     "update": {
         "title": "Actualizacion Disponible",

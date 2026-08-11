@@ -1109,7 +1109,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Příkazy s lomítkem",
-        "slashCommandsDescription": "Považovat „/slovo“ za příkaz. Vypnutím se každá zpráva odešle tak, jak je napsaná — paleta příkazů funguje dál."
+        "slashCommandsDescription": "Považovat „/slovo“ za příkaz. Vypnutím se každá zpráva odešle tak, jak je napsaná — paleta příkazů funguje dál.",
+        "avatarShape": "Tvar profilového obrázku",
+        "avatarShapeCircle": "Kruh",
+        "avatarShapeSquare": "Čtverec",
+        "avatarShapeCircleDescription": "Lidé se zobrazují jako kruhy.",
+        "avatarShapeSquareDescription": "Lidé se zobrazují jako čtverce se zakulacenými rohy, stejně jako místnosti."
     },
     "update": {
         "title": "Dostupná aktualizace",

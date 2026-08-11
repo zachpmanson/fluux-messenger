@@ -1107,7 +1107,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Каманды з косай рысай",
-        "slashCommandsDescription": "Успрымаць «/слова» як каманду. Выключыце, каб адпраўляць кожнае паведамленне як напісана — панэль камандаў працуе далей."
+        "slashCommandsDescription": "Успрымаць «/слова» як каманду. Выключыце, каб адпраўляць кожнае паведамленне як напісана — панэль камандаў працуе далей.",
+        "avatarShape": "Форма фота профілю",
+        "avatarShapeCircle": "Круг",
+        "avatarShapeSquare": "Квадрат",
+        "avatarShapeCircleDescription": "Людзі паказваюцца ў выглядзе кругоў.",
+        "avatarShapeSquareDescription": "Людзі паказваюцца ў выглядзе квадратаў са скругленымі кутамі, як пакоі."
     },
     "update": {
         "title": "Даступна абнаўленне",

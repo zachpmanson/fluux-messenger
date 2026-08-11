@@ -1107,7 +1107,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Comenzi cu bară oblică",
-        "slashCommandsDescription": "Tratează „/cuvânt” ca o comandă. Dezactivează pentru a trimite fiecare mesaj așa cum a fost scris — paleta de comenzi funcționează în continuare."
+        "slashCommandsDescription": "Tratează „/cuvânt” ca o comandă. Dezactivează pentru a trimite fiecare mesaj așa cum a fost scris — paleta de comenzi funcționează în continuare.",
+        "avatarShape": "Forma imaginii de profil",
+        "avatarShapeCircle": "Cerc",
+        "avatarShapeSquare": "Pătrat",
+        "avatarShapeCircleDescription": "Persoanele sunt afișate ca cercuri.",
+        "avatarShapeSquareDescription": "Persoanele sunt afișate ca pătrate rotunjite, la fel ca încăperile."
     },
     "update": {
         "title": "Actualizare disponibilă",

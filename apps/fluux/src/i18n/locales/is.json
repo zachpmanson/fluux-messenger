@@ -1103,7 +1103,12 @@
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
         "slashCommands": "Skástriksskipanir",
-        "slashCommandsDescription": "Túlka „/orð“ sem skipun. Slökktu til að senda hvert skeyti eins og það er slegið inn — skipanaleitin virkar samt."
+        "slashCommandsDescription": "Túlka „/orð“ sem skipun. Slökktu til að senda hvert skeyti eins og það er slegið inn — skipanaleitin virkar samt.",
+        "avatarShape": "Form notandamyndar",
+        "avatarShapeCircle": "Hringur",
+        "avatarShapeSquare": "Kassi",
+        "avatarShapeCircleDescription": "Fólk er sýnt sem hringir.",
+        "avatarShapeSquareDescription": "Fólk er sýnt sem kassar með rúnnuðum hornum, eins og hópar."
     },
     "update": {
         "title": "Uppfærsla tiltæk",
