@@ -691,6 +691,8 @@
         "densityCompactDescription": "Tätare mellanrum för att få plats med mer på skärmen.",
         "markdown": "Visa Markdown",
         "markdownDescription": "Visa rubriker, listor, tabeller och namngivna länkar i meddelanden. Fet, kursiv, kod och citat visas alltid.",
+        "slashCommands": "Snedstreckskommandon",
+        "slashCommandsDescription": "Behandla ”/ord” som ett kommando. Stäng av för att skicka varje meddelande som det skrivits — kommandopaletten fungerar ändå.",
         "accentColor": "Accentfärg",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Teckenstorlek",

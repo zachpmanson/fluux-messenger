@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, act } from '@testing-library/react'
 import { MessageComposer } from './MessageComposer'
+import { useSettingsStore } from '@/stores/settingsStore'
 
 // Constants from MessageComposer (mirrored for testing)
 const COMPOSING_THROTTLE_MS = 2000
@@ -51,6 +52,27 @@ describe('MessageComposer', () => {
       await submit(textarea, '/kick alice')
       expect(resolveInput).not.toHaveBeenCalled()
       expect(onSend).toHaveBeenCalledWith('/kick alice')
+    })
+
+    it('does NOT run commands when the user turned slash commands off, and sends the raw text', async () => {
+      // Issue #1: with the setting off, "/anything" must reach the peer as typed
+      // rather than being refused as an unknown command.
+      useSettingsStore.getState().setSlashCommandsEnabled(false)
+      const { onSend, resolveInput, textarea } = setup({})
+      await submit(textarea, '/kick alice')
+      expect(resolveInput).not.toHaveBeenCalled()
+      expect(onSend).toHaveBeenCalledWith('/kick alice')
+      useSettingsStore.getState().setSlashCommandsEnabled(true)
+    })
+
+    it('keeps the send button on the standard icon when slash commands are off', async () => {
+      useSettingsStore.getState().setSlashCommandsEnabled(false)
+      const { textarea } = setup({})
+      const submitButton = textarea.closest('form')?.querySelector('button[type="submit"]') as HTMLButtonElement
+      fireEvent.change(textarea, { target: { value: '/kick alice' } })
+      // The classifier mock always says 'command'; the gate must override it.
+      expect(submitButton.querySelector('.icon-optical-send')).not.toBeNull()
+      useSettingsStore.getState().setSlashCommandsEnabled(true)
     })
 
     it('reverts the send button from the command icon to the standard send icon after a command runs', async () => {

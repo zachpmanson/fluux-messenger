@@ -691,6 +691,8 @@
         "densityCompactDescription": "更紧凑的间距，屏幕上可显示更多内容。",
         "markdown": "渲染 Markdown",
         "markdownDescription": "在消息中显示标题、列表、表格和带标签的链接。粗体、斜体、代码和引用始终显示。",
+        "slashCommands": "斜杠命令",
+        "slashCommandsDescription": "将“/词”视为命令。关闭后所有消息按原样发送——命令面板仍然可用。",
         "accentColor": "强调色",
         "accentThemeDefault": "主题默认",
         "fontSize": "字体大小",

@@ -696,6 +696,8 @@
         "densityCompactDescription": "Tesnejšie odsadenie pre zobrazenie viac obsahu na obrazovke.",
         "markdown": "Vykresľovať Markdown",
         "markdownDescription": "Zobrazovať nadpisy, zoznamy, tabuľky a pomenované odkazy v správach. Tučné, kurzíva, kód a citácie sa zobrazujú vždy.",
+        "slashCommands": "Príkazy s lomkou",
+        "slashCommandsDescription": "Považovať „/slovo“ za príkaz. Vypnutím sa každá správa odošle tak, ako je napísaná — paleta príkazov funguje ďalej.",
         "accentColor": "Farba zvýraznenia",
         "accentThemeDefault": "Predvolené témy",
         "fontSize": "Veľkosť písma",

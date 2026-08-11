@@ -693,6 +693,8 @@
         "densityCompactDescription": "Manji razmak kako bi se više prikazalo na zaslonu.",
         "markdown": "Prikaži Markdown",
         "markdownDescription": "Prikaži naslove, popise, tablice i imenovane veze u poruci. Podebljano, kurziv, kod i citati prikazuju se uvijek.",
+        "slashCommands": "Naredbe s kosom crtom",
+        "slashCommandsDescription": "Tretiraj „/riječ“ kao naredbu. Isključite da bi se svaka poruka poslala kako je napisana — paleta naredbi i dalje radi.",
         "accentColor": "Boja naglaska",
         "accentThemeDefault": "Zadano teme",
         "fontSize": "Veličina fonta",
