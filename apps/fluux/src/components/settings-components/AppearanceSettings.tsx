@@ -199,6 +199,8 @@ export function AppearanceSettings() {
   const setThemeMode = useSettingsStore((s) => s.setThemeMode)
   const densityMode = useSettingsStore((s) => s.densityMode)
   const setDensityMode = useSettingsStore((s) => s.setDensityMode)
+  const slashCommandsEnabled = useSettingsStore((s) => s.slashCommandsEnabled)
+  const setSlashCommandsEnabled = useSettingsStore((s) => s.setSlashCommandsEnabled)
 
   const activeThemeId = useThemeStore((s) => s.activeThemeId)
   const setActiveTheme = useThemeStore((s) => s.setActiveTheme)
@@ -303,6 +305,21 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted mt-2">
               {t(densityOptions.find(o => o.value === densityMode)?.descriptionKey || '')}
+            </p>
+          </div>
+
+          {/* Slash commands */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <label className="text-sm font-medium text-fluux-text">{t('settings.slashCommands')}</label>
+              <Toggle
+                checked={slashCommandsEnabled}
+                onChange={setSlashCommandsEnabled}
+                aria-label={t('settings.slashCommands')}
+              />
+            </div>
+            <p className="text-xs text-fluux-muted">
+              {t('settings.slashCommandsDescription')}
             </p>
           </div>
 
