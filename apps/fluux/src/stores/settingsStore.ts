@@ -21,6 +21,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  showStatusMessage: boolean
+  setShowStatusMessage: (enabled: boolean) => void
   themeMode: ThemeMode
   setThemeMode: (mode: ThemeMode) => void
   timeFormat: TimeFormat
@@ -62,6 +64,7 @@ export interface ArchiveOverride {
   original: ArchivingDefault
 }
 
+const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -260,6 +263,17 @@ function saveArchiveOverrides(overrides: Record<string, ArchiveOverride>): void 
   try { localStorage.setItem(ARCHIVE_OVERRIDES_KEY, JSON.stringify(overrides)) } catch { /* localStorage not available */ }
 }
 
+function getInitialShowStatusMessage(): boolean {
+  try {
+    const stored = localStorage.getItem(STATUS_MESSAGE_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -388,4 +402,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     saveArchiveOverrides(archiveOverrides)
     set({ archiveOverrides })
   },
+  showStatusMessage: getInitialShowStatusMessage(),
+
+  setShowStatusMessage: (enabled) => {
+    try { localStorage.setItem(STATUS_MESSAGE_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ showStatusMessage: enabled })
+  },
+
 }))
