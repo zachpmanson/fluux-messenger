@@ -2,6 +2,7 @@ import { memo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { renderStyledMessage } from '@/utils/messageStyles'
 import { auroraSenderColor } from '@/utils/senderColor'
+import { useSettingsStore } from '@/stores/settingsStore'
 import type { MentionReference } from '@fluux/sdk'
 
 // Check if message is a /me action message
@@ -87,6 +88,7 @@ export const MessageBody = memo(function MessageBody({
   const mentionColor = mentionColors ? (nick: string) => mentionColors.get(nick)
     ?? [...mentionColors].find(([candidate]) => candidate.toLowerCase() === nick.toLowerCase())?.[1]
     ?? auroraSenderColor(nick, isDarkMode ?? true) : resolveMentionColor
+  const markdownEnabled = useSettingsStore((s) => s.markdownEnabled)
 
   // Retracted message
   if (isRetracted) {
@@ -119,7 +121,7 @@ export const MessageBody = memo(function MessageBody({
           {senderName}
         </span>
         {' '}
-        {wrap(noStyling ? getActionText(body) : renderStyledMessage(getActionText(body), mentions, nickname, knownNicks, isDarkMode, mentionColor))}
+        {wrap(noStyling ? getActionText(body) : renderStyledMessage(getActionText(body), mentions, nickname, knownNicks, isDarkMode, mentionColor, markdownEnabled))}
         {isEdited && (
           <EditedIndicator
             originalBody={originalBody}
@@ -133,7 +135,7 @@ export const MessageBody = memo(function MessageBody({
   // Regular message
   return (
     <div dir="auto" data-msg-text className="text-fluux-text break-words whitespace-pre-wrap leading-[1.375]">
-      {wrap(noStyling ? body : renderStyledMessage(body, mentions, nickname, knownNicks, isDarkMode, mentionColor))}
+      {wrap(noStyling ? body : renderStyledMessage(body, mentions, nickname, knownNicks, isDarkMode, mentionColor, markdownEnabled))}
       {isEdited && <EditedIndicator originalBody={originalBody} />}
     </div>
   )
