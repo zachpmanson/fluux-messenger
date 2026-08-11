@@ -697,6 +697,8 @@
         "collapseLongMessagesDescription": "Mostra l'inici dels missatges llargs amb un botó «Mostra'n més». Desactiva-ho per mostrar sempre el missatge complet.",
         "contactStatusMessage": "Mostra els missatges d'estat",
         "contactStatusMessageDescription": "Mostra el text d'estat del contacte en lloc de «En línia» o «No molesteu».",
+        "markdown": "Renderitza Markdown",
+        "markdownDescription": "Mostra encapçalaments, llistes, taules i enllaços amb etiqueta als missatges. La negreta, la cursiva, el codi i les citacions es mostren sempre.",
         "accentColor": "Color d'accent",
         "accentThemeDefault": "Per defecte del tema",
         "fontSize": "Mida de la lletra",

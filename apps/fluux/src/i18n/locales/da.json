@@ -693,6 +693,8 @@
         "collapseLongMessagesDescription": "Vis starten af lange beskeder med en knap 'Vis mere'. Slå fra for altid at vise hele beskeden.",
         "contactStatusMessage": "Vis statusbeskeder",
         "contactStatusMessageDescription": "Vis kontaktens egen statustekst i stedet for \"Online\" eller \"Forstyr ikke\".",
+        "markdown": "Vis Markdown",
+        "markdownDescription": "Vis overskrifter, lister, tabeller og navngivne links i beskeder. Fed, kursiv, kode og citater vises altid.",
         "accentColor": "Accentfarve",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",

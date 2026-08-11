@@ -725,6 +725,8 @@
         "collapseLongMessagesDescription": "Afficher le début des messages longs avec un bouton « Afficher plus ». Désactivez pour toujours afficher le message complet.",
         "contactStatusMessage": "Afficher les messages de statut",
         "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger ».",
+        "markdown": "Afficher le Markdown",
+        "markdownDescription": "Afficher les titres, listes, tableaux et liens nommés dans les messages. Le gras, l’italique, le code et les citations s’affichent toujours.",
         "accentColor": "Couleur d'accentuation",
         "accentThemeDefault": "Défaut du thème",
         "fontSize": "Taille de police",

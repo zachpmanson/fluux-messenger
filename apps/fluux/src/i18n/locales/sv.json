@@ -693,6 +693,8 @@
         "collapseLongMessagesDescription": "Visa början av långa meddelanden med en knapp 'Visa mer'. Stäng av för att alltid visa hela meddelandet.",
         "contactStatusMessage": "Visa statusmeddelanden",
         "contactStatusMessageDescription": "Visa kontaktens egen statustext i stället för ”Online” eller ”Stör ej”.",
+        "markdown": "Visa Markdown",
+        "markdownDescription": "Visa rubriker, listor, tabeller och namngivna länkar i meddelanden. Fet, kursiv, kod och citat visas alltid.",
         "accentColor": "Accentfärg",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Teckenstorlek",
