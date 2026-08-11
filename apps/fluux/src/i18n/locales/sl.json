@@ -701,6 +701,8 @@
         "contactStatusMessageDescription": "Prikaži lastno besedilo stanja stika namesto »Na zvezi« ali »Ne moti«.",
         "markdown": "Prikaži Markdown",
         "markdownDescription": "Prikaži naslove, sezname, tabele in poimenovane povezave v sporočilih. Krepko, ležeče, koda in citati so vedno prikazani.",
+        "slashCommands": "Ukazi s poševnico",
+        "slashCommandsDescription": "Obravnavaj »/beseda« kot ukaz. Izklopite, da se vsako sporočilo pošlje tako, kot je natipkano — ukazna paleta še vedno deluje.",
         "accentColor": "Barva poudarka",
         "accentThemeDefault": "Privzeto teme",
         "fontSize": "Velikost pisave",

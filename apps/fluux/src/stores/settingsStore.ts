@@ -40,6 +40,8 @@ interface SettingsState {
    */
   sendReadReceipts: boolean
   setSendReadReceipts: (enabled: boolean) => void
+  slashCommandsEnabled: boolean
+  setSlashCommandsEnabled: (enabled: boolean) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -58,6 +60,7 @@ const DENSITY_KEY = 'fluux-density'
 const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const MARKDOWN_KEY = 'fluux-markdown'
 const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
+const SLASH_COMMANDS_KEY = 'fluux-slash-commands'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 const COLLAPSE_LONG_KEY = 'fluux-collapse-long'
@@ -207,6 +210,24 @@ function getInitialMarkdownEnabled(): boolean {
 }
 
 /**
+ * Get the initial slash-command preference from localStorage, default to true.
+ *
+ * With this off, "/anything" is sent as typed and the "/" menu never opens —
+ * useful when you paste paths and regexes more often than you run commands. The
+ * command palette stays available either way.
+ */
+function getInitialSlashCommandsEnabled(): boolean {
+  try {
+    const stored = localStorage.getItem(SLASH_COMMANDS_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
+/**
  * Get initial sound enabled preference from localStorage, default to true.
  */
 function getInitialSoundEnabled(): boolean {
@@ -340,6 +361,11 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setSendReadReceipts: (enabled) => {
     try { localStorage.setItem(READ_RECEIPTS_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ sendReadReceipts: enabled })
+  slashCommandsEnabled: getInitialSlashCommandsEnabled(),
+
+  setSlashCommandsEnabled: (enabled) => {
+    try { localStorage.setItem(SLASH_COMMANDS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ slashCommandsEnabled: enabled })
   },
 
   soundEnabled: getInitialSoundEnabled(),

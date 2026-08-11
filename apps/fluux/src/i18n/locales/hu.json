@@ -695,6 +695,8 @@
         "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett.",
         "markdown": "Markdown megjelenítése",
         "markdownDescription": "Címsorok, listák, táblázatok és címkézett hivatkozások megjelenítése az üzenetekben. A félkövér, dőlt, kód és idézetek mindig megjelennek.",
+        "slashCommands": "Perjeles parancsok",
+        "slashCommandsDescription": "A „/szó” parancsként kezelése. Kikapcsolva minden üzenet a beírt formában megy el — a parancspaletta továbbra is működik.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",

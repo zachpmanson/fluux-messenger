@@ -889,6 +889,8 @@
         "markdownDescription": "Show headings, lists, tables and labelled links in messages. Bold, italic, code and quotes always render.",
         "sendReadReceipts": "Read receipts",
         "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on.",
+        "slashCommands": "Slash commands",
+        "slashCommandsDescription": "Treat \"/word\" as a command. Turn this off to send every message as typed — the command palette still works.",
         "accentColor": "Accent Color",
         "accentThemeDefault": "Theme Default",
         "fontSize": "Font Size",

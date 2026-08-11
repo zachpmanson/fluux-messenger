@@ -695,6 +695,8 @@
         "contactStatusMessageDescription": "Vis kontaktens egen statustekst i stedet for «Pålogget» eller «Ikke forstyrr».",
         "markdown": "Vis Markdown",
         "markdownDescription": "Vis overskrifter, lister, tabeller og navngitte lenker i meldinger. Fet, kursiv, kode og sitater vises alltid.",
+        "slashCommands": "Skråstrekkommandoer",
+        "slashCommandsDescription": "Behandle «/ord» som en kommando. Slå av for å sende hver melding slik den er skrevet — kommandopaletten virker fortsatt.",
         "accentColor": "Aksentfarge",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",

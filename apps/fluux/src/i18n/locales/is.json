@@ -695,6 +695,8 @@
         "contactStatusMessageDescription": "Sýna eigin stöðutexta tengiliðar í stað „Á neti“ eða „Ónáðið ekki“.",
         "markdown": "Sýna Markdown",
         "markdownDescription": "Sýna fyrirsagnir, lista, töflur og nefnda tengla í skeytum. Feitt, skáletrað, kóði og tilvitnanir birtast alltaf.",
+        "slashCommands": "Skástriksskipanir",
+        "slashCommandsDescription": "Túlka „/orð“ sem skipun. Slökktu til að senda hvert skeyti eins og það er slegið inn — skipanaleitin virkar samt.",
         "accentColor": "Áherslulitur",
         "accentThemeDefault": "Sjálfgefið þema",
         "fontSize": "Leturstærð",
