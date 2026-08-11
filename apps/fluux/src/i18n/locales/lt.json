@@ -693,6 +693,8 @@
         "compact": "Kompaktiškas",
         "densityComfortableDescription": "Erdvus tarpas ir didesni avatarai.",
         "densityCompactDescription": "Tankesnis tarpas, kad daugiau tilptų ekrane.",
+        "markdown": "Atvaizduoti Markdown",
+        "markdownDescription": "Rodyti antraštes, sąrašus, lenteles ir pavadintas nuorodas pranešimuose. Paryškintas, kursyvas, kodas ir citatos rodomi visada.",
         "accentColor": "Akcento spalva",
         "accentThemeDefault": "Temos numatytoji",
         "fontSize": "Šrifto dydis",

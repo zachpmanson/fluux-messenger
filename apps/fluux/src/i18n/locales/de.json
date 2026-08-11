@@ -691,6 +691,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Großzügige Abstände und größere Avatare.",
         "densityCompactDescription": "Engere Abstände, damit mehr auf den Bildschirm passt.",
+        "markdown": "Markdown darstellen",
+        "markdownDescription": "Überschriften, Listen, Tabellen und benannte Links in Nachrichten anzeigen. Fett, Kursiv, Code und Zitate werden immer dargestellt.",
         "accentColor": "Akzentfarbe",
         "accentThemeDefault": "Theme-Standard",
         "fontSize": "Schriftgröße",

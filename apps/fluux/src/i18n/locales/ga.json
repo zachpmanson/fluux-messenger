@@ -695,6 +695,8 @@
         "compact": "Dlúth",
         "densityComfortableDescription": "Spás fairsing agus avatáranna níos mó.",
         "densityCompactDescription": "Spás níos dlúithe chun níos mó a thaispeáint ar an scáileán.",
+        "markdown": "Rindreáil Markdown",
+        "markdownDescription": "Taispeáin ceannteidil, liostaí, táblaí agus naisc ainmnithe i dteachtaireachtaí. Taispeántar cló trom, iodálach, cód agus athfhriotail i gcónaí.",
         "accentColor": "Dath béime",
         "accentThemeDefault": "Réamhshocrú an téama",
         "fontSize": "Méid cló",
