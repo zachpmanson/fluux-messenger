@@ -28,6 +28,8 @@ interface SettingsState {
   setTransparencyMode: (value: TransparencyMode) => void
   densityMode: DensityMode
   setDensityMode: (mode: DensityMode) => void
+  showStatusMessage: boolean
+  setShowStatusMessage: (enabled: boolean) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -41,6 +43,7 @@ const MEDIA_AUTO_DOWNLOAD_KEY = 'fluux-media-autodownload'
 const MOTION_KEY = 'fluux-motion'
 const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
+const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 
@@ -149,6 +152,23 @@ function getInitialDensity(): DensityMode {
 }
 
 /**
+ * Get the initial status-message preference from localStorage, default to true.
+ *
+ * On: a contact's custom <status> replaces the "Online"/"Do not disturb" label
+ * in the chat header and profile. Off: the show label is shown as before.
+ */
+function getInitialShowStatusMessage(): boolean {
+  try {
+    const stored = localStorage.getItem(STATUS_MESSAGE_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
+/**
  * Get initial sound enabled preference from localStorage, default to true.
  */
 function getInitialSoundEnabled(): boolean {
@@ -248,6 +268,13 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setDensityMode: (mode) => {
     try { localStorage.setItem(DENSITY_KEY, mode) } catch { /* localStorage not available */ }
     set({ densityMode: mode })
+  },
+
+  showStatusMessage: getInitialShowStatusMessage(),
+
+  setShowStatusMessage: (enabled) => {
+    try { localStorage.setItem(STATUS_MESSAGE_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ showStatusMessage: enabled })
   },
 
   soundEnabled: getInitialSoundEnabled(),
