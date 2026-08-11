@@ -687,6 +687,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Rummeligt mellemrum og større avatarer.",
         "densityCompactDescription": "Tættere mellemrum så mere passer på skærmen.",
+        "markdown": "Vis Markdown",
+        "markdownDescription": "Vis overskrifter, lister, tabeller og navngivne links i beskeder. Fed, kursiv, kode og citater vises altid.",
         "accentColor": "Accentfarve",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",

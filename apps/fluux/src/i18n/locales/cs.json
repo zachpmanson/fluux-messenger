@@ -693,6 +693,8 @@
         "compact": "Kompaktní",
         "densityComfortableDescription": "Prostorné odsazení a větší avatary.",
         "densityCompactDescription": "Těsnější odsazení pro zobrazení více obsahu na obrazovce.",
+        "markdown": "Vykreslovat Markdown",
+        "markdownDescription": "Zobrazovat nadpisy, seznamy, tabulky a pojmenované odkazy ve zprávách. Tučné, kurzíva, kód a citace se zobrazují vždy.",
         "accentColor": "Barva zvýraznění",
         "accentThemeDefault": "Výchozí motiv",
         "fontSize": "Velikost písma",

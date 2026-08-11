@@ -691,6 +691,8 @@
         "compact": "Compacto",
         "densityComfortableDescription": "Espaciado amplio y avatares más grandes.",
         "densityCompactDescription": "Espaciado más ajustado para mostrar más contenido en pantalla.",
+        "markdown": "Representar Markdown",
+        "markdownDescription": "Mostrar encabezados, listas, tablas y enlaces con etiqueta en los mensajes. La negrita, la cursiva, el código y las citas se muestran siempre.",
         "accentColor": "Color de acento",
         "accentThemeDefault": "Predeterminado del tema",
         "fontSize": "Tamaño de fuente",

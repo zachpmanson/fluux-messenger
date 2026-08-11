@@ -687,6 +687,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Tágas elrendezés és nagyobb avatarok.",
         "densityCompactDescription": "Sűrűbb elrendezés, hogy több férjen el a képernyőn.",
+        "markdown": "Markdown megjelenítése",
+        "markdownDescription": "Címsorok, listák, táblázatok és címkézett hivatkozások megjelenítése az üzenetekben. A félkövér, dőlt, kód és idézetek mindig megjelennek.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",
