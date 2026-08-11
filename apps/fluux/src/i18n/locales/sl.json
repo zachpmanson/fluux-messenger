@@ -699,6 +699,8 @@
         "collapseLongMessagesDescription": "Prikaži začetek dolgih sporočil z gumbom »Pokaži več«. Izklopite, da se vedno prikaže celotno sporočilo.",
         "contactStatusMessage": "Prikaži sporočila o stanju",
         "contactStatusMessageDescription": "Prikaži lastno besedilo stanja stika namesto »Na zvezi« ali »Ne moti«.",
+        "markdown": "Prikaži Markdown",
+        "markdownDescription": "Prikaži naslove, sezname, tabele in poimenovane povezave v sporočilih. Krepko, ležeče, koda in citati so vedno prikazani.",
         "accentColor": "Barva poudarka",
         "accentThemeDefault": "Privzeto teme",
         "fontSize": "Velikost pisave",

@@ -883,6 +883,8 @@
         "collapseLongMessagesDescription": "긴 메시지의 시작 부분을 \"더 보기\" 버튼과 함께 표시합니다. 끄면 항상 전체 메시지가 표시됩니다.",
         "contactStatusMessage": "상태 메시지 표시",
         "contactStatusMessageDescription": "\"온라인\" 또는 \"방해 금지\" 대신 상대방이 설정한 상태 텍스트를 표시합니다.",
+        "markdown": "Markdown 표시",
+        "markdownDescription": "메시지에서 제목, 목록, 표, 이름이 있는 링크를 표시합니다. 굵게, 기울임꼴, 코드, 인용은 항상 표시됩니다.",
         "accentColor": "강조 색상",
         "accentThemeDefault": "테마 기본값",
         "fontSize": "글꼴 크기",

@@ -698,6 +698,8 @@
         "collapseLongMessagesDescription": "Zobraziť začiatok dlhých správ tlačidlom „Zobraziť viac“. Vypnite, aby sa vždy zobrazila celá správa.",
         "contactStatusMessage": "Zobrazovať stavové správy",
         "contactStatusMessageDescription": "Zobrazovať vlastný stavový text kontaktu namiesto „Online“ alebo „Nevyrušovať“.",
+        "markdown": "Vykresľovať Markdown",
+        "markdownDescription": "Zobrazovať nadpisy, zoznamy, tabuľky a pomenované odkazy v správach. Tučné, kurzíva, kód a citácie sa zobrazujú vždy.",
         "accentColor": "Farba zvýraznenia",
         "accentThemeDefault": "Predvolené témy",
         "fontSize": "Veľkosť písma",

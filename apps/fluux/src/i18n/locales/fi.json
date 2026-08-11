@@ -693,6 +693,8 @@
         "collapseLongMessagesDescription": "Näytä pitkien viestien alku \"Näytä lisää\" -painikkeella. Poista käytöstä, jos haluat aina näyttää koko viestin.",
         "contactStatusMessage": "Näytä tilaviestit",
         "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla.",
+        "markdown": "Näytä Markdown",
+        "markdownDescription": "Näytä otsikot, luettelot, taulukot ja nimetyt linkit viesteissä. Lihavointi, kursivointi, koodi ja lainaukset näytetään aina.",
         "accentColor": "Korostusväri",
         "accentThemeDefault": "Teeman oletus",
         "fontSize": "Fonttikoko",

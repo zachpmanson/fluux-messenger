@@ -695,6 +695,8 @@
         "collapseLongMessagesDescription": "הצגת תחילת הודעות ארוכות עם כפתור \"הצג עוד\". כבה אפשרות זו כדי להציג תמיד את ההודעה המלאה.",
         "contactStatusMessage": "הצגת הודעות מצב",
         "contactStatusMessageDescription": "הצגת טקסט המצב של איש הקשר במקום \"מחובר\" או \"אין להפריע\".",
+        "markdown": "הצגת Markdown",
+        "markdownDescription": "הצגת כותרות, רשימות, טבלאות וקישורים מתויגים בהודעות. מודגש, נטוי, קוד וציטוטים מוצגים תמיד.",
         "accentColor": "צבע הדגשה",
         "accentThemeDefault": "ברירת מחדל של ערכת נושא",
         "fontSize": "גודל גופן",
