@@ -21,6 +21,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  slashCommandsEnabled: boolean
+  setSlashCommandsEnabled: (enabled: boolean) => void
   themeMode: ThemeMode
   setThemeMode: (mode: ThemeMode) => void
   timeFormat: TimeFormat
@@ -62,6 +64,7 @@ export interface ArchiveOverride {
   original: ArchivingDefault
 }
 
+const SLASH_COMMANDS_KEY = 'fluux-slash-commands'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -260,6 +263,17 @@ function saveArchiveOverrides(overrides: Record<string, ArchiveOverride>): void 
   try { localStorage.setItem(ARCHIVE_OVERRIDES_KEY, JSON.stringify(overrides)) } catch { /* localStorage not available */ }
 }
 
+function getInitialSlashCommandsEnabled(): boolean {
+  try {
+    const stored = localStorage.getItem(SLASH_COMMANDS_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -388,4 +402,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     saveArchiveOverrides(archiveOverrides)
     set({ archiveOverrides })
   },
+  slashCommandsEnabled: getInitialSlashCommandsEnabled(),
+
+  setSlashCommandsEnabled: (enabled) => {
+    try { localStorage.setItem(SLASH_COMMANDS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ slashCommandsEnabled: enabled })
+  },
+
 }))
