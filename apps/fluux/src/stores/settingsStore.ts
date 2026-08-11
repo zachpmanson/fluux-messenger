@@ -1,3 +1,4 @@
+export type AvatarShape = 'circle' | 'square'
 import { create } from 'zustand'
 import { persistPushSoundEnabled, SOUND_KEY, SOUND_CHANGED_AT_KEY } from '../utils/pushSoundPreference'
 import type { ArchivingDefault } from '@fluux/sdk'
@@ -21,6 +22,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  avatarShape: AvatarShape
+  setAvatarShape: (shape: AvatarShape) => void
   slashCommandsEnabled: boolean
   setSlashCommandsEnabled: (enabled: boolean) => void
   sendReadReceipts: boolean
@@ -79,6 +82,7 @@ const IN_CHAT_REACTION_NOTIFICATIONS_KEY = 'fluux-in-chat-reaction-notifications
 const MARKDOWN_KEY = 'fluux-markdown'
 const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
 const SLASH_COMMANDS_KEY = 'fluux-slash-commands'
+const AVATAR_SHAPE_KEY = 'fluux-avatar-shape'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -349,6 +353,16 @@ function getInitialSlashCommandsEnabled(): boolean {
   return true
 }
 
+function getInitialAvatarShape(): AvatarShape {
+  try {
+    const stored = localStorage.getItem(AVATAR_SHAPE_KEY)
+    if (stored === 'circle' || stored === 'square') return stored
+  } catch {
+    // localStorage not available
+  }
+  return 'circle'
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -516,6 +530,13 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   setSlashCommandsEnabled: (enabled) => {
     try { localStorage.setItem(SLASH_COMMANDS_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ slashCommandsEnabled: enabled })
+  },
+
+  avatarShape: getInitialAvatarShape(),
+
+  setAvatarShape: (shape) => {
+    try { localStorage.setItem(AVATAR_SHAPE_KEY, shape) } catch { /* localStorage not available */ }
+    set({ avatarShape: shape })
   },
 
 }))
