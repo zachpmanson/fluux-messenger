@@ -1055,12 +1055,13 @@ html, body {
  * treatment as the XMPP console-log ring below, so the sidebar / message / room
  * focus edge stays calm rather than a heavier 2px solid outline. */
 .user-interacted .focus-zone:focus {
-  /* Inset because these zones are flush panels (no room for an outset ring); the
-     solid 1px line keeps the keyboard-focus indicator visible for accessibility.
-     A small radius softens the corners so the edge reads as gently rounded. */
-  outline: 1px solid var(--fluux-brand) !important;
-  outline-offset: -1px !important;
-  border-radius: 4px;
+  /* CSS adjustments: suppress the boxed brand outline around the focus zone
+     (sidebar / message / room panes). The zone-wide ring reads as a heavy box
+     around large flush panels; the focused element inside still carries the
+     app-wide `.user-interacted *:focus` ring, so keyboard focus stays visible. */
+  outline: none;
+  outline-offset: 0;
+  border-radius: 0;
 }
 
 /* XMPP console log: the focus ring is an outline (not an inset box-shadow) so it
