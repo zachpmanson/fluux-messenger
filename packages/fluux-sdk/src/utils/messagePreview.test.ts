@@ -371,31 +371,36 @@ describe('messagePreview', () => {
       })
 
       it('should strip styling directly before a fenced code block', () => {
-        expect(stripMessageStyling('*bold*```\ncode\n```')).toBe('boldcode')
+        expect(stripMessageStyling('*bold*\n```\ncode\n```')).toBe('bold\ncode')
       })
 
       it('should strip styling directly after a fenced code block', () => {
-        expect(stripMessageStyling('```\ncode\n```*bold*')).toBe('codebold')
+        expect(stripMessageStyling('```\ncode\n```\n*bold*')).toBe('code\nbold')
       })
 
       it('should strip non-asterisk styling directly beside a fenced code block', () => {
-        expect(stripMessageStyling('_before_```\ncode\n```_after_')).toBe('beforecodeafter')
+        expect(stripMessageStyling('_before_\n```\ncode\n```\n_after_')).toBe('before\ncode\nafter')
       })
 
-      it('should keep styling that crosses a fenced code block literal', () => {
-        expect(stripMessageStyling('*before```\ncode\n```after*')).toBe('*beforecodeafter*')
+      it('treats inline ``` as literal text, not a fence', () => {
+        // A fence must be at the start of a line (CommonMark); a backtick token
+        // buried in prose is literal and must not swallow text up to the next
+        // ``` to form a bogus block.
+        expect(stripMessageStyling('*before```\ncode\n```after*')).toBe('before```\ncode\n```after')
       })
 
-      it('should keep non-asterisk styling that crosses a fenced code block literal', () => {
-        expect(stripMessageStyling('_before```\ncode\n```after_')).toBe('_beforecodeafter_')
+      it('keeps a stray inline ``` literal (non-asterisk variants too)', () => {
+        expect(stripMessageStyling('_before```\ncode\n```after_')).toBe('before```\ncode\n```after')
       })
 
       it('should strip a heading marker after a fenced code block', () => {
         expect(stripMessageStyling('```\ncode\n```\n# Heading')).toBe('code\nHeading')
       })
 
-      it('should strip a heading marker at the start of a post-fence chunk', () => {
-        expect(stripMessageStyling('```\ncode\n```# Heading')).toBe('codeHeading')
+      it('does not treat a heading-marker suffix on a fence line as a heading', () => {
+        // A fence must close at end of line; a trailing "# Heading" means the
+        // \`\`\` line is not a valid closing fence, so everything stays literal.
+        expect(stripMessageStyling('```\ncode\n```# Heading')).toBe('```\ncode\n```# Heading')
       })
 
       it('should keep styling literal directly before an inline code span', () => {
