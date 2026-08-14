@@ -120,8 +120,11 @@ const CODE_FENCE_PLACEHOLDER_REGEX = /(\u0000f\d+\u0000)/g
 // eslint-disable-next-line no-control-regex
 const CODE_PLACEHOLDER_REGEX = /\u0000f(\d+)\u0000|`\u0000i(\d+)\u0000`/g
 
-/** Fenced code blocks, matching the renderer's ```lang\n ... ``` pattern. */
-const CODE_FENCE_REGEX = /```(\w*)\n?([\s\S]*?)```/g
+/** Fenced code blocks, matching the renderer's ```lang newline ... newline ```
+ * pattern. Like the renderer, fences must sit at the start of a line (<=3
+ * spaces) and be their own line, so a stray ``` in prose stays literal and is
+ * not swallowed as a block. */
+const CODE_FENCE_REGEX = /(?<=\n|^)[ \t]{0,3}```(\w*)[^\n]*\r?\n([\s\S]*?)\r?\n[ \t]{0,3}```[ \t]*(?=\r?\n|$)/g
 
 /**
  * Inline code spans, matching the renderer's `code` alternative including its
