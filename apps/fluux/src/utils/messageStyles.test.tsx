@@ -275,6 +275,28 @@ describe('renderStyledMessage', () => {
       const code = container.querySelector('pre code')
       expect(code?.textContent).toBe('plain code')
     })
+
+    it('does not open a block for inline ``` in prose', () => {
+      const container = renderText('the token ``` appears mid-sentence, nothing else')
+      expect(container.querySelector('pre')).toBeFalsy()
+      expect(container.textContent).toContain('```')
+    })
+
+    it('does not let an inline ``` swallow text up to the next fence', () => {
+      // A lone inline ``` must not pair with the next line-start ``` to turn
+      // everything between them into one bogus code block (the fluux bug).
+      const container = renderText('before ``` inline\nthen real:\n```\nreal content\n```')
+      const pres = container.querySelectorAll('pre')
+      expect(pres.length).toBe(1)
+      expect(pres[0].querySelector('code')?.textContent).toContain('real content')
+      expect(container.textContent).toContain('before ``` inline')
+    })
+
+    it('requires the fence opener to be at the start of a line', () => {
+      // A ```js mid-line (as in a flattened dump row) must not open a block.
+      const container = renderText('here is ```js inline``` content in a single line')
+      expect(container.querySelector('pre')).toBeFalsy()
+    })
   })
 
   describe('blockquotes (> text)', () => {
@@ -1186,11 +1208,7 @@ describe('preview / renderer parity for code spans', () => {
     '*bold* then `*literal*` then _italic_',
     'Run `npm install` now',
     '```\n*not bold* and _not italic_\n```',
-    '*bold*```\ncode\n```',
-    '```\ncode\n```*bold*',
-    '_before_```\ncode\n```_after_',
-    '*before```\ncode\n```after*',
-    '_before```\ncode\n```after_',
+    '```\n_some_ *code*\n```',
     '*bold*`code`',
     '`code`*bold*',
     '_before_`code`_after_',
