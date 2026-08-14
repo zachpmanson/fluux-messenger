@@ -1067,7 +1067,10 @@ html, body {
 /* Focus ring system - only show after user has interacted */
 /* The 'user-interacted' class is added to html on first mouse/keyboard input */
 /* Exclude .no-focus-ring elements (large containers that shouldn't show focus) */
-.user-interacted *:focus:not(html):not(body):not(#root):not(.no-focus-ring) {
+/* CSS adjustments: also exclude .focus-zone — these large flush panes shouldn't
+   carry the universal ring. Interactive controls (inputs/buttons/links) inside
+   them still do, because the ring is drawn on the focused element itself. */
+.user-interacted *:focus:not(html):not(body):not(#root):not(.no-focus-ring):not(.focus-zone) {
   outline: 2px solid var(--fluux-focus-ring);
   outline-offset: -2px;
 }
