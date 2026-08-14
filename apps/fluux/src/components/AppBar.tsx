@@ -131,7 +131,7 @@ export const AppBar = memo(function AppBar() {
     <div
       onMouseDown={handleDragMouseDown}
       onDoubleClick={handleDragDoubleClick}
-      className="flex items-center gap-2 h-10 flex-shrink-0 bg-fluux-sidebar border-b border-fluux-bg shadow-sm pe-2 select-none"
+      className="appbar flex items-center gap-2 h-10 flex-shrink-0 bg-fluux-sidebar border-b border-fluux-bg shadow-sm pe-2 select-none"
       style={{ paddingInlineStart: needsTrafficLightInset ? TRAFFIC_LIGHT_INSET : 8 }}
     >
       {/* History back / forward — mirror the webview history the keyboard drives */}
