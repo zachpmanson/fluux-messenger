@@ -1067,6 +1067,14 @@ html, body {
   border-radius: 0;
 }
 
+/* CSS adjustments: give the top app bar (desktop window bar) a visible bottom
+   border. Its Tailwind `border-b border-fluux-bg` draws 1px in the same color
+   as the pane beneath, so the divider is invisible against the content below;
+   re-color it to the standard border color for a clean separation. */
+.bg-fluux-sidebar.appbar {
+  border-bottom: 1px solid var(--fluux-border);
+}
+
 /* XMPP console log: the focus ring is an outline (not an inset box-shadow) so it
  * sits ABOVE the scrolling entries. An inset ring would be painted under the
  * rows (the content scrolls on top of it), which is the overlap we want to avoid.
