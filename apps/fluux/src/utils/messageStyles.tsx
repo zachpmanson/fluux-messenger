@@ -876,8 +876,13 @@ export function renderStyledMessage(text: string, mentions?: MentionReference[],
   // fallback that colorizes any @word — only colorize actual user mentions
   const disableMentionFallback = (!mentions || mentions.length === 0) && !nickname && (!knownNicks || knownNicks.size === 0)
 
-  // Check for code blocks first (```lang\n ... ```)
-  const codeBlockRegex = /```(\w*)\n?([\s\S]*?)```/g
+  // Check for code blocks first (```lang newline ... newline ```)
+  // Fences must sit at the start of a line (<=3 spaces indent) and the opener
+  // must be its own line. Without the line anchor, any stray ``` token in
+  // prose pairs with the next ``` anywhere in the message and swallows a swath
+  // of text as one bogus "code block" — so inline backticks (e.g. in a
+  // collapsed /dump pretty row) are treated as literal text, per CommonMark.
+  const codeBlockRegex = /(?<=\n|^)[ \t]{0,3}```(\w*)[^\n]*\r?\n([\s\S]*?)\r?\n[ \t]{0,3}```[ \t]*(?=\r?\n|$)/g
   const parts: React.ReactNode[] = []
   let lastIndex = 0
   let match
