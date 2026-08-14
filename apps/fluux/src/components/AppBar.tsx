@@ -140,7 +140,7 @@ export const AppBar = memo(function AppBar() {
       onClickCapture={blockModalInteraction}
       onMouseDown={handleDragMouseDown}
       onDoubleClick={handleDragDoubleClick}
-      className="window-drag-region flex items-center gap-2 h-10 flex-shrink-0 bg-fluux-sidebar border-b border-fluux-bg shadow-sm select-none"
+      className="appbar window-drag-region flex items-center gap-2 h-10 flex-shrink-0 bg-fluux-sidebar border-b border-fluux-bg shadow-sm select-none"
       style={{
         paddingInlineStart: needsTrafficLightInset ? TRAFFIC_LIGHT_INSET : 8,
         paddingInlineEnd: reservesWindowControls ? WINDOW_CONTROLS_WIDTH : 8,
