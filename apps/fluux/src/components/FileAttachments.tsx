@@ -26,6 +26,27 @@ import type { FileAttachment } from '@fluux/sdk'
  */
 const failedUrlCache = new Set<string>()
 
+/**
+ * Decode dimensions learned from an actual <img> load, keyed by the source
+ * URL (main URI or chosen thumbnail). An SVG — or any image whose metadata
+ * and thumbnail lack XEP-0446 dimensions — falls back to a default 4:3 box
+ * whose real decode size almost never matches, so its first load shifts the
+ * row and the scroll layer is notified (the one case that legitimately can).
+ * But a cached <img> re-fires onLoad on every remount, and the re-anchor
+ * pass trips the virtualizer into remounting the row — so an SVG preview
+ * rendered, unmounted, and re-rendered forever: load → re-anchor → remount
+ * → cached re-fire of onLoad → re-anchor → … Learning the decoded size once
+ * makes every later mount known-sized: the box is reserved exactly, the
+ * load can no longer shift layout, and per the known-dims policy below it
+ * stops notifying. One legitimate correction, then the loop is broken.
+ */
+const learnedImageDimensions = new Map<string, { width: number; height: number }>()
+
+/** Test-only: forget all learned decode dimensions (see learnedImageDimensions). */
+export function __resetLearnedImageDimensionsForTest(): void {
+  learnedImageDimensions.clear()
+}
+
 type MediaLoadFailure = 'unsupported' | 'unavailable'
 
 const mediaFailureCache = new Map<string, MediaLoadFailure>()
@@ -98,9 +119,13 @@ export const ImageAttachment = memo(function ImageAttachment({ attachment, onLoa
     return null
   }
 
-  // Prefer XEP-0446 original dimensions, fall back to thumbnail dimensions
-  const width = attachment.width ?? attachment.thumbnail?.width
-  const height = attachment.height ?? attachment.thumbnail?.height
+  // Prefer XEP-0446 original dimensions, fall back to thumbnail dimensions,
+  // then a previously learned decode size (SVG and other dims-less images).
+  // Once the real box is known, re-mounts reserve it exactly and the load
+  // cannot shift layout again — see learnedImageDimensions above.
+  const learned = learnedImageDimensions.get(originalImageSrc)
+  const width = attachment.width ?? attachment.thumbnail?.width ?? learned?.width
+  const height = attachment.height ?? attachment.thumbnail?.height ?? learned?.height
   const hasKnownDimensions = width !== undefined && height !== undefined
 
   // Calculate aspect ratio to reserve space and prevent layout shift
@@ -240,8 +265,21 @@ export const ImageAttachment = memo(function ImageAttachment({ attachment, onLoa
           // moves nothing — and poking the scroll layer ran a non-idempotent re-anchor pass
           // that injected a small reading-position drift compounding across conversation
           // re-opens (cached <img>s re-fire onLoad on every re-mount). Unsized images fall
-          // back to a default box that the real decode CAN resize, so those still notify.
-          onLoad={hasKnownDimensions ? undefined : onLoad}
+          // back to a default box that the real decode CAN resize, so those still notify —
+          // but only ONCE: the dimensions learned here make the next mount known-sized, so
+          // a re-mount re-decode neither shifts the box nor re-notifies (the SVG
+          // render/unrender loop — see learnedImageDimensions).
+          onLoad={hasKnownDimensions ? undefined : (event) => {
+            // Brand-new decode size → reserve the real box on every later mount.
+            const el = event.currentTarget
+            if (el.naturalWidth > 0 && el.naturalHeight > 0) {
+              learnedImageDimensions.set(originalImageSrc, {
+                width: el.naturalWidth,
+                height: el.naturalHeight,
+              })
+            }
+            onLoad?.()
+          }}
           onError={() => {
             failedUrlCache.add(originalImageSrc)
             setLoadError(true)
