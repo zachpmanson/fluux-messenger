@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { ImageAttachment, VideoAttachment, AudioAttachment, FileAttachmentCard } from './FileAttachments'
+import { ImageAttachment, VideoAttachment, AudioAttachment, FileAttachmentCard, __resetLearnedImageDimensionsForTest } from './FileAttachments'
 import { MessageAttachments } from './MessageAttachments'
 import { MediaAutoloadProvider } from '@/contexts'
 import { __resetApprovedMediaUrlsForTest } from '@/utils/mediaAutoload'
@@ -626,6 +626,56 @@ describe('ImageAttachment onMediaLoad notify gating', () => {
     render(<ImageAttachment attachment={thumbSized} onLoad={onLoad} />)
     fireEvent.load(screen.getByRole('img'))
     expect(onLoad).not.toHaveBeenCalled()
+  })
+
+  it('learns the decode size on first load so a remounted cached <img> neither shifts the box nor re-notifies (SVG render/unrender loop)', () => {
+    __resetLearnedImageDimensionsForTest()
+    const onLoad = vi.fn()
+    const unsizedSvg: FileAttachment = {
+      url: 'https://x/loop.svg', mediaType: 'image/svg+xml', name: 'loop.svg',
+    }
+    const { unmount } = render(<ImageAttachment attachment={unsizedSvg} onLoad={onLoad} />)
+    const first = screen.getByRole('img') as HTMLImageElement
+
+    // First mount: no dims anywhere → the 4:3 default box is reserved, and
+    // the decode can shift it, so onLoad must notify the scroll layer.
+    expect(first.getAttribute('width')).toBeNull()
+    Object.defineProperty(first, 'naturalWidth', { configurable: true, value: 640 })
+    Object.defineProperty(first, 'naturalHeight', { configurable: true, value: 320 })
+    fireEvent.load(first)
+    expect(onLoad).toHaveBeenCalledTimes(1)
+
+    // Simulate the remount the re-anchor pass causes: the cached <img> fires
+    // onLoad again, but the learned 2:1 box is reserved exactly, so the
+    // scroll layer is NOT poked a second time — the loop cannot form.
+    unmount()
+    render(<ImageAttachment attachment={unsizedSvg} onLoad={onLoad} />)
+    const second = screen.getByRole('img') as HTMLImageElement
+    expect(second.getAttribute('width')).toBe('640')
+    expect(second.getAttribute('height')).toBe('320')
+    fireEvent.load(second)
+    expect(onLoad).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps notifying when the decode reports no size (nothing to learn)', () => {
+    __resetLearnedImageDimensionsForTest()
+    const onLoad = vi.fn()
+    const zeroDims: FileAttachment = {
+      url: 'https://x/zero.svg', mediaType: 'image/svg+xml', name: 'zero.svg',
+    }
+    const { unmount } = render(<ImageAttachment attachment={zeroDims} onLoad={onLoad} />)
+    const first = screen.getByRole('img') as HTMLImageElement
+    Object.defineProperty(first, 'naturalWidth', { configurable: true, value: 0 })
+    Object.defineProperty(first, 'naturalHeight', { configurable: true, value: 0 })
+    fireEvent.load(first)
+    expect(onLoad).toHaveBeenCalledTimes(1)
+
+    unmount()
+    render(<ImageAttachment attachment={zeroDims} onLoad={onLoad} />)
+    const second = screen.getByRole('img') as HTMLImageElement
+    expect(second.getAttribute('width')).toBeNull()
+    fireEvent.load(second)
+    expect(onLoad).toHaveBeenCalledTimes(2)
   })
 })
 
