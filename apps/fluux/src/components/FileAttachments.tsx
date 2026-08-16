@@ -26,6 +26,11 @@ import type { FileAttachment } from '@fluux/sdk'
  */
 const failedUrlCache = new Set<string>()
 
+/** Test-only: forget all failed URLs (see failedUrlCache). */
+export function __resetFailedUrlCacheForTest(): void {
+  failedUrlCache.clear()
+}
+
 /**
  * Decode dimensions learned from an actual <img> load, keyed by the source
  * URL (main URI or chosen thumbnail). An SVG — or any image whose metadata
@@ -109,8 +114,20 @@ export const ImageAttachment = memo(function ImageAttachment({ attachment, onLoa
     isImage && !shouldLoad,
   )
 
-  // Source actually rendered: the consent-gated fetch result, or the cache hit.
-  const effectiveSrc = shouldLoad ? proxiedImageSrc : cachedUrl
+  // Firefox can refuse to display Cache-API-derived blob: URLs ("Security Error:
+  // may not load data from blob:") — the blob's origin is opaque, so the <img>
+  // errors out and onLoad never fires, which means dimensions are never learned
+  // and the SVG render/unrender loop (see learnedImageDimensions) can't break.
+  // Retry once with the original URL — same-origin, always displayable.
+  const [useOriginalUrl, setUseOriginalUrl] = useState(false)
+
+  // Source actually rendered: the consent-gated fetch result, the cache hit, or
+  // the original URL after a blob display failure.
+  const effectiveSrc = useOriginalUrl
+    ? originalImageSrc
+    : shouldLoad
+      ? proxiedImageSrc
+      : cachedUrl
   // True when shown purely from cache without consent — gates lightbox fetch.
   const displayedFromCacheOnly = !shouldLoad && Boolean(cachedUrl)
 
@@ -281,6 +298,18 @@ export const ImageAttachment = memo(function ImageAttachment({ attachment, onLoa
             onLoad?.()
           }}
           onError={() => {
+            // A blob: src that the engine refuses to display (Firefox opaque
+            // Cache-API blobs) is not a missing image — fall back to the original
+            // URL once. Encrypted attachments are skipped: their original URL is
+            // ciphertext, so a fallback would render garbage.
+            if (
+              !attachment.encryption &&
+              !useOriginalUrl &&
+              effectiveSrc !== originalImageSrc
+            ) {
+              setUseOriginalUrl(true)
+              return
+            }
             failedUrlCache.add(originalImageSrc)
             setLoadError(true)
           }}

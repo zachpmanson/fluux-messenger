@@ -15,6 +15,23 @@ interface TextPreviewState {
 }
 
 /**
+ * Module-level cache of fetched previews, keyed by URL. TextFilePreview sits in
+ * a row the virtualizer remounts freely; without this, every remount refetches
+ * the Range request and toggles the loading placeholder ↔ content, swinging the
+ * row height (≈48px loading vs up to 192px content) and feeding the scroll-layer
+ * re-anchor loop that renders SVG previews forever. Cached content renders
+ * instantly on remount, so the height is stable after the first fetch. Entry
+ * size is capped (1KB fetch, ≤15 lines) and the map is FIFO-bounded.
+ */
+const textPreviewCache = new Map<string, { content: string; isTruncated: boolean }>()
+const TEXT_PREVIEW_CACHE_MAX = 200
+
+/** Test-only: forget all cached previews (see textPreviewCache). */
+export function __resetTextPreviewCacheForTest(): void {
+  textPreviewCache.clear()
+}
+
+/**
  * Fetch text content via Tauri's HTTP plugin (bypasses CORS).
  */
 async function fetchViaTauri(url: string): Promise<{ text: string; isTruncated: boolean }> {
@@ -70,16 +87,23 @@ async function fetchViaBrowser(url: string): Promise<{ text: string; isTruncated
  * In Tauri, uses the HTTP plugin to bypass CORS.
  */
 export function useTextPreview(url: string | undefined, enabled: boolean = true): TextPreviewState {
-  const [state, setState] = useState<TextPreviewState>({
-    content: null,
-    isLoading: false,
-    error: null,
-    isTruncated: false,
+  const [state, setState] = useState<TextPreviewState>(() => {
+    const cached = url ? textPreviewCache.get(url) : undefined
+    return cached
+      ? { content: cached.content, isLoading: false, error: null, isTruncated: cached.isTruncated }
+      : { content: null, isLoading: false, error: null, isTruncated: false }
   })
 
   useEffect(() => {
     if (!url || !enabled) {
       setState({ content: null, isLoading: false, error: null, isTruncated: false })
+      return
+    }
+
+    // Already fetched once → render instantly, no loading toggle, no height swing.
+    const cached = textPreviewCache.get(url)
+    if (cached) {
+      setState({ content: cached.content, isLoading: false, error: null, isTruncated: cached.isTruncated })
       return
     }
 
@@ -100,12 +124,20 @@ export function useTextPreview(url: string | undefined, enabled: boolean = true)
         const lines = text.split('\n')
         const displayLines = lines.slice(0, MAX_PREVIEW_LINES)
         const wasLineTruncated = lines.length > MAX_PREVIEW_LINES
+        const isTruncated = wasRangeTruncated || wasLineTruncated
+
+        // Cache the rendered content so remounts skip the loading state entirely.
+        textPreviewCache.set(url, { content: displayLines.join('\n'), isTruncated })
+        if (textPreviewCache.size > TEXT_PREVIEW_CACHE_MAX) {
+          const oldest = textPreviewCache.keys().next().value
+          if (oldest !== undefined) textPreviewCache.delete(oldest)
+        }
 
         setState({
           content: displayLines.join('\n'),
           isLoading: false,
           error: null,
-          isTruncated: wasRangeTruncated || wasLineTruncated,
+          isTruncated,
         })
       } catch (err) {
         if (cancelled) return

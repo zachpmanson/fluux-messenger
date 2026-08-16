@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { ImageAttachment, VideoAttachment, AudioAttachment, FileAttachmentCard, __resetLearnedImageDimensionsForTest } from './FileAttachments'
+import { ImageAttachment, VideoAttachment, AudioAttachment, FileAttachmentCard, __resetLearnedImageDimensionsForTest, __resetFailedUrlCacheForTest } from './FileAttachments'
 import { MessageAttachments } from './MessageAttachments'
 import { MediaAutoloadProvider } from '@/contexts'
 import { __resetApprovedMediaUrlsForTest } from '@/utils/mediaAutoload'
@@ -72,6 +72,7 @@ describe('FileAttachments', () => {
     vi.clearAllMocks()
     usePlatform('web')
     __resetApprovedMediaUrlsForTest()
+    __resetFailedUrlCacheForTest()
     // Default: return successful proxied URL
     useAttachmentUrlSpy.mockReturnValue({
       url: 'blob:http://localhost/image123',
@@ -124,9 +125,59 @@ describe('FileAttachments', () => {
     it('should show unavailable message when image fails to load (onError)', () => {
       render(<ImageAttachment attachment={imageAttachment} />)
 
+      // First error: the blob: src failed (e.g. Firefox opaque Cache-API blob) →
+      // falls back to the original URL once.
       const img = screen.getByRole('img')
       fireEvent.error(img)
 
+      const retried = screen.getByRole('img')
+      expect(retried).toHaveAttribute('src', 'https://example.com/image.jpg')
+
+      // Second error: the original URL also fails → show the unavailable card.
+      fireEvent.error(retried)
+      expect(screen.getByText('chat.imageUnavailable')).toBeInTheDocument()
+    })
+
+    it('falls back to the original URL when the blob src fails to display', () => {
+      // Firefox refuses Cache-API-derived blob: URLs ("Security Error: may not
+      // load data from blob:"). The image must retry with the original URL so
+      // onLoad can fire, dimensions get learned, and the SVG render loop breaks.
+      render(<ImageAttachment attachment={imageAttachment} />)
+
+      const img = screen.getByRole('img')
+      expect(img).toHaveAttribute('src', 'blob:http://localhost/image123')
+      fireEvent.error(img)
+
+      const retried = screen.getByRole('img')
+      expect(retried).toHaveAttribute('src', 'https://example.com/image.jpg')
+      expect(screen.queryByText('chat.imageUnavailable')).not.toBeInTheDocument()
+    })
+
+    it('does not fall back to the original URL for encrypted attachments', () => {
+      // Encrypted attachments' original URL is ciphertext — a fallback would
+      // render garbage. Keep the immediate unavailable card.
+      const encrypted: FileAttachment = {
+        ...imageAttachment,
+        encryption: {
+          cipher: 'aes-256-gcm',
+          key: new Uint8Array(32),
+          iv: new Uint8Array(12),
+        },
+      }
+      render(<ImageAttachment attachment={encrypted} />)
+
+      const img = screen.getByRole('img')
+      fireEvent.error(img)
+      expect(screen.getByText('chat.imageUnavailable')).toBeInTheDocument()
+    })
+
+    it('does not fall back when the src is already the original URL', () => {
+      render(<ImageAttachment attachment={imageAttachment} />)
+      fireEvent.error(screen.getByRole('img'))
+
+      // Fallback happened once; a second failure on the original URL must not
+      // loop — it shows the unavailable card immediately.
+      fireEvent.error(screen.getByRole('img'))
       expect(screen.getByText('chat.imageUnavailable')).toBeInTheDocument()
     })
 

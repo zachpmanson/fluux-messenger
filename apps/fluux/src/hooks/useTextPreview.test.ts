@@ -1,17 +1,19 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
-import { useTextPreview } from './useTextPreview'
+import { useTextPreview, __resetTextPreviewCacheForTest } from './useTextPreview'
 
 describe('useTextPreview', () => {
   const mockFetch = vi.fn()
 
   beforeEach(() => {
     vi.stubGlobal('fetch', mockFetch)
+    __resetTextPreviewCacheForTest()
   })
 
   afterEach(() => {
     vi.unstubAllGlobals()
     vi.clearAllMocks()
+    __resetTextPreviewCacheForTest()
   })
 
   it('should not fetch when url is undefined', () => {
@@ -152,5 +154,77 @@ describe('useTextPreview', () => {
     expect(result.current.content).toBeNull()
     expect(result.current.isLoading).toBe(false)
     expect(result.current.error).toBeNull()
+  })
+
+  it('fetches once, then serves cached content instantly on remount', async () => {
+    // TextFilePreview sits in a row the virtualizer remounts freely; cached
+    // content must render immediately on remount — no loading toggle, no
+    // height swing, no second fetch.
+    const url = 'https://example.com/cached.svg'
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      headers: new Headers(),
+      text: () => Promise.resolve('line one\nline two\nline three'),
+    })
+
+    const { result, unmount } = renderHook(() => useTextPreview(url, true))
+
+    await waitFor(() => {
+      expect(result.current.content).toBe('line one\nline two\nline three')
+    })
+    expect(mockFetch).toHaveBeenCalledTimes(1)
+
+    // Simulate a virtualizer remount: new component instance, same URL.
+    unmount()
+    const { result: remounted } = renderHook(() => useTextPreview(url, true))
+    expect(remounted.current.content).toBe('line one\nline two\nline three')
+    expect(remounted.current.isLoading).toBe(false)
+    expect(mockFetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps truncation flags in the cache so remounts render identically', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 206,
+      headers: new Headers({ 'Content-Range': 'bytes 0-1023/5000' }),
+      text: () => Promise.resolve('partial'),
+    })
+
+    const url = 'https://example.com/large-cached.svg'
+    const { result, unmount } = renderHook(() => useTextPreview(url, true))
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false)
+    })
+    expect(result.current.isTruncated).toBe(true)
+
+    unmount()
+    const { result: remounted } = renderHook(() => useTextPreview(url, true))
+    expect(remounted.current.isTruncated).toBe(true)
+    expect(remounted.current.content).toBe('partial')
+  })
+
+  it('does not cache failed fetches', async () => {
+    mockFetch.mockRejectedValueOnce(new Error('network down'))
+    const url = 'https://example.com/flaky.svg'
+    const { result } = renderHook(() => useTextPreview(url, true))
+
+    await waitFor(() => {
+      expect(result.current.error).toBe('network down')
+    })
+
+    // A later successful fetch must retry, not serve a stale cache.
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      headers: new Headers(),
+      text: () => Promise.resolve('now it works'),
+    })
+    const { result: retried } = renderHook(() => useTextPreview(url, true))
+    await waitFor(() => {
+      expect(retried.current.content).toBe('now it works')
+    })
+    expect(mockFetch).toHaveBeenCalledTimes(2)
   })
 })
