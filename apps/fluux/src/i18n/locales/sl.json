@@ -695,6 +695,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostorna razporeditev in večji avatarji.",
         "densityCompactDescription": "Tesnejša razporeditev za prikaz več vsebine na zaslonu.",
+        "collapseLongMessages": "Strni dolga sporočila",
+        "collapseLongMessagesDescription": "Prikaži začetek dolgih sporočil z gumbom »Pokaži več«. Izklopite, da se vedno prikaže celotno sporočilo.",
         "accentColor": "Barva poudarka",
         "accentThemeDefault": "Privzeto teme",
         "fontSize": "Velikost pisave",

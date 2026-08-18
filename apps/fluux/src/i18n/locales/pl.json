@@ -695,6 +695,8 @@
         "compact": "Kompaktowy",
         "densityComfortableDescription": "Przestronne odstępy i większe awatary.",
         "densityCompactDescription": "Ciaśniejsze odstępy, aby więcej zmieściło się na ekranie.",
+        "collapseLongMessages": "Zwijaj długie wiadomości",
+        "collapseLongMessagesDescription": "Pokazuj początek długich wiadomości z przyciskiem „Pokaż więcej”. Wyłącz, aby zawsze pokazywać całą wiadomość.",
         "accentColor": "Kolor akcentu",
         "accentThemeDefault": "Domyślny motywu",
         "fontSize": "Rozmiar czcionki",

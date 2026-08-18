@@ -693,6 +693,8 @@
         "compact": "Compacte",
         "densityComfortableDescription": "Espaiat ampli i avatars més grans.",
         "densityCompactDescription": "Espaiat més estret per mostrar més contingut a la pantalla.",
+        "collapseLongMessages": "Plega missatges llargs",
+        "collapseLongMessagesDescription": "Mostra l'inici dels missatges llargs amb un botó «Mostra'n més». Desactiva-ho per mostrar sempre el missatge complet.",
         "accentColor": "Color d'accent",
         "accentThemeDefault": "Per defecte del tema",
         "fontSize": "Mida de la lletra",

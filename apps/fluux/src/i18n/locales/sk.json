@@ -694,6 +694,8 @@
         "compact": "Kompaktné",
         "densityComfortableDescription": "Priestranné odsadenie a väčšie avatary.",
         "densityCompactDescription": "Tesnejšie odsadenie pre zobrazenie viac obsahu na obrazovke.",
+        "collapseLongMessages": "Zbaliť dlhé správy",
+        "collapseLongMessagesDescription": "Zobraziť začiatok dlhých správ tlačidlom „Zobraziť viac“. Vypnite, aby sa vždy zobrazila celá správa.",
         "accentColor": "Farba zvýraznenia",
         "accentThemeDefault": "Predvolené témy",
         "fontSize": "Veľkosť písma",
