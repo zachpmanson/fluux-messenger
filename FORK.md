@@ -49,6 +49,9 @@ past deploy.
   Not upstreamable.
 - **Markdown gaps** — tables, `[label](url)` links, nested lists, behind a
   setting. See PR #5 / issue #2. Upstreamable; offer it to ProcessOne.
+- **Rebrand (deployment identity)** — favicon from the dotgrid diamond mark
+  (`icon-variants/favicon-source.svg`) + `<title>Chat</title>`. Never
+  upstreamable; stays in this fork for chat.zachmanson.com.
 
 ## Wanted, not yet built
 
