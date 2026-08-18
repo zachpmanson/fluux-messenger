@@ -47,6 +47,8 @@ interface SettingsState {
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
   setKeepInSystemTray: (enabled: boolean) => void
+  collapseLongMessages: boolean
+  setCollapseLongMessages: (enabled: boolean) => void
   /**
    * Legacy per-account archiving overrides, retained without migrating or deleting data.
    * These values are inert: only freshly confirmed server preferences govern archiving.
@@ -73,6 +75,7 @@ const READING_WIDTH_KEY = 'fluux-reading-width'
 const READING_WIDTH_ENABLED_KEY = 'fluux-reading-width-enabled'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 const ARCHIVE_OVERRIDES_KEY = 'fluux-archive-overrides'
+const COLLAPSE_LONG_KEY = 'fluux-collapse-long'
 
 /**
  * Get initial theme mode from localStorage, default to 'system'
@@ -236,6 +239,23 @@ function getInitialKeepInSystemTray(): boolean {
   return true
 }
 
+/**
+ * Get the initial long-message collapse preference from localStorage, default to true.
+ *
+ * On: messages taller than the threshold collapse with a "Show more" button.
+ * Off: every message renders in full — no collapsing, no button.
+ */
+function getInitialCollapseLongMessages(): boolean {
+  try {
+    const stored = localStorage.getItem(COLLAPSE_LONG_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
 const ARCHIVING_DEFAULTS: readonly string[] = ['always', 'roster', 'never']
 
 /** Read the saved per-account archiving overrides, ignoring anything malformed. */
@@ -387,5 +407,12 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     const { [account]: _removed, ...archiveOverrides } = get().archiveOverrides
     saveArchiveOverrides(archiveOverrides)
     set({ archiveOverrides })
+  },
+
+  collapseLongMessages: getInitialCollapseLongMessages(),
+
+  setCollapseLongMessages: (enabled) => {
+    try { localStorage.setItem(COLLAPSE_LONG_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ collapseLongMessages: enabled })
   },
 }))
