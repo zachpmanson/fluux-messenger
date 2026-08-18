@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Romslig mellomrom og større avatarer.",
         "densityCompactDescription": "Tettere mellomrom slik at mer får plass på skjermen.",
+        "collapseLongMessages": "Skjul lange meldinger",
+        "collapseLongMessagesDescription": "Vis starten på lange meldinger med en «Vis mer»-knapp. Slå av for alltid å vise hele meldingen.",
         "accentColor": "Aksentfarge",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Skriftstørrelse",

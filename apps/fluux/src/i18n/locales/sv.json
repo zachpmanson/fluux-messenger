@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Generöst mellanrum och större avatarer.",
         "densityCompactDescription": "Tätare mellanrum för att få plats med mer på skärmen.",
+        "collapseLongMessages": "Fäll ihop långa meddelanden",
+        "collapseLongMessagesDescription": "Visa början av långa meddelanden med en knapp 'Visa mer'. Stäng av för att alltid visa hela meddelandet.",
         "accentColor": "Accentfärg",
         "accentThemeDefault": "Temastandard",
         "fontSize": "Teckenstorlek",
