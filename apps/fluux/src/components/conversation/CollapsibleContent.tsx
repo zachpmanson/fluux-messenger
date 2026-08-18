@@ -2,6 +2,7 @@ import { useRef, useEffect, useState, useCallback, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useExpandedMessagesStore } from '@/stores/expandedMessagesStore'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { useRemeasureOnWidthChange } from './messageWidthContext'
 import { MAX_COLLAPSED_HEIGHT } from './collapsedContentHeight'
 
@@ -41,6 +42,7 @@ export function CollapsibleContent({
   const [needsCollapsing, setNeedsCollapsing] = useState(false)
   const isExpanded = useExpandedMessagesStore((state) => state.isExpanded(messageId))
   const toggle = useExpandedMessagesStore((state) => state.toggle)
+  const collapseLongMessages = useSettingsStore((state) => state.collapseLongMessages)
 
   // Re-evaluate whether the content needs collapsing. Reads layout
   // (scrollHeight) so it runs after render/paint. Stable identity (live ref).
@@ -67,8 +69,9 @@ export function CollapsibleContent({
   // width observer — no per-message resize observer.
   useRemeasureOnWidthChange(measure)
 
-  // If content doesn't need collapsing, render normally
-  if (!needsCollapsing) {
+  // If the user turned collapsing off (Settings → Appearance), render content
+  // in full — no threshold, no gradient, no button.
+  if (!collapseLongMessages || !needsCollapsing) {
     return (
       <div ref={contentRef} className={className}>
         {children}
