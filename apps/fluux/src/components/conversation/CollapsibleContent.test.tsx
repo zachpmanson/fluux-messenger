@@ -10,6 +10,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import { useTranslation } from 'react-i18next'
 import { CollapsibleContent } from './CollapsibleContent'
 import { useExpandedMessagesStore } from '@/stores/expandedMessagesStore'
+import { useSettingsStore } from '@/stores/settingsStore'
 
 // Mock i18n
 vi.mock('react-i18next', () => ({
@@ -49,6 +50,7 @@ describe('CollapsibleContent', () => {
   beforeEach(() => {
     // Reset store state before each test
     useExpandedMessagesStore.getState().clear()
+    useSettingsStore.setState({ collapseLongMessages: true })
     observeCount = 0
     mediaObservers = []
     vi.mocked(useTranslation).mockClear()
@@ -130,6 +132,27 @@ describe('CollapsibleContent', () => {
     expect(screen.getByText('Short content')).toBeInTheDocument()
     // Show more button should not appear for short content
     expect(screen.queryByText('Show more')).not.toBeInTheDocument()
+  })
+
+  it('renders tall content in full when collapsing is disabled', () => {
+    // Turn the setting off — content should never collapse, whatever its height.
+    useSettingsStore.setState({ collapseLongMessages: false })
+    Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {
+      configurable: true,
+      get() {
+        return 600 // Exceeds 500px threshold
+      },
+    })
+
+    render(
+      <CollapsibleContent messageId="msg-1">
+        <p>Very long content that exceeds the threshold</p>
+      </CollapsibleContent>
+    )
+
+    expect(screen.getByText('Very long content that exceeds the threshold')).toBeInTheDocument()
+    expect(screen.queryByText('Show more')).not.toBeInTheDocument()
+    expect(screen.queryByText('Show less')).not.toBeInTheDocument()
   })
 
   it('should show "Show more" button when content exceeds threshold', () => {
