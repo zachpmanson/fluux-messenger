@@ -689,6 +689,8 @@
         "compact": "紧凑",
         "densityComfortableDescription": "宽松的间距，更大的头像。",
         "densityCompactDescription": "更紧凑的间距，屏幕上可显示更多内容。",
+        "collapseLongMessages": "折叠长消息",
+        "collapseLongMessagesDescription": "用\"显示更多\"按钮显示长消息的开头。关闭后始终显示完整消息。",
         "contactStatusMessage": "显示状态消息",
         "contactStatusMessageDescription": "显示联系人自己的状态文字，替代“在线”或“请勿打扰”。",
         "accentColor": "强调色",

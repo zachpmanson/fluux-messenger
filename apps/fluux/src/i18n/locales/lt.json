@@ -693,6 +693,8 @@
         "compact": "Kompaktiškas",
         "densityComfortableDescription": "Erdvus tarpas ir didesni avatarai.",
         "densityCompactDescription": "Tankesnis tarpas, kad daugiau tilptų ekrane.",
+        "collapseLongMessages": "Sutraukti ilgas žinutes",
+        "collapseLongMessagesDescription": "Rodyti ilgų žinučių pradžią su mygtuku „Rodyti daugiau“. Išjunkite, kad visada būtų rodoma visa žinutė.",
         "contactStatusMessage": "Rodyti būsenos pranešimus",
         "contactStatusMessageDescription": "Rodyti kontakto būsenos tekstą vietoje „Prisijungęs“ arba „Netrikdyti“.",
         "accentColor": "Akcento spalva",

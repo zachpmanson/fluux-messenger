@@ -199,6 +199,8 @@ export function AppearanceSettings() {
   const setThemeMode = useSettingsStore((s) => s.setThemeMode)
   const densityMode = useSettingsStore((s) => s.densityMode)
   const setDensityMode = useSettingsStore((s) => s.setDensityMode)
+  const collapseLongMessages = useSettingsStore((s) => s.collapseLongMessages)
+  const setCollapseLongMessages = useSettingsStore((s) => s.setCollapseLongMessages)
   const showStatusMessage = useSettingsStore((s) => s.showStatusMessage)
   const setShowStatusMessage = useSettingsStore((s) => s.setShowStatusMessage)
 
@@ -308,6 +310,18 @@ export function AppearanceSettings() {
             </p>
           </div>
 
+          {/* Long message collapsing */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <label className="text-sm font-medium text-fluux-text">{t('settings.collapseLongMessages')}</label>
+              <Toggle
+                checked={collapseLongMessages}
+                onChange={setCollapseLongMessages}
+                aria-label={t('settings.collapseLongMessages')}
+              />
+            </div>
+            <p className="text-xs text-fluux-muted">
+              {t('settings.collapseLongMessagesDescription')}
           {/* Contact status message */}
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-4">

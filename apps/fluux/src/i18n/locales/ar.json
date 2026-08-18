@@ -697,6 +697,8 @@
         "compact": "مضغوط",
         "densityComfortableDescription": "تباعد واسع وصور أكبر.",
         "densityCompactDescription": "تباعد أضيق لعرض المزيد على الشاشة.",
+        "collapseLongMessages": "طي الرسائل الطويلة",
+        "collapseLongMessagesDescription": "اعرض بداية الرسائل الطويلة مع زر \"عرض المزيد\". أطفئ هذا الخيار لعرض الرسالة كاملة دائمًا.",
         "contactStatusMessage": "إظهار رسائل الحالة",
         "contactStatusMessageDescription": "إظهار نص حالة المراسل بدلاً من «متصل» أو «لا تقاطعني».",
         "accentColor": "لون التمييز",

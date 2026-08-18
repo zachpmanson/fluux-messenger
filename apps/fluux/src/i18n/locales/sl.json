@@ -695,6 +695,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostorna razporeditev in večji avatarji.",
         "densityCompactDescription": "Tesnejša razporeditev za prikaz več vsebine na zaslonu.",
+        "collapseLongMessages": "Strni dolga sporočila",
+        "collapseLongMessagesDescription": "Prikaži začetek dolgih sporočil z gumbom »Pokaži več«. Izklopite, da se vedno prikaže celotno sporočilo.",
         "contactStatusMessage": "Prikaži sporočila o stanju",
         "contactStatusMessageDescription": "Prikaži lastno besedilo stanja stika namesto »Na zvezi« ali »Ne moti«.",
         "accentColor": "Barva poudarka",

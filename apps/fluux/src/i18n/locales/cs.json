@@ -695,6 +695,8 @@
         "compact": "Kompaktní",
         "densityComfortableDescription": "Prostorné odsazení a větší avatary.",
         "densityCompactDescription": "Těsnější odsazení pro zobrazení více obsahu na obrazovce.",
+        "collapseLongMessages": "Sbalit dlouhé zprávy",
+        "collapseLongMessagesDescription": "Zobrazit začátek dlouhých zpráv s tlačítkem „Zobrazit více“. Vypnutím vždy zobrazíte celou zprávu.",
         "contactStatusMessage": "Zobrazovat stavové zprávy",
         "contactStatusMessageDescription": "Zobrazovat vlastní stavový text kontaktu místo „Online“ nebo „Nerušit“.",
         "accentColor": "Barva zvýraznění",

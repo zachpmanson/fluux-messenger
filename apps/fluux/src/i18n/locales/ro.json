@@ -693,6 +693,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Spațiere generoasă și avataruri mai mari.",
         "densityCompactDescription": "Spațiere mai strânsă pentru mai mult conținut pe ecran.",
+        "collapseLongMessages": "Restrângeți mesajele lungi",
+        "collapseLongMessagesDescription": "Afișează începutul mesajelor lungi cu un buton „Afișează mai mult“. Dezactivează pentru a afișa întotdeauna mesajul complet.",
         "contactStatusMessage": "Afișează mesajele de stare",
         "contactStatusMessageDescription": "Afișează textul de stare al contactului în locul „Online” sau „Nu deranja”.",
         "accentColor": "Culoare de accent",

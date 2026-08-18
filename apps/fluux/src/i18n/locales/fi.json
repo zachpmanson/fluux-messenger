@@ -689,6 +689,8 @@
         "compact": "Tiivis",
         "densityComfortableDescription": "Tilava asettelu ja suuremmat avatarit.",
         "densityCompactDescription": "Tiiviimpi asettelu, jotta mahtuu enemmän näyttöön.",
+        "collapseLongMessages": "Kutista pitkät viestit",
+        "collapseLongMessagesDescription": "Näytä pitkien viestien alku \"Näytä lisää\" -painikkeella. Poista käytöstä, jos haluat aina näyttää koko viestin.",
         "contactStatusMessage": "Näytä tilaviestit",
         "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla.",
         "accentColor": "Korostusväri",

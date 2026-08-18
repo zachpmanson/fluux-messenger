@@ -34,6 +34,8 @@ interface SettingsState {
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
   setKeepInSystemTray: (enabled: boolean) => void
+  collapseLongMessages: boolean
+  setCollapseLongMessages: (enabled: boolean) => void
 }
 
 const THEME_KEY = 'fluux-theme'
@@ -46,6 +48,7 @@ const DENSITY_KEY = 'fluux-density'
 const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
+const COLLAPSE_LONG_KEY = 'fluux-collapse-long'
 
 /**
  * Get initial theme mode from localStorage, default to 'system'
@@ -197,6 +200,23 @@ function getInitialKeepInSystemTray(): boolean {
   return true
 }
 
+/**
+ * Get the initial long-message collapse preference from localStorage, default to true.
+ *
+ * On: messages taller than the threshold collapse with a "Show more" button.
+ * Off: every message renders in full — no collapsing, no button.
+ */
+function getInitialCollapseLongMessages(): boolean {
+  try {
+    const stored = localStorage.getItem(COLLAPSE_LONG_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
 export const useSettingsStore = create<SettingsState>((set) => ({
   themeMode: getInitialMode(),
 
@@ -289,5 +309,12 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setKeepInSystemTray: (enabled) => {
     try { localStorage.setItem(KEEP_IN_TRAY_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ keepInSystemTray: enabled })
+  },
+
+  collapseLongMessages: getInitialCollapseLongMessages(),
+
+  setCollapseLongMessages: (enabled) => {
+    try { localStorage.setItem(COLLAPSE_LONG_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ collapseLongMessages: enabled })
   },
 }))

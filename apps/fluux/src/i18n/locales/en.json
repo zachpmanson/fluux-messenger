@@ -879,6 +879,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Roomy spacing, larger avatars.",
         "densityCompactDescription": "Tighter spacing so more fits on screen.",
+        "collapseLongMessages": "Collapse long messages",
+        "collapseLongMessagesDescription": "Show the start of long messages with a \"Show more\" button. Turn this off to always show the full message.",
         "contactStatusMessage": "Show status messages",
         "contactStatusMessageDescription": "Show a contact's own status text in place of \"Online\" or \"Do not disturb\".",
         "accentColor": "Accent Color",

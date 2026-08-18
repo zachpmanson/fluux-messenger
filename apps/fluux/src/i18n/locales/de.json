@@ -691,6 +691,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Großzügige Abstände und größere Avatare.",
         "densityCompactDescription": "Engere Abstände, damit mehr auf den Bildschirm passt.",
+        "collapseLongMessages": "Lange Nachrichten einklappen",
+        "collapseLongMessagesDescription": "Zeige den Anfang langer Nachrichten mit einem „Mehr anzeigen“-Button. Deaktivieren, um immer die ganze Nachricht zu zeigen.",
         "contactStatusMessage": "Statusmeldungen anzeigen",
         "contactStatusMessageDescription": "Den eigenen Statustext eines Kontakts anstelle von „Online“ oder „Bitte nicht störenb“ anzeigen.",
         "accentColor": "Akzentfarbe",

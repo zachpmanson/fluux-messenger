@@ -693,6 +693,8 @@
         "compact": "Компактный",
         "densityComfortableDescription": "Просторные отступы и более крупные аватары.",
         "densityCompactDescription": "Плотные отступы, чтобы вместить больше на экране.",
+        "collapseLongMessages": "Сворачивать длинные сообщения",
+        "collapseLongMessagesDescription": "Показывать начало длинных сообщений с кнопкой «Показать ещё». Выключите, чтобы всегда показывать полное сообщение.",
         "contactStatusMessage": "Показывать сообщения о статусе",
         "contactStatusMessageDescription": "Показывать собственный текст статуса контакта вместо «В сети» или «Не беспокоить».",
         "accentColor": "Цвет акцента",
