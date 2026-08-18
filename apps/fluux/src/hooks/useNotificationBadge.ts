@@ -27,6 +27,7 @@ class FaviconBadge {
   private faviconLink: HTMLLinkElement | null = null
   private faviconImage: HTMLImageElement | null = null
   private isReady = false
+  private lastCount = 0
 
   constructor() {
     if (typeof document === 'undefined') return
@@ -44,32 +45,39 @@ class FaviconBadge {
       document.head.appendChild(this.faviconLink)
     }
 
-    // Store original favicon
+    // Store original favicon (clean URL, used to restore on reset())
     this.originalFavicon = this.faviconLink.href || '/favicon.png'
 
-    // Load the original favicon image
+    // Load the base favicon image. Cache-bust so the badge never redraws a stale
+    // (old purple) mark that the SW/browser still has cached — the badge must
+    // always reflect the currently-served favicon.
     this.faviconImage = new Image()
     this.faviconImage.crossOrigin = 'anonymous'
     this.faviconImage.onload = () => {
       this.isReady = true
+      // An unread badge may have arrived before the image loaded; now that we
+      // finally have the real base image, render the pending badge so it isn't
+      // left stuck waiting for the next count change.
+      if (this.lastCount !== 0) this.render(this.lastCount)
     }
-    this.faviconImage.src = this.originalFavicon
+    this.faviconImage.src = `${this.originalFavicon}${this.originalFavicon.includes('?') ? '&' : '?'}v=${Date.now()}`
   }
 
   setBadge(count: number): void {
+    this.lastCount = count
+    this.render(count)
+  }
+
+  private render(count: number): void {
     if (!this.ctx || !this.canvas || !this.faviconLink) return
 
-    // Clear canvas
-    this.ctx.clearRect(0, 0, 32, 32)
+    // Until the real base image is loaded, leave the native favicon from
+    // index.html alone. Never paint a placeholder colour over the tab icon —
+    // that's how a wrong-colour favicon "takes over" on the first unread.
+    if (!this.isReady || !this.faviconImage) return
 
-    // Draw original favicon if loaded
-    if (this.isReady && this.faviconImage) {
-      this.ctx.drawImage(this.faviconImage, 0, 0, 32, 32)
-    } else {
-      // Fallback: draw a simple icon
-      this.ctx.fillStyle = '#5865F2'
-      this.ctx.fillRect(0, 0, 32, 32)
-    }
+    this.ctx.clearRect(0, 0, 32, 32)
+    this.ctx.drawImage(this.faviconImage, 0, 0, 32, 32)
 
     // Draw badge if count > 0
     if (count > 0) {
@@ -94,6 +102,7 @@ class FaviconBadge {
   }
 
   reset(): void {
+    this.lastCount = 0
     if (this.faviconLink && this.originalFavicon) {
       this.faviconLink.href = this.originalFavicon
     }
