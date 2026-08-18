@@ -692,6 +692,8 @@
         "compact": "Kompakts",
         "densityComfortableDescription": "Plašs atstarpes un lielāki avatāri.",
         "densityCompactDescription": "Blīvākas atstarpes, lai ekrānā ietilptu vairāk.",
+        "collapseLongMessages": "Sakļaut garas ziņas",
+        "collapseLongMessagesDescription": "Rādīt garu ziņojumu sākumu ar pogu “Rādīt vairāk”. Izslēdziet, lai vienmēr rādītu pilnu ziņojumu.",
         "accentColor": "Akcenta krāsa",
         "accentThemeDefault": "Tēmas noklusējums",
         "fontSize": "Fonta lielums",

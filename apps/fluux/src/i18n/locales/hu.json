@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Tágas elrendezés és nagyobb avatarok.",
         "densityCompactDescription": "Sűrűbb elrendezés, hogy több férjen el a képernyőn.",
+        "collapseLongMessages": "Hosszú üzenetek összecsukása",
+        "collapseLongMessagesDescription": "A hosszú üzenetek elejének megjelenítése „Továbbiak“ gombbal. Kapcsold ki, hogy mindig a teljes üzenet jelenjen meg.",
         "accentColor": "Kiemelőszín",
         "accentThemeDefault": "Téma alapértelmezett",
         "fontSize": "Betűméret",

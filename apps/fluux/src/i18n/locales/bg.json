@@ -689,6 +689,8 @@
         "compact": "Компактен",
         "densityComfortableDescription": "Просторно разредяване и по-големи аватари.",
         "densityCompactDescription": "По-тясно разредяване, за да се вижда повече на екрана.",
+        "collapseLongMessages": "Свиване на дълги съобщения",
+        "collapseLongMessagesDescription": "Показвай началото на дълги съобщения с бутон „Покажи още“. Изключете, за да винаги показвате пълното съобщение.",
         "accentColor": "Акцентен цвят",
         "accentThemeDefault": "По подразбиране на темата",
         "fontSize": "Размер на шрифта",

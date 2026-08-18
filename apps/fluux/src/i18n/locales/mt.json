@@ -697,6 +697,8 @@
         "compact": "Kompatt",
         "densityComfortableDescription": "Spazju ġeneruż u avatars akbar.",
         "densityCompactDescription": "Spazju idjaq biex jidhru aktar fuq l-iskrin.",
+        "collapseLongMessages": "Aħbi messaġġi twal",
+        "collapseLongMessagesDescription": "Uri l-bidu ta' messaġġi twal b'buttuna \"Uri aktar\". Itfih biex dejjem turi l-messaġġ sħiħ.",
         "accentColor": "Kulur tal-aċċent",
         "accentThemeDefault": "Predefinit tat-tema",
         "fontSize": "Daqs tal-font",

@@ -693,6 +693,8 @@
         "compact": "Kompaktiškas",
         "densityComfortableDescription": "Erdvus tarpas ir didesni avatarai.",
         "densityCompactDescription": "Tankesnis tarpas, kad daugiau tilptų ekrane.",
+        "collapseLongMessages": "Sutraukti ilgas žinutes",
+        "collapseLongMessagesDescription": "Rodyti ilgų žinučių pradžią su mygtuku „Rodyti daugiau“. Išjunkite, kad visada būtų rodoma visa žinutė.",
         "accentColor": "Akcento spalva",
         "accentThemeDefault": "Temos numatytoji",
         "fontSize": "Šrifto dydis",

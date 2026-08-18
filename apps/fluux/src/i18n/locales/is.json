@@ -689,6 +689,8 @@
         "compact": "Þétt",
         "densityComfortableDescription": "Rúmgott bil og stærri myndir.",
         "densityCompactDescription": "Þéttara bil til að sýna meira á skjánum.",
+        "collapseLongMessages": "Draga saman löng skilaboð",
+        "collapseLongMessagesDescription": "Sýna upphaf langra skilaboða með hnappinum „Sýna meira“. Slökktu á þessu til að sýna alltaf öll skilaboðin.",
         "accentColor": "Áherslulitur",
         "accentThemeDefault": "Sjálfgefið þema",
         "fontSize": "Leturstærð",

@@ -693,6 +693,8 @@
         "compact": "Кампактны",
         "densityComfortableDescription": "Прасторны інтэрвал і вялікія аватары.",
         "densityCompactDescription": "Шчыльнейшы інтэрвал для большага адлюстравання на экране.",
+        "collapseLongMessages": "Згортваць доўгія паведамленні",
+        "collapseLongMessagesDescription": "Паказваць пачатак доўгіх паведамленняў з кнопкай «Паказаць больш». Выключыце, каб заўсёды паказваць поўнае паведамленне.",
         "accentColor": "Колер акцэнту",
         "accentThemeDefault": "Стандартны тэмы",
         "fontSize": "Памер шрыфту",
