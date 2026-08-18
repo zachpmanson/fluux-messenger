@@ -691,6 +691,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Großzügige Abstände und größere Avatare.",
         "densityCompactDescription": "Engere Abstände, damit mehr auf den Bildschirm passt.",
+        "collapseLongMessages": "Lange Nachrichten einklappen",
+        "collapseLongMessagesDescription": "Zeige den Anfang langer Nachrichten mit einem „Mehr anzeigen“-Button. Deaktivieren, um immer die ganze Nachricht zu zeigen.",
         "markdown": "Markdown darstellen",
         "markdownDescription": "Überschriften, Listen, Tabellen und benannte Links in Nachrichten anzeigen. Fett, Kursiv, Code und Zitate werden immer dargestellt.",
         "slashCommands": "Slash-Befehle",

@@ -879,6 +879,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Roomy spacing, larger avatars.",
         "densityCompactDescription": "Tighter spacing so more fits on screen.",
+        "collapseLongMessages": "Collapse long messages",
+        "collapseLongMessagesDescription": "Show the start of long messages with a \"Show more\" button. Turn this off to always show the full message.",
         "markdown": "Render Markdown",
         "markdownDescription": "Show headings, lists, tables and labelled links in messages. Bold, italic, code and quotes always render.",
         "slashCommands": "Slash commands",

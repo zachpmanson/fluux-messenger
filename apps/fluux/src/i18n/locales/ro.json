@@ -693,6 +693,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Spațiere generoasă și avataruri mai mari.",
         "densityCompactDescription": "Spațiere mai strânsă pentru mai mult conținut pe ecran.",
+        "collapseLongMessages": "Restrângeți mesajele lungi",
+        "collapseLongMessagesDescription": "Afișează începutul mesajelor lungi cu un buton „Afișează mai mult“. Dezactivează pentru a afișa întotdeauna mesajul complet.",
         "markdown": "Afișează Markdown",
         "markdownDescription": "Afișează titluri, liste, tabele și linkuri cu etichetă în mesaje. Aldinul, cursivul, codul și citatele se afișează întotdeauna.",
         "slashCommands": "Comenzi cu bară oblică",

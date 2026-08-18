@@ -689,6 +689,8 @@
         "compact": "Kompakt",
         "densityComfortableDescription": "Rummeligt mellemrum og større avatarer.",
         "densityCompactDescription": "Tættere mellemrum så mere passer på skærmen.",
+        "collapseLongMessages": "Fold lange beskeder sammen",
+        "collapseLongMessagesDescription": "Vis starten af lange beskeder med en knap 'Vis mere'. Slå fra for altid at vise hele beskeden.",
         "markdown": "Vis Markdown",
         "markdownDescription": "Vis overskrifter, lister, tabeller og navngivne links i beskeder. Fed, kursiv, kode og citater vises altid.",
         "slashCommands": "Skråstregskommandoer",

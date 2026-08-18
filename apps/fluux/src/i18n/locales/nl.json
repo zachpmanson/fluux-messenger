@@ -689,6 +689,8 @@
         "compact": "Compact",
         "densityComfortableDescription": "Ruime spatiering en grotere avatars.",
         "densityCompactDescription": "Dichter spatiering zodat er meer op het scherm past.",
+        "collapseLongMessages": "Lange berichten samenvouwen",
+        "collapseLongMessagesDescription": "Toon het begin van lange berichten met een knop 'Meer weergeven'. Schakel dit uit om altijd het volledige bericht te tonen.",
         "markdown": "Markdown weergeven",
         "markdownDescription": "Koppen, lijsten, tabellen en gelabelde links in berichten weergeven. Vet, cursief, code en citaten worden altijd weergegeven.",
         "slashCommands": "Slash-opdrachten",

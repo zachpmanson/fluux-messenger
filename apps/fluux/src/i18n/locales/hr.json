@@ -691,6 +691,8 @@
         "compact": "Kompaktno",
         "densityComfortableDescription": "Prostrani razmak i veći avatari.",
         "densityCompactDescription": "Manji razmak kako bi se više prikazalo na zaslonu.",
+        "collapseLongMessages": "Sažmi duge poruke",
+        "collapseLongMessagesDescription": "Prikaži početak dugih poruka s gumbom \"Prikaži više\". Isključite za uvijek prikaz cijele poruke.",
         "markdown": "Prikaži Markdown",
         "markdownDescription": "Prikaži naslove, popise, tablice i imenovane veze u poruci. Podebljano, kurziv, kod i citati prikazuju se uvijek.",
         "slashCommands": "Naredbe s kosom crtom",

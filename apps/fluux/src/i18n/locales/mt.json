@@ -697,6 +697,8 @@
         "compact": "Kompatt",
         "densityComfortableDescription": "Spazju ġeneruż u avatars akbar.",
         "densityCompactDescription": "Spazju idjaq biex jidhru aktar fuq l-iskrin.",
+        "collapseLongMessages": "Aħbi messaġġi twal",
+        "collapseLongMessagesDescription": "Uri l-bidu ta' messaġġi twal b'buttuna \"Uri aktar\". Itfih biex dejjem turi l-messaġġ sħiħ.",
         "markdown": "Uri l-Markdown",
         "markdownDescription": "Uri intestaturi, listi, tabelli u links b’tikketta fil-messaġġi. Il-grassett, il-korsiv, il-kodiċi u l-kwotazzjonijiet dejjem jidhru.",
         "slashCommands": "Kmandi bis-slash",
