@@ -693,6 +693,8 @@
         "compact": "Compacto",
         "densityComfortableDescription": "Espaçamento amplo e avatares maiores.",
         "densityCompactDescription": "Espaçamento menor para exibir mais na tela.",
+        "collapseLongMessages": "Recolher mensagens longas",
+        "collapseLongMessagesDescription": "Mostrar o início de mensagens longas com um botão «Mostrar mais». Desative para mostrar sempre a mensagem completa.",
         "accentColor": "Cor de destaque",
         "accentThemeDefault": "Padrão do tema",
         "fontSize": "Tamanho da fonte",
