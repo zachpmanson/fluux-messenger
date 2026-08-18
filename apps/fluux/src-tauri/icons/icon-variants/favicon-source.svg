@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Favicon brand source: white tile + the dotgrid diamond mark, zoomed in.
+
+  Basis (chat.zachmanson.com upload dotgrid-26Q07-030486.svg) is 330x330 with a
+  120-unit glyph (~36% of the canvas). A favicon needs the mark to dominate, so
+  this reframe scales the glyph 5.1x to ~67% of the 1024 tile (white background,
+  black mark). The outer white square frame of the basis falls outside the crop.
+
+  Consumed by generate.sh as the source for dist/public/favicon.png in every
+  variant (the favicon is brand, not style-variant dependent).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect x="0" y="0" width="1024" height="1024" fill="#FFFFFF"/>
+  <g transform="translate(512 512) scale(5.1) translate(-165 -165)">
+    <path style="stroke-width: 15px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(0, 0, 0); fill: rgb(0, 0, 0);" d="M165,225 A60,60 0 0,0 225,165 A60,60 0 0,0 165,105 A60,60 0 0,0 105,165 L105,165 L105,225 L165,225 "/>
+  </g>
+</svg>
