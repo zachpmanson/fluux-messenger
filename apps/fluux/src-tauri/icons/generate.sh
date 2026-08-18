@@ -56,6 +56,9 @@ gen_variant() {
   sqm() { local inner=$(( ($1 * 824 + 451) / 902 )); \
           rsvg-convert -w "$inner" -h "$inner" "$SQ" -o "$TMP/_m.png"; \
           magick "$TMP/_m.png" -background none -gravity center -extent "${1}x${1}" "$2"; }
+  # favicon: dedicated brand source (white tile + zoomed diamond glyph),
+  # shared by every variant — the favicon is brand, not style-variant dependent.
+  fav() { rsvg-convert -w "$1" -h "$1" "$ICONS/icon-variants/favicon-source.svg" -o "$2"; }
 
   echo "== [$VARIANT] src-tauri/icons (squircle) =="
   sq 512 "$OUT_I/icon.png"
@@ -73,7 +76,8 @@ gen_variant() {
   sq 512 "$OUT_P/icon-512.png"
   sq 192 "$OUT_P/icon-192.png"
   sq 512 "$OUT_P/logo.png"
-  sq 32  "$OUT_P/favicon.png"
+  # favicon uses the dedicated brand source (fav), not the variant squircle
+  fav 32 "$OUT_P/favicon.png"
 
   echo "== [$VARIANT] public PWA maskable (rounded on bg) + apple-touch (full bleed) =="
   mkr 512 "$OUT_P/icon-512-maskable.png"
