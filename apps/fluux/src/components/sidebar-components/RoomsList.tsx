@@ -331,6 +331,12 @@ export const RoomItem = memo(function RoomItem({
   const currentLang = i18n.language.split('-')[0]
   const timeFormat = useSettingsStore((s) => s.timeFormat)
   const densityMode = useSettingsStore((s) => s.densityMode)
+  // Rooms follow the same shape contract the Avatar component applies to MUC
+  // icons: true square when the profile-picture setting is Square, otherwise a
+  // rounded square so a room stays distinguishable from a circular person.
+  // (#11 — the rooms list previously hardcoded `rounded-xl`, ignoring this.)
+  const avatarShape = useSettingsStore((s) => s.avatarShape)
+  const roomRadius = avatarShape === 'square' ? 'rounded-none' : 'rounded-[28%]'
   // Per-row subscriptions: this row re-renders only when ITS room (messages,
   // unread, last message, presence) or draft changes — not when any other room
   // updates during a multi-room join / MAM sync.
@@ -429,14 +435,14 @@ export const RoomItem = memo(function RoomItem({
             <img
               src={room.avatar}
               alt={room.name}
-              className={`${avatarBox} rounded-xl object-cover`}
+              className={`${avatarBox} ${roomRadius} object-cover`}
               draggable={false}
             />
           ) : isQuickChat ? (
-            <Zap className={`${avatarBox} p-1.5 bg-amber-500/20 rounded-xl text-amber-500`} />
+            <Zap className={`${avatarBox} p-1.5 bg-amber-500/20 ${roomRadius} text-amber-500`} />
           ) : (
             <Hash
-              className={`${avatarBox} p-1.5 rounded-xl text-white`}
+              className={`${avatarBox} p-1.5 ${roomRadius} text-white`}
               style={{ backgroundColor: generateConsistentColorHexSync(room.jid, { saturation: 60, lightness: 45 }) }}
             />
           )}
