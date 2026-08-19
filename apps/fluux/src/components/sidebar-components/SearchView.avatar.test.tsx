@@ -16,7 +16,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, act } from '@testing-library/react'
 import { SearchView } from './SearchView'
-import type { SearchResult } from '@fluux/sdk'
+import type { SearchResult, InPrefixSuggestion } from '@fluux/sdk'
 
 type RoomSlice = { rooms: Map<string, { avatar?: string }> }
 type RosterSlice = { contacts: Map<string, { avatar?: string }> }
@@ -133,7 +133,7 @@ function baseSearch(results: SearchResult[]) {
     isSearchingMAM: false, mamResults: [] as SearchResult[], hasMoreMAMResults: false, mamError: null,
     searchScope: null, searchMAM: vi.fn(), loadMoreMAMResults: vi.fn(), setSearchScope: vi.fn(),
     resultContext: new Map(), searchFilter: 'all', setSearchFilter: vi.fn(),
-    inPrefixSuggestions: [], isInPrefixActive: false, selectInPrefixSuggestion: vi.fn(),
+    inPrefixSuggestions: [] as InPrefixSuggestion[], isInPrefixActive: false, selectInPrefixSuggestion: vi.fn(),
   }
 }
 
@@ -181,5 +181,22 @@ describe('SearchView avatar reactivity (frozen-derived-value regression guard)',
     })
 
     expect(avatar()?.getAttribute('data-avatar-url')).toBe('https://example.com/alice.png')
+  })
+
+  it('shows room suggestions in the in: prefix dropdown as rounded squares', () => {
+    mockSearch = {
+      ...baseSearch([]),
+      isInPrefixActive: true,
+      inPrefixSuggestions: [
+        { id: 'team@conf.example.com', name: 'Team', isRoom: true },
+        { id: 'alice@example.com', name: 'Alice', isRoom: false },
+      ],
+    }
+    const { container } = render(<SearchView />)
+
+    const avatars = container.querySelectorAll('[data-testid="avatar"]')
+    // Rooms render through RoomAvatar → rounded square; people stay circles.
+    expect(avatars[0]?.getAttribute('data-shape')).toBe('square')
+    expect(avatars[1]?.getAttribute('data-shape')).toBe('circle')
   })
 })

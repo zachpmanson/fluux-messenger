@@ -161,7 +161,11 @@ export function SearchView() {
                   className={`w-full px-3 py-1.5 text-start text-sm flex items-center gap-2 transition-colors
                     ${i === inPrefixHighlight ? 'bg-fluux-hover text-fluux-text' : 'text-fluux-muted hover:bg-fluux-hover hover:text-fluux-text'}`}
                 >
-                  <Avatar identifier={s.id} name={s.name} size="xs" />
+                  {s.isRoom ? (
+                    <RoomAvatar identifier={s.id} name={s.name} size="xs" />
+                  ) : (
+                    <Avatar identifier={s.id} name={s.name} size="xs" />
+                  )}
                   <span className="truncate flex-1">{s.name}</span>
                   {s.isRoom ? (
                     <Hash className="size-3 text-fluux-muted flex-shrink-0" />
