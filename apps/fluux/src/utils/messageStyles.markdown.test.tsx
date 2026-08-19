@@ -237,6 +237,46 @@ describe('Markdown rendering', () => {
     })
   })
 
+  describe('emphasis-wrapped links', () => {
+    it('renders **url** as a bold link, stars not part of the href', () => {
+      const container = renderMd('**https://github.com/zachpmanson/fluux-messenger/issues/14**')
+      const link = container.querySelector('a') as HTMLAnchorElement
+      expect(link?.getAttribute('href')).toBe('https://github.com/zachpmanson/fluux-messenger/issues/14')
+      expect(link?.textContent).toBe('https://github.com/zachpmanson/fluux-messenger/issues/14')
+      expect(container.querySelector('strong')?.textContent).toBe('https://github.com/zachpmanson/fluux-messenger/issues/14')
+      expect(container.textContent).not.toContain('*')
+    })
+
+    it('renders a single-star *url* as a bold link (XEP-0393 bold)', () => {
+      const container = renderMd('*https://example.com/docs*')
+      expect(container.querySelector('strong a')?.getAttribute('href')).toBe('https://example.com/docs')
+      expect(container.textContent).not.toContain('*')
+    })
+
+    it('renders _url_ as an italic link', () => {
+      const container = renderMd('_https://example.com/note_')
+      expect(container.querySelector('em a')?.getAttribute('href')).toBe('https://example.com/note')
+      expect(container.textContent).not.toContain('_')
+    })
+
+    it('renders ~~url~~ as a struck link', () => {
+      const container = renderMd('~~https://example.com/old~~')
+      expect(container.querySelector('del a')?.getAttribute('href')).toBe('https://example.com/old')
+    })
+
+    it('keeps surrounding text when a wrapped link is mid-message', () => {
+      const container = renderMd('see **https://example.com/x** now')
+      expect(container.textContent).toBe('see https://example.com/x now')
+      expect(container.querySelector('strong a')?.getAttribute('href')).toBe('https://example.com/x')
+    })
+
+    it('keeps a literal trailing asterisk in the URL (lazy URL match)', () => {
+      const container = renderMd('**https://example.com/foo*bar**')
+      expect(container.querySelector('a')?.getAttribute('href')).toBe('https://example.com/foo*bar')
+      expect(container.textContent).toBe('https://example.com/foo*bar')
+    })
+  })
+
   describe('markdown disabled', () => {
     it('leaves a table as plain text', () => {
       const container = renderMd(['| A | B |', '| --- | --- |', '| 1 | 2 |'].join('\n'), false)
