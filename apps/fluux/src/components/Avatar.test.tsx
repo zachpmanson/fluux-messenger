@@ -259,8 +259,6 @@ describe('Avatar', () => {
     })
 
     test('a person follows the avatarShape setting, and their square is a TRUE square', () => {
-      // Not the room radius: a person opting into "square" gets sharp corners,
-      // so rooms keep the rounded square that distinguishes them.
       useSettingsStore.getState().setAvatarShape('square')
       const { container } = render(<Avatar identifier="emma@fluux.chat" name="Emma" />)
       const root = container.firstChild as HTMLElement
@@ -269,15 +267,19 @@ describe('Avatar', () => {
       expect(root.className).not.toContain('rounded-[28%]')
     })
 
-    test('a room keeps its rounded square even while people are set to square', () => {
+    test('a room respects the square setting: TRUE square when it is on', () => {
+      // #11 — a MUC icon must honor the square setting too, not stay a squircle.
       useSettingsStore.getState().setAvatarShape('square')
       const { container } = render(
         <Avatar identifier="team@conference.fluux.chat" name="Team" shape="square" />
       )
-      expect((container.firstChild as HTMLElement).className).toContain('rounded-[28%]')
+      const root = container.firstChild as HTMLElement
+      expect(root.className).toContain('rounded-none')
+      expect(root.className).not.toContain('rounded-[28%]')
+      expect(root.className).not.toContain('rounded-full')
     })
 
-    test('an explicit shape prop wins over the setting, so rooms stay square', () => {
+    test('a room keeps its rounded square when the setting is circle, to stay distinct from people', () => {
       useSettingsStore.getState().setAvatarShape('circle')
       const { container } = render(
         <Avatar identifier="team@conference.fluux.chat" name="Team" shape="square" />
