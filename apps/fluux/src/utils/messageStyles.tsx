@@ -86,6 +86,8 @@ interface StyledSegment {
   identifier?: string
   /** For links: the target, when it differs from the visible text (Markdown labelled links) */
   href?: string
+  /** For emphasis-wrapped links (e.g. `**url**`): style applied on top of the link */
+  linkStyle?: 'bold' | 'italic' | 'strike'
 }
 
 /** Mention range with optional URI for nick extraction */
@@ -166,6 +168,74 @@ function parseInlineStyles(
  * Returns the position reached in the original message (for mention matching).
  */
 function parseUrlsAndStyles(
+  escaped: string,
+  segments: StyledSegment[],
+  escapeMap: Map<string, string>,
+  mentionRanges: MentionRange[] | null,
+  startPos: number,
+  disableMentionFallback: boolean
+): number {
+  let currentPos = startPos
+
+  // Emphasis-wrapped URLs first: **url** / *url* / _url_ / ~~url~~ / ~url~.
+  // Without this pre-pass the bare-URL split folds the trailing marker into the
+  // URL — the link comes out regular weight and literally includes the stars —
+  // and the opening marker is left as stray text (the `**url**` bug). Emit the
+  // whole thing as one styled link, then process the remainder the usual way.
+  // The URL is matched lazily so a URL that ends in the same character still
+  // resolves: **https://example.com/foo*bar** keeps the real asterisk.
+  const wrappedUrlRE = /(\*\*|~~|\*|_|~)(https?:\/\/[^\s<>]+?)\1(?=$|[\s\p{P}])/gu
+  wrappedUrlRE.lastIndex = 0
+
+  let lastIndex = 0
+  let wm: RegExpExecArray | null
+  while ((wm = wrappedUrlRE.exec(escaped)) !== null) {
+    if (wm.index > lastIndex) {
+      currentPos = parseBareUrlsAndStyles(
+        escaped.slice(lastIndex, wm.index),
+        segments,
+        escapeMap,
+        mentionRanges,
+        currentPos,
+        disableMentionFallback
+      )
+    }
+
+    const linkStyle = wm[1] === '_' ? 'italic' : wm[1] === '~' || wm[1] === '~~' ? 'strike' : 'bold'
+    segments.push({ type: 'link', content: restoreEscapes(wm[2], escapeMap), linkStyle })
+    currentPos += wm[0].length
+    lastIndex = wm.index + wm[0].length
+  }
+
+  if (lastIndex > 0) {
+    if (lastIndex < escaped.length) {
+      parseBareUrlsAndStyles(
+        escaped.slice(lastIndex),
+        segments,
+        escapeMap,
+        mentionRanges,
+        currentPos,
+        disableMentionFallback
+      )
+    }
+    return currentPos
+  }
+
+  return parseBareUrlsAndStyles(
+    escaped,
+    segments,
+    escapeMap,
+    mentionRanges,
+    currentPos,
+    disableMentionFallback
+  )
+}
+
+/**
+ * Split a span on bare URLs, parsing mentions and inline styling in between.
+ * Returns the position reached in the original message (for mention matching).
+ */
+function parseBareUrlsAndStyles(
   escaped: string,
   segments: StyledSegment[],
   escapeMap: Map<string, string>,
@@ -392,12 +462,23 @@ function renderSegment(segment: StyledSegment, index: number, isDarkMode?: boole
           {segment.content}
         </code>
       )
-    case 'link':
+    case 'link': {
       // Labelled links carry the target in `href` and the visible text in
       // `content`; bare URLs put the URL in `content` and MessageLink shows it.
-      return segment.href
+      const link = segment.href
         ? <MessageLink key={index} href={segment.href}>{segment.content}</MessageLink>
         : <MessageLink key={index} href={segment.content} />
+      // Emphasis-wrapped links (**url**, _url_, ~url~) render the link snippet
+      // itself bold / italic / struck-through.
+      if (segment.linkStyle === 'bold') {
+        return <strong key={index} className="font-semibold">{link}</strong>
+      }
+      if (segment.linkStyle === 'italic') return <em key={index}>{link}</em>
+      if (segment.linkStyle === 'strike') {
+        return <del key={index} className="line-through opacity-70">{link}</del>
+      }
+      return link
+    }
     case 'mention': {
       // Use per-user consistent color when identifier is available, otherwise fall back to brand.
       // Prefer the caller's resolver (which mirrors the sender-name color, including a roster
