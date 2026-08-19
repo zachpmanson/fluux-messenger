@@ -14,7 +14,7 @@ export function NewMessageModal({ onClose, onPick, onAddContact, onManageContact
   const { t } = useTranslation()
 
   return (
-    <ModalShell title={t('newMessage.title')} onClose={onClose} width="max-w-md" panelClassName="max-h-[90vh] flex flex-col">
+    <ModalShell title={t('newMessage.title')} onClose={onClose} width="max-w-md" panelClassName="min-h-[24rem] max-h-[90vh] flex flex-col">
       <div className="p-4 space-y-3 overflow-y-auto flex-1">
         <ContactSelector
           selectedContacts={[]}
