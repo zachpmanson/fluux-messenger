@@ -120,10 +120,12 @@ export interface AvatarProps {
   forceOffline?: boolean
 
   /**
-   * Avatar shape. Rooms/groups pass 'square' explicitly and get the rounded
-   * square (see SQUARE_RADIUS). Left unset, a person's avatar follows the user's
-   * `avatarShape` setting — circular by default, and a true square when they
-   * opt in, so people and rooms stay distinguishable either way.
+   * Avatar shape. Rooms/groups pass 'square' explicitly (the "room" marker,
+   * see SQUARE_RADIUS). Its effective shape follows the user's `avatarShape`
+   * setting: a rounded square (28%) when the setting is circle — so a room
+   * stays distinguishable from a circular person — and a true square when the
+   * setting is square, so MUC icons respect the square setting too. Left unset,
+   * a person's avatar follows the setting directly (circle or true square).
    */
   shape?: 'circle' | 'square'
 }
@@ -315,10 +317,12 @@ export function Avatar({
   forceOffline = false,
   shape,
 }: AvatarProps) {
-  // Rooms pass shape explicitly and keep their rounded square; people follow the
-  // user's preference.
+  // Rooms pass shape="square" explicitly; a person leaves it unset and follows
+  // the setting. The shape setting applies to BOTH: when it's 'square', rooms
+  // and people alike are true squares. When it's 'circle', a person is a
+  // circle (rounded-full) while a room keeps its rounded square (SQUARE_RADIUS)
+  // so the two stay distinguishable in the sidebar.
   const preferredShape = useSettingsStore((s) => s.avatarShape)
-  const effectiveShape = shape ?? preferredShape
   // Generate consistent background color from identifier, or use custom fallbackColor
   const backgroundColor = fallbackColor
     || ensureContrastWithWhite(generateConsistentColorHexSync(identifier, { saturation: 60, lightness: 45 }))
@@ -330,14 +334,12 @@ export function Avatar({
   // Get size classes
   const sizeClasses = SIZES[size]
 
-  // Two different squares, deliberately: a room's rounded square (28%) is what
-  // distinguishes it from a person at a glance, so a person who opts into
-  // "square" gets a TRUE square. Keeping both on 28% would erase the
-  // distinction the room shape exists to draw.
+  // Square setting wins: true square for people AND rooms alike. Otherwise a
+  // room (shape="square") keeps its rounded square and a person is a circle.
   const radiusClass =
-    effectiveShape !== 'square' ? 'rounded-full'
+    preferredShape === 'square' ? 'rounded-none'
       : shape === 'square' ? SQUARE_RADIUS
-        : 'rounded-none'
+        : 'rounded-full'
 
   // Determine presence color
   // Uses CSS custom properties for smooth color transitions between states
