@@ -21,6 +21,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  sendReadReceipts: boolean
+  setSendReadReceipts: (enabled: boolean) => void
   themeMode: ThemeMode
   setThemeMode: (mode: ThemeMode) => void
   timeFormat: TimeFormat
@@ -62,6 +64,7 @@ export interface ArchiveOverride {
   original: ArchivingDefault
 }
 
+const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -260,6 +263,19 @@ function saveArchiveOverrides(overrides: Record<string, ArchiveOverride>): void 
   try { localStorage.setItem(ARCHIVE_OVERRIDES_KEY, JSON.stringify(overrides)) } catch { /* localStorage not available */ }
 }
 
+function getInitialSendReadReceipts(): boolean {
+  try {
+    const stored = localStorage.getItem(READ_RECEIPTS_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  // Default on — matched the converse fork's behavior: receipts are sent
+  // until the user opts out (the disclosure only matters when it's new).
+  return true
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -388,4 +404,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     saveArchiveOverrides(archiveOverrides)
     set({ archiveOverrides })
   },
+  sendReadReceipts: getInitialSendReadReceipts(),
+
+  setSendReadReceipts: (enabled) => {
+    try { localStorage.setItem(READ_RECEIPTS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ sendReadReceipts: enabled })
+  },
+
 }))
