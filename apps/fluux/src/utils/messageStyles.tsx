@@ -1202,7 +1202,11 @@ function gfmRenderBlocks(tokens: GfmTok[], ctx: GfmCtx, keyBase = 0): React.Reac
     switch (t.type) {
       case 'paragraph_open': {
         const leaf = tokens[i + 1]
-        out.push(<p key={key}>{gfmInlineLeaf(leaf, ctx)}</p>)
+        out.push(
+          <p key={key} className="my-1">
+            {gfmInlineLeaf(leaf, ctx)}
+          </p>,
+        )
         i += 3
         break
       }
@@ -1218,7 +1222,8 @@ function gfmRenderBlocks(tokens: GfmTok[], ctx: GfmCtx, keyBase = 0): React.Reac
       case 'blockquote_open': {
         const inner = collectGfm(tokens, i, 'blockquote_open', 'blockquote_close')
         out.push(
-          <blockquote className="border-l-2 border-fluux-border pl-2 opacity-80" key={key}>
+          // Carry over the legacy blockquote treatment: muted text + left rail.
+          <blockquote className="border-l-2 border-fluux-border pl-2 text-fluux-muted" key={key}>
             {gfmRenderBlocks(inner.nodes, ctx, key + 1000)}
           </blockquote>
         )
