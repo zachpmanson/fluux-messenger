@@ -205,6 +205,8 @@ export function AppearanceSettings() {
   const setShowStatusMessage = useSettingsStore((s) => s.setShowStatusMessage)
   const markdownEnabled = useSettingsStore((s) => s.markdownEnabled)
   const setMarkdownEnabled = useSettingsStore((s) => s.setMarkdownEnabled)
+  const sendReadReceipts = useSettingsStore((s) => s.sendReadReceipts)
+  const setSendReadReceipts = useSettingsStore((s) => s.setSendReadReceipts)
 
   const activeThemeId = useThemeStore((s) => s.activeThemeId)
   const setActiveTheme = useThemeStore((s) => s.setActiveTheme)
@@ -348,6 +350,18 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted">
               {t('settings.markdownDescription')}
+          {/* Read receipts (chat markers / delivery receipts) */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <label className="text-sm font-medium text-fluux-text">{t('settings.sendReadReceipts')}</label>
+              <Toggle
+                checked={sendReadReceipts}
+                onChange={setSendReadReceipts}
+                aria-label={t('settings.sendReadReceipts')}
+              />
+            </div>
+            <p className="text-xs text-fluux-muted">
+              {t('settings.sendReadReceiptsDescription')}
             </p>
           </div>
 
