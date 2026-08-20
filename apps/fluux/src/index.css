@@ -2,6 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Semantic message bodies — one stylesheet for every body parser.
+   Both the XEP-0393 renderer and the GFM (markdown-it) renderer emit bare
+   semantic HTML; these rules style that HTML identically no matter which
+   parser produced it, so a message reads the same regardless of the
+   "render markdown" setting. Tailwind preflight zeroes these historically,
+   so they're re-established here for message content only. */
+[data-msg-text] p {
+  margin: 0.25rem 0;
+}
+
+[data-msg-text] h1,
+[data-msg-text] h2,
+[data-msg-text] h3,
+[data-msg-text] h4,
+[data-msg-text] h5,
+[data-msg-text] h6 {
+  margin-block: 0.25rem;
+}
+[data-msg-text] h1 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+[data-msg-text] h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+[data-msg-text] :is(h3, h4, h5, h6) {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+[data-msg-text] strong {
+  font-weight: 600;
+}
+[data-msg-text] em {
+  font-style: italic;
+}
+[data-msg-text] del {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+[data-msg-text] code:not(pre code) {
+  font-family: var(--fluux-font-mono);
+  font-size: 0.8125rem;
+  background: var(--fluux-surface);
+  color: var(--fluux-brand);
+  border-radius: 0.25rem;
+  padding-inline: 0.25rem;
+}
+
+[data-msg-text] a {
+  color: var(--fluux-brand);
+  text-underline-offset: 0.15em;
+}
+
+[data-msg-text] ul,
+[data-msg-text] ol {
+  margin: 0.25rem 0;
+}
+[data-msg-text] ul {
+  list-style: disc;
+  padding-left: 1rem;
+}
+[data-msg-text] ol {
+  list-style: decimal;
+  padding-left: 1rem;
+}
+[data-msg-text] li {
+  margin-block: 0.125rem;
+}
+[data-msg-text] li[data-task] {
+  list-style: none;
+}
+[data-msg-text] li[data-task] input[type="checkbox"] {
+  margin-inline-end: 0.375rem;
+  accent-color: var(--fluux-brand);
+  vertical-align: middle;
+}
+
+[data-msg-text] blockquote {
+  border-left: 2px solid var(--fluux-border);
+  padding-left: 0.5rem;
+  margin: 0.25rem 0;
+  color: var(--fluux-muted);
+}
+
+[data-msg-text] table {
+  border-collapse: collapse;
+  margin: 0.25rem 0;
+}
+[data-msg-text] th,
+[data-msg-text] td {
+  border: 1px solid var(--fluux-border);
+  padding: 2px 6px;
+}
+[data-msg-text] th {
+  font-weight: 600;
+  text-align: left;
+}
+[data-msg-text] :is(th, td)[data-align="center"] {
+  text-align: center;
+}
+[data-msg-text] :is(th, td)[data-align="right"] {
+  text-align: right;
+}
+
 /* Mirror directional icons (arrows, reply, forward) in RTL mode */
 [dir="rtl"] .rtl-mirror {
   transform: scaleX(-1);
