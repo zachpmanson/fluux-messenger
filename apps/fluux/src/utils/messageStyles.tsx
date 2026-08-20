@@ -1204,14 +1204,26 @@ function gfmRenderBlocks(tokens: GfmTok[], ctx: GfmCtx, keyBase = 0): React.Reac
       }
       case 'bullet_list_open': {
         const inner = collectGfm(tokens, i, 'bullet_list_open', 'bullet_list_close')
-        out.push(<ul key={key}>{gfmListItems(inner.nodes, ctx)}</ul>)
+        out.push(
+          <ul key={key} className="list-disc list-inside my-1 space-y-0.5 [&_ul]:ml-4 [&_ul]:my-0">
+            {gfmListItems(inner.nodes, ctx)}
+          </ul>,
+        )
         i = inner.next
         break
       }
       case 'ordered_list_open': {
         const inner = collectGfm(tokens, i, 'ordered_list_open', 'ordered_list_close')
         const start = t.attrs?.find((a) => a[0] === 'start')?.[1]
-        out.push(<ol key={key} start={start ? Number(start) : undefined}>{gfmListItems(inner.nodes, ctx)}</ol>)
+        out.push(
+          <ol
+            key={key}
+            start={start ? Number(start) : undefined}
+            className="list-decimal list-inside my-1 space-y-0.5 [&_ol]:ml-4 [&_ol]:my-0"
+          >
+            {gfmListItems(inner.nodes, ctx)}
+          </ol>,
+        )
         i = inner.next
         break
       }
