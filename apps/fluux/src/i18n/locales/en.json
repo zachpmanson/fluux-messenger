@@ -514,6 +514,7 @@
         "showMore": "Show more",
         "showLess": "Show less",
         "deliveryFailed": "Message not delivered",
+        "readReceiptDelivered": "Delivered to the recipient",
         "readReceiptDisplayed": "Read by the recipient",
         "viewError": "View error",
         "retry": "Retry",
