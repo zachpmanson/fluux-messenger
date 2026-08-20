@@ -8,8 +8,11 @@
    parser produced it, so a message reads the same regardless of the
    "render markdown" setting. Tailwind preflight zeroes these historically,
    so they're re-established here for message content only. */
-[data-msg-text] p {
-  margin: 0.25rem 0;
+[data-msg-text] p + p {
+  /* XEP keeps paragraph breaks as literal blank-line boxes (the container is
+     white-space: pre-wrap) — a ~line-height step. Give GFM its blank-line
+     equivalent between adjacent paragraphs only, so the two tallier match. */
+  margin-top: 1.375em;
 }
 
 [data-msg-text] h1,
