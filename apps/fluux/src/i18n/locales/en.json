@@ -665,7 +665,8 @@
         "loadFilePreview": "Load preview",
         "showLinkImage": "Show image",
         "emojiSuggestions": "Emoji suggestions",
-        "readReceiptDisplayed": "Read by the recipient"
+        "readReceiptDisplayed": "Read by the recipient",
+        "readReceiptDelivered": "Delivered to the recipient"
     },
     "dates": {
         "today": "Today",
