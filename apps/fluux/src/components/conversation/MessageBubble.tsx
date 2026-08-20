@@ -7,7 +7,7 @@ import { iosHaptic } from '@/platform/ios/haptics'
  */
 import { useState, useMemo, useRef, useEffect, useContext, memo, type CSSProperties, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CornerUpRight, AlertCircle, RefreshCw, Shield, ShieldCheck, ShieldX, ShieldAlert, Ear, UserX } from 'lucide-react'
+import { CornerUpRight, AlertCircle, RefreshCw, Shield, ShieldCheck, ShieldX, ShieldAlert, Ear, UserX, CheckCheck } from 'lucide-react'
 import { formatMessagePreview, formatXMPPError, getBareJid, type BaseMessage, type MentionReference, type Contact, type ContactIdentity, type RoomRole, type RoomAffiliation } from '@fluux/sdk'
 import { useVerifiedPeerKeysStore } from '@/stores/verifiedPeerKeysStore'
 import { useSettingsStore } from '@/stores/settingsStore'
@@ -725,6 +725,16 @@ export const MessageBubble = memo(function MessageBubble({
               <span className="text-xs text-fluux-muted">
                 {formatTime(message.timestamp)}
               </span>
+              {message.isOutgoing && message.receiptState === 'displayed' && (
+                <Tooltip content={t('chat.readReceiptDisplayed')} position="top" triggerMode="hover">
+                  <span
+                    className="flex items-center text-fluux-muted"
+                    aria-label={t('chat.readReceiptDisplayed')}
+                  >
+                    <CheckCheck className="size-3.5" />
+                  </span>
+                </Tooltip>
+              )}
               {message.securityContext && (
                 <Tooltip content={formatSecurityTooltip(t, { ...message.securityContext, trust: displayTrust ?? message.securityContext.trust })} position="top" triggerMode="click">
                   <span
