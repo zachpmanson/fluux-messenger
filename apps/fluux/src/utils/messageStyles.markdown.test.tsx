@@ -79,10 +79,20 @@ describe('GFM rendering (markdown on)', () => {
     expect(checkedBox.checked).toBe(true)
     expect(checkedBox.readOnly).toBe(true)
     expect(checked.querySelector('li')?.textContent).toContain('ship it')
+    expect(checked.querySelector('li')?.textContent).not.toContain('[x]')
 
     const unchecked = renderMd('- [ ] buy milk')
     const box = unchecked.querySelector('input[type="checkbox"]') as HTMLInputElement
     expect(box?.checked).toBe(false)
+  })
+
+  it('renders list item text directly as a <li> child (no nested <p>)', () => {
+    const container = renderMd(['- alpha', '- beta'].join('\n'))
+    const items = Array.from(container.querySelectorAll('li'))
+    expect(items).toHaveLength(2)
+    // A <p> wrapper shifts the text off the bullet's line box (misaligned).
+    expect(items[0].querySelector('p')).toBeNull()
+    expect(items[0].textContent).toBe('alpha')
   })
 
   it('renders nested/ordered lists', () => {
