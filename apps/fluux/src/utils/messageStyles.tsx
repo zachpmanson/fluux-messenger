@@ -1081,7 +1081,24 @@ function gfmTaskMarker(raw: string): TaskMarker | null {
   return m ? { checked: m[1] !== ' ', body: m[2] } : null
 }
 
-/** Render list_item_open..close runs into <li>, handling task checkboxes + nesting. */
+/** Render a list item's inner tokens, unwrapping a leading single paragraph so
+ *  the text becomes a direct child of the <li>. The bullet/number marker box
+ *  then shares the text's line box; a nested <p> block (as markdown-it emits)
+ *  shifts the text off-line from the marker. */
+function gfmItemBody(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
+  const out: React.ReactNode[] = []
+  let i = 0
+  if (tokens.length >= 3 && tokens[0].type === 'paragraph_open') {
+    out.push(...gfmInlineLeaf(tokens[1], ctx))
+    let close = 2
+    while (close < tokens.length && tokens[close].type !== 'paragraph_close') close++
+    i = Math.min(close + 1, tokens.length)
+  }
+  if (i < tokens.length) out.push(...gfmRenderBlocks(tokens.slice(i), ctx))
+  return out
+}
+
+/** Render list_item_open..close runs to <li>, handling task checkboxes + nesting. */
 function gfmListItems(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
   const items: React.ReactNode[] = []
   let i = 0
@@ -1101,9 +1118,17 @@ function gfmListItems(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
     if (task) {
       const restTokens = [...inner.nodes]
       if (firstP && pIdx >= 0) {
-        restTokens[pIdx + 1] = { ...(inner.nodes[pIdx + 1] as GfmTok), content: task.body }
+        // The renderer reads an inline token's .children (not .content), so strip
+        // the `[x]`/`[ ]` marker from the leading text child — otherwise the
+        // checkbox renders AND the literal marker leaks into the text.
+        const lf = inner.nodes[pIdx + 1] as GfmTok
+        const kids = (lf.children as GfmTok[] | undefined) ?? []
+        restTokens[pIdx + 1] =
+          kids[0]
+            ? { ...lf, content: task.body, children: [{ ...kids[0], content: task.body }] }
+            : { ...lf, content: task.body }
       }
-      const content = pIdx >= 0 ? gfmRenderBlocks(restTokens, ctx) : gfmRenderBlocks(inner.nodes, ctx)
+      const content = pIdx >= 0 ? gfmItemBody(restTokens, ctx) : gfmItemBody(inner.nodes, ctx)
       children = (
         <span className="li-flex">
           <input type="checkbox" checked={task.checked} readOnly tabIndex={-1} aria-label={task.checked ? 'done' : 'todo'} />
@@ -1111,7 +1136,7 @@ function gfmListItems(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
         </span>
       )
     } else {
-      children = gfmRenderBlocks(inner.nodes, ctx)
+      children = gfmItemBody(inner.nodes, ctx)
     }
     items.push(<li key={i} className={task ? 'list-none' : undefined}>{children}</li>)
     i = inner.next
