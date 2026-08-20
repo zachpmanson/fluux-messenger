@@ -30,6 +30,8 @@ import {
   NS_MESSAGE_MODERATE,
   NS_POLL,
   NS_DELAY,
+  NS_CHAT_MARKERS,
+  NS_RECEIPTS,
 } from '../namespaces'
 import { dataToElement } from '../e2ee/stanzaAdapter'
 import type { E2EEManager } from '../e2ee'
@@ -323,6 +325,16 @@ export class Chat extends BaseModule {
     // Chat States
     if (!isCarbonCopy) {
       this.handleChatState(stanza, from, bareFrom, bareTo, type)
+    }
+
+    // XEP-0333 chat markers + XEP-0184 delivery receipts. These travel as
+    // bodiless `<received>`/`<request>` (0184) or `<received>`/`<displayed>`/
+    // `<acknowledged>` (0333) children referencing one of our outgoing
+    // messages, so they never become a new incoming message. Must run before
+    // the body/fallthrough below — a marker stanza carries no renderable
+    // body of its own, but some senders include a fallback.
+    if (!isCarbonCopy && this.handleDeliverySignals(stanza, bareFrom)) {
+      return { handled: true }
     }
 
     // Reactions
@@ -815,7 +827,6 @@ export class Chat extends BaseModule {
     const type = this.conversationKind(to)
     const id = generateUUID()
     const recipient = type === 'chat' ? getBareJid(to) : to
-
     let fullBody = body
     let fallbackEnd = 0
     if (replyTo?.fallback) {
@@ -927,6 +938,16 @@ export class Chat extends BaseModule {
       if (fileChildren.length > 0) {
         children.push(xml('file', { xmlns: NS_FILE_METADATA }, ...fileChildren))
       }
+    }
+
+    // XEP-0333: request the recipient's client to return read/displayed
+    // markers for this outgoing 1:1 message. Skipped for MUC — in a large
+    // room markers are one stanza per participant per message, so they stay
+    // a 1:1-only feature (matching the upstream converse fork). Placed last
+    // (before the dedup origin-id) so streaming clients see it once the full
+    // message body has been emitted.
+    if (type === 'chat') {
+      children.push(xml('markable', { xmlns: NS_CHAT_MARKERS }))
     }
 
     // XEP-0359: Include origin-id for echo deduplication
@@ -1120,6 +1141,49 @@ export class Chat extends BaseModule {
     // archive them (and, per the same convention, not to wake devices for them).
     const message = xml('message', { to: recipient, type },
       xml(state, { xmlns: NS_CHATSTATES }),
+      xml('no-store', { xmlns: NS_HINTS }),
+    )
+    await this.deps.sendStanza(message)
+  }
+
+  /**
+   * Send a XEP-0184 delivery receipt for a received 1:1 message.
+   *
+   * Called in response to a peer's `<request/>` (see {@link handleDeliverySignals}),
+   * or by the app when the read-receipts privacy setting is enabled.
+   * 1:1 only — receipts are not sent into rooms.
+   *
+   * @param to - Bare JID of the peer whose message we received
+   * @param messageId - Stored id of the peer's incoming message to acknowledge
+   */
+  async sendDeliveryReceipt(to: string, messageId: string): Promise<void> {
+    if (!messageId || this.conversationKind(to) !== 'chat') return
+    const recipient = getBareJid(to)
+    await this.deps.sendStanza(xml(
+      'message', { to: recipient, type: 'chat', id: generateUUID() },
+      xml('received', { xmlns: NS_RECEIPTS, id: messageId }),
+      xml('no-store', { xmlns: NS_HINTS }),
+    ))
+  }
+
+  /**
+   * Send a XEP-0333 chat marker for a 1:1 message.
+   *
+   * Markers tell the peer what we did with their message: `received`,
+   * `displayed`, `acknowledged`, or `gone`. The app calls `displayed` when a
+   * received message is actually on screen (gated on window visibility and the
+   * read-receipts privacy setting). 1:1 only — markers are not sent in MUC.
+   *
+   * @param to - Bare JID of the peer
+   * @param messageId - The id of the message this marker refers to
+   * @param marker - The marker kind to send
+   */
+  async sendChatMarker(to: string, messageId: string, marker: 'received' | 'displayed' | 'acknowledged' | 'gone'): Promise<void> {
+    if (!messageId || this.conversationKind(to) !== 'chat') return
+    const recipient = getBareJid(to)
+    const message = xml(
+      'message', { to: recipient, type: 'chat', id: generateUUID() },
+      xml(marker, { xmlns: NS_CHAT_MARKERS, id: messageId }),
       xml('no-store', { xmlns: NS_HINTS }),
     )
     await this.deps.sendStanza(message)
@@ -1826,6 +1890,80 @@ export class Chat extends BaseModule {
    * room before it sends that presence, so a JID the room store knows is a
    * room we are addressing as one, and any other JID is a person.
    */
+  /**
+   * Handle inbound XEP-0333 chat markers and XEP-0184 delivery receipts.
+   *
+   * Both travel as bodiless child elements on a `type='chat'` message and
+   * reference one of our outgoing messages by id:
+   *
+   * - XEP-0184 `<request/>` — the peer wants us to confirm delivery of their
+   *   message; reply with a `<received/>` receipt.
+   * - XEP-0184 `<received/>` — confirms one of OUR messages was delivered;
+   *   advance its `receiptState` to `delivered`.
+   * - XEP-0333 `<displayed/>` — the peer displayed one of our messages;
+   *   advance to `displayed`.
+   * - XEP-0333 `<received/>` / `<acknowledged/>` — delivered/acknowledged;
+   *   advance to `delivered`.
+   *
+   * Returns true when the stanza was a marker/receipt-only message (whether or
+   * not it referenced a known outgoing message) so the caller claims it.
+   */
+  private handleDeliverySignals(stanza: Element, conversationId: string | undefined): boolean {
+    if (!conversationId) return false
+
+    // XEP-0184: a <request/> asks whether the referenced message reached us.
+    const requestEl = stanza.getChild('request', NS_RECEIPTS)
+    if (requestEl?.attrs.id) {
+      void this.sendDeliveryReceipt(conversationId, requestEl.attrs.id)
+      return true
+    }
+
+    // XEP-0184: a <received/> receipt for one of our outgoing messages.
+    const receiptEl = stanza.getChild('received', NS_RECEIPTS)
+    if (receiptEl?.attrs.id) {
+      this.applyReceiptToMessage(conversationId, receiptEl.attrs.id, 'delivered')
+      return true
+    }
+
+    // XEP-0333: <displayed/> — the peer has our message on screen.
+    const displayedEl = stanza.getChild('displayed', NS_CHAT_MARKERS)
+    if (displayedEl?.attrs.id) {
+      this.applyReceiptToMessage(conversationId, displayedEl.attrs.id, 'displayed')
+      return true
+    }
+
+    // XEP-0333: <received/> and <acknowledged/> both mean delivered.
+    const receivedMarker = stanza.getChild('received', NS_CHAT_MARKERS)
+    if (receivedMarker?.attrs.id) {
+      this.applyReceiptToMessage(conversationId, receivedMarker.attrs.id, 'delivered')
+      return true
+    }
+    const acknowledgedMarker = stanza.getChild('acknowledged', NS_CHAT_MARKERS)
+    if (acknowledgedMarker?.attrs.id) {
+      this.applyReceiptToMessage(conversationId, acknowledgedMarker.attrs.id, 'delivered')
+      return true
+    }
+
+    return false
+  }
+
+  /**
+   * Forward-only advance of an outgoing message's {@link Message.receiptState}
+   * when a receipt or chat marker acknowledges it. Only the user's own sent
+   * messages are ever touched, and a stale/older ack never regresses the
+   * state (sent → delivered → displayed).
+   */
+  private applyReceiptToMessage(conversationId: string, messageId: string, state: 'delivered' | 'displayed'): void {
+    const chat = this.deps.stores?.chat
+    if (!chat || !messageId) return
+    const message = chat.getMessage(conversationId, messageId)
+    if (!message?.isOutgoing) return
+    const order: Record<string, number> = { sent: 0, delivered: 1, displayed: 2 }
+    const current = message.receiptState ?? 'sent'
+    if (order[state] <= order[current]) return
+    chat.updateMessage(conversationId, messageId, { receiptState: state })
+  }
+
   private conversationKind(to: string): 'chat' | 'groupchat' {
     return this.deps.stores?.room.getRoom(getBareJid(to)) ? 'groupchat' : 'chat'
   }
