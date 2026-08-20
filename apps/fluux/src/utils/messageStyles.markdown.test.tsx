@@ -117,6 +117,20 @@ describe('GFM rendering (markdown on)', () => {
     expect(renderMd('### H3').querySelector('h3')?.getAttribute('class')).toContain('text-sm font-semibold')
   })
 
+  it('spaces block paragraphs with the XEP message rhythm', () => {
+    const container = renderMd('first paragraph\n\nsecond paragraph')
+    const ps = Array.from(container.querySelectorAll('p'))
+    expect(ps).toHaveLength(2)
+    expect(ps[0]?.getAttribute('class')).toContain('my-1')
+  })
+
+  it('styles blockquote with the established muted treatment', () => {
+    const container = renderMd('> quoted')
+    const bq = container.querySelector('blockquote')
+    expect(bq?.textContent).toContain('quoted')
+    expect(bq?.getAttribute('class')).toContain('text-fluux-muted')
+  })
+
   it('renders a fenced code block through the fork CodeBlock (copy/expand, no raw <pre> only)', () => {
     const container = renderMd(['```js', 'let x = 1', '```'].join('\n'))
     // The GFM branch routes fences to the CodeBlock widget.
