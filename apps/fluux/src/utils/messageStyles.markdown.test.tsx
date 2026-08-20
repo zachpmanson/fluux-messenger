@@ -72,9 +72,9 @@ describe('GFM rendering (markdown on)', () => {
     expect(Array.from(rows[0].querySelectorAll('td')).map((td) => td.textContent)).toEqual(['Apples', '3'])
     // Keep the legacy grid: every cell carries a border + cell padding.
     const th = container.querySelectorAll('th')
-    expect(th[0]?.getAttribute('class')).toContain('border border-fluux-border px-2 py-1 font-semibold')
-    const td = Array.from(container.querySelectorAll('td'))[0]
-    expect(td?.getAttribute('class')).toContain('border border-fluux-border px-2 py-1')
+    // The renderer emits bare semantic cells — styling is the stylesheet's job.
+    expect(th[0]?.getAttribute('class')).toBeNull()
+    expect(Array.from(container.querySelectorAll('td'))[0]?.getAttribute('class')).toBeNull()
   })
 
   it('renders task-list checkboxes, read-only', () => {
@@ -111,24 +111,24 @@ describe('GFM rendering (markdown on)', () => {
     expect(renderMd('## H2').querySelector('h2')?.textContent).toBe('H2')
     expect(renderMd('### H3').querySelector('h3')?.textContent).toBe('H3')
     expect(renderMd('#### H4').querySelector('h4')?.textContent).toBe('H4')
-    // Match the legacy compact sizing rather than native-browser heading sizes.
-    expect(renderMd('# H1').querySelector('h1')?.getAttribute('class')).toContain('text-lg font-bold')
-    expect(renderMd('## H2').querySelector('h2')?.getAttribute('class')).toContain('text-base font-semibold')
-    expect(renderMd('### H3').querySelector('h3')?.getAttribute('class')).toContain('text-sm font-semibold')
+    // Native headings, but no utility classes — sizing comes from the CSS.
+    expect(renderMd('# H1').querySelector('h1')?.getAttribute('class')).toBeNull()
+    expect(renderMd('## H2').querySelector('h2')?.getAttribute('class')).toBeNull()
+    expect(renderMd('### H3').querySelector('h3')?.getAttribute('class')).toBeNull()
   })
 
   it('spaces block paragraphs with the XEP message rhythm', () => {
     const container = renderMd('first paragraph\n\nsecond paragraph')
     const ps = Array.from(container.querySelectorAll('p'))
     expect(ps).toHaveLength(2)
-    expect(ps[0]?.getAttribute('class')).toContain('my-1')
+    expect(ps[0]?.getAttribute('class')).toBeNull()
   })
 
   it('styles blockquote with the established muted treatment', () => {
     const container = renderMd('> quoted')
     const bq = container.querySelector('blockquote')
     expect(bq?.textContent).toContain('quoted')
-    expect(bq?.getAttribute('class')).toContain('text-fluux-muted')
+    expect(bq?.getAttribute('class')).toBeNull()
   })
 
   it('renders a fenced code block through the fork CodeBlock (copy/expand, no raw <pre> only)', () => {
