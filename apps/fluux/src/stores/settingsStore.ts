@@ -32,6 +32,14 @@ interface SettingsState {
   setShowStatusMessage: (enabled: boolean) => void
   markdownEnabled: boolean
   setMarkdownEnabled: (enabled: boolean) => void
+  /**
+   * Whether to auto-send read-delivery signals (XEP-0333 displayed markers)
+   * for messages the user has actually viewed, and request markers on
+   * outgoing messages. Default on, matching the upstream converse fork;
+   * off for users who don't want to disclose they've read something.
+   */
+  sendReadReceipts: boolean
+  setSendReadReceipts: (enabled: boolean) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -49,6 +57,7 @@ const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
 const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const MARKDOWN_KEY = 'fluux-markdown'
+const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 const COLLAPSE_LONG_KEY = 'fluux-collapse-long'
@@ -155,6 +164,19 @@ function getInitialDensity(): DensityMode {
     // localStorage not available
   }
   return 'comfortable'
+}
+
+function getInitialSendReadReceipts(): boolean {
+  try {
+    const stored = localStorage.getItem(READ_RECEIPTS_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  // Default on — matched the converse fork's behavior: receipts are sent
+  // until the user opts out (the disclosure only matters when it's new).
+  return true
 }
 
 /**
@@ -313,6 +335,11 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setMarkdownEnabled: (enabled) => {
     try { localStorage.setItem(MARKDOWN_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ markdownEnabled: enabled })
+  sendReadReceipts: getInitialSendReadReceipts(),
+
+  setSendReadReceipts: (enabled) => {
+    try { localStorage.setItem(READ_RECEIPTS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ sendReadReceipts: enabled })
   },
 
   soundEnabled: getInitialSoundEnabled(),
