@@ -102,6 +102,9 @@ export const NS_STANZA_ID = 'urn:xmpp:sid:0'
 // XEP-0333: Chat Markers
 export const NS_CHAT_MARKERS = 'urn:xmpp:chat-markers:0'
 
+// XEP-0184: Message Delivery Receipts
+export const NS_RECEIPTS = 'urn:xmpp:receipts'
+
 // XEP-0490: Message Displayed Synchronization (MDS)
 export const NS_MDS = 'urn:xmpp:mds:displayed:0'
 export const NS_MDS_NOTIFY = 'urn:xmpp:mds:displayed:0+notify'

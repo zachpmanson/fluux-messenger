@@ -42,7 +42,7 @@ import { useEventsDesktopNotifications } from '@/hooks/useEventsDesktopNotificat
 import { useSDKErrorToasts } from '@/hooks/useSDKErrorToasts'
 import { useReactionNotifications } from '@/hooks/useReactionNotifications'
 import { useEasterEggNotifications } from '@/hooks/useEasterEggNotifications'
-import { useFocusZones, useViewNavigation, isMobileWeb, isSmallScreen, useWindowVisibility, useRouteSync, useDayBoundaryWatcher, type FocusZoneRefs } from '@/hooks'
+import { useFocusZones, useViewNavigation, isMobileWeb, isSmallScreen, useWindowVisibility, useChatDisplayReceipts, useRouteSync, useDayBoundaryWatcher, type FocusZoneRefs } from '@/hooks'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { useDeepLink } from '@/hooks/useDeepLink'
 import { saveViewState, getSavedViewState, type ViewStateData } from '@/hooks/useSessionPersistence'
@@ -93,6 +93,7 @@ function GlobalEffects() {
 
   // Track window visibility for new message markers
   useWindowVisibility()
+  useChatDisplayReceipts()
 
   // Roll relative date labels ("Today" / "Yesterday") over at local midnight, for a
   // window that stays focused across the boundary and never fires a focus event.

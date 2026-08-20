@@ -28,6 +28,14 @@ interface SettingsState {
   setTransparencyMode: (value: TransparencyMode) => void
   densityMode: DensityMode
   setDensityMode: (mode: DensityMode) => void
+  /**
+   * Whether to auto-send read-delivery signals (XEP-0333 displayed markers)
+   * for messages the user has actually viewed, and request markers on
+   * outgoing messages. Default on, matching the upstream converse fork;
+   * off for users who don't want to disclose they've read something.
+   */
+  sendReadReceipts: boolean
+  setSendReadReceipts: (enabled: boolean) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -41,6 +49,7 @@ const MEDIA_AUTO_DOWNLOAD_KEY = 'fluux-media-autodownload'
 const MOTION_KEY = 'fluux-motion'
 const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
+const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 
@@ -148,6 +157,19 @@ function getInitialDensity(): DensityMode {
   return 'comfortable'
 }
 
+function getInitialSendReadReceipts(): boolean {
+  try {
+    const stored = localStorage.getItem(READ_RECEIPTS_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  // Default on — matched the converse fork's behavior: receipts are sent
+  // until the user opts out (the disclosure only matters when it's new).
+  return true
+}
+
 /**
  * Get initial sound enabled preference from localStorage, default to true.
  */
@@ -248,6 +270,13 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setDensityMode: (mode) => {
     try { localStorage.setItem(DENSITY_KEY, mode) } catch { /* localStorage not available */ }
     set({ densityMode: mode })
+  },
+
+  sendReadReceipts: getInitialSendReadReceipts(),
+
+  setSendReadReceipts: (enabled) => {
+    try { localStorage.setItem(READ_RECEIPTS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ sendReadReceipts: enabled })
   },
 
   soundEnabled: getInitialSoundEnabled(),
