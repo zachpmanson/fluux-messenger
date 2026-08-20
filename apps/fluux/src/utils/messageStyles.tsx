@@ -1068,7 +1068,9 @@ function gfmInlineLeaf(leaf: GfmTok, ctx: GfmCtx): React.ReactNode[] {
 }
 
 function gfmHeading(level: number, children: React.ReactNode[], key: number): React.ReactNode {
-  return React.createElement(`h${Math.max(1, Math.min(6, level))}`, { key }, children)
+  const cls =
+    level === 1 ? 'text-lg font-bold mt-1' : level === 2 ? 'text-base font-semibold mt-1' : 'text-sm font-semibold mt-1'
+  return React.createElement(`h${Math.max(1, Math.min(6, level))}`, { key, className: cls }, children)
 }
 
 /** Extracts a `- [ ]` / `- [x]` task marker from a list item's raw text. */
@@ -1166,9 +1168,10 @@ function gfmRenderTable(block: GfmTok[], ctx: GfmCtx, key: number): React.ReactN
         if (ct.type === 'th_open' || ct.type === 'td_open') {
           const align = ct.attrs?.find((a) => a[0] === 'align')?.[1]
           const wrap = align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
+          const grid = `${wrap} border border-fluux-border px-2 py-1${ct.type === 'th_open' ? ' font-semibold' : ''}`.trim()
           const el = ct.type === 'th_open' ? 'th' : 'td'
           const cellInlineTok = block[j + 1]
-          cells.push(React.createElement(el, { key: j, className: wrap }, cellInlineTok ? gfmInlineLeaf(cellInlineTok, ctx) : []))
+          cells.push(React.createElement(el, { key: j, className: grid }, cellInlineTok ? gfmInlineLeaf(cellInlineTok, ctx) : []))
           j += 3
         } else j++
       }
@@ -1178,15 +1181,10 @@ function gfmRenderTable(block: GfmTok[], ctx: GfmCtx, key: number): React.ReactN
       i = j + 1
     } else i++
   }
-  const thead =
-    headRows.length > 0 ? (
-      <thead className="text-left text-xs text-fluux-muted border-b border-fluux-border">
-        {headRows}
-      </thead>
-    ) : null
+  const thead = headRows.length > 0 ? <thead>{headRows}</thead> : null
   return (
-    <div className="overflow-x-auto" key={key}>
-      <table className="w-full border-collapse text-sm">
+    <div className="my-1 overflow-x-auto" key={key}>
+      <table className="border-collapse text-sm">
         {thead}
         {bodyRows.length > 0 ? <tbody>{bodyRows}</tbody> : null}
       </table>
