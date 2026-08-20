@@ -209,6 +209,8 @@ export function AppearanceSettings() {
   const markdownEnabled = useSettingsStore((s) => s.markdownEnabled)
   const setMarkdownEnabled = useSettingsStore((s) => s.setMarkdownEnabled)
   const slashCommandsEnabled = useSettingsStore((s) => s.slashCommandsEnabled)
+  const sendReadReceipts = useSettingsStore((s) => s.sendReadReceipts)
+  const setSendReadReceipts = useSettingsStore((s) => s.setSendReadReceipts)
   const setSlashCommandsEnabled = useSettingsStore((s) => s.setSlashCommandsEnabled)
   const avatarShape = useSettingsStore((s) => s.avatarShape)
   const setAvatarShape = useSettingsStore((s) => s.setAvatarShape)
@@ -348,6 +350,21 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted">
               {t('settings.markdownDescription')}
+            </p>
+          </div>
+
+          {/* Read receipts (chat markers / delivery receipts) */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <label className="text-sm font-medium text-fluux-text">{t('settings.sendReadReceipts')}</label>
+              <Toggle
+                checked={sendReadReceipts}
+                onChange={setSendReadReceipts}
+                aria-label={t('settings.sendReadReceipts')}
+              />
+            </div>
+            <p className="text-xs text-fluux-muted">
+              {t('settings.sendReadReceiptsDescription')}
             </p>
           </div>
 

@@ -52,11 +52,14 @@ past deploy.
 - **Rebrand (deployment identity)** — favicon from the dotgrid diamond mark
   (`icon-variants/favicon-source.svg`) + `<title>Chat</title>`. Never
   upstreamable; stays in this fork for chat.zachmanson.com.
+- **Read receipts (XEP-0333 + XEP-0184)** — issue #3. Net-new SDK work:
+  1:1 chat markers + read receipts, `<markable/>` on outgoing, inbound markers
+  update per-message state (sent → delivered → displayed), a second read tick
+  in the UI, and a read-receipts privacy toggle (default on). Upstream lists
+  0333/0184 as "planned", so the SDK protocol core is very likely wanted upstream.
 
 ## Wanted, not yet built
 
-- **Read receipts (XEP-0333)** — issue #3. Upstream lists 0333 and 0184 as
-  "planned", so this is net-new SDK work and very likely wanted upstream.
 - **Presence status in the chat header** — issue #4. Protocol side already
   exists; this is a UI change.
 - **Slash-command bypass** — issue #1.

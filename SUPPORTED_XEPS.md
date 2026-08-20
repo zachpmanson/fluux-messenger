@@ -75,6 +75,8 @@ This document lists the XMPP Extension Protocols (XEPs) and related RFCs impleme
 | [XEP-0203](https://xmpp.org/extensions/xep-0203.html) | Delayed Delivery             | ✅ Implemented | Offline message timestamps                                                                                                 |
 | [XEP-0297](https://xmpp.org/extensions/xep-0297.html) | Stanza Forwarding            | ✅ Implemented | Used by Message Carbons                                                                                                    |
 | [XEP-0313](https://xmpp.org/extensions/xep-0313.html) | Message Archive Management   | ✅ Implemented | History fetch for 1:1 chats and MUC rooms with scroll-up lazy loading, IndexedDB caching with MAM fallback, RSM pagination |
+| [XEP-0184](https://xmpp.org/extensions/xep-0184.html) | Message Delivery Receipts   | ✅ Implemented | 1:1 delivery receipts (XEP-0184 `<request/>`/`<received/>`): responds to requests, applies receipts to outgoing messages and exposes per-message receipt state |
+| [XEP-0333](https://xmpp.org/extensions/xep-0333.html) | Chat Markers                | ✅ Implemented | 1:1 chat markers (XEP-0333): `<markable/>` on outgoing messages, inbound `<received/>`/`<displayed/>`/`<acknowledged/>` markers update message state, auto-sends `<displayed/>` when the conversation is on screen with the window focused (privacy toggle, off-able) |
 | [XEP-0334](https://xmpp.org/extensions/xep-0334.html) | Message Processing Hints     | ✅ Implemented | `<no-store/>` hint for transient messages (Quick Chat rooms), chat states and reactions                                    |
 
 ## PubSub & PEP
@@ -128,8 +130,6 @@ The following XEPs are planned for future implementation:
 
 | XEP                                                   | Name                      | Category  |
 |-------------------------------------------------------|---------------------------|-----------|
-| [XEP-0184](https://xmpp.org/extensions/xep-0184.html) | Message Delivery Receipts | Messaging |
-| [XEP-0333](https://xmpp.org/extensions/xep-0333.html) | Chat Markers              | Messaging |
 | [XEP-0384](https://xmpp.org/extensions/xep-0384.html) | OMEMO Encryption          | Security  |
 
 ## Custom Extensions

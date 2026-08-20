@@ -143,6 +143,21 @@ export interface BaseMessage {
    */
   deliveryError?: XMPPStanzaError
   /**
+   * Read-receipt state for OUTGOING messages, driven by XEP-0184
+   * (delivery receipts) and XEP-0333 (chat markers) acknowledgements
+   * returned by the recipient's client.
+   *
+   * - `sent` — sent, no confirmation received yet.
+   * - `delivered` — the peer's client acknowledged delivery
+   *   (XEP-0184 `<received/>` or XEP-0333 `<received/>`/`<acknowledged/>`).
+   * - `displayed` — the peer's client displayed the message
+   *   (XEP-0333 `<displayed/>`).
+   *   Only ever advances forward; a stale/older ack never regresses it.
+   *
+   * Absent on incoming messages and when receipts were never requested.
+   */
+  receiptState?: 'sent' | 'delivered' | 'displayed'
+  /**
    * Poll data — when present, this message is a poll.
    * Voting is done via XEP-0444 reactions mapped to option emojis.
    */
