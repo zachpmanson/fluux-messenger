@@ -99,3 +99,36 @@ nix run nixpkgs#prefetch-npm-deps -- package-lock.json
   where upstream adds its own settings keys, so expect line-adjacency conflicts.
   If the Markdown PR isn't taken upstream, move those keys to the end of the
   settings block to reduce the churn.
+
+### Resync pitfalls (hit 2026-08-20)
+
+Lessons from a fresh-features pass on master that caught more than expected:
+
+1. **The sync exits early when upstream hasn't moved.** `sync-upstream.sh`
+   fast-forwards `main` and bails if there's nothing new — which silently skips
+   the rebuild even when the *carried set* changed. Check `ls-remote upstream`
+   against local `main` first; if unchanged, force the rebuild explicitly.
+2. **New features don't restack atomically onto fresh master.** Rebuilding
+   master by cherry-picking each `feat/*` individually re-conflicts on
+   `messageStyles.tsx` and the locale files *whenever the feature set changed*
+   — rerere only replays the old, known merge triads. Expect manual resolution.
+3. **Never `git add -u` an unresolved conflicted file.** Blindly staging
+   produced a master *with `<<<<<<<` markers baked into the tree* (silently
+   broken software). Resolve the hunks by hand; a marker'd master is worse than
+   a conflicted one.
+4. **Work in throwaway worktrees.** The shared checkout may be another agent's
+   working tree; move branch refs and stage cherry-picks from a worktree, never
+   there.
+5. **Regenerate `npmDepsHash` from the real committed `package-lock.json`** —
+   running `prefetch-npm-deps` on a reserialized copy yields a different hash
+   (key order/formatting). The `/tmp` test gave `bFZeu…`; the actual file gave
+   `5uWT…`. Hash what's committed.
+6. **Fetch before `--force-with-lease` and don't clobber the owner's push.**
+   If the remote master moved mid-task, rebase onto it rather than force over
+   it — the owner may have made an intentional direct commit.
+7. **A canonical rebuild changes history, not necessarily content.** Confirm a
+   clean rebuild with `git diff <deployed> <rebuild>` (empty = safe force-push;
+   the deploy is then a no-op, `'fluux' already at latest`).
+8. **Every master-only change must also sit on a carried branch**, or the next
+   rebuild silently drops it. (`feat/new-message-modal-height` survived because
+   it was a carried branch.)
