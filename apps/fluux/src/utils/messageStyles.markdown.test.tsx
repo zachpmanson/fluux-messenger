@@ -70,6 +70,11 @@ describe('GFM rendering (markdown on)', () => {
     const rows = Array.from(container.querySelectorAll('tbody tr'))
     expect(rows).toHaveLength(1)
     expect(Array.from(rows[0].querySelectorAll('td')).map((td) => td.textContent)).toEqual(['Apples', '3'])
+    // Keep the legacy grid: every cell carries a border + cell padding.
+    const th = container.querySelectorAll('th')
+    expect(th[0]?.getAttribute('class')).toContain('border border-fluux-border px-2 py-1 font-semibold')
+    const td = Array.from(container.querySelectorAll('td'))[0]
+    expect(td?.getAttribute('class')).toContain('border border-fluux-border px-2 py-1')
   })
 
   it('renders task-list checkboxes, read-only', () => {
@@ -106,6 +111,10 @@ describe('GFM rendering (markdown on)', () => {
     expect(renderMd('## H2').querySelector('h2')?.textContent).toBe('H2')
     expect(renderMd('### H3').querySelector('h3')?.textContent).toBe('H3')
     expect(renderMd('#### H4').querySelector('h4')?.textContent).toBe('H4')
+    // Match the legacy compact sizing rather than native-browser heading sizes.
+    expect(renderMd('# H1').querySelector('h1')?.getAttribute('class')).toContain('text-lg font-bold')
+    expect(renderMd('## H2').querySelector('h2')?.getAttribute('class')).toContain('text-base font-semibold')
+    expect(renderMd('### H3').querySelector('h3')?.getAttribute('class')).toContain('text-sm font-semibold')
   })
 
   it('renders a fenced code block through the fork CodeBlock (copy/expand, no raw <pre> only)', () => {
