@@ -42,7 +42,7 @@ import { useEventsDesktopNotifications } from '@/hooks/useEventsDesktopNotificat
 import { useSDKErrorToasts } from '@/hooks/useSDKErrorToasts'
 import { useReactionNotifications } from '@/hooks/useReactionNotifications'
 import { useEasterEggNotifications } from '@/hooks/useEasterEggNotifications'
-import { useFocusZones, useViewNavigation, isMobileWeb, isSmallScreen, useWindowVisibility, useRouteSync, type FocusZoneRefs } from '@/hooks'
+import { useFocusZones, useViewNavigation, isMobileWeb, isSmallScreen, useWindowVisibility, useChatDisplayReceipts, useRouteSync, type FocusZoneRefs } from '@/hooks'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { useDeepLink } from '@/hooks/useDeepLink'
 import { saveViewState, getSavedViewState, type ViewStateData } from '@/hooks/useSessionPersistence'
@@ -92,6 +92,7 @@ function GlobalEffects() {
 
   // Track window visibility for new message markers
   useWindowVisibility()
+  useChatDisplayReceipts()
 
   // Surface SDK error events as toast notifications
   useSDKErrorToasts()
