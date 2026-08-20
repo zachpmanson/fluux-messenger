@@ -6,7 +6,7 @@
  */
 import { useState, useMemo, useRef, useEffect, memo, type CSSProperties, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CornerUpRight, AlertCircle, RefreshCw, Shield, ShieldCheck, ShieldX, ShieldAlert, Ear, UserX, CheckCheck } from 'lucide-react'
+import { CornerUpRight, AlertCircle, RefreshCw, Shield, ShieldCheck, ShieldX, ShieldAlert, Ear, UserX, Check, CheckCheck } from 'lucide-react'
 import { formatMessagePreview, formatXMPPError, getBareJid, type BaseMessage, type MentionReference, type Contact, type ContactIdentity, type RoomRole, type RoomAffiliation } from '@fluux/sdk'
 import { useVerifiedPeerKeysStore } from '@/stores/verifiedPeerKeysStore'
 import { useSettingsStore } from '@/stores/settingsStore'
@@ -669,6 +669,16 @@ export const MessageBubble = memo(function MessageBubble({
             <span className="text-xs text-fluux-muted">
               {formatTime(message.timestamp)}
             </span>
+            {message.isOutgoing && message.receiptState === 'delivered' && (
+              <Tooltip content={t('chat.readReceiptDelivered')} position="top" triggerMode="hover">
+                <span
+                  className="flex items-center text-fluux-muted"
+                  aria-label={t('chat.readReceiptDelivered')}
+                >
+                  <Check className="size-3.5" />
+                </span>
+              </Tooltip>
+            )}
             {message.isOutgoing && message.receiptState === 'displayed' && (
               <Tooltip content={t('chat.readReceiptDisplayed')} position="top" triggerMode="hover">
                 <span
