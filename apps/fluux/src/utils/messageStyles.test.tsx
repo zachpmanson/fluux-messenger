@@ -9,6 +9,15 @@ describe('renderStyledMessage', () => {
     const { container } = render(<div>{renderStyledMessage(text)}</div>)
     return container
   }
+  // GFM block constructs (lists, headings, task lists) — after the semantic
+  // shift these render through the GFM branch, so the list/heading assertions
+  // in this file exercise markdown=true.
+  const renderGfmText = (text: string) => {
+    const { container } = render(
+      <div>{renderStyledMessage(text, undefined, undefined, undefined, undefined, undefined, true)}</div>
+    )
+    return container
+  }
 
   describe('plain text', () => {
     it('renders plain text without modification', () => {
@@ -383,7 +392,7 @@ describe('renderStyledMessage', () => {
 
   describe('unordered lists (-, +, *)', () => {
     it('renders list with dash marker', () => {
-      const container = renderText('- First item\n- Second item')
+      const container = renderGfmText('- First item\n- Second item')
       const ul = container.querySelector('ul')
       expect(ul).toBeTruthy()
       const items = ul?.querySelectorAll('li')
@@ -393,7 +402,7 @@ describe('renderStyledMessage', () => {
     })
 
     it('renders list with plus marker', () => {
-      const container = renderText('+ First item\n+ Second item')
+      const container = renderGfmText('+ First item\n+ Second item')
       const ul = container.querySelector('ul')
       expect(ul).toBeTruthy()
       const items = ul?.querySelectorAll('li')
@@ -401,7 +410,7 @@ describe('renderStyledMessage', () => {
     })
 
     it('renders list with asterisk marker', () => {
-      const container = renderText('* First item\n* Second item')
+      const container = renderGfmText('* First item\n* Second item')
       const ul = container.querySelector('ul')
       expect(ul).toBeTruthy()
       const items = ul?.querySelectorAll('li')
@@ -411,39 +420,39 @@ describe('renderStyledMessage', () => {
     it('distinguishes asterisk list from bold text', () => {
       // "* item" with space after asterisk = list item
       // "*bold*" without space = bold text
-      const container = renderText('* This is a list item\n*This is bold*')
+      const container = renderGfmText('* This is a list item\n*This is italic*')
       expect(container.querySelector('ul')).toBeTruthy()
-      expect(container.querySelector('strong')).toBeTruthy()
+      expect(container.querySelector('em')).toBeTruthy()
     })
 
     it('renders single item list', () => {
-      const container = renderText('- Only item')
+      const container = renderGfmText('- Only item')
       const ul = container.querySelector('ul')
       expect(ul).toBeTruthy()
       expect(ul?.querySelectorAll('li')).toHaveLength(1)
     })
 
     it('renders inline styling within list items', () => {
-      const container = renderText('- Item with **bold** text\n- Item with _italic_ text')
+      const container = renderGfmText('- Item with **bold** text\n- Item with _italic_ text')
       const items = container.querySelectorAll('li')
       expect(items[0].querySelector('strong')?.textContent).toBe('bold')
       expect(items[1].querySelector('em')?.textContent).toBe('italic')
     })
 
     it('renders URLs within list items', () => {
-      const container = renderText('- Check https://example.com\n- Visit https://test.org')
+      const container = renderGfmText('- Check https://example.com\n- Visit https://test.org')
       const items = container.querySelectorAll('li')
       expect(items[0].querySelector('a')).toBeTruthy()
       expect(items[1].querySelector('a')).toBeTruthy()
     })
 
     it('does not treat dash in middle of line as list', () => {
-      const container = renderText('This is not - a list')
+      const container = renderGfmText('This is not - a list')
       expect(container.querySelector('ul')).toBeFalsy()
     })
 
     it('handles text before and after list', () => {
-      const container = renderText('Intro text\n- Item 1\n- Item 2\nOutro text')
+      const container = renderGfmText('Intro text\n- Item 1\n- Item 2\nOutro text')
       expect(container.querySelector('ul')).toBeTruthy()
       expect(container.textContent).toContain('Intro text')
       expect(container.textContent).toContain('Outro text')
@@ -452,7 +461,7 @@ describe('renderStyledMessage', () => {
 
   describe('ordered lists (1., 2., etc.)', () => {
     it('renders numbered list', () => {
-      const container = renderText('1. First item\n2. Second item\n3. Third item')
+      const container = renderGfmText('1. First item\n2. Second item\n3. Third item')
       const ol = container.querySelector('ol')
       expect(ol).toBeTruthy()
       const items = ol?.querySelectorAll('li')
@@ -463,32 +472,32 @@ describe('renderStyledMessage', () => {
     })
 
     it('preserves start number', () => {
-      const container = renderText('5. Fifth item\n6. Sixth item')
+      const container = renderGfmText('5. Fifth item\n6. Sixth item')
       const ol = container.querySelector('ol')
       expect(ol?.getAttribute('start')).toBe('5')
     })
 
     it('renders single item ordered list', () => {
-      const container = renderText('1. Only item')
+      const container = renderGfmText('1. Only item')
       const ol = container.querySelector('ol')
       expect(ol).toBeTruthy()
       expect(ol?.querySelectorAll('li')).toHaveLength(1)
     })
 
     it('renders inline styling within ordered list items', () => {
-      const container = renderText('1. Item with **bold** text\n2. Item with `code`')
+      const container = renderGfmText('1. Item with **bold** text\n2. Item with `code`')
       const items = container.querySelectorAll('li')
       expect(items[0].querySelector('strong')?.textContent).toBe('bold')
       expect(items[1].querySelector('code')?.textContent).toBe('code')
     })
 
     it('does not treat number in middle of line as list', () => {
-      const container = renderText('I have 3. things to say')
+      const container = renderGfmText('I have 3. things to say')
       expect(container.querySelector('ol')).toBeFalsy()
     })
 
     it('handles AI-style numbered instructions', () => {
-      const container = renderText('Here are the steps:\n1. First, do this\n2. Then, do that\n3. Finally, finish')
+      const container = renderGfmText('Here are the steps:\n1. First, do this\n2. Then, do that\n3. Finally, finish')
       const ol = container.querySelector('ol')
       expect(ol).toBeTruthy()
       expect(ol?.querySelectorAll('li')).toHaveLength(3)
@@ -497,102 +506,101 @@ describe('renderStyledMessage', () => {
 
   describe('headings (# text)', () => {
     it('renders H1 heading', () => {
-      const container = renderText('# Hello World')
-      const heading = container.querySelector('div.text-lg')
+      const container = renderGfmText('# Hello World')
+      const heading = container.querySelector('h1')
       expect(heading).toBeTruthy()
       expect(heading?.textContent).toBe('Hello World')
-      expect(heading?.classList.contains('font-bold')).toBe(true)
     })
 
     it('renders H2 heading', () => {
-      const container = renderText('## Subtitle')
-      const heading = container.querySelector('div.text-base')
+      const container = renderGfmText('## Subtitle')
+      const heading = container.querySelector('h2')
       expect(heading).toBeTruthy()
       expect(heading?.textContent).toBe('Subtitle')
-      expect(heading?.classList.contains('font-semibold')).toBe(true)
     })
 
     it('renders H3 heading', () => {
-      const container = renderText('### Section')
-      const heading = container.querySelector('div.text-sm')
+      const container = renderGfmText('### Section')
+      const heading = container.querySelector('h3')
       expect(heading).toBeTruthy()
       expect(heading?.textContent).toBe('Section')
-      expect(heading?.classList.contains('font-semibold')).toBe(true)
     })
 
-    it('renders H4 heading same as H3', () => {
-      const container = renderText('#### Subsection')
-      const heading = container.querySelector('div.text-sm')
+    it('renders H4 heading', () => {
+      const container = renderGfmText('#### Subsection')
+      const heading = container.querySelector('h4')
       expect(heading).toBeTruthy()
       expect(heading?.textContent).toBe('Subsection')
     })
 
     it('renders inline styles within heading', () => {
-      const container = renderText('# This is *important*')
-      const heading = container.querySelector('div.text-lg')
+      const container = renderGfmText('# This is *important*')
+      const heading = container.querySelector('h1')
       expect(heading).toBeTruthy()
-      expect(heading?.querySelector('strong')?.textContent).toBe('important')
+      expect(heading?.querySelector('em')?.textContent).toBe('important')
     })
 
     it('renders URL within heading', () => {
-      const container = renderText('# Check https://example.com')
-      const heading = container.querySelector('div.text-lg')
+      const container = renderGfmText('# Check https://example.com')
+      const heading = container.querySelector('h1')
       expect(heading?.querySelector('a')).toBeTruthy()
     })
 
     it('does not treat # without space as heading', () => {
-      const container = renderText('#hashtag')
+      const container = renderGfmText('#hashtag')
       expect(container.querySelector('div.text-lg')).toBeFalsy()
       expect(container.textContent).toContain('#hashtag')
     })
 
     it('does not treat # in middle of line as heading', () => {
-      const container = renderText('Use # for heading')
+      const container = renderGfmText('Use # for heading')
       expect(container.querySelector('div.text-lg')).toBeFalsy()
     })
 
     it('renders multiple headings', () => {
-      const container = renderText('# First\n## Second')
-      expect(container.querySelector('div.text-lg')).toBeTruthy()
-      expect(container.querySelector('div.text-base')).toBeTruthy()
+      const container = renderGfmText('# First\n## Second')
+      expect(container.querySelector('h1')).toBeTruthy()
+      expect(container.querySelector('h2')).toBeTruthy()
     })
 
     it('renders heading after list (flushes list)', () => {
-      const container = renderText('- item\n# Title')
+      const container = renderGfmText('- item\n# Title')
       expect(container.querySelector('ul')).toBeTruthy()
-      expect(container.querySelector('div.text-lg')).toBeTruthy()
+      expect(container.querySelector('h1')).toBeTruthy()
     })
 
     it('renders heading mixed with other block elements', () => {
-      const container = renderText('# Title\n- item\n> quote')
-      expect(container.querySelector('div.text-lg')).toBeTruthy()
+      const container = renderGfmText('# Title\n- item\n> quote')
+      expect(container.querySelector('h1')).toBeTruthy()
       expect(container.querySelector('ul')).toBeTruthy()
       expect(container.querySelector('blockquote')).toBeTruthy()
     })
 
-    it('does not render five hashes as heading', () => {
-      const container = renderText('##### Not a heading')
-      expect(container.querySelector('div.text-lg')).toBeFalsy()
-      expect(container.querySelector('div.text-base')).toBeFalsy()
-      expect(container.querySelector('div.text-sm')).toBeFalsy()
+    it('renders five hashes as an H5 heading', () => {
+      const container = renderGfmText('##### Not a heading')
+      expect(container.querySelector('h5')).toBeTruthy()
+      expect(container.querySelector('h1')).toBeFalsy()
+      expect(container.querySelector('h2')).toBeFalsy()
+      expect(container.querySelector('h3')).toBeFalsy()
+      expect(container.querySelector('h4')).toBeFalsy()
     })
   })
 
   describe('mixed lists and other block elements', () => {
     it('handles unordered list followed by ordered list', () => {
-      const container = renderText('- Bullet 1\n- Bullet 2\n1. Number 1\n2. Number 2')
+      const container = renderGfmText('- Bullet 1\n- Bullet 2\n1. Number 1\n2. Number 2')
       expect(container.querySelector('ul')).toBeTruthy()
       expect(container.querySelector('ol')).toBeTruthy()
     })
 
     it('handles blockquote followed by list', () => {
-      const container = renderText('> Quote here\n- List item')
+      const container = renderGfmText('> Quote here\n- List item')
       expect(container.querySelector('blockquote')).toBeTruthy()
       expect(container.querySelector('ul')).toBeTruthy()
     })
 
     it('handles list followed by blockquote', () => {
-      const container = renderText('- List item\n> Quote here')
+      const container = renderGfmText('- List item\n> Quote here')
       expect(container.querySelector('ul')).toBeTruthy()
       expect(container.querySelector('blockquote')).toBeTruthy()
     })
@@ -608,7 +616,7 @@ Steps to follow:
 2. Do that
 
 > Important note`
-      const container = renderText(text)
+      const container = renderGfmText(text)
       expect(container.querySelector('ul')).toBeTruthy()
       expect(container.querySelector('ol')).toBeTruthy()
       expect(container.querySelector('blockquote')).toBeTruthy()
