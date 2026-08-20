@@ -29,6 +29,7 @@ import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { findMentionRanges, findIrcPrefixRange, type MentionReference } from '@fluux/sdk'
 import { Maximize2 } from 'lucide-react'
+import MarkdownIt from 'markdown-it'
 import { ModalShell } from '../components/ModalShell'
 import { useHighlighter } from './codeHighlight'
 import { getConsistentTextColor } from '../components/Avatar'
@@ -922,7 +923,335 @@ export function renderTextWithLinks(text: string): React.ReactNode {
  * @param markdown - Render Markdown-only constructs (headings, lists, tables,
  *   labelled links). XEP-0393 styling is unaffected and always renders.
  */
-export function renderStyledMessage(text: string, mentions?: MentionReference[], nickname?: string, knownNicks?: ReadonlySet<string>, isDarkMode?: boolean, resolveMentionColor?: (identifier: string) => string | undefined, markdown: boolean = true): React.ReactNode {
+// ---------------------------------------------------------------------------
+// GFM rendering (markdown === true). A hand-rolled token walker over a
+// markdown-it parser (CommonMark + GFM) that emits React nodes directly — no
+// raw HTML, so mention pills, link safety and the code-block widget keep
+// behaving exactly like the XEP-0393 branch instead of being bypassed by a
+// library's escaped-string output.
+// ---------------------------------------------------------------------------
+
+interface GfmTok {
+  type: string
+  content?: string
+  info?: string
+  tag?: string
+  nesting?: number
+  attrs?: Array<[string, string]>
+  children?: GfmTok[]
+}
+
+interface GfmCtx {
+  isDarkMode?: boolean
+  disableMentionFallback: boolean
+  resolveMentionColor?: (identifier: string) => string | undefined
+}
+
+let gfmRendererSingleton: MarkdownIt | undefined
+
+function getGfmRenderer(): MarkdownIt {
+  if (gfmRendererSingleton) return gfmRendererSingleton
+  const md = new MarkdownIt({ html: false, linkify: true, typographer: false, breaks: false })
+  // GFM link safety: markdown-it lets any scheme through by default; block
+  // javascript:/data: and anything that is not a plain-text scheme so the
+  // fork's no-script-scheme policy holds on the GFM branch too.
+  md.validateLink = (url: string): boolean => {
+    const scheme = url.trim().match(/^([a-z][a-z0-9+.-]*):/i)?.[1] ?? ''
+    return scheme === '' || /^(https?|ftp|mailto)$/i.test(scheme)
+  }
+  gfmRendererSingleton = md
+  return md
+}
+
+/** Collect a token run until the matching close of `openType`, nesting-aware. */
+function collectGfm(tokens: GfmTok[], i: number, openType: string, closeType: string): { nodes: GfmTok[]; next: number } {
+  const nodes: GfmTok[] = []
+  let depth = 1
+  let j = i + 1
+  while (j < tokens.length) {
+    const t = tokens[j]
+    if (t.type === openType) depth++
+    else if (t.type === closeType) {
+      depth--
+      if (depth === 0) break
+    }
+    nodes.push(t)
+    j++
+  }
+  return { nodes, next: Math.min(j + 1, tokens.length) }
+}
+
+/** Split a run of plain text on @mentions, colouring each identified mention. */
+function gfmTextNodes(raw: string, ctx: GfmCtx, keyBase: number): React.ReactNode[] {
+  if (ctx.disableMentionFallback) return [raw]
+  const parts = raw.split(MENTION_REGEX)
+  const out: React.ReactNode[] = []
+  parts.forEach((part, pIdx) => {
+    if (MENTION_REGEX.test(part)) {
+      MENTION_REGEX.lastIndex = 0
+      const identifier = part.slice(1)
+      const color = ctx.resolveMentionColor?.(identifier) ?? getConsistentTextColor(identifier, ctx.isDarkMode ?? true)
+      out.push(
+        <span
+          key={`${keyBase}-m${pIdx}`}
+          className="px-1 rounded font-medium"
+          style={{ color, backgroundColor: `${color}15` }}
+          data-mention={identifier}
+        >
+          {part}
+        </span>
+      )
+    } else if (part) {
+      out.push(part)
+    }
+  })
+  return out
+}
+
+/** Render a markdown-it INLINE token stream into React nodes (nesting-aware). */
+function gfmInlineTokens(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
+  const out: React.ReactNode[] = []
+  let i = 0
+  while (i < tokens.length) {
+    const t = tokens[i]
+    if (t.type === 'text') {
+      out.push(...gfmTextNodes(t.content ?? '', ctx, i))
+      i++
+    } else if (t.type === 'softbreak') {
+      out.push(' ')
+      i++
+    } else if (t.type === 'hardbreak') {
+      out.push(<br key={i} />)
+      i++
+    } else if (t.type === 'code_inline') {
+      out.push(<code key={i} className="bg-fluux-bg/50 text-fluux-brand px-1.5 py-0.5 rounded text-sm font-mono">{t.content}</code>)
+      i++
+    } else if (t.type === 'html_inline') {
+      out.push(t.content ?? '')
+      i++
+    } else if (t.type === 'image') {
+      const src = t.attrs?.find((a) => a[0] === 'src')?.[1] ?? ''
+      const alt = t.attrs?.find((a) => a[0] === 'alt')?.[1] ?? ''
+      out.push(<span key={i} className="text-fluux-muted">{alt || 'image'}{src ? ` (${src})` : ''}</span>)
+      i++
+    } else if (t.type === 'link_open') {
+      const inner = collectGfm(tokens, i, 'link_open', 'link_close')
+      const href = t.attrs?.find((a) => a[0] === 'href')?.[1] ?? ''
+      const safe = getGfmRenderer().validateLink(href)
+      const children = gfmInlineTokens(inner.nodes, ctx)
+      out.push(safe ? <MessageLink key={i} href={href}>{children}</MessageLink> : children)
+      i = inner.next
+    } else if (t.type === 'strong_open') {
+      const inner = collectGfm(tokens, i, 'strong_open', 'strong_close')
+      out.push(<strong key={i} className="font-semibold">{gfmInlineTokens(inner.nodes, ctx)}</strong>)
+      i = inner.next
+    } else if (t.type === 'em_open') {
+      const inner = collectGfm(tokens, i, 'em_open', 'em_close')
+      out.push(<em key={i}>{gfmInlineTokens(inner.nodes, ctx)}</em>)
+      i = inner.next
+    } else if (t.type === 's_open') {
+      const inner = collectGfm(tokens, i, 's_open', 's_close')
+      out.push(<del key={i} className="line-through opacity-70">{gfmInlineTokens(inner.nodes, ctx)}</del>)
+      i = inner.next
+    } else {
+      if (t.content) out.push(t.content)
+      i++
+    }
+  }
+  return out
+}
+
+/** Parse a block-inline leaf token's ALREADY-decomposed children to React. */
+function gfmInlineLeaf(leaf: GfmTok, ctx: GfmCtx): React.ReactNode[] {
+  const children = (leaf.children as GfmTok[] | undefined) ?? []
+  return gfmInlineTokens(children, ctx)
+}
+
+function gfmHeading(level: number, children: React.ReactNode[], key: number): React.ReactNode {
+  return React.createElement(`h${Math.max(1, Math.min(6, level))}`, { key }, children)
+}
+
+/** Extracts a `- [ ]` / `- [x]` task marker from a list item's raw text. */
+interface TaskMarker {
+  checked: boolean
+  body: string
+}
+function gfmTaskMarker(raw: string): TaskMarker | null {
+  const m = raw.trimStart().match(/^\[([ xX])\]\s?(.*)$/s)
+  return m ? { checked: m[1] !== ' ', body: m[2] } : null
+}
+
+/** Render list_item_open..close runs into <li>, handling task checkboxes + nesting. */
+function gfmListItems(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
+  const items: React.ReactNode[] = []
+  let i = 0
+  while (i < tokens.length) {
+    if (tokens[i].type !== 'list_item_open') {
+      i++
+      continue
+    }
+    const inner = collectGfm(tokens, i, 'list_item_open', 'list_item_close')
+    // Find the first paragraph text in this item for the task checkmark.
+    const firstP = inner.nodes.find((n) => n.type === 'paragraph_open')
+    const pIdx = inner.nodes.indexOf(firstP ?? { type: '' })
+    const leaf = firstP && pIdx >= 0 ? inner.nodes[pIdx + 1] : undefined
+    const task = leaf ? gfmTaskMarker(leaf.content ?? '') : null
+
+    let children: React.ReactNode
+    if (task) {
+      const restTokens = [...inner.nodes]
+      if (firstP && pIdx >= 0) {
+        restTokens[pIdx + 1] = { ...(inner.nodes[pIdx + 1] as GfmTok), content: task.body }
+      }
+      const content = pIdx >= 0 ? gfmRenderBlocks(restTokens, ctx) : gfmRenderBlocks(inner.nodes, ctx)
+      children = (
+        <span className="li-flex">
+          <input type="checkbox" checked={task.checked} readOnly tabIndex={-1} aria-label={task.checked ? 'done' : 'todo'} />
+          {content}
+        </span>
+      )
+    } else {
+      children = gfmRenderBlocks(inner.nodes, ctx)
+    }
+    items.push(<li key={i} className={task ? 'list-none' : undefined}>{children}</li>)
+    i = inner.next
+  }
+  return items
+}
+
+/** Wrap the cells from a `table` vs `table_open`-child token stream into thead/tbody rows. */
+function gfmRenderTable(block: GfmTok[], ctx: GfmCtx, key: number): React.ReactNode {
+  const headRows: React.ReactNode[] = []
+  const bodyRows: React.ReactNode[] = []
+  let inHead = false
+  let i = 0
+  while (i < block.length) {
+    const t = block[i]
+    if (t.type === 'thead_open') {
+      inHead = true
+      i++
+    } else if (t.type === 'tbody_open') {
+      inHead = false
+      i++
+    } else if (t.type === 'tr_open') {
+      let j = i + 1
+      const cells: React.ReactNode[] = []
+      while (j < block.length && block[j].type !== 'tr_close') {
+        const ct = block[j]
+        if (ct.type === 'th_open' || ct.type === 'td_open') {
+          const align = ct.attrs?.find((a) => a[0] === 'align')?.[1]
+          const wrap = align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
+          const el = ct.type === 'th_open' ? 'th' : 'td'
+          const cellInlineTok = block[j + 1]
+          cells.push(React.createElement(el, { key: j, className: wrap }, cellInlineTok ? gfmInlineLeaf(cellInlineTok, ctx) : []))
+          j += 3
+        } else j++
+      }
+      cells.push(null)
+      const row = React.createElement('tr', { key: i, className: undefined }, cells.filter((c) => c !== null))
+      ;(inHead ? headRows : bodyRows).push(row)
+      i = j + 1
+    } else i++
+  }
+  const thead =
+    headRows.length > 0 ? (
+      <thead className="text-left text-xs text-fluux-muted border-b border-fluux-border">
+        {headRows}
+      </thead>
+    ) : null
+  return (
+    <div className="overflow-x-auto" key={key}>
+      <table className="w-full border-collapse text-sm">
+        {thead}
+        {bodyRows.length > 0 ? <tbody>{bodyRows}</tbody> : null}
+      </table>
+    </div>
+  )
+}
+
+/** Render a parsed markdown block token stream into React nodes. */
+function gfmRenderBlocks(tokens: GfmTok[], ctx: GfmCtx, keyBase = 0): React.ReactNode[] {
+  const out: React.ReactNode[] = []
+  let i = 0
+  while (i < tokens.length) {
+    const t = tokens[i]
+    const key = keyBase + i
+    switch (t.type) {
+      case 'paragraph_open': {
+        const leaf = tokens[i + 1]
+        out.push(<p key={key}>{gfmInlineLeaf(leaf, ctx)}</p>)
+        i += 3
+        break
+      }
+      case 'heading_open': {
+        // markdown-it sets the level on the token's tag (h1..h6), not an attr.
+        const levelMatch = (t.tag ?? '').match(/^h([1-6])$/)
+        const level = levelMatch ? Number(levelMatch[1]) : 1
+        const leaf = tokens[i + 1]
+        out.push(gfmHeading(level, gfmInlineLeaf(leaf, ctx), key))
+        i += 3
+        break
+      }
+      case 'blockquote_open': {
+        const inner = collectGfm(tokens, i, 'blockquote_open', 'blockquote_close')
+        out.push(
+          <blockquote className="border-l-2 border-fluux-border pl-2 opacity-80" key={key}>
+            {gfmRenderBlocks(inner.nodes, ctx, key + 1000)}
+          </blockquote>
+        )
+        i = inner.next
+        break
+      }
+      case 'bullet_list_open': {
+        const inner = collectGfm(tokens, i, 'bullet_list_open', 'bullet_list_close')
+        out.push(<ul key={key}>{gfmListItems(inner.nodes, ctx)}</ul>)
+        i = inner.next
+        break
+      }
+      case 'ordered_list_open': {
+        const inner = collectGfm(tokens, i, 'ordered_list_open', 'ordered_list_close')
+        const start = t.attrs?.find((a) => a[0] === 'start')?.[1]
+        out.push(<ol key={key} start={start ? Number(start) : undefined}>{gfmListItems(inner.nodes, ctx)}</ol>)
+        i = inner.next
+        break
+      }
+      case 'fence': {
+        out.push(<CodeBlock key={key} code={t.content ?? ''} language={t.info?.trim() || undefined} keyProp={`gf${key}`} />)
+        i++
+        break
+      }
+      case 'code_block': {
+        out.push(<CodeBlock key={key} code={t.content ?? ''} language={undefined} keyProp={`gfb${key}`} />)
+        i++
+        break
+      }
+      case 'table_open': {
+        const inner = collectGfm(tokens, i, 'table_open', 'table_close')
+        out.push(gfmRenderTable(inner.nodes, ctx, key))
+        i = inner.next
+        break
+      }
+      case 'hr': {
+        out.push(<hr key={key} className="border-fluux-border" />)
+        i++
+        break
+      }
+      default:
+        i++
+    }
+  }
+  return out
+}
+
+/** Parse one markdown body and render it as GFM React nodes. */
+function renderGfm(normalizedText: string, ctx: GfmCtx): React.ReactNode {
+  const md = getGfmRenderer()
+  const tokens = md.parse(normalizedText, md, {}) as GfmTok[]
+  const nodes = gfmRenderBlocks(tokens, ctx)
+  return nodes.length === 0 ? '' : nodes.length === 1 ? nodes[0] : nodes
+}
+
+export function renderStyledMessage(text: string, mentions?: MentionReference[], nickname?: string, knownNicks?: ReadonlySet<string>, isDarkMode?: boolean, resolveMentionColor?: (identifier: string) => string | undefined, markdown: boolean = false): React.ReactNode {
   // Normalize line endings: CRLF -> LF, CR -> LF
   const normalizedText = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
 
@@ -956,6 +1285,15 @@ export function renderStyledMessage(text: string, mentions?: MentionReference[],
   // In 1:1 chats (no mentions, no nickname, no knownNicks), disable the regex
   // fallback that colorizes any @word — only colorize actual user mentions
   const disableMentionFallback = (!mentions || mentions.length === 0) && !nickname && (!knownNicks || knownNicks.size === 0)
+
+  // GFM mode (markdown on): render the whole body through markdown-it
+  // (CommonMark + GFM) instead of the hand-rolled XEP-0393 layering. Mention
+  // colouring + link safety apply inside the token walk so the library's string
+  // output never bypasses the fork's controls. The off branch below is the
+  // unchanged XEP-0393 renderer.
+  if (markdown) {
+    return renderGfm(normalizedText, { isDarkMode, disableMentionFallback, resolveMentionColor })
+  }
 
   // Check for code blocks first (```lang newline ... newline ```)
   // Fences must sit at the start of a line (<=3 spaces indent) and the opener
