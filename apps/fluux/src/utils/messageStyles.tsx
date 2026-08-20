@@ -449,20 +449,13 @@ function parseStyledText(
 function renderSegment(segment: StyledSegment, index: number, isDarkMode?: boolean, resolveMentionColor?: (identifier: string) => string | undefined): React.ReactNode {
   switch (segment.type) {
     case 'bold':
-      return <strong key={index} className="font-semibold">{segment.content}</strong>
+      return <strong key={index}>{segment.content}</strong>
     case 'italic':
       return <em key={index}>{segment.content}</em>
     case 'strike':
-      return <del key={index} className="line-through opacity-70">{segment.content}</del>
+      return <del key={index}>{segment.content}</del>
     case 'code':
-      return (
-        <code
-          key={index}
-          className="bg-fluux-bg/50 text-fluux-brand px-1.5 py-0.5 rounded text-sm font-mono"
-        >
-          {segment.content}
-        </code>
-      )
+      return <code key={index}>{segment.content}</code>
     case 'link': {
       // Labelled links carry the target in `href` and the visible text in
       // `content`; bare URLs put the URL in `content` and MessageLink shows it.
@@ -472,11 +465,11 @@ function renderSegment(segment: StyledSegment, index: number, isDarkMode?: boole
       // Emphasis-wrapped links (**url**, _url_, ~url~) render the link snippet
       // itself bold / italic / struck-through.
       if (segment.linkStyle === 'bold') {
-        return <strong key={index} className="font-semibold">{link}</strong>
+        return <strong key={index}>{link}</strong>
       }
       if (segment.linkStyle === 'italic') return <em key={index}>{link}</em>
       if (segment.linkStyle === 'strike') {
-        return <del key={index} className="line-through opacity-70">{link}</del>
+        return <del key={index}>{link}</del>
       }
       return link
     }
@@ -1018,13 +1011,17 @@ function gfmInlineTokens(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
       out.push(...gfmTextNodes(t.content ?? '', ctx, i))
       i++
     } else if (t.type === 'softbreak') {
-      out.push(' ')
+      // The message container is whitespace-pre-wrap (like the XEP path), so a
+      // single line break should stay a visible break — a space would collapse
+      // paragraphs the way plain markdown renders, but that diverges from the
+      // XMPP formatting the app already displays.
+      out.push('\n')
       i++
     } else if (t.type === 'hardbreak') {
       out.push(<br key={i} />)
       i++
     } else if (t.type === 'code_inline') {
-      out.push(<code key={i} className="bg-fluux-bg/50 text-fluux-brand px-1.5 py-0.5 rounded text-sm font-mono">{t.content}</code>)
+      out.push(<code key={i}>{t.content}</code>)
       i++
     } else if (t.type === 'html_inline') {
       out.push(t.content ?? '')
@@ -1043,7 +1040,7 @@ function gfmInlineTokens(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
       i = inner.next
     } else if (t.type === 'strong_open') {
       const inner = collectGfm(tokens, i, 'strong_open', 'strong_close')
-      out.push(<strong key={i} className="font-semibold">{gfmInlineTokens(inner.nodes, ctx)}</strong>)
+      out.push(<strong key={i}>{gfmInlineTokens(inner.nodes, ctx)}</strong>)
       i = inner.next
     } else if (t.type === 'em_open') {
       const inner = collectGfm(tokens, i, 'em_open', 'em_close')
@@ -1051,7 +1048,7 @@ function gfmInlineTokens(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
       i = inner.next
     } else if (t.type === 's_open') {
       const inner = collectGfm(tokens, i, 's_open', 's_close')
-      out.push(<del key={i} className="line-through opacity-70">{gfmInlineTokens(inner.nodes, ctx)}</del>)
+      out.push(<del key={i}>{gfmInlineTokens(inner.nodes, ctx)}</del>)
       i = inner.next
     } else {
       if (t.content) out.push(t.content)
@@ -1068,9 +1065,8 @@ function gfmInlineLeaf(leaf: GfmTok, ctx: GfmCtx): React.ReactNode[] {
 }
 
 function gfmHeading(level: number, children: React.ReactNode[], key: number): React.ReactNode {
-  const cls =
-    level === 1 ? 'text-lg font-bold mt-1' : level === 2 ? 'text-base font-semibold mt-1' : 'text-sm font-semibold mt-1'
-  return React.createElement(`h${Math.max(1, Math.min(6, level))}`, { key, className: cls }, children)
+  // Bare semantic heading; sizing comes from the [data-msg-text] stylesheet.
+  return React.createElement(`h${Math.max(1, Math.min(6, level))}`, { key }, children)
 }
 
 /** Extracts a `- [ ]` / `- [x]` task marker from a list item's raw text. */
@@ -1132,15 +1128,15 @@ function gfmListItems(tokens: GfmTok[], ctx: GfmCtx): React.ReactNode[] {
       }
       const content = pIdx >= 0 ? gfmItemBody(restTokens, ctx) : gfmItemBody(inner.nodes, ctx)
       children = (
-        <span className="li-flex">
+        <>
           <input type="checkbox" checked={task.checked} readOnly tabIndex={-1} aria-label={task.checked ? 'done' : 'todo'} />
           {content}
-        </span>
+        </>
       )
     } else {
       children = gfmItemBody(inner.nodes, ctx)
     }
-    items.push(<li key={i} className={task ? 'list-none' : undefined}>{children}</li>)
+    items.push(<li key={i} data-task={task ? 'true' : undefined}>{children}</li>)
     i = inner.next
   }
   return items
@@ -1167,11 +1163,10 @@ function gfmRenderTable(block: GfmTok[], ctx: GfmCtx, key: number): React.ReactN
         const ct = block[j]
         if (ct.type === 'th_open' || ct.type === 'td_open') {
           const align = ct.attrs?.find((a) => a[0] === 'align')?.[1]
-          const wrap = align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
-          const grid = `${wrap} border border-fluux-border px-2 py-1${ct.type === 'th_open' ? ' font-semibold' : ''}`.trim()
           const el = ct.type === 'th_open' ? 'th' : 'td'
           const cellInlineTok = block[j + 1]
-          cells.push(React.createElement(el, { key: j, className: grid }, cellInlineTok ? gfmInlineLeaf(cellInlineTok, ctx) : []))
+          const attrs = align ? { 'data-align': align } : undefined
+          cells.push(React.createElement(el, { key: j, ...attrs }, cellInlineTok ? gfmInlineLeaf(cellInlineTok, ctx) : []))
           j += 3
         } else j++
       }
@@ -1183,8 +1178,8 @@ function gfmRenderTable(block: GfmTok[], ctx: GfmCtx, key: number): React.ReactN
   }
   const thead = headRows.length > 0 ? <thead>{headRows}</thead> : null
   return (
-    <div className="my-1 overflow-x-auto" key={key}>
-      <table className="border-collapse text-sm">
+    <div className="overflow-x-auto" key={key}>
+      <table>
         {thead}
         {bodyRows.length > 0 ? <tbody>{bodyRows}</tbody> : null}
       </table>
@@ -1202,11 +1197,7 @@ function gfmRenderBlocks(tokens: GfmTok[], ctx: GfmCtx, keyBase = 0): React.Reac
     switch (t.type) {
       case 'paragraph_open': {
         const leaf = tokens[i + 1]
-        out.push(
-          <p key={key} className="my-1">
-            {gfmInlineLeaf(leaf, ctx)}
-          </p>,
-        )
+        out.push(<p key={key}>{gfmInlineLeaf(leaf, ctx)}</p>)
         i += 3
         break
       }
@@ -1221,22 +1212,13 @@ function gfmRenderBlocks(tokens: GfmTok[], ctx: GfmCtx, keyBase = 0): React.Reac
       }
       case 'blockquote_open': {
         const inner = collectGfm(tokens, i, 'blockquote_open', 'blockquote_close')
-        out.push(
-          // Carry over the legacy blockquote treatment: muted text + left rail.
-          <blockquote className="border-l-2 border-fluux-border pl-2 text-fluux-muted" key={key}>
-            {gfmRenderBlocks(inner.nodes, ctx, key + 1000)}
-          </blockquote>
-        )
+        out.push(<blockquote key={key}>{gfmRenderBlocks(inner.nodes, ctx, key + 1000)}</blockquote>)
         i = inner.next
         break
       }
       case 'bullet_list_open': {
         const inner = collectGfm(tokens, i, 'bullet_list_open', 'bullet_list_close')
-        out.push(
-          <ul key={key} className="list-disc list-inside my-1 space-y-0.5 [&_ul]:ml-4 [&_ul]:my-0">
-            {gfmListItems(inner.nodes, ctx)}
-          </ul>,
-        )
+        out.push(<ul key={key}>{gfmListItems(inner.nodes, ctx)}</ul>)
         i = inner.next
         break
       }
@@ -1244,11 +1226,7 @@ function gfmRenderBlocks(tokens: GfmTok[], ctx: GfmCtx, keyBase = 0): React.Reac
         const inner = collectGfm(tokens, i, 'ordered_list_open', 'ordered_list_close')
         const start = t.attrs?.find((a) => a[0] === 'start')?.[1]
         out.push(
-          <ol
-            key={key}
-            start={start ? Number(start) : undefined}
-            className="list-decimal list-inside my-1 space-y-0.5 [&_ol]:ml-4 [&_ol]:my-0"
-          >
+          <ol key={key} start={start ? Number(start) : undefined}>
             {gfmListItems(inner.nodes, ctx)}
           </ol>,
         )
