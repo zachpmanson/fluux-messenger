@@ -4396,6 +4396,136 @@ describe('XMPPClient Message', () => {
         expect(updates.reactions).toBeUndefined()
       })
   })
+
+  describe('read receipts (XEP-0184 + XEP-0333 chat markers)', () => {
+    it('adds <markable/> to outgoing 1:1 chat stanzas', async () => {
+      await connectClient()
+
+      await xmppClient.messages.sendMessage('bob@example.com', 'hello')
+
+      const sent = mockXmppClientInstance.send.mock.calls[0][0]
+      const markable = sent.children.find(
+        (c: any) => c.name === 'markable' && c.attrs?.xmlns === 'urn:xmpp:chat-markers:0'
+      )
+      expect(markable).toBeDefined()
+    })
+
+    it('does not add <markable/> to outgoing MUC stanzas', async () => {
+      await connectClient()
+
+      await xmppClient.messages.sendMessage('room@conference.example.com', 'hi all')
+
+      const sent = mockXmppClientInstance.send.mock.calls[0][0]
+      const markable = sent.children.find((c: any) => c.name === 'markable')
+      expect(markable).toBeUndefined()
+    })
+
+    it('advances an outgoing message to delivered on a XEP-0184 <received/>', async () => {
+      await connectClient()
+      const outgoing = { type: 'chat', id: 'out-1', conversationId: 'contact@example.com', isOutgoing: true }
+      mockStores.chat.getMessage = vi.fn(() => outgoing as any) as typeof mockStores.chat.getMessage
+
+      const stanza = createMockElement('message', {
+        from: 'contact@example.com/resource',
+        to: 'user@example.com',
+        type: 'chat',
+        id: 'x-1',
+      }, [
+        { name: 'received', attrs: { xmlns: 'urn:xmpp:receipts', id: 'out-1' } },
+      ])
+
+      mockXmppClientInstance._emit('stanza', stanza)
+
+      expect(mockStores.chat.updateMessage).toHaveBeenCalledWith(
+        'contact@example.com', 'out-1', { receiptState: 'delivered' }
+      )
+      // Marker-only stanzas never surface as a new chat message.
+      expect(emitSDKSpy).not.toHaveBeenCalledWith('chat:message', expect.anything())
+    })
+
+    it('advances an outgoing message to displayed on a XEP-0333 <displayed/> marker', async () => {
+      await connectClient()
+      const outgoing = { type: 'chat', id: 'out-1', conversationId: 'contact@example.com', isOutgoing: true }
+      mockStores.chat.getMessage = vi.fn(() => outgoing as any) as typeof mockStores.chat.getMessage
+
+      const stanza = createMockElement('message', {
+        from: 'contact@example.com/resource',
+        to: 'user@example.com',
+        type: 'chat',
+        id: 'x-2',
+      }, [
+        { name: 'displayed', attrs: { xmlns: 'urn:xmpp:chat-markers:0', id: 'out-1' } },
+      ])
+
+      mockXmppClientInstance._emit('stanza', stanza)
+
+      expect(mockStores.chat.updateMessage).toHaveBeenCalledWith(
+        'contact@example.com', 'out-1', { receiptState: 'displayed' }
+      )
+    })
+
+    it('never regresses a displayed message back to delivered on a stale ack', async () => {
+      await connectClient()
+      const outgoing = { type: 'chat', id: 'out-1', conversationId: 'contact@example.com', isOutgoing: true, receiptState: 'displayed' }
+      mockStores.chat.getMessage = vi.fn(() => outgoing as any) as typeof mockStores.chat.getMessage
+
+      const stanza = createMockElement('message', {
+        from: 'contact@example.com/resource',
+        to: 'user@example.com',
+        type: 'chat',
+        id: 'x-3',
+      }, [
+        { name: 'received', attrs: { xmlns: 'urn:xmpp:receipts', id: 'out-1' } },
+      ])
+
+      mockXmppClientInstance._emit('stanza', stanza)
+
+      expect(mockStores.chat.updateMessage).not.toHaveBeenCalled()
+    })
+
+    it('replies with a <received/> receipt in response to a XEP-0184 <request/>', async () => {
+      await connectClient()
+
+      const stanza = createMockElement('message', {
+        from: 'contact@example.com/resource',
+        to: 'user@example.com',
+        type: 'chat',
+        id: 'x-4',
+      }, [
+        { name: 'request', attrs: { xmlns: 'urn:xmpp:receipts', id: 'in-1' } },
+      ])
+
+      mockXmppClientInstance.send.mockClear()
+      mockXmppClientInstance._emit('stanza', stanza)
+
+      expect(mockXmppClientInstance.send).toHaveBeenCalledTimes(1)
+      const sent = mockXmppClientInstance.send.mock.calls[0][0]
+      const receipt = sent.children.find(
+        (c: any) => c.name === 'received' && c.attrs?.xmlns === 'urn:xmpp:receipts'
+      )
+      expect(receipt?.attrs?.id).toBe('in-1')
+    })
+
+    it('sendChatMarker emits a displayed chat marker for a 1:1 message', async () => {
+      await connectClient()
+
+      await xmppClient.messages.sendChatMarker('contact@example.com', 'in-1', 'displayed')
+
+      const sent = mockXmppClientInstance.send.mock.calls[0][0]
+      const marker = sent.children.find(
+        (c: any) => c.name === 'displayed' && c.attrs?.xmlns === 'urn:xmpp:chat-markers:0'
+      )
+      expect(marker?.attrs?.id).toBe('in-1')
+    })
+
+    it('sendDeliveryReceipt sends no stanza into rooms', async () => {
+      await connectClient()
+
+      await xmppClient.messages.sendDeliveryReceipt('room@conference.example.com', 'in-1')
+
+      expect(mockXmppClientInstance.send).not.toHaveBeenCalled()
+    })
+  })
 })
 
 // ---------------------------------------------------------------------------
