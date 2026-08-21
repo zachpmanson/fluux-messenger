@@ -49,14 +49,20 @@ past deploy.
   Not upstreamable.
 - **Markdown gaps** — tables, `[label](url)` links, nested lists, behind a
   setting. See PR #5 / issue #2. Upstreamable; offer it to ProcessOne.
+- **Square avatars** — Profile picture shape setting (circle/square), incl.
+  the MUC-icon (#11), search-dropdown and rooms-list follow-ups. Issue #6.
+  Net-new UI; offer it to ProcessOne.
+- **Read receipts (XEP-0333/0184)** — issue #3, now built. Net-new SDK work;
+  likely wanted upstream.
+- **Presence status in the chat header** — issue #4, now built. UI change.
+- **Slash-command bypass** — issue #1, now built.
+- **Rebrand (deployment identity)** — favicon from the dotgrid diamond mark
+  (`icon-variants/favicon-source.svg`) + `<title>Chat</title>`. Never
+  upstreamable; stays in this fork for chat.zachmanson.com.
 
 ## Wanted, not yet built
 
-- **Read receipts (XEP-0333)** — issue #3. Upstream lists 0333 and 0184 as
-  "planned", so this is net-new SDK work and very likely wanted upstream.
-- **Presence status in the chat header** — issue #4. Protocol side already
-  exists; this is a UI change.
-- **Slash-command bypass** — issue #1.
+- *(none currently — all carried features above are built)*
 
 ## Syncing
 
