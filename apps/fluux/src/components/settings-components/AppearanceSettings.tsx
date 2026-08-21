@@ -206,16 +206,16 @@ export function AppearanceSettings() {
   const setDensityMode = useSettingsStore((s) => s.setDensityMode)
   const collapseLongMessages = useSettingsStore((s) => s.collapseLongMessages)
   const setCollapseLongMessages = useSettingsStore((s) => s.setCollapseLongMessages)
-  const showStatusMessage = useSettingsStore((s) => s.showStatusMessage)
-  const setShowStatusMessage = useSettingsStore((s) => s.setShowStatusMessage)
   const markdownEnabled = useSettingsStore((s) => s.markdownEnabled)
   const setMarkdownEnabled = useSettingsStore((s) => s.setMarkdownEnabled)
-  const sendReadReceipts = useSettingsStore((s) => s.sendReadReceipts)
-  const setSendReadReceipts = useSettingsStore((s) => s.setSendReadReceipts)
   const slashCommandsEnabled = useSettingsStore((s) => s.slashCommandsEnabled)
   const setSlashCommandsEnabled = useSettingsStore((s) => s.setSlashCommandsEnabled)
   const avatarShape = useSettingsStore((s) => s.avatarShape)
   const setAvatarShape = useSettingsStore((s) => s.setAvatarShape)
+  const showStatusMessage = useSettingsStore((s) => s.showStatusMessage)
+  const setShowStatusMessage = useSettingsStore((s) => s.setShowStatusMessage)
+  const sendReadReceipts = useSettingsStore((s) => s.sendReadReceipts)
+  const setSendReadReceipts = useSettingsStore((s) => s.setSendReadReceipts)
 
   const activeThemeId = useThemeStore((s) => s.activeThemeId)
   const setActiveTheme = useThemeStore((s) => s.setActiveTheme)
@@ -335,18 +335,9 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted">
               {t('settings.collapseLongMessagesDescription')}
-          {/* Contact status message */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-4">
-              <label className="text-sm font-medium text-fluux-text">{t('settings.contactStatusMessage')}</label>
-              <Toggle
-                checked={showStatusMessage}
-                onChange={setShowStatusMessage}
-                aria-label={t('settings.contactStatusMessage')}
-              />
-            </div>
-            <p className="text-xs text-fluux-muted">
-              {t('settings.contactStatusMessageDescription')}
+            </p>
+          </div>
+
           {/* Markdown rendering */}
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-4">
@@ -359,18 +350,9 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted">
               {t('settings.markdownDescription')}
-          {/* Read receipts (chat markers / delivery receipts) */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-4">
-              <label className="text-sm font-medium text-fluux-text">{t('settings.sendReadReceipts')}</label>
-              <Toggle
-                checked={sendReadReceipts}
-                onChange={setSendReadReceipts}
-                aria-label={t('settings.sendReadReceipts')}
-              />
-            </div>
-            <p className="text-xs text-fluux-muted">
-              {t('settings.sendReadReceiptsDescription')}
+            </p>
+          </div>
+
           {/* Slash commands */}
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-4">
@@ -383,6 +365,9 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted">
               {t('settings.slashCommandsDescription')}
+            </p>
+          </div>
+
           {/* Avatar shape */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-fluux-text">{t('settings.avatarShape')}</label>
@@ -411,6 +396,36 @@ export function AppearanceSettings() {
             </div>
             <p className="text-xs text-fluux-muted mt-2">
               {t(avatarShapeOptions.find(o => o.value === avatarShape)?.descriptionKey || '')}
+            </p>
+          </div>
+
+          {/* Contact status message */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <label className="text-sm font-medium text-fluux-text">{t('settings.contactStatusMessage')}</label>
+              <Toggle
+                checked={showStatusMessage}
+                onChange={setShowStatusMessage}
+                aria-label={t('settings.contactStatusMessage')}
+              />
+            </div>
+            <p className="text-xs text-fluux-muted">
+              {t('settings.contactStatusMessageDescription')}
+            </p>
+          </div>
+
+          {/* Read receipts (chat markers / delivery receipts) */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <label className="text-sm font-medium text-fluux-text">{t('settings.sendReadReceipts')}</label>
+              <Toggle
+                checked={sendReadReceipts}
+                onChange={setSendReadReceipts}
+                aria-label={t('settings.sendReadReceipts')}
+              />
+            </div>
+            <p className="text-xs text-fluux-muted">
+              {t('settings.sendReadReceiptsDescription')}
             </p>
           </div>
 
