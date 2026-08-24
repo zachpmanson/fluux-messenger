@@ -107,7 +107,7 @@ function MemberItem({ member }: { member: Member }) {
           </p>
         </UserInfoPopover>
         {member.status && (
-          <p className="text-xs text-fluux-muted truncate">
+          <p className="text-xs text-fluux-muted truncate" title={member.status}>
             {member.status}
           </p>
         )}
