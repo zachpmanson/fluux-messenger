@@ -419,7 +419,7 @@ const ContactItem = memo(function ContactItem({
             ) : forceOffline ? (
               <p className="truncate text-xs opacity-75">{t('presence.offline')}</p>
             ) : contact.statusMessage ? (
-              <p className="truncate text-xs opacity-75">{contact.statusMessage}</p>
+              <p className="truncate text-xs opacity-75" title={contact.statusMessage}>{contact.statusMessage}</p>
             ) : (
               <p className="truncate text-xs opacity-75">{getTranslatedStatusText(contact, t)}</p>
             )}
