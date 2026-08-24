@@ -58,6 +58,7 @@
 
 [data-msg-text] a {
   color: var(--fluux-brand);
+  text-decoration: underline;
   text-underline-offset: 0.15em;
 }
 
