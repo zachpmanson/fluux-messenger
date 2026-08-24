@@ -56,7 +56,7 @@ function restoreTextareaCursor(
 // focus affordance now, so the textarea's inner outline would be a doubled ring.
 // The action buttons keep their outlines for keyboard navigation.
 // Default to overflow-y-hidden: a scrollbar is only meaningful once the content
-// reaches the 8-line cap. resizeToContent() flips overflow-y to `auto` at max
+// reaches the 50vh cap. resizeToContent() flips overflow-y to `auto` at max
 // height. Starting at `auto` makes Blink (mobile Brave) paint a scrollbar track
 // for even a single line, since the integer height we write can round below the
 // fractional content height. Desktop WebKit hides this behind overlay scrollbars.
@@ -81,8 +81,10 @@ export const MESSAGE_INPUT_OVERLAY_CLASSES = 'text-transparent placeholder:text-
 
 /** Composer line box, in px. Must match the `.message-input` line-height (index.css). */
 const COMPOSER_LINE_HEIGHT = 24
-/** Text lines the composer grows to before it starts scrolling. */
-const COMPOSER_MAX_LINES = 8
+/** The composer grows to at most this share of the viewport height (50vh)
+ * before it starts scrolling. Must match the `.message-input` max-height
+ * in index.css. */
+const COMPOSER_MAX_HEIGHT_VH = 50
 
 export interface ReplyInfo {
   id: string
@@ -446,7 +448,7 @@ export function MessageComposer({
     }
   }, [editingMessage, setText])
 
-  // Auto-resize textarea based on content (1-8 lines).
+  // Auto-resize textarea based on content (1 line → 50vh).
   // Kept identity-stable (refs for the callback prop) so the width observer
   // below doesn't re-subscribe on parent re-renders.
   const onInputResizeRef = useRef(onInputResize)
@@ -488,7 +490,12 @@ export function MessageComposer({
     // overflow:hidden box with no scrollbar to explain it.
     const paddingBlock = paddingBlockRef.current
     const minHeight = COMPOSER_LINE_HEIGHT + paddingBlock
-    const maxHeight = COMPOSER_LINE_HEIGHT * COMPOSER_MAX_LINES + paddingBlock
+    // 50vh cap, expressed in px so it stays in the same coordinate system as
+    // `scrollHeight` (which is padding-inclusive). Unrounded (like CSS vh) so
+    // the JS cap and the `.message-input` CSS max-height stay exactly in sync —
+    // CSS must never sit below the JS cap or the last line gets clipped.
+    const maxHeight =
+      window.innerHeight * (COMPOSER_MAX_HEIGHT_VH / 100) + paddingBlock
 
     const value = textarea.value
     const prev = prevValueRef.current
@@ -549,7 +556,7 @@ export function MessageComposer({
   // Re-measure when the textarea's WIDTH changes. The [text] effect alone is
   // not enough: a measurement taken while the layout is transiently narrow
   // (window size restored at startup, sidebar drag, viewport resize) wraps the
-  // content, clamps the height at the 8-line max, and the wrong height then
+  // content, clamps the height at the 50vh max, and the wrong height then
   // sticks until the next keystroke. Width-guarded so our own style.height
   // writes (which also fire the observer) don't re-measure; no React state is
   // touched, so this never causes re-renders.
@@ -566,6 +573,23 @@ export function MessageComposer({
     })
     observer.observe(textarea)
     return () => observer.disconnect()
+  }, [resizeToContent])
+
+  // Re-measure when the VIEWPORT HEIGHT changes: the 50vh cap is a fraction of
+  // the viewport, so a window resize / mobile keyboard / browser chrome change
+  // that alters innerHeight moves the ceiling the composer may grow to even
+  // though the textarea's width (and thus the width observer above) is
+  // unchanged. Height-gated so scrollbars/toolbars that don't touch innerHeight
+  // stay cheap; the gate mirrors the width observer's guard.
+  useEffect(() => {
+    let lastHeight = window.innerHeight
+    const onResize = () => {
+      if (window.innerHeight === lastHeight) return
+      lastHeight = window.innerHeight
+      resizeToContent(true)
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
   }, [resizeToContent])
 
   // Control character filtering (Tauri macOS arrow-key bug) is handled by

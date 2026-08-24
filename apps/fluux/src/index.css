@@ -1381,10 +1381,10 @@ input[type="range"]::-moz-range-thumb {
      bounds are pure line boxes — a taller min-height would bind against the
      autosize's one-line height and stretch the box past its content. */
   min-height: 24px;
-  /* Ceiling for the height MessageComposer's autosize writes: COMPOSER_MAX_LINES
-     (8) line boxes. Leaving this below the JS cap would clamp the composer and
+  /* Ceiling for the height MessageComposer's autosize writes: half the viewport
+     height (50vh). Leaving this below the JS cap would clamp the composer and
      clip the last line. */
-  max-height: calc(24px * 8);
+  max-height: 50vh;
   line-height: 24px; /* Must match COMPOSER_LINE_HEIGHT in MessageComposer.tsx */
   word-break: break-word;
   overflow-wrap: break-word;
