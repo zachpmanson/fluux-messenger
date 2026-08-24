@@ -4,17 +4,23 @@ import { MessageComposer } from './MessageComposer'
 
 // Composer autosize regression guard.
 //
-// Root cause of the "composer mounts at 192px for a one-line draft" bug:
-// the autosize effect only ran on [text]. If the measurement happened while
+// Root cause of the "composer mounts at a full-height cap for a one-line draft"
+// bug: the autosize effect only ran on [text]. If the measurement happened while
 // the textarea was transiently narrow (window size being restored at app
 // startup, sidebar drag, viewport resize), the wrapped content exceeded the
-// 8-line cap, height was clamped to 192px, and NOTHING re-measured until the
-// next keystroke. The fix re-measures whenever the textarea's WIDTH changes,
-// via a ResizeObserver.
+// 50vh cap, height was clamped to half the viewport, and NOTHING re-measured
+// until the next keystroke. The fix re-measures whenever the textarea's WIDTH
+// or the viewport HEIGHT changes (via ResizeObserver + window resize).
 //
 // jsdom has no layout, so scrollHeight is mocked and the ResizeObserver is a
 // hand-driven fake: tests simulate "the layout width changed" by firing the
-// observer callback with a new contentRect width.
+// observer callback with a new contentRect width. The 50vh cap follows the
+// test-pinned viewport height (VIEWPORT_PX); the tests pick scrollHeights
+// relative to that cap.
+
+// Pinned viewport so the 50vh cap is deterministic: cap = VIEWPORT_PX / 2.
+const VIEWPORT_PX = 800
+const COMPOSER_CAP_PX = VIEWPORT_PX / 2
 
 type ROCallback = (entries: { contentRect: { width: number } }[]) => void
 
@@ -52,6 +58,11 @@ describe('MessageComposer autosize', () => {
     roObserved = []
     roDisconnected = 0
     mockScrollHeight = 48
+    // Pin the viewport so the 50vh cap (COMPOSER_CAP_PX) is deterministic.
+    Object.defineProperty(window, 'innerHeight', {
+      configurable: true,
+      value: VIEWPORT_PX,
+    })
     originalRO = globalThis.ResizeObserver
     globalThis.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver
     scrollHeightSpy = vi
@@ -94,11 +105,12 @@ describe('MessageComposer autosize', () => {
 
   it('re-measures when the width changes — recovers from a stale narrow-width clamp', () => {
     // Mount while the layout is transiently narrow: content wraps massively,
-    // height clamps to the 8-line max (192px). This is the reported bug state.
-    mockScrollHeight = 360
+    // height clamps to the 50vh max (400px at the pinned viewport). This is
+    // the reported bug state.
+    mockScrollHeight = 600
     const { container } = renderComposer('Hello world test')
     const textarea = container.querySelector('textarea') as HTMLTextAreaElement
-    expect(textarea.style.height).toBe('192px')
+    expect(textarea.style.height).toBe('400px')
 
     // Layout settles at the real width: one line again. No keystroke.
     mockScrollHeight = 48
@@ -132,11 +144,36 @@ describe('MessageComposer autosize', () => {
     expect(roDisconnected).toBeGreaterThan(0)
   })
 
-  // --- Scrollbar only past the 8-line cap -----------------------------------
+  it('re-clamps to the new 50vh cap when the viewport height changes', () => {
+    mockScrollHeight = 500 // above the 400px cap at the pinned 800px viewport
+    const { container } = renderComposer('a\nb\nc\nd\ne\nf\ng\nh\ni')
+    const textarea = container.querySelector('textarea') as HTMLTextAreaElement
+    expect(textarea.style.height).toBe('400px') // clamps at 50vh
+    expect(textarea.style.overflowY).toBe('auto')
+
+    // Viewport shrinks to 600px → 50vh cap falls to 300px. The width observer
+    // never fires (the textarea's width is unchanged), but the window resize
+    // listener re-measures the height cap.
+    Object.defineProperty(window, 'innerHeight', { configurable: true, value: 600 })
+    act(() => {
+      window.dispatchEvent(new Event('resize'))
+    })
+    expect(textarea.style.height).toBe('300px')
+    expect(textarea.style.overflowY).toBe('auto')
+
+    // Growing the viewport back lifts the cap with it.
+    Object.defineProperty(window, 'innerHeight', { configurable: true, value: 800 })
+    act(() => {
+      window.dispatchEvent(new Event('resize'))
+    })
+    expect(textarea.style.height).toBe('400px')
+  })
+
+  // --- Scrollbar only past the 50vh cap -------------------------------------
   // With overflow-y:auto always on, Blink (mobile Brave) paints a scrollbar for
   // a single line because the integer height we write can round under the
   // fractional content height. Keep overflow-y hidden until content genuinely
-  // exceeds the 8-line cap (192px), where a scrollbar is actually needed.
+  // exceeds the 50vh cap (400px), where a scrollbar is actually needed.
   it('keeps overflow-y hidden below the max height', () => {
     mockScrollHeight = 48 // one line
     const { container } = renderComposer('Hello world test')
@@ -144,16 +181,16 @@ describe('MessageComposer autosize', () => {
     expect(textarea.style.overflowY).toBe('hidden')
   })
 
-  it('switches overflow-y to auto once content exceeds the 8-line cap', () => {
-    mockScrollHeight = 240 // taller than the 192px cap
+  it('switches overflow-y to auto once content exceeds the 50vh cap', () => {
+    mockScrollHeight = 500 // taller than the 400px cap
     const { container } = renderComposer('Nine\nlines\nof\ntext\nthat\noverflow\nthe\ncomposer\ncap')
     const textarea = container.querySelector('textarea') as HTMLTextAreaElement
-    expect(textarea.style.height).toBe('192px')
+    expect(textarea.style.height).toBe('400px')
     expect(textarea.style.overflowY).toBe('auto')
   })
 
   it('restores overflow-y hidden when a tall draft shrinks back under the cap', () => {
-    mockScrollHeight = 240
+    mockScrollHeight = 500
     const { container, rerender } = renderComposer('a\nb\nc\nd\ne\nf\ng\nh\ni')
     const textarea = container.querySelector('textarea') as HTMLTextAreaElement
     expect(textarea.style.overflowY).toBe('auto')
@@ -175,16 +212,14 @@ describe('MessageComposer autosize', () => {
   // max height while still fitting. The next line overflows without changing
   // newHeight — and the fast path used to return before writing overflow-y,
   // leaving content clipped inside an overflow:hidden box with no scrollbar.
-  // Measured in the app: 8 lines => scrollHeight 216 in a 192px box, overflow
-  // still 'hidden', so the 8th line rendered as a clipped sliver.
   it('flips overflow-y to auto when content overflows a box already at the cap', () => {
-    mockScrollHeight = 192 // fills the cap exactly — fits, no scrollbar needed
+    mockScrollHeight = 400 // fills the cap exactly — fits, no scrollbar needed
     const { container, rerender } = renderComposer('1\n2\n3\n4\n5\n6\n7')
     const textarea = container.querySelector('textarea') as HTMLTextAreaElement
-    expect(textarea.style.height).toBe('192px')
+    expect(textarea.style.height).toBe('400px')
     expect(textarea.style.overflowY).toBe('hidden')
 
-    mockScrollHeight = 216 // one more line: genuinely overflows the 192px box
+    mockScrollHeight = 424 // one line more: genuinely overflows the 400px box
     rerender(
       <MessageComposer
         placeholder="Type a message"
@@ -199,9 +234,9 @@ describe('MessageComposer autosize', () => {
 
   // The cap has to be expressed in the same coordinate system as the value it
   // is compared against. `scrollHeight` includes the block padding (py-3 = 24px
-  // in the app), so a bare lineHeight*8 cap is short by exactly that padding:
-  // the height saturates one line early and the composer shows 7 lines, not 8.
-  it('accounts for block padding in the 8-line cap', () => {
+  // in the app), so a padding-blind cap is short by exactly that padding: the
+  // height saturates early and the composer clips a line.
+  it('accounts for block padding in the 50vh cap', () => {
     const realGetComputedStyle = globalThis.getComputedStyle
     const gcsSpy = vi
       .spyOn(globalThis, 'getComputedStyle')
@@ -213,13 +248,14 @@ describe('MessageComposer autosize', () => {
         return style
       })
 
-    // Eight 24px lines plus 24px of padding: the tallest draft that must be
-    // shown in full. A padding-blind cap clamps this to 192px and clips a line.
-    mockScrollHeight = 24 + 8 * 24 // 216
+    // Content that fills the 50vh cap (400px) plus 24px of padding: the tallest
+    // draft that must be shown in full. A padding-blind cap clamps this to
+    // 400px and clips a line.
+    mockScrollHeight = COMPOSER_CAP_PX + 24 // 424
     const { container } = renderComposer('1\n2\n3\n4\n5\n6\n7\n8')
     const textarea = container.querySelector('textarea') as HTMLTextAreaElement
 
-    expect(textarea.style.height).toBe('216px')
+    expect(textarea.style.height).toBe('424px')
     expect(textarea.style.overflowY).toBe('hidden') // fits exactly — no scrollbar
 
     gcsSpy.mockRestore()
@@ -229,7 +265,7 @@ describe('MessageComposer autosize', () => {
   // Writing the pre-overflow value back (0) undoes the browser's caret-into-view
   // scroll, dropping the caret out of sight — the reported caret inaccuracy.
   it('does not write a stale scroll offset when overflow first appears', () => {
-    mockScrollHeight = 192
+    mockScrollHeight = 400
     const { container, rerender } = renderComposer('1\n2\n3\n4\n5\n6\n7')
     const textarea = container.querySelector('textarea') as HTMLTextAreaElement
 
@@ -244,7 +280,7 @@ describe('MessageComposer autosize', () => {
       },
     })
 
-    mockScrollHeight = 216 // crosses into overflow for the first time
+    mockScrollHeight = 424 // crosses into overflow for the first time
     rerender(
       <MessageComposer
         placeholder="Type a message"
@@ -260,7 +296,7 @@ describe('MessageComposer autosize', () => {
     // the offset — otherwise the assertion above would pass simply because the
     // restore is dead code rather than because it is correctly gated.
     scrollTop = 48
-    mockScrollHeight = 240
+    mockScrollHeight = 500
     fireResize(300)
     expect(writes).toEqual([48])
   })
