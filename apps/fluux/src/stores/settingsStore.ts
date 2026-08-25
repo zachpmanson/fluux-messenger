@@ -30,10 +30,14 @@ interface SettingsState {
   setTransparencyMode: (value: TransparencyMode) => void
   densityMode: DensityMode
   setDensityMode: (mode: DensityMode) => void
-  showStatusMessage: boolean
-  setShowStatusMessage: (enabled: boolean) => void
   markdownEnabled: boolean
   setMarkdownEnabled: (enabled: boolean) => void
+  slashCommandsEnabled: boolean
+  setSlashCommandsEnabled: (enabled: boolean) => void
+  avatarShape: AvatarShape
+  setAvatarShape: (shape: AvatarShape) => void
+  showStatusMessage: boolean
+  setShowStatusMessage: (enabled: boolean) => void
   /**
    * Whether to auto-send read-delivery signals (XEP-0333 displayed markers)
    * for messages the user has actually viewed, and request markers on
@@ -42,10 +46,6 @@ interface SettingsState {
    */
   sendReadReceipts: boolean
   setSendReadReceipts: (enabled: boolean) => void
-  slashCommandsEnabled: boolean
-  setSlashCommandsEnabled: (enabled: boolean) => void
-  avatarShape: AvatarShape
-  setAvatarShape: (shape: AvatarShape) => void
   soundEnabled: boolean
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
@@ -61,11 +61,11 @@ const MEDIA_AUTO_DOWNLOAD_KEY = 'fluux-media-autodownload'
 const MOTION_KEY = 'fluux-motion'
 const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
-const STATUS_MESSAGE_KEY = 'fluux-status-message'
 const MARKDOWN_KEY = 'fluux-markdown'
-const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
 const SLASH_COMMANDS_KEY = 'fluux-slash-commands'
 const AVATAR_SHAPE_KEY = 'fluux-avatar-shape'
+const STATUS_MESSAGE_KEY = 'fluux-status-message'
+const READ_RECEIPTS_KEY = 'fluux-send-read-receipts'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 const COLLAPSE_LONG_KEY = 'fluux-collapse-long'
@@ -188,14 +188,6 @@ function getInitialSendReadReceipts(): boolean {
 }
 
 /**
- * Get the initial status-message preference from localStorage, default to true.
- *
- * On: a contact's custom <status> replaces the "Online"/"Do not disturb" label
- * in the chat header and profile. Off: the show label is shown as before.
- */
-function getInitialShowStatusMessage(): boolean {
-  try {
-    const stored = localStorage.getItem(STATUS_MESSAGE_KEY)
  * Get initial Markdown rendering preference from localStorage, default to true.
  *
  * This governs the Markdown-only block constructs (headings, lists, tables,
@@ -206,6 +198,23 @@ function getInitialShowStatusMessage(): boolean {
 function getInitialMarkdownEnabled(): boolean {
   try {
     const stored = localStorage.getItem(MARKDOWN_KEY)
+    if (stored === 'false') return false
+    if (stored === 'true') return true
+  } catch {
+    // localStorage not available
+  }
+  return true
+}
+
+/**
+ * Get the initial status-message preference from localStorage, default to true.
+ *
+ * On: a contact's custom <status> replaces the "Online"/"Do not disturb" label
+ * in the chat header and profile. Off: the show label is shown as before.
+ */
+function getInitialShowStatusMessage(): boolean {
+  try {
+    const stored = localStorage.getItem(STATUS_MESSAGE_KEY)
     if (stored === 'false') return false
     if (stored === 'true') return true
   } catch {
@@ -366,31 +375,39 @@ export const useSettingsStore = create<SettingsState>((set) => ({
     set({ densityMode: mode })
   },
 
-  showStatusMessage: getInitialShowStatusMessage(),
-
-  setShowStatusMessage: (enabled) => {
-    try { localStorage.setItem(STATUS_MESSAGE_KEY, String(enabled)) } catch { /* localStorage not available */ }
-    set({ showStatusMessage: enabled })
   markdownEnabled: getInitialMarkdownEnabled(),
 
   setMarkdownEnabled: (enabled) => {
     try { localStorage.setItem(MARKDOWN_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ markdownEnabled: enabled })
-  sendReadReceipts: getInitialSendReadReceipts(),
+  },
 
-  setSendReadReceipts: (enabled) => {
-    try { localStorage.setItem(READ_RECEIPTS_KEY, String(enabled)) } catch { /* localStorage not available */ }
-    set({ sendReadReceipts: enabled })
   slashCommandsEnabled: getInitialSlashCommandsEnabled(),
 
   setSlashCommandsEnabled: (enabled) => {
     try { localStorage.setItem(SLASH_COMMANDS_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ slashCommandsEnabled: enabled })
+  },
+
   avatarShape: getInitialAvatarShape(),
 
   setAvatarShape: (shape) => {
     try { localStorage.setItem(AVATAR_SHAPE_KEY, shape) } catch { /* localStorage not available */ }
     set({ avatarShape: shape })
+  },
+
+  showStatusMessage: getInitialShowStatusMessage(),
+
+  setShowStatusMessage: (enabled) => {
+    try { localStorage.setItem(STATUS_MESSAGE_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ showStatusMessage: enabled })
+  },
+
+  sendReadReceipts: getInitialSendReadReceipts(),
+
+  setSendReadReceipts: (enabled) => {
+    try { localStorage.setItem(READ_RECEIPTS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ sendReadReceipts: enabled })
   },
 
   soundEnabled: getInitialSoundEnabled(),
