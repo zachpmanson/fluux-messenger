@@ -100,3 +100,8 @@ apps/fluux/src-tauri/mobile/ios/AppResources/
 
 # macOS extension build and signing metadata
 apps/fluux/src-tauri/macos/.build/
+
+# nix / direnv (flake.nix + .envrc are tracked; their output isn't)
+.direnv/
+result
+result-*
