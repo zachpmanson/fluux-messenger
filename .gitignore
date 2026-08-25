@@ -90,3 +90,7 @@ ds-bundle/
 .design-sync/.cache/
 .design-sync/learnings/
 .design-sync/node_modules
+# nix / direnv (flake.nix + .envrc are tracked; their output isn't)
+.direnv/
+result
+result-*
