@@ -42,6 +42,23 @@ upstream needs. Force-pushing `master` after a rebase is safe: `~/nix`'s
 `flake.lock` pins a commit *hash*, so rewriting history never invalidates a
 past deploy.
 
+### Patches applied after every rebuild (`fix/*`)
+
+A rare commit cannot live on a `feat/*` branch: its diff context spans several
+feature branches (it repairs the *merged* state of files those branches all
+edit), so a main-based branch can't carry it — try and it conflicts at its
+alphabetical rebuild slot. Such commits live on a dedicated ref and are
+re-applied by `sync-upstream.sh` after it assembles master:
+
+- **`fix/settings-merge-fix`** — the 2026-08-25 settingsStore/AppearanceSettings
+  restack repair (reordering + JSX structure). Context: collapse/markdown/
+  read-receipts/slash/avatar/status toggles all at once.
+
+`sync-upstream.sh` lists them in `POST_REBUILD_CHERRY_PICKS` and cherry-picks
+each onto the rebuilt master (skip-if-already-reflected, so folding one into a
+carried branch later degrades gracefully). Never merge them in; always the
+cherry-pick so the rebuild stays reproducible.
+
 ## Carried right now
 
 - **nix packaging** — `flake.nix` exposes `packages.fluux` (the web bundle only;
