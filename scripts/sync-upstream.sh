@@ -72,6 +72,30 @@ for branch in "${CARRIED[@]}"; do
   fi
 done
 
+# Post-rebuild cherry-picks: commits that must ride on every rebuilt master but
+# cannot live on a feat/* branch (their diff context spans several feature
+# branches, so a main-based feat branch can't carry them; see FORK.md). Each is
+# re-applied after the rebuild, never merged into. Skip when the rebuilt tree
+# already reflects the ref's content (e.g. the change was folded into a carried
+# branch) so the set degrades gracefully.
+echo "==> Post-rebuild cherry-picks"
+git fetch origin --quiet
+POST_REBUILD_CHERRY_PICKS=(fix/settings-merge-fix)
+for ref in "${POST_REBUILD_CHERRY_PICKS[@]}"; do
+  touched=$(git show "$ref" --format= --name-only | sed '/^$/d' | tr '\n' ' ')
+  if git diff --quiet master "$ref" -- $touched; then
+    echo "  $ref: already reflected in master; skipping"
+  else
+    if ! git cherry-pick "$ref"; then
+      echo >&2
+      echo "sync-upstream: post-rebuild cherry-pick of $ref hit a conflict." >&2
+      echo "    Resolve it, then: git cherry-pick --continue" >&2
+      exit 1
+    fi
+    echo "  $ref: applied $(git rev-parse --short "$ref")"
+  fi
+done
+
 if [ "$(git rev-parse main:package-lock.json)" != "$LOCKFILE_BEFORE" ]; then
   echo
   echo "==> package-lock.json moved upstream — npmDepsHash in flake.nix is stale."
