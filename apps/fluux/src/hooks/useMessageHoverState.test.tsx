@@ -90,31 +90,31 @@ describe('useMessageHoverState', () => {
     })
   }
 
-  it('shows hover only after the intent delay', () => {
+  it('shows hover immediately on row hover (no intent delay)', () => {
     const { result } = setup()
 
     act(() => result.current.handleMessageHover('a'))
+    // A 0ms timer is still a timer; a single tick fires it (effectively instant)
     expect(result.current.hoveredMessageId).toBeNull()
 
-    act(() => vi.advanceTimersByTime(199))
-    expect(result.current.hoveredMessageId).toBeNull()
-
-    act(() => vi.advanceTimersByTime(1))
+    act(() => vi.advanceTimersByTime(0))
     expect(result.current.hoveredMessageId).toBe('a')
   })
 
-  it('never shows hover for rows swept over quickly', () => {
+  it('shows hover instantly for each row swept over quickly', () => {
     const { result } = setup()
 
+    // No hover-intent suppression: every entered row highlights at once
     act(() => result.current.handleMessageHover('a'))
-    act(() => vi.advanceTimersByTime(50))
+    act(() => vi.advanceTimersByTime(0))
+    expect(result.current.hoveredMessageId).toBe('a')
+
     act(() => result.current.handleMessageLeave())
-    act(() => result.current.handleMessageHover('b'))
-    act(() => vi.advanceTimersByTime(150))
-    // 'a' was abandoned at 50ms; 'b' has only accumulated 150ms
+    act(() => vi.advanceTimersByTime(0))
     expect(result.current.hoveredMessageId).toBeNull()
 
-    act(() => vi.advanceTimersByTime(50))
+    act(() => result.current.handleMessageHover('b'))
+    act(() => vi.advanceTimersByTime(0))
     expect(result.current.hoveredMessageId).toBe('b')
   })
 
