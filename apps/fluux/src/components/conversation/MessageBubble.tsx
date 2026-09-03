@@ -456,9 +456,12 @@ export const MessageBubble = memo(function MessageBubble({
   // bounded "private with X" container; the strip on the first row carries the label.
   const threadStart = whisperThread === 'start' || whisperThread === 'solo'
   const threadEnd = whisperThread === 'end' || whisperThread === 'solo'
+  // No transition-colors on the standard row: the hover/selection background
+  // appears instantly rather than fading in (CSS adjustments). In-thread rows
+  // keep their transition (the private-card surface doesn't hover).
   const outerRowClass = inThread
     ? `group flex gap-4 -mx-4 px-4 transition-colors ${threadStart ? 'pt-3' : ''} ${threadEnd ? 'pb-1.5' : ''}`
-    : `group flex gap-4 ${hoverClass} -mx-4 px-4 py-0.5 transition-colors ${showAvatar ? 'message-group-start' : ''}${isGroupEnd ? ' message-group-end' : ''}`
+    : `group flex gap-4 ${hoverClass} -mx-4 px-4 py-0.5 ${showAvatar ? 'message-group-start' : ''}${isGroupEnd ? ' message-group-end' : ''}`
 
   // Action capabilities — shared by the hover toolbar (MessageToolbar) and the
   // touch action sheet (MessageActionSheet) so the two surfaces stay in lock-step.
