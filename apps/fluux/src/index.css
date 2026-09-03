@@ -557,9 +557,9 @@
   /* Message hover on the white chat canvas — the inherited --fluux-base-50
      (#DDE2F0) is nearly invisible against white (~1.08:1), so light mode loses
      the row highlight that dark mode shows (dark hover = base-50 across a
-     base-30 canvas, a clearly readable band). A perceptible but quiet
-     gray-lavender fill keeps the two modes consistent. */
-  --fluux-message-hover: #D3DAEC;
+     base-30 canvas, a clearly readable band). A perceptible but quiet neutral
+     gray fill keeps the two modes consistent without a blue cast. */
+  --fluux-message-hover: #D6D7DA;
 
   /* ── Aurora identity (light) ── */
   --fluux-accent-2: #11A88C;
