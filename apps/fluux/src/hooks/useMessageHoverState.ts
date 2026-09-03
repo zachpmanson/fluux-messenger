@@ -19,10 +19,11 @@ export interface MessageHoverState {
 }
 
 /**
- * Selection-aware, hover-intent hover state for the per-message toolbar.
+ * Selection-aware hover state for the per-message toolbar.
  *
- * - The toolbar only appears after the pointer rests on a row for
- *   `hoverDelayMs`, so sweeping the mouse across the list flashes nothing.
+ * - The toolbar appears as soon as the pointer rests on a row (no hover-intent
+ *   delay — fork CSS adjustments), so the row highlight and toolbar are
+ *   instant.
  * - A left-button mousedown over message content (outside any
  *   `[data-message-toolbar]` subtree) hides the toolbar immediately and keeps
  *   it hidden through the drag, so toolbars never fight a selection gesture.
@@ -36,8 +37,8 @@ export interface MessageHoverState {
 export function useMessageHoverState({
   scrollRef,
   resetKey,
-  hoverDelayMs = 200,
-  leaveDelayMs = 100,
+  hoverDelayMs = 0,
+  leaveDelayMs = 0,
 }: UseMessageHoverStateOptions): MessageHoverState {
   const [hoveredMessageId, setHoveredMessageId] = useState<string | null>(null)
   const hoveredIdRef = useRef<string | null>(null)
