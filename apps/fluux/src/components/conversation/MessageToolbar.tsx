@@ -186,7 +186,7 @@ export const MessageToolbar = memo(function MessageToolbar({
   return (
     // Anchor to the full message row so density, dividers, and whisper spacing
     // cannot open a pointer gap. Keep the padded halo inert for text selection.
-    // Group-start rows are taller, so lift their toolbar slightly further.
+    // A group-start row is taller, so lift the toolbar slightly further.
     <div
       data-message-toolbar
       onMouseDownCapture={event => {
