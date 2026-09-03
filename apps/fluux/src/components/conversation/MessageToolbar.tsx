@@ -38,6 +38,8 @@ export interface MessageToolbarProps {
   hasKeyboardSelection: boolean
   /** Whether toolbar should be shown for keyboard selection */
   showToolbarForSelection: boolean
+  /** Whether the message shows an avatar (affects toolbar positioning) */
+  showAvatar: boolean
   /** Whether reaction picker is open (controlled externally for click-outside) */
   showReactionPicker: boolean
   /** Setter for reaction picker state */
@@ -70,6 +72,7 @@ export const MessageToolbar = memo(function MessageToolbar({
   isSelected,
   hasKeyboardSelection,
   showToolbarForSelection,
+  showAvatar,
   showReactionPicker,
   setShowReactionPicker,
   showMoreMenu,
@@ -111,7 +114,8 @@ export const MessageToolbar = memo(function MessageToolbar({
 
   // Calculate visibility state
   // When isHovered is provided (controlled mode), use it instead of CSS hover
-  // Uses translate + opacity for a slide-in-from-right effect
+  // Toggles opacity + translate; the wrapper carries no transition (transition-none),
+  // so show/hide snaps instantly instead of fading/sliding in and out.
   const useControlledHover = isHovered !== undefined
   const visibility: 'visible' | 'hidden' | 'css' = isHidden
     ? 'hidden'
@@ -142,9 +146,11 @@ export const MessageToolbar = memo(function MessageToolbar({
     // Anchor to the full message row so density, dividers, and whisper spacing
     // cannot open a pointer gap. The visible bar overlaps the row's top edge;
     // the surrounding padding stays inert so underlying text remains selectable.
+    // Group-start rows are taller (name + time header), so lift the bar further;
+    // keep the toolbar above the hover tint and pop it in/out instantly.
     <div
       data-message-toolbar
-      className={`hidden can-hover:block absolute -top-12 end-2 p-4 z-20 select-none pointer-events-none transition-all duration-200 ease-out ${visibilityClass}`}
+      className={`hidden can-hover:block absolute ${showAvatar ? '-top-14' : '-top-10'} -end-2 p-4 z-20 select-none pointer-events-none transition-none ${visibilityClass}`}
     >
       {/* Visible toolbar. The p-0.5 inset keeps each control's square hover/active
           fill (hover:bg-fluux-hover, reacted bg-fluux-brand/20) clear of the
