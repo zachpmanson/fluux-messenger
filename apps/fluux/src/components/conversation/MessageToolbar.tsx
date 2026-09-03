@@ -148,10 +148,10 @@ export const MessageToolbar = memo(function MessageToolbar({
   return (
     // Anchor to the full message row so density, dividers, and whisper spacing
     // cannot open a pointer gap. Keep the padded halo inert for text selection.
-    // Group-start rows are taller, so lift their toolbar slightly further.
+    // A group-start row is taller, so lift the toolbar slightly further.
     <div
       data-message-toolbar
-      className={`hidden can-hover:block absolute ${showAvatar ? '-top-14' : '-top-10'} end-2 p-4 z-20 select-none pointer-events-none transition-none ${visibilityClass}`}
+      className={`hidden can-hover:block absolute ${showAvatar ? '-top-12' : '-top-8'} end-2 p-4 z-20 select-none pointer-events-none transition-none ${visibilityClass}`}
     >
       {/* Visible toolbar. The p-0.5 inset keeps each control's square hover/active
           fill (hover:bg-fluux-hover, reacted bg-fluux-brand/20) clear of the
