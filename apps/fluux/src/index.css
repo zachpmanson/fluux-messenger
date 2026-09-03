@@ -554,6 +554,13 @@
   --fluux-scrollbar-thumb-sidebar: var(--fluux-scrollbar-thumb-hover);
   --fluux-scrollbar-thumb-sidebar-hover: #8f949b;
 
+  /* Message hover on the white chat canvas — the inherited --fluux-base-50
+     (#DDE2F0) is nearly invisible against white (~1.08:1), so light mode loses
+     the row highlight that dark mode shows (dark hover = base-50 across a
+     base-30 canvas, a clearly readable band). A perceptible but quiet
+     gray-lavender fill keeps the two modes consistent. */
+  --fluux-message-hover: #D3DAEC;
+
   /* ── Aurora identity (light) ── */
   --fluux-accent-2: #11A88C;
   /* Encryption lock icon — #11A88C only reaches ~2.45:1 on the card bg #E4E8F3;
@@ -1233,6 +1240,13 @@ html, body {
 .composer-active [data-message-toolbar] {
   opacity: 0;
   pointer-events: none;
+}
+
+/* The per-message hover toolbar flattens against the message row: drop the
+   floating-popover drop shadow (the hairline border + float background keep it
+   visible on the chat canvas). CSS adjustments. */
+[data-message-toolbar] .fluux-popover {
+  box-shadow: none;
 }
 
 /* Font size slider styling */

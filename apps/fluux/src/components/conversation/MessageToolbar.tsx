@@ -114,7 +114,8 @@ export const MessageToolbar = memo(function MessageToolbar({
 
   // Calculate visibility state
   // When isHovered is provided (controlled mode), use it instead of CSS hover
-  // Uses translate + opacity for a slide-in-from-right effect
+  // Toggles opacity + translate; the wrapper carries no transition (transition-none),
+  // so show/hide snaps instantly instead of fading/sliding in and out.
   const useControlledHover = isHovered !== undefined
   const visibility: 'visible' | 'hidden' | 'css' = isHidden
     ? 'hidden'
@@ -148,11 +149,14 @@ export const MessageToolbar = memo(function MessageToolbar({
     // border sits over the calm chat surface rather than inside the message-hover
     // tint (which otherwise bleeds around the bar's corners, most visibly in light
     // theme where the popover surface and the tint differ). A group-start row is
-    // taller (name+time header), so it needs the larger -top-16 to land the bar at
-    // the same visual height a continuation row reaches with -top-12.
+    // taller (name+time header), so it needs the larger -top-14 to land the bar at
+    // the same visual height a continuation row reaches with -top-10. Both are one
+    // step lower than the original (-top-16/-top-12) so the bar sits a little
+    // further over the message body (CSS adjustments). No transition: the bar pops
+    // in and out instantly rather than fading/sliding.
     <div
       data-message-toolbar
-      className={`absolute ${showAvatar ? '-top-16' : '-top-12'} -end-2 p-4 z-20 select-none pointer-events-none transition-all duration-200 ease-out ${visibilityClass}`}
+      className={`absolute ${showAvatar ? '-top-14' : '-top-10'} -end-2 p-4 z-20 select-none pointer-events-none transition-none ${visibilityClass}`}
     >
       {/* Visible toolbar. The p-0.5 inset keeps each control's square hover/active
           fill (hover:bg-fluux-hover, reacted bg-fluux-brand/20) clear of the

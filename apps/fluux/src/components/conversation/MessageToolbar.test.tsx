@@ -383,9 +383,9 @@ describe('MessageToolbar', () => {
       )
 
       // Group-start rows are taller (name+time header), so the bar is lifted
-      // further (-top-16) to straddle the row's top edge and clear the hover tint.
+      // further (-top-14) to straddle the row's top edge and clear the hover tint.
       const toolbar = container.firstChild as HTMLElement
-      expect(toolbar).toHaveClass('-top-16')
+      expect(toolbar).toHaveClass('-top-14')
     })
 
     it('should position normally when showAvatar is false', () => {
@@ -395,7 +395,7 @@ describe('MessageToolbar', () => {
 
       // Outer hover zone has extended positioning to provide larger hit area
       const toolbar = container.firstChild as HTMLElement
-      expect(toolbar).toHaveClass('-top-12')
+      expect(toolbar).toHaveClass('-top-10')
     })
   })
 })
