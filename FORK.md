@@ -53,6 +53,9 @@ re-applied by `sync-upstream.sh` after it assembles master:
 - **`fix/settings-merge-fix`** — the 2026-08-25 settingsStore/AppearanceSettings
   restack repair (reordering + JSX structure). Context: collapse/markdown/
   read-receipts/slash/avatar/status toggles all at once.
+- **`fix/hover-independent-row-highlight-snapshot`** — the Jest snapshot-only
+  refresh for independent row hover. Kept separate from the review branch so
+  rebuilding the deploy branch does not move that branch's head.
 
 `sync-upstream.sh` lists them in `POST_REBUILD_CHERRY_PICKS` and cherry-picks
 each onto the rebuilt master (skip-if-already-reflected, so folding one into a
