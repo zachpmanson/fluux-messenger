@@ -550,6 +550,8 @@
         "showMore": "Pokaż więcej",
         "showLess": "Pokaż mniej",
         "deliveryFailed": "Wiadomość niedostarczona",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Zobacz błąd",
         "retry": "Ponów",
         "errorDetails": "Błąd: {{error}}",
@@ -1017,7 +1019,9 @@
             "descriptionWindows": "Po włączeniu minimalizacja lub zamknięcie ukrywa Fluux w obszarze powiadomień.",
             "descriptionLinux": "Po włączeniu zamknięcie ukrywa Fluux w obszarze powiadomień, jeśli jest obsługiwany. Minimalizacja zachowuje standardowe działanie pulpitu.",
             "unavailableLinux": "Brak zgodnego obszaru powiadomień. Zamknięcie Fluux zakończy aplikację."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Dostępna aktualizacja",

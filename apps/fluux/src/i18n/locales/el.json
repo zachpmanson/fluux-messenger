@@ -545,6 +545,8 @@
         "showMore": "Εμφάνιση περισσότερων",
         "showLess": "Εμφάνιση λιγότερων",
         "deliveryFailed": "Το μήνυμα δεν παραδόθηκε",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Προβολή σφάλματος",
         "retry": "Επανάληψη",
         "errorDetails": "Σφάλμα: {{error}}",
@@ -1012,7 +1014,9 @@
             "descriptionWindows": "Όταν είναι ενεργό, η ελαχιστοποίηση ή το κλείσιμο κρύβει το Fluux στην περιοχή ειδοποιήσεων.",
             "descriptionLinux": "Όταν είναι ενεργό, το κλείσιμο κρύβει το Fluux στην περιοχή ειδοποιήσεων όταν υποστηρίζεται. Η ελαχιστοποίηση ακολουθεί την κανονική συμπεριφορά της επιφάνειας εργασίας.",
             "unavailableLinux": "Δεν υπάρχει συμβατή περιοχή ειδοποιήσεων. Το κλείσιμο θα τερματίσει το Fluux."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Διαθέσιμη ενημέρωση",

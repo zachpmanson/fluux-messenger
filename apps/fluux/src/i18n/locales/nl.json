@@ -544,6 +544,8 @@
         "showMore": "Meer weergeven",
         "showLess": "Minder weergeven",
         "deliveryFailed": "Bericht niet bezorgd",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Fout bekijken",
         "retry": "Opnieuw proberen",
         "errorDetails": "Fout: {{error}}",
@@ -1011,7 +1013,9 @@
             "descriptionWindows": "Indien ingeschakeld wordt Fluux bij minimaliseren of sluiten verborgen in het systeemvak.",
             "descriptionLinux": "Indien ingeschakeld wordt Fluux bij sluiten verborgen in het systeemvak wanneer dit wordt ondersteund. Minimaliseren blijft het normale bureaubladgedrag volgen.",
             "unavailableLinux": "Er is geen compatibel systeemvak beschikbaar. Fluux wordt afgesloten wanneer u het venster sluit."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Update beschikbaar",

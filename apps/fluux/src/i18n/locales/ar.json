@@ -552,6 +552,8 @@
         "showMore": "عرض المزيد",
         "showLess": "عرض أقل",
         "deliveryFailed": "لم يتم تسليم الرسالة",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "عرض الخطأ",
         "retry": "إعادة المحاولة",
         "errorDetails": "خطأ: {{error}}",
@@ -1019,7 +1021,9 @@
             "descriptionWindows": "عند التفعيل، يؤدي تصغير Fluux أو إغلاقه إلى إخفائه في علبة النظام.",
             "descriptionLinux": "عند التفعيل، يؤدي إغلاق Fluux إلى إخفائه في علبة النظام إذا كانت مدعومة. يظل التصغير وفق السلوك المعتاد لسطح المكتب.",
             "unavailableLinux": "لا تتوفر علبة نظام متوافقة. سيؤدي إغلاق Fluux إلى إنهاء التطبيق."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "تحديث متاح",

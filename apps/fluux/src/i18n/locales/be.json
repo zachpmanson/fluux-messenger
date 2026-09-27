@@ -548,6 +548,8 @@
         "showMore": "Паказаць больш",
         "showLess": "Паказаць менш",
         "deliveryFailed": "Паведамленне не дастаўлена",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Паказаць памылку",
         "retry": "Паўтарыць",
         "errorDetails": "Памылка: {{error}}",
@@ -1015,7 +1017,9 @@
             "descriptionWindows": "Калі ўключана, згортванне або закрыццё хавае Fluux у сістэмны трэй.",
             "descriptionLinux": "Калі ўключана, закрыццё хавае Fluux у сістэмны трэй, калі ён падтрымліваецца. Згортванне захоўвае звычайныя паводзіны працоўнага стала.",
             "unavailableLinux": "Сумяшчальны сістэмны трэй недаступны. Закрыццё завершыць Fluux."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Даступна абнаўленне",

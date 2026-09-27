@@ -548,6 +548,8 @@
         "showMore": "Mostrar mais",
         "showLess": "Mostrar menos",
         "deliveryFailed": "Mensagem não entregue",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Ver erro",
         "retry": "Tentar novamente",
         "errorDetails": "Erro: {{error}}",
@@ -1015,7 +1017,9 @@
             "descriptionWindows": "Quando ativado, minimizar ou fechar o Fluux oculta-o na área de notificação.",
             "descriptionLinux": "Quando ativado, fechar o Fluux oculta-o na área de notificação quando suportado. Minimizar mantém o comportamento normal do ambiente de trabalho.",
             "unavailableLinux": "Não está disponível uma área de notificação compatível. Fechar o Fluux termina a aplicação."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Atualização disponível",

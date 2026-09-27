@@ -548,6 +548,8 @@
         "showMore": "Arată mai mult",
         "showLess": "Arată mai puțin",
         "deliveryFailed": "Mesaj nelivrat",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Vezi eroarea",
         "retry": "Reîncearcă",
         "errorDetails": "Eroare: {{error}}",
@@ -1015,7 +1017,9 @@
             "descriptionWindows": "Când este activată, minimizarea sau închiderea ascunde Fluux în zona de notificare.",
             "descriptionLinux": "Când este activată, închiderea ascunde Fluux în zona de notificare dacă este acceptată. Minimizarea păstrează comportamentul normal al desktopului.",
             "unavailableLinux": "Nu este disponibilă o zonă de notificare compatibilă. Închiderea va opri Fluux."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Actualizare disponibilă",
