@@ -547,6 +547,8 @@
         "showMore": "Afficher plus",
         "showLess": "Afficher moins",
         "deliveryFailed": "Message non délivré",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Voir l'erreur",
         "retry": "Réessayer",
         "errorDetails": "Erreur : {{error}}",
@@ -1006,7 +1008,9 @@
             "descriptionWindows": "Lorsque cette option est activée, réduire ou fermer Fluux le masque dans la zone de notification.",
             "descriptionLinux": "Lorsque cette option est activée, fermer Fluux le masque dans la zone de notification si elle est prise en charge. La réduction conserve le comportement normal du bureau.",
             "unavailableLinux": "Aucune zone de notification compatible n'est disponible. Fermer Fluux quittera l'application."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Mise à jour disponible",

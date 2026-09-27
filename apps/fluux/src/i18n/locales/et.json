@@ -546,6 +546,8 @@
         "showMore": "Näita rohkem",
         "showLess": "Näita vähem",
         "deliveryFailed": "Sõnum ei ole kohale toimetatud",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Vaata viga",
         "retry": "Proovi uuesti",
         "errorDetails": "Viga: {{error}}",
@@ -1005,7 +1007,9 @@
             "descriptionWindows": "Kui see on lubatud, peidetakse Fluux minimeerimisel või sulgemisel süsteemisalve.",
             "descriptionLinux": "Kui see on lubatud, peidetakse Fluux sulgemisel süsteemisalve, kui see on toetatud. Minimeerimine järgib töölaua tavapärast käitumist.",
             "unavailableLinux": "Ühilduvat süsteemisalve pole saadaval. Fluuxi sulgemine lõpetab rakenduse."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Värskendus saadaval",

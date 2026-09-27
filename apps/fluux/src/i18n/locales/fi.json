@@ -544,6 +544,8 @@
         "showMore": "Näytä lisää",
         "showLess": "Näytä vähemmän",
         "deliveryFailed": "Viestiä ei toimitettu",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Näytä virhe",
         "retry": "Yritä uudelleen",
         "errorDetails": "Virhe: {{error}}",
@@ -1003,7 +1005,9 @@
             "descriptionWindows": "Kun käytössä, Fluux piilotetaan ilmaisinalueelle pienennettäessä tai suljettaessa.",
             "descriptionLinux": "Kun käytössä, Fluux piilotetaan suljettaessa ilmaisinalueelle, jos sitä tuetaan. Pienentäminen noudattaa työpöydän normaalia toimintaa.",
             "unavailableLinux": "Yhteensopivaa ilmaisinalueen tukea ei ole saatavilla. Fluux lopetetaan suljettaessa."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Päivitys saatavilla",

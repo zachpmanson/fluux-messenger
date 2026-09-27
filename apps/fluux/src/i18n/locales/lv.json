@@ -547,6 +547,8 @@
         "showMore": "Rādīt vairāk",
         "showLess": "Rādīt mazāk",
         "deliveryFailed": "Ziņojums nav piegādāts",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Skatīt kļūdu",
         "retry": "Mēģināt vēlreiz",
         "errorDetails": "Kļūda: {{error}}",
@@ -1006,7 +1008,9 @@
             "descriptionWindows": "Ja iespējots, minimizējot vai aizverot Fluux, tas tiek paslēpts sistēmas teknē.",
             "descriptionLinux": "Ja iespējots, aizverot Fluux, tas tiek paslēpts sistēmas teknē, ja tā tiek atbalstīta. Minimizēšana saglabā parasto darbvirsmas darbību.",
             "unavailableLinux": "Saderīga sistēmas tekne nav pieejama. Aizverot Fluux, lietotne tiks izslēgta."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Pieejams atjauninājums",

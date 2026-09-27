@@ -548,6 +548,8 @@
         "showMore": "Mostrar más",
         "showLess": "Mostrar menos",
         "deliveryFailed": "Mensaje no entregado",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Ver error",
         "retry": "Reintentar",
         "errorDetails": "Error: {{error}}",
@@ -1007,7 +1009,9 @@
             "descriptionWindows": "Al activarlo, minimizar o cerrar Fluux lo oculta en la bandeja del sistema.",
             "descriptionLinux": "Al activarlo, cerrar Fluux lo oculta en la bandeja del sistema cuando sea compatible. Minimizar mantiene el comportamiento normal del escritorio.",
             "unavailableLinux": "No hay una bandeja del sistema compatible. Cerrar Fluux saldrá de la aplicación."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Actualizacion Disponible",

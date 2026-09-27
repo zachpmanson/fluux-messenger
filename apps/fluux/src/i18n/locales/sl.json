@@ -550,6 +550,8 @@
         "showMore": "Prikaži več",
         "showLess": "Prikaži manj",
         "deliveryFailed": "Sporočilo ni bilo dostavljeno",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Poglej napako",
         "retry": "Poskusi znova",
         "errorDetails": "Napaka: {{error}}",
@@ -1009,7 +1011,9 @@
             "descriptionWindows": "Ko je omogočeno, se Fluux ob minimiziranju ali zapiranju skrije v sistemsko vrstico.",
             "descriptionLinux": "Ko je omogočeno, se Fluux ob zapiranju skrije v sistemsko vrstico, če je podprta. Minimiziranje ohrani običajno vedenje namizja.",
             "unavailableLinux": "Združljiva sistemska vrstica ni na voljo. Ob zapiranju se bo Fluux končal."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Na voljo posodobitev",
