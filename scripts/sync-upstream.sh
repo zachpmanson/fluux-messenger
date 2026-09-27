@@ -106,6 +106,12 @@ fi
 echo "==> npm ci"
 npm ci --silent
 
+echo "==> Build SDK"
+npm run build:sdk
+
+echo "==> SDK Node smoke tests"
+npm run test:node --workspace=@fluux/sdk
+
 echo "==> Tests"
 npm run test
 
