@@ -544,6 +544,8 @@
         "showMore": "Vis mer",
         "showLess": "Vis mindre",
         "deliveryFailed": "Melding ikke levert",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Vis feil",
         "retry": "Prøv igjen",
         "errorDetails": "Feil: {{error}}",
@@ -1011,7 +1013,9 @@
             "descriptionWindows": "Når dette er aktivert, skjules Fluux i systemstatusfeltet ved minimering eller lukking.",
             "descriptionLinux": "Når dette er aktivert, skjules Fluux i systemstatusfeltet ved lukking hvis det støttes. Minimering følger skrivebordets normale oppførsel.",
             "unavailableLinux": "Et kompatibelt systemstatusfelt er ikke tilgjengelig. Fluux avsluttes når vinduet lukkes."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Oppdatering tilgjengelig",
