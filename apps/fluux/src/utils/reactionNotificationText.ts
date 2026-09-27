@@ -26,7 +26,10 @@ type ReactedMessage = Parameters<typeof formatLocalizedPreview>[0]
  */
 export function reactionPreviewText(message: ReactedMessage, t: TranslateFn): string {
   if (!isPreviewableMessage(message)) return ''
-  return formatLocalizedPreview(message, t).slice(0, PREVIEW_MAX_LENGTH)
+  const preview = formatLocalizedPreview(message, t).slice(0, PREVIEW_MAX_LENGTH)
+  // Empty Markdown spans/fences can survive text preview formatting as delimiters.
+  // Don't turn a markup-only body into a quoted notification.
+  return preview.replace(/[`*_~]/g, '').trim() ? preview : ''
 }
 
 /**
