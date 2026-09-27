@@ -541,6 +541,8 @@
         "showMore": "Покажи повече",
         "showLess": "Покажи по-малко",
         "deliveryFailed": "Съобщението не е доставено",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Преглед на грешка",
         "retry": "Опитай отново",
         "errorDetails": "Грешка: {{error}}",
@@ -977,7 +979,9 @@
             "descriptionWindows": "Когато е включено, минимизирането или затварянето скрива Fluux в системната област.",
             "descriptionLinux": "Когато е включено, затварянето скрива Fluux в системната област, ако се поддържа. Минимизирането следва нормалното поведение на работния плот.",
             "unavailableLinux": "Няма съвместима системна област. Затварянето ще прекрати Fluux."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Налична актуализация",

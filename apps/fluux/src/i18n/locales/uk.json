@@ -545,6 +545,8 @@
         "showMore": "Показати більше",
         "showLess": "Показати менше",
         "deliveryFailed": "Повідомлення не доставлено",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Переглянути помилку",
         "retry": "Повторити",
         "errorDetails": "Помилка: {{error}}",
@@ -981,7 +983,9 @@
             "descriptionWindows": "Якщо ввімкнено, під час згортання або закриття Fluux ховається в області сповіщень.",
             "descriptionLinux": "Якщо ввімкнено, під час закриття Fluux ховається в області сповіщень, коли це підтримується. Згортання працює як зазвичай у вашому середовищі.",
             "unavailableLinux": "Сумісна область сповіщень недоступна. Після закриття Fluux завершить роботу."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Доступне оновлення",

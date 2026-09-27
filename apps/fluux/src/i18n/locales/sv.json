@@ -541,6 +541,8 @@
         "showMore": "Visa mer",
         "showLess": "Visa mindre",
         "deliveryFailed": "Meddelandet levererades inte",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Visa fel",
         "retry": "Försök igen",
         "errorDetails": "Fel: {{error}}",
@@ -977,7 +979,9 @@
             "descriptionWindows": "När detta är aktiverat döljs Fluux i systemfältet vid minimering eller stängning.",
             "descriptionLinux": "När detta är aktiverat döljs Fluux i systemfältet vid stängning om det stöds. Minimering följer skrivbordets normala beteende.",
             "unavailableLinux": "Inget kompatibelt systemfält är tillgängligt. Fluux avslutas när fönstret stängs."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Uppdatering tillgänglig",

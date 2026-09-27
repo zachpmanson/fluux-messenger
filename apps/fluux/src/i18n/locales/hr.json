@@ -543,6 +543,8 @@
         "showMore": "Prikaži više",
         "showLess": "Prikaži manje",
         "deliveryFailed": "Poruka nije isporučena",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Prikaži grešku",
         "retry": "Pokušaj ponovo",
         "errorDetails": "Greška: {{error}}",
@@ -979,7 +981,9 @@
             "descriptionWindows": "Kada je uključeno, minimiziranje ili zatvaranje skriva Fluux u područje obavijesti.",
             "descriptionLinux": "Kada je uključeno, zatvaranje skriva Fluux u područje obavijesti ako je podržano. Minimiziranje zadržava uobičajeno ponašanje radne površine.",
             "unavailableLinux": "Kompatibilno područje obavijesti nije dostupno. Zatvaranje će ugasiti Fluux."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Dostupno ažuriranje",

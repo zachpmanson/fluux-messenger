@@ -541,6 +541,8 @@
         "showMore": "展开",
         "showLess": "收起",
         "deliveryFailed": "消息未送达",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "查看错误",
         "retry": "重试",
         "errorDetails": "错误：{{error}}",
@@ -977,7 +979,9 @@
             "descriptionWindows": "启用后，最小化或关闭 Fluux 会将其隐藏到系统托盘。",
             "descriptionLinux": "启用后，如果桌面支持，关闭 Fluux 会将其隐藏到系统托盘。最小化仍遵循桌面的正常行为。",
             "unavailableLinux": "没有可用的兼容系统托盘。关闭 Fluux 将退出应用。"
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "更新可用",

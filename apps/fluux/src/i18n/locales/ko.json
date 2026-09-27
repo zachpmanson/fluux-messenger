@@ -541,6 +541,8 @@
         "showMore": "더 보기",
         "showLess": "덜 보기",
         "deliveryFailed": "메시지가 전달되지 않았습니다",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "오류 보기",
         "retry": "다시 시도",
         "errorDetails": "오류: {{error}}",
@@ -977,7 +979,9 @@
             "descriptionWindows": "활성화하면 Fluux를 최소화하거나 닫으면 시스템 트레이에 숨겨집니다.",
             "descriptionLinux": "활성화하면 Fluux를 닫으면 지원되는 경우 시스템 트레이에 숨겨집니다. 최소화하면 데스크톱의 일반적인 동작이 유지됩니다.",
             "unavailableLinux": "호환 가능한 시스템 트레이를 사용할 수 없습니다. Fluux를 닫으면 앱이 종료됩니다."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "업데이트 가능",

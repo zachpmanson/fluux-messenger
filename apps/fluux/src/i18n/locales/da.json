@@ -541,6 +541,8 @@
         "showMore": "Vis mere",
         "showLess": "Vis mindre",
         "deliveryFailed": "Besked ikke leveret",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Vis fejl",
         "retry": "Prøv igen",
         "errorDetails": "Fejl: {{error}}",
@@ -977,7 +979,9 @@
             "descriptionWindows": "Når dette er aktiveret, skjules Fluux i statusområdet ved minimering eller lukning.",
             "descriptionLinux": "Når dette er aktiveret, skjules Fluux i statusområdet ved lukning, hvis det understøttes. Minimering følger skrivebordets normale adfærd.",
             "unavailableLinux": "Der er ikke noget kompatibelt statusområde. Fluux afsluttes, når vinduet lukkes."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Opdatering tilgængelig",

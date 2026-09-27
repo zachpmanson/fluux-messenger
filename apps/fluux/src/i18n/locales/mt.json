@@ -549,6 +549,8 @@
         "showMore": "Uri aktar",
         "showLess": "Uri inqas",
         "deliveryFailed": "Il-messaġġ ma wasalx",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Ara l-errur",
         "retry": "Erġa' pprova",
         "errorDetails": "Errur: {{error}}",
@@ -985,7 +987,9 @@
             "descriptionWindows": "Meta attivat, it-tnaqqis jew l-għeluq jaħbi lil Fluux fit-trej tas-sistema.",
             "descriptionLinux": "Meta attivat, l-għeluq jaħbi lil Fluux fit-trej tas-sistema jekk ikun appoġġjat. It-tnaqqis iżomm l-imġiba normali tad-desktop.",
             "unavailableLinux": "M'hemmx trej tas-sistema kompatibbli disponibbli. L-għeluq ta’ Fluux jagħlaq l-applikazzjoni."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Aġġornament Disponibbli",

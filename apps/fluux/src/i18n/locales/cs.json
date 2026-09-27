@@ -547,6 +547,8 @@
         "showMore": "Zobrazit více",
         "showLess": "Zobrazit méně",
         "deliveryFailed": "Zpráva nebyla doručena",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Zobrazit chybu",
         "retry": "Zkusit znovu",
         "errorDetails": "Chyba: {{error}}",
@@ -983,7 +985,9 @@
             "descriptionWindows": "Je-li zapnuto, minimalizace nebo zavření skryje Fluux do oznamovací oblasti.",
             "descriptionLinux": "Je-li zapnuto, zavření skryje Fluux do oznamovací oblasti, pokud je podporována. Minimalizace se řídí běžným chováním prostředí.",
             "unavailableLinux": "Kompatibilní oznamovací oblast není dostupná. Zavřením se Fluux ukončí."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Dostupná aktualizace",
