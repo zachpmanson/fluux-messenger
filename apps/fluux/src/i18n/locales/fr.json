@@ -667,7 +667,9 @@
         "loadAudio": "Charger l'audio",
         "loadFilePreview": "Charger l'aperçu",
         "showLinkImage": "Afficher l'image",
-        "emojiSuggestions": "Suggestions d'emoji"
+        "emojiSuggestions": "Suggestions d'emoji",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Aujourd'hui",
@@ -1100,7 +1102,9 @@
         "contactStatusMessage": "Afficher les messages de statut",
         "contactStatusMessageDescription": "Afficher le texte de statut du contact à la place de « En ligne » ou « Ne pas déranger ».",
         "markdown": "Afficher le Markdown",
-        "markdownDescription": "Afficher les titres, listes, tableaux et liens nommés dans les messages. Le gras, l’italique, le code et les citations s’affichent toujours."
+        "markdownDescription": "Afficher les titres, listes, tableaux et liens nommés dans les messages. Le gras, l’italique, le code et les citations s’affichent toujours.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Mise à jour disponible",

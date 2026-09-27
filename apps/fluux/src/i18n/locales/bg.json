@@ -664,7 +664,9 @@
         "loadAudio": "Зареди аудио",
         "loadFilePreview": "Зареди преглед",
         "showLinkImage": "Покажи изображение",
-        "emojiSuggestions": "Предложения за емоджи"
+        "emojiSuggestions": "Предложения за емоджи",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Днес",
@@ -1097,7 +1099,9 @@
         "contactStatusMessage": "Показване на съобщения за състояние",
         "contactStatusMessageDescription": "Показвайте собствения текст за състояние на контакта вместо „На линия“ или „Не безпокойте“.",
         "markdown": "Показване на Markdown",
-        "markdownDescription": "Показвайте заглавия, списъци, таблици и наименувани връзки в съобщенията. Полужирният, курсивът, кодът и цитатите се показват винаги."
+        "markdownDescription": "Показвайте заглавия, списъци, таблици и наименувани връзки в съобщенията. Полужирният, курсивът, кодът и цитатите се показват винаги.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Налична актуализация",

@@ -664,7 +664,9 @@
         "loadAudio": "加载音频",
         "loadFilePreview": "加载预览",
         "showLinkImage": "显示图片",
-        "emojiSuggestions": "表情符号建议"
+        "emojiSuggestions": "表情符号建议",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "今天",
@@ -1097,7 +1099,9 @@
         "contactStatusMessage": "显示状态消息",
         "contactStatusMessageDescription": "显示联系人自己的状态文字，替代“在线”或“请勿打扰”。",
         "markdown": "渲染 Markdown",
-        "markdownDescription": "在消息中显示标题、列表、表格和带标签的链接。粗体、斜体、代码和引用始终显示。"
+        "markdownDescription": "在消息中显示标题、列表、表格和带标签的链接。粗体、斜体、代码和引用始终显示。",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "更新可用",

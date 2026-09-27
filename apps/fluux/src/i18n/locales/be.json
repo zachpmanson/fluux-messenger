@@ -668,7 +668,9 @@
         "loadAudio": "Загрузіць аўдыё",
         "loadFilePreview": "Загрузіць папярэдні прагляд",
         "showLinkImage": "Паказаць выяву",
-        "emojiSuggestions": "Прапановы эмодзі"
+        "emojiSuggestions": "Прапановы эмодзі",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Сёння",
@@ -1101,7 +1103,9 @@
         "contactStatusMessage": "Паказваць паведамленні стану",
         "contactStatusMessageDescription": "Паказваць уласны тэкст стану кантакту замест «У сетцы» або «Не турбаваць».",
         "markdown": "Адлюстроўваць Markdown",
-        "markdownDescription": "Паказваць загалоўкі, спісы, табліцы і названыя пасылкі ў паведамленнях. Тлусты, курсіў, код і цытаты адлюстроўваюцца заўсёды."
+        "markdownDescription": "Паказваць загалоўкі, спісы, табліцы і названыя пасылкі ў паведамленнях. Тлусты, курсіў, код і цытаты адлюстроўваюцца заўсёды.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Даступна абнаўленне",

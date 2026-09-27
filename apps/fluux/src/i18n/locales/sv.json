@@ -664,7 +664,9 @@
         "loadAudio": "Läs in ljud",
         "loadFilePreview": "Läs in förhandsgranskning",
         "showLinkImage": "Visa bild",
-        "emojiSuggestions": "Emoji-förslag"
+        "emojiSuggestions": "Emoji-förslag",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Idag",
@@ -1097,7 +1099,9 @@
         "contactStatusMessage": "Visa statusmeddelanden",
         "contactStatusMessageDescription": "Visa kontaktens egen statustext i stället för ”Online” eller ”Stör ej”.",
         "markdown": "Visa Markdown",
-        "markdownDescription": "Visa rubriker, listor, tabeller och namngivna länkar i meddelanden. Fet, kursiv, kod och citat visas alltid."
+        "markdownDescription": "Visa rubriker, listor, tabeller och namngivna länkar i meddelanden. Fet, kursiv, kod och citat visas alltid.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Uppdatering tillgänglig",

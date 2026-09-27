@@ -666,7 +666,9 @@
         "loadAudio": "Učitaj zvuk",
         "loadFilePreview": "Učitaj pretpregled",
         "showLinkImage": "Prikaži sliku",
-        "emojiSuggestions": "Prijedlozi emojija"
+        "emojiSuggestions": "Prijedlozi emojija",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Danas",
@@ -1099,7 +1101,9 @@
         "contactStatusMessage": "Prikaži statusne poruke",
         "contactStatusMessageDescription": "Prikaži vlastiti statusni tekst kontakta umjesto „Na mreži“ ili „Ne uznemiravaj“.",
         "markdown": "Prikaži Markdown",
-        "markdownDescription": "Prikaži naslove, popise, tablice i imenovane veze u poruci. Podebljano, kurziv, kod i citati prikazuju se uvijek."
+        "markdownDescription": "Prikaži naslove, popise, tablice i imenovane veze u poruci. Podebljano, kurziv, kod i citati prikazuju se uvijek.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Dostupno ažuriranje",

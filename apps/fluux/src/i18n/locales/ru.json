@@ -668,7 +668,9 @@
         "loadAudio": "Загрузить аудио",
         "loadFilePreview": "Загрузить превью",
         "showLinkImage": "Показать изображение",
-        "emojiSuggestions": "Предложения эмодзи"
+        "emojiSuggestions": "Предложения эмодзи",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Сегодня",
@@ -1101,7 +1103,9 @@
         "contactStatusMessage": "Показывать сообщения о статусе",
         "contactStatusMessageDescription": "Показывать собственный текст статуса контакта вместо «В сети» или «Не беспокоить».",
         "markdown": "Отображать Markdown",
-        "markdownDescription": "Показывать заголовки, списки, таблицы и именованные ссылки в сообщениях. Полужирный, курсив, код и цитаты отображаются всегда."
+        "markdownDescription": "Показывать заголовки, списки, таблицы и именованные ссылки в сообщениях. Полужирный, курсив, код и цитаты отображаются всегда.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Доступно обновление",

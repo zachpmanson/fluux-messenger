@@ -668,7 +668,9 @@
         "loadAudio": "Carregar áudio",
         "loadFilePreview": "Carregar pré-visualização",
         "showLinkImage": "Mostrar imagem",
-        "emojiSuggestions": "Sugestões de emojis"
+        "emojiSuggestions": "Sugestões de emojis",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Hoje",
@@ -1101,7 +1103,9 @@
         "contactStatusMessage": "Mostrar mensagens de estado",
         "contactStatusMessageDescription": "Mostrar o texto de estado do contacto em vez de «Online» ou «Não perturbar».",
         "markdown": "Renderizar Markdown",
-        "markdownDescription": "Mostrar títulos, listas, tabelas e ligações com etiqueta nas mensagens. Negrito, itálico, código e citações são sempre mostrados."
+        "markdownDescription": "Mostrar títulos, listas, tabelas e ligações com etiqueta nas mensagens. Negrito, itálico, código e citações são sempre mostrados.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Atualização disponível",

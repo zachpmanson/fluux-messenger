@@ -668,7 +668,9 @@
         "loadAudio": "Įkelti garsą",
         "loadFilePreview": "Įkelti peržiūrą",
         "showLinkImage": "Rodyti nuotrauką",
-        "emojiSuggestions": "Emoji pasiūlymai"
+        "emojiSuggestions": "Emoji pasiūlymai",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Šiandien",
@@ -1101,7 +1103,9 @@
         "contactStatusMessage": "Rodyti būsenos pranešimus",
         "contactStatusMessageDescription": "Rodyti kontakto būsenos tekstą vietoje „Prisijungęs“ arba „Netrikdyti“.",
         "markdown": "Atvaizduoti Markdown",
-        "markdownDescription": "Rodyti antraštes, sąrašus, lenteles ir pavadintas nuorodas pranešimuose. Paryškintas, kursyvas, kodas ir citatos rodomi visada."
+        "markdownDescription": "Rodyti antraštes, sąrašus, lenteles ir pavadintas nuorodas pranešimuose. Paryškintas, kursyvas, kodas ir citatos rodomi visada.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Pasiekiamas atnaujinimas",

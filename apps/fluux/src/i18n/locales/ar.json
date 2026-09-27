@@ -672,7 +672,9 @@
         "loadAudio": "تحميل الصوت",
         "loadFilePreview": "تحميل المعاينة",
         "showLinkImage": "عرض الصورة",
-        "emojiSuggestions": "اقتراحات الرموز التعبيرية"
+        "emojiSuggestions": "اقتراحات الرموز التعبيرية",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "اليوم",
@@ -1105,7 +1107,9 @@
         "contactStatusMessage": "إظهار رسائل الحالة",
         "contactStatusMessageDescription": "إظهار نص حالة المراسل بدلاً من «متصل» أو «لا تقاطعني».",
         "markdown": "عرض Markdown",
-        "markdownDescription": "إظهار العناوين والقوائم والجداول والروابط المسمّاة في الرسائل. يظل العريض والمائل والرمز والاقتباسات معروضة دائمًا."
+        "markdownDescription": "إظهار العناوين والقوائم والجداول والروابط المسمّاة في الرسائل. يظل العريض والمائل والرمز والاقتباسات معروضة دائمًا.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "تحديث متاح",

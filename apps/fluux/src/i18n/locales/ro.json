@@ -668,7 +668,9 @@
         "loadAudio": "Încarcă sunetul",
         "loadFilePreview": "Încarcă previzualizarea",
         "showLinkImage": "Afișează imaginea",
-        "emojiSuggestions": "Sugestii de emoji"
+        "emojiSuggestions": "Sugestii de emoji",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Astăzi",
@@ -1101,7 +1103,9 @@
         "contactStatusMessage": "Afișează mesajele de stare",
         "contactStatusMessageDescription": "Afișează textul de stare al contactului în locul „Online” sau „Nu deranja”.",
         "markdown": "Afișează Markdown",
-        "markdownDescription": "Afișează titluri, liste, tabele și linkuri cu etichetă în mesaje. Aldinul, cursivul, codul și citatele se afișează întotdeauna."
+        "markdownDescription": "Afișează titluri, liste, tabele și linkuri cu etichetă în mesaje. Aldinul, cursivul, codul și citatele se afișează întotdeauna.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Actualizare disponibilă",

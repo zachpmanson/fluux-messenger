@@ -664,7 +664,9 @@
         "loadAudio": "Hang betöltése",
         "loadFilePreview": "Előnézet betöltése",
         "showLinkImage": "Kép megjelenítése",
-        "emojiSuggestions": "Emoji javaslatok"
+        "emojiSuggestions": "Emoji javaslatok",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Ma",
@@ -1097,7 +1099,9 @@
         "contactStatusMessage": "Állapotüzenetek megjelenítése",
         "contactStatusMessageDescription": "A partner saját állapotszövegének megjelenítése az „Elérhető” vagy „Ne zavarjanak” helyett.",
         "markdown": "Markdown megjelenítése",
-        "markdownDescription": "Címsorok, listák, táblázatok és címkézett hivatkozások megjelenítése az üzenetekben. A félkövér, dőlt, kód és idézetek mindig megjelennek."
+        "markdownDescription": "Címsorok, listák, táblázatok és címkézett hivatkozások megjelenítése az üzenetekben. A félkövér, dőlt, kód és idézetek mindig megjelennek.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Frissítés elérhető",

@@ -669,7 +669,9 @@
         "loadAudio": "Načítať zvuk",
         "loadFilePreview": "Načítať náhľad",
         "showLinkImage": "Zobraziť obrázok",
-        "emojiSuggestions": "Návrhy emoji"
+        "emojiSuggestions": "Návrhy emoji",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Dnes",
@@ -1102,7 +1104,9 @@
         "contactStatusMessage": "Zobrazovať stavové správy",
         "contactStatusMessageDescription": "Zobrazovať vlastný stavový text kontaktu namiesto „Online“ alebo „Nevyrušovať“.",
         "markdown": "Vykresľovať Markdown",
-        "markdownDescription": "Zobrazovať nadpisy, zoznamy, tabuľky a pomenované odkazy v správach. Tučné, kurzíva, kód a citácie sa zobrazujú vždy."
+        "markdownDescription": "Zobrazovať nadpisy, zoznamy, tabuľky a pomenované odkazy v správach. Tučné, kurzíva, kód a citácie sa zobrazujú vždy.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Dostupná aktualizácia",

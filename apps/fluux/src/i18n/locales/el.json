@@ -665,7 +665,9 @@
         "loadAudio": "Φόρτωση ήχου",
         "loadFilePreview": "Φόρτωση προεπισκόπησης",
         "showLinkImage": "Εμφάνιση εικόνας",
-        "emojiSuggestions": "Προτάσεις emoji"
+        "emojiSuggestions": "Προτάσεις emoji",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Σήμερα",
@@ -1098,7 +1100,9 @@
         "contactStatusMessage": "Εμφάνιση μηνυμάτων κατάστασης",
         "contactStatusMessageDescription": "Εμφάνιση του κειμένου κατάστασης της επαφής αντί για «Συνδεδεμένος» ή «Μην ενοχλείτε».",
         "markdown": "Απόδοση Markdown",
-        "markdownDescription": "Εμφάνιση επικεφαλίδων, λιστών, πινάκων και συνδέσμων με ετικέτα στα μηνύματα. Τα έντονα, τα πλάγια, ο κώδικας και τα αποσπάσματα εμφανίζονται πάντα."
+        "markdownDescription": "Εμφάνιση επικεφαλίδων, λιστών, πινάκων και συνδέσμων με ετικέτα στα μηνύματα. Τα έντονα, τα πλάγια, ο κώδικας και τα αποσπάσματα εμφανίζονται πάντα.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Διαθέσιμη ενημέρωση",

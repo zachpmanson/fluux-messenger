@@ -664,7 +664,9 @@
         "loadAudio": "Lataa ääni",
         "loadFilePreview": "Lataa esikatselu",
         "showLinkImage": "Näytä kuva",
-        "emojiSuggestions": "Emoji-ehdotukset"
+        "emojiSuggestions": "Emoji-ehdotukset",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Tänään",
@@ -1097,7 +1099,9 @@
         "contactStatusMessage": "Näytä tilaviestit",
         "contactStatusMessageDescription": "Näytä yhteystiedon oma tilateksti ”Paikalla” tai ”Älä häiritse” tilalla.",
         "markdown": "Näytä Markdown",
-        "markdownDescription": "Näytä otsikot, luettelot, taulukot ja nimetyt linkit viesteissä. Lihavointi, kursivointi, koodi ja lainaukset näytetään aina."
+        "markdownDescription": "Näytä otsikot, luettelot, taulukot ja nimetyt linkit viesteissä. Lihavointi, kursivointi, koodi ja lainaukset näytetään aina.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Päivitys saatavilla",

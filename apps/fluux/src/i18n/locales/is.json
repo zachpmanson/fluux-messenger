@@ -664,7 +664,9 @@
         "loadAudio": "Hlaða hljóð",
         "loadFilePreview": "Hlaða forskoðun",
         "showLinkImage": "Sýna mynd",
-        "emojiSuggestions": "Emoji-tillögur"
+        "emojiSuggestions": "Emoji-tillögur",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Í dag",
@@ -1097,7 +1099,9 @@
         "contactStatusMessage": "Sýna stöðuskeyti",
         "contactStatusMessageDescription": "Sýna eigin stöðutexta tengiliðar í stað „Á neti“ eða „Ónáðið ekki“.",
         "markdown": "Sýna Markdown",
-        "markdownDescription": "Sýna fyrirsagnir, lista, töflur og nefnda tengla í skeytum. Feitt, skáletrað, kóði og tilvitnanir birtast alltaf."
+        "markdownDescription": "Sýna fyrirsagnir, lista, töflur og nefnda tengla í skeytum. Feitt, skáletrað, kóði og tilvitnanir birtast alltaf.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Uppfærsla tiltæk",

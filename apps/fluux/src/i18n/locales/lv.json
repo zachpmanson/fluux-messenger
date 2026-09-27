@@ -667,7 +667,9 @@
         "loadAudio": "Ielādēt audio",
         "loadFilePreview": "Ielādēt priekšskatījumu",
         "showLinkImage": "Rādīt attēlu",
-        "emojiSuggestions": "Emoji ieteikumi"
+        "emojiSuggestions": "Emoji ieteikumi",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Šodien",
@@ -1100,7 +1102,9 @@
         "contactStatusMessage": "Rādīt statusa ziņojumus",
         "contactStatusMessageDescription": "Rādīt kontakta statusa tekstu vietā „Tiešsaistē“ vai „Netraucēt“.",
         "markdown": "Attēlot Markdown",
-        "markdownDescription": "Rādīt virsrakstus, sarakstus, tabulas un nosauktas saites ziņojumos. Treknraksts, kursīvs, kods un citāti tiek rādīti vienmēr."
+        "markdownDescription": "Rādīt virsrakstus, sarakstus, tabulas un nosauktas saites ziņojumos. Treknraksts, kursīvs, kods un citāti tiek rādīti vienmēr.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Pieejams atjauninājums",

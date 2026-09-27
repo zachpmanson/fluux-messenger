@@ -670,7 +670,9 @@
         "loadAudio": "Luchtaigh fuaim",
         "loadFilePreview": "Luchtaigh réamhamharc",
         "showLinkImage": "Taispeáin íomhá",
-        "emojiSuggestions": "Moltaí emoji"
+        "emojiSuggestions": "Moltaí emoji",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Inniu",
@@ -1103,7 +1105,9 @@
         "contactStatusMessage": "Taispeáin teachtaireachtaí stádais",
         "contactStatusMessageDescription": "Taispeáin téacs stádais an teagmhálaí in ionad „Ar líne“ nó „Ná cuir isteach“.",
         "markdown": "Rindreáil Markdown",
-        "markdownDescription": "Taispeáin ceannteidil, liostaí, táblaí agus naisc ainmnithe i dteachtaireachtaí. Taispeántar cló trom, iodálach, cód agus athfhriotail i gcónaí."
+        "markdownDescription": "Taispeáin ceannteidil, liostaí, táblaí agus naisc ainmnithe i dteachtaireachtaí. Taispeántar cló trom, iodálach, cód agus athfhriotail i gcónaí.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Nuashonrú ar Fáil",

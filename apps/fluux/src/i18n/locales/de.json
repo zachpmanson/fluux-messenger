@@ -666,7 +666,9 @@
         "loadAudio": "Audio laden",
         "loadFilePreview": "Vorschau laden",
         "showLinkImage": "Bild anzeigen",
-        "emojiSuggestions": "Emoji-Vorschläge"
+        "emojiSuggestions": "Emoji-Vorschläge",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient"
     },
     "dates": {
         "today": "Heute",
@@ -1099,7 +1101,9 @@
         "contactStatusMessage": "Statusmeldungen anzeigen",
         "contactStatusMessageDescription": "Den eigenen Statustext eines Kontakts anstelle von „Online“ oder „Bitte nicht störenb“ anzeigen.",
         "markdown": "Markdown darstellen",
-        "markdownDescription": "Überschriften, Listen, Tabellen und benannte Links in Nachrichten anzeigen. Fett, Kursiv, Code und Zitate werden immer dargestellt."
+        "markdownDescription": "Überschriften, Listen, Tabellen und benannte Links in Nachrichten anzeigen. Fett, Kursiv, Code und Zitate werden immer dargestellt.",
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Update verfügbar",
