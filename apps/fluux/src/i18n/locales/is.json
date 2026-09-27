@@ -544,6 +544,8 @@
         "showMore": "Sýna meira",
         "showLess": "Sýna minna",
         "deliveryFailed": "Skilaboð ekki afhent",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Skoða villu",
         "retry": "Reyna aftur",
         "errorDetails": "Villa: {{error}}",
@@ -1003,7 +1005,9 @@
             "descriptionWindows": "Þegar þetta er virkt felst Fluux á kerfisbakkanum við lágmörkun eða lokun.",
             "descriptionLinux": "Þegar þetta er virkt felst Fluux á kerfisbakkanum við lokun ef stuðningur er fyrir hendi. Lágmörkun fylgir venjulegri hegðun skjáborðsins.",
             "unavailableLinux": "Samhæfur kerfisbakki er ekki tiltækur. Fluux hættir þegar glugganum er lokað."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Uppfærsla tiltæk",

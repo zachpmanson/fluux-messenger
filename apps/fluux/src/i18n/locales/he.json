@@ -546,6 +546,8 @@
         "showMore": "הצג עוד",
         "showLess": "הצג פחות",
         "deliveryFailed": "ההודעה לא נמסרה",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "הצג שגיאה",
         "retry": "נסה שוב",
         "errorDetails": "שגיאה: {{error}}",
@@ -1005,7 +1007,9 @@
             "descriptionWindows": "כאשר האפשרות מופעלת, מזעור או סגירה של Fluux מסתירים אותו במגש המערכת.",
             "descriptionLinux": "כאשר האפשרות מופעלת, סגירת Fluux מסתירה אותו במגש המערכת אם קיימת תמיכה. המזעור נשאר בהתאם להתנהגות הרגילה של שולחן העבודה.",
             "unavailableLinux": "אין מגש מערכת תואם זמין. סגירת Fluux תצא מהיישום."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "עדכון זמין",

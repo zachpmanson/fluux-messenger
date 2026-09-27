@@ -546,6 +546,8 @@
         "showMore": "Mehr anzeigen",
         "showLess": "Weniger anzeigen",
         "deliveryFailed": "Nachricht nicht zugestellt",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Fehler anzeigen",
         "retry": "Erneut versuchen",
         "errorDetails": "Fehler: {{error}}",
@@ -1005,7 +1007,9 @@
             "descriptionWindows": "Wenn aktiviert, wird Fluux beim Minimieren oder Schließen im Infobereich ausgeblendet.",
             "descriptionLinux": "Wenn aktiviert, wird Fluux beim Schließen im Infobereich ausgeblendet, sofern dies unterstützt wird. Das Minimieren verhält sich weiterhin wie auf Ihrem Desktop üblich.",
             "unavailableLinux": "Kein kompatibler Infobereich ist verfügbar. Beim Schließen wird Fluux beendet."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Update verfügbar",

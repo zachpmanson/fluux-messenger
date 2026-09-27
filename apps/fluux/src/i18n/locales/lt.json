@@ -548,6 +548,8 @@
         "showMore": "Rodyti daugiau",
         "showLess": "Rodyti mažiau",
         "deliveryFailed": "Žinutė nepristatyta",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Peržiūrėti klaidą",
         "retry": "Bandyti dar kartą",
         "errorDetails": "Klaida: {{error}}",
@@ -1007,7 +1009,9 @@
             "descriptionWindows": "Kai įjungta, sumažinus arba uždarius Fluux jis paslepiamas sistemos dėkle.",
             "descriptionLinux": "Kai įjungta, uždarius Fluux jis paslepiamas sistemos dėkle, jei tai palaikoma. Sumažinimas išlaiko įprastą darbalaukio veikimą.",
             "unavailableLinux": "Suderinamas sistemos dėklas nepasiekiamas. Uždarius Fluux programa bus baigta."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Pasiekiamas atnaujinimas",
