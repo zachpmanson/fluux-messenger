@@ -547,6 +547,8 @@
         "showMore": "Taispeáin níos mó",
         "showLess": "Taispeáin níos lú",
         "deliveryFailed": "Níor seachadadh an teachtaireacht",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Féach ar earráid",
         "retry": "Bain triail arís",
         "errorDetails": "Earráid: {{error}}",
@@ -989,7 +991,9 @@
             "descriptionWindows": "Nuair atá sé cumasaithe, folaítear Fluux i dtráidire an chórais nuair a íoslaghdaítear nó a dhúntar é.",
             "descriptionLinux": "Nuair atá sé cumasaithe, folaítear Fluux i dtráidire an chórais nuair a dhúntar é má thacaítear leis. Leanann íoslaghdú gnáthiompar na deisce.",
             "unavailableLinux": "Níl tráidire córais comhoiriúnach ar fáil. Scoirfear Fluux nuair a dhúnfar é."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Nuashonrú ar Fáil",

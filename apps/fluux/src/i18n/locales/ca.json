@@ -545,6 +545,8 @@
         "showMore": "Mostra més",
         "showLess": "Mostra menys",
         "deliveryFailed": "Missatge no lliurat",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Veure error",
         "retry": "Reintentar",
         "errorDetails": "Error: {{error}}",
@@ -987,7 +989,9 @@
             "descriptionWindows": "Quan està activat, minimitzar o tancar Fluux l'amaga a la safata del sistema.",
             "descriptionLinux": "Quan està activat, tancar Fluux l'amaga a la safata del sistema si és compatible. Minimitzar manté el comportament normal de l'escriptori.",
             "unavailableLinux": "No hi ha cap safata del sistema compatible disponible. Tancar Fluux sortirà de l'aplicació."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Actualització disponible",

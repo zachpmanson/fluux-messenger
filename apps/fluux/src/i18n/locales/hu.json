@@ -541,6 +541,8 @@
         "showMore": "Több megjelenítése",
         "showLess": "Kevesebb megjelenítése",
         "deliveryFailed": "Üzenet nem kézbesítve",
+        "readReceiptDelivered": "Delivered to the recipient",
+        "readReceiptDisplayed": "Read by the recipient",
         "viewError": "Hiba megtekintése",
         "retry": "Újrapróbálás",
         "errorDetails": "Hiba: {{error}}",
@@ -983,7 +985,9 @@
             "descriptionWindows": "Ha engedélyezve van, a Fluux kis méretre állításkor vagy bezáráskor a rendszertálcára kerül.",
             "descriptionLinux": "Ha engedélyezve van, a Fluux bezáráskor a rendszertálcára kerül, ha ez támogatott. A kis méretre állítás az asztal szokásos működését követi.",
             "unavailableLinux": "Nem érhető el kompatibilis rendszertálca. A Fluux bezárása kilép az alkalmazásból."
-        }
+        },
+        "sendReadReceipts": "Read receipts",
+        "sendReadReceiptsDescription": "Let other people know you've seen their 1:1 messages (chat markers). Turn this off if you'd rather not disclose your reading. Default on."
     },
     "update": {
         "title": "Frissítés elérhető",
