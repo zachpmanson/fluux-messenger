@@ -6,12 +6,14 @@
  * - useDesktopNotifications (message desktop notifications)
  * - useEventsSoundNotification (event sounds)
  */
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 
 // --- Shared spies for assertion ---
 
 const createOscillatorSpy = vi.fn()
+const closeAudioContextSpy = vi.fn(() => Promise.resolve())
+let audioContextCreateCount = 0
 
 // Class-based Notification mock (vi.fn doesn't work with `new`)
 class MockNotification {
@@ -109,6 +111,7 @@ beforeEach(() => {
   vi.clearAllMocks()
   mockPresenceStatus = 'online'
   createOscillatorSpy.mockClear()
+  audioContextCreateCount = 0
   MockNotification.reset()
 
   // Set up Web Audio mock with shared spy — use a plain function (not vi.fn)
@@ -133,6 +136,7 @@ beforeEach(() => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   window.AudioContext = function AudioContext(this: Function) {
+    audioContextCreateCount++
     return {
       currentTime: 0,
       state: 'running',
@@ -140,6 +144,7 @@ beforeEach(() => {
       createOscillator: createOscillatorSpy,
       createGain: () => mockGain,
       resume: () => Promise.resolve(),
+      close: closeAudioContextSpy,
     }
   } as unknown as typeof AudioContext
 
@@ -148,6 +153,10 @@ beforeEach(() => {
   globalThis.Notification = MockNotification
 
   mockUsePresence.mockReturnValue({ presenceStatus: 'online' } as ReturnType<typeof usePresence>)
+})
+
+afterEach(() => {
+  vi.useRealTimers()
 })
 
 describe('DND notification suppression', () => {
@@ -184,6 +193,91 @@ describe('DND notification suppression', () => {
       })
 
       expect(createOscillatorSpy).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('AudioContext lifecycle', () => {
+    it('should close the AudioContext one second after the last sound', () => {
+      vi.useFakeTimers()
+      renderHook(() => useSoundNotification())
+
+      act(() => {
+        mockNotificationHandlers.onConversationMessage?.({}, {})
+      })
+
+      expect(closeAudioContextSpy).not.toHaveBeenCalled()
+
+      act(() => {
+        vi.advanceTimersByTime(1000)
+      })
+
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('should reuse one AudioContext for sounds inside the close delay', () => {
+      vi.useFakeTimers()
+      renderHook(() => useSoundNotification())
+
+      act(() => {
+        mockNotificationHandlers.onConversationMessage?.({}, {})
+      })
+      act(() => {
+        vi.advanceTimersByTime(500)
+      })
+      act(() => {
+        mockNotificationHandlers.onConversationMessage?.({}, {})
+      })
+
+      expect(audioContextCreateCount).toBe(1)
+
+      act(() => {
+        vi.advanceTimersByTime(1000)
+      })
+
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('should create a new AudioContext for the next sound after the close', () => {
+      vi.useFakeTimers()
+      renderHook(() => useSoundNotification())
+
+      act(() => {
+        mockNotificationHandlers.onConversationMessage?.({}, {})
+      })
+      expect(audioContextCreateCount).toBe(1)
+
+      act(() => {
+        vi.advanceTimersByTime(1000)
+      })
+      act(() => {
+        mockNotificationHandlers.onConversationMessage?.({}, {})
+      })
+
+      expect(audioContextCreateCount).toBe(2)
+    })
+
+    it('should close the events AudioContext one second after the last event sound', () => {
+      vi.useFakeTimers()
+      mockUseEvents.mockReturnValue({
+        subscriptionRequests: [],
+        pendingCount: 0,
+      } as unknown as ReturnType<typeof useEvents>)
+
+      const { rerender } = renderHook(() => useEventsSoundNotification())
+
+      mockUseEvents.mockReturnValue({
+        subscriptionRequests: [{ from: 'new@example.com' }],
+        pendingCount: 1,
+      } as unknown as ReturnType<typeof useEvents>)
+      rerender()
+
+      expect(closeAudioContextSpy).not.toHaveBeenCalled()
+
+      act(() => {
+        vi.advanceTimersByTime(1000)
+      })
+
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
     })
   })
 
