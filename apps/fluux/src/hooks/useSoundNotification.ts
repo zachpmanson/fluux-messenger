@@ -9,6 +9,7 @@ import { useNotificationEvents } from './useNotificationEvents'
  */
 function createNotificationSound(): () => void {
   let audioContext: AudioContext | null = null
+  let closeTimer: ReturnType<typeof setTimeout> | null = null
 
   return () => {
     if (typeof window === 'undefined' || typeof window.AudioContext === 'undefined') {
@@ -54,6 +55,19 @@ function createNotificationSound(): () => void {
       gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.3)
       osc2.start(now + 0.08)
       osc2.stop(now + 0.3)
+
+      // Release the audio device after the sound, so that an idle tab does not
+      // hold an output stream open (Bluetooth multipoint issue). A new context
+      // is created by the next sound.
+      if (closeTimer) clearTimeout(closeTimer)
+      closeTimer = setTimeout(() => {
+        const ctx = audioContext
+        audioContext = null
+        closeTimer = null
+        void ctx?.close().catch(() => {
+          // The context may already be closed or closing
+        })
+      }, 1000)
     } catch {
       // Web Audio API not available or blocked
     }
