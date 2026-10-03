@@ -1,12 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { reactionMentionStore } from '@/stores/reactionMentionStore'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { ReactionMentions } from './ReactionMentions'
 
 vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (k: string, o?: Record<string, unknown>) => (o ? `${k}:${JSON.stringify(o)}` : k) }) }))
 
 describe('ReactionMentions', () => {
-  beforeEach(() => { vi.clearAllMocks(); reactionMentionStore.getState().clearConversation('c1') })
+  beforeEach(() => { vi.clearAllMocks(); reactionMentionStore.getState().clearConversation('c1'); useSettingsStore.setState({ showInChatReactionNotifications: true }) })
 
   it('renders nothing when there are no mentions', () => {
     const { container } = render(<ReactionMentions conversationId="c1" onSee={vi.fn()} />)
@@ -21,6 +22,13 @@ describe('ReactionMentions', () => {
     fireEvent.click(screen.getByLabelText('common.dismiss'))
     expect(reactionMentionStore.getState().mentions.get('c1')?.length ?? 0).toBe(0)
   })
+  it('hides existing notices when the preference is disabled', () => {
+    reactionMentionStore.getState().addMention({ id: 'c1:m1', conversationId: 'c1', messageId: 'm1', reactorName: 'Marie', emoji: '❤️', preview: 'hi' })
+    useSettingsStore.setState({ showInChatReactionNotifications: false })
+    const { container } = render(<ReactionMentions conversationId="c1" onSee={vi.fn()} />)
+    expect(container.firstChild).toBeNull()
+  })
+
   it('uses the quote-free label when the reacted message had nothing to preview', () => {
     // Shares the toast's derivation, so the chip can no longer read "reacted to ''".
     reactionMentionStore.getState().addMention({ id: 'c1:m1', conversationId: 'c1', messageId: 'm1', reactorName: 'Marie', emoji: '❤️', preview: '' })
