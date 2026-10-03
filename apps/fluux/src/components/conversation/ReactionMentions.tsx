@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useReactionMentionStore } from '@/stores/reactionMentionStore'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { formatReactionNotification } from '@/utils/reactionNotificationText'
 import { MentionChip } from './MentionChip'
 
@@ -18,8 +19,9 @@ export function ReactionMentions({ conversationId, onSee }: ReactionMentionsProp
   const { t } = useTranslation()
   const mentions = useReactionMentionStore((s) => s.mentions.get(conversationId))
   const dismissMention = useReactionMentionStore((s) => s.dismissMention)
+  const showInChatReactionNotifications = useSettingsStore((s) => s.showInChatReactionNotifications)
 
-  if (!mentions || mentions.length === 0) return null
+  if (!showInChatReactionNotifications || !mentions || mentions.length === 0) return null
 
   return (
     <div className="px-3 pb-1 space-y-1">
