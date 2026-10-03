@@ -82,8 +82,19 @@ describe('NotificationsSettings — system notification settings link', () => {
     mockIsMac = true
     mockPermState = 'granted'
     mockGetTrayStatus.mockReset().mockResolvedValue({ enabled: true, available: true })
-    useSettingsStore.setState({ keepInSystemTray: true })
+    useSettingsStore.setState({ keepInSystemTray: true, showInChatReactionNotifications: true })
     mockInvoke.mockClear()
+  })
+
+  it('shows and persists the in-chat reaction notification preference', async () => {
+    render(<NotificationsSettings />)
+    const toggle = screen.getByRole('switch', { name: 'settings.inChatReactionNotifications' })
+    expect(toggle).toHaveAttribute('aria-checked', 'true')
+
+    fireEvent.click(toggle)
+
+    expect(useSettingsStore.getState().showInChatReactionNotifications).toBe(false)
+    expect(localStorage.setItem).toHaveBeenCalledWith('fluux-in-chat-reaction-notifications', 'false')
   })
 
   it('shows the OS-settings link when notifications are enabled (macOS, granted)', async () => {

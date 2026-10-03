@@ -7,6 +7,7 @@ import { getMessage as getCachedMessage, getMessageByStanzaId as getCachedMessag
 import { getRoomMessage as getCachedRoomMessage, getRoomMessageByStanzaId as getCachedRoomMessageByStanzaId } from '@fluux/sdk/cache'
 import { useToastStore } from '@/stores/toastStore'
 import { useReactionMentionStore } from '@/stores/reactionMentionStore'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { formatReactionNotification, reactionPreviewText } from '@/utils/reactionNotificationText'
 import { useNavigateToTarget } from './useNavigateToTarget'
 import { decideReactionNotification, type ReactionDecision } from './reactionNotificationDecision'
@@ -56,7 +57,9 @@ export function useReactionNotifications(): void {
           }
         })
       } else {
-        // decision.kind === 'mention'
+        // This preference affects only in-flow mention chips; toast notifications
+        // for inactive conversations are dispatched above regardless of the setting.
+        if (!useSettingsStore.getState().showInChatReactionNotifications) return
         useReactionMentionStore.getState().addMention({
           id: `${m.conversationId}:${m.messageId}`,
           conversationId: m.conversationId,
