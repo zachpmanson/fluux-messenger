@@ -942,6 +942,8 @@
         "notificationChecking": "Checking permission...",
         "notificationDescription": "Desktop notifications alert you to new messages when the app is in the background.",
         "notificationDescriptionWeb": "Notifications alert you to new messages when the app is in the background.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Enable",
         "openSystemNotificationSettings": "Open system notification settings",
         "openSystemNotificationSettingsFailed": "Could not open the system notification settings. Please open them from your desktop settings.",

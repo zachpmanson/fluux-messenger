@@ -112,6 +112,8 @@ export function NotificationsSettings() {
   const [openSettingsFailed, setOpenSettingsFailed] = useState(false)
   const keepInSystemTray = useSettingsStore((state) => state.keepInSystemTray)
   const setKeepInSystemTray = useSettingsStore((state) => state.setKeepInSystemTray)
+  const showInChatReactionNotifications = useSettingsStore((state) => state.showInChatReactionNotifications)
+  const setShowInChatReactionNotifications = useSettingsStore((state) => state.setShowInChatReactionNotifications)
   const [trayStatus, setTrayStatus] = useState<TrayStatus | null>(null)
   const linuxDesktop = desktopBuild && platform().os === 'linux'
   const windowsDesktop = desktopBuild && platform().os === 'windows'
@@ -326,6 +328,18 @@ export function NotificationsSettings() {
             )}
           </div>
         )}
+      </div>
+
+      <div className="flex items-center justify-between gap-4 p-3 rounded-lg bg-fluux-bg/60 border border-fluux-border">
+        <div>
+          <p className="text-sm text-fluux-text">{t('settings.inChatReactionNotifications')}</p>
+          <p className="text-xs text-fluux-muted">{t('settings.inChatReactionNotificationsDescription')}</p>
+        </div>
+        <Toggle
+          checked={showInChatReactionNotifications}
+          onChange={setShowInChatReactionNotifications}
+          aria-label={t('settings.inChatReactionNotifications')}
+        />
       </div>
       </SettingsSection>
 

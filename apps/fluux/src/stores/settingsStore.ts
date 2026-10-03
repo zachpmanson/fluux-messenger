@@ -32,6 +32,8 @@ interface SettingsState {
   setSoundEnabled: (enabled: boolean) => void
   keepInSystemTray: boolean
   setKeepInSystemTray: (enabled: boolean) => void
+  showInChatReactionNotifications: boolean
+  setShowInChatReactionNotifications: (enabled: boolean) => void
 }
 
 const THEME_KEY = 'fluux-theme'
@@ -43,6 +45,7 @@ const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
 const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
+const IN_CHAT_REACTION_NOTIFICATIONS_KEY = 'fluux-in-chat-reaction-notifications'
 
 /**
  * Get initial theme mode from localStorage, default to 'system'
@@ -163,9 +166,16 @@ function getInitialSoundEnabled(): boolean {
 }
 
 /**
- * Keep the current close-to-tray behavior for existing desktop users until
- * they explicitly opt out.
+ * Preserve existing behavior unless the user explicitly disables these notices.
  */
+function getInitialShowInChatReactionNotifications(): boolean {
+  try {
+    return localStorage.getItem(IN_CHAT_REACTION_NOTIFICATIONS_KEY) !== 'false'
+  } catch {
+    return true
+  }
+}
+
 function getInitialKeepInSystemTray(): boolean {
   try {
     const stored = localStorage.getItem(KEEP_IN_TRAY_KEY)
@@ -262,5 +272,12 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setKeepInSystemTray: (enabled) => {
     try { localStorage.setItem(KEEP_IN_TRAY_KEY, String(enabled)) } catch { /* localStorage not available */ }
     set({ keepInSystemTray: enabled })
+  },
+
+  showInChatReactionNotifications: getInitialShowInChatReactionNotifications(),
+
+  setShowInChatReactionNotifications: (enabled) => {
+    try { localStorage.setItem(IN_CHAT_REACTION_NOTIFICATIONS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ showInChatReactionNotifications: enabled })
   },
 }))
