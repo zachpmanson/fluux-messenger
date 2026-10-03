@@ -8,7 +8,7 @@ describe('settingsStore', () => {
     vi.mocked(localStorage.getItem).mockClear()
     vi.mocked(localStorage.setItem).mockClear()
     vi.mocked(localStorage.getItem).mockReturnValue(null)
-    useSettingsStore.setState({ themeMode: 'system', timeFormat: 'auto', fontSize: 100, mediaAutoDownload: 'private-only', motionPreference: 'system', densityMode: 'comfortable', transparencyMode: 'system', keepInSystemTray: true })
+    useSettingsStore.setState({ themeMode: 'system', timeFormat: 'auto', fontSize: 100, mediaAutoDownload: 'private-only', motionPreference: 'system', densityMode: 'comfortable', transparencyMode: 'system', keepInSystemTray: true, showInChatReactionNotifications: true })
   })
 
   describe('initial state', () => {
@@ -75,6 +75,18 @@ describe('settingsStore', () => {
     it('should persist fontSize to localStorage', () => {
       useSettingsStore.getState().setFontSize(110)
       expect(localStorage.setItem).toHaveBeenCalledWith('fluux-font-size', '110')
+    })
+  })
+
+  describe('in-chat reaction notifications', () => {
+    it('defaults to enabled', () => {
+      expect(useSettingsStore.getState().showInChatReactionNotifications).toBe(true)
+    })
+
+    it('updates and persists the preference', () => {
+      useSettingsStore.getState().setShowInChatReactionNotifications(false)
+      expect(useSettingsStore.getState().showInChatReactionNotifications).toBe(false)
+      expect(localStorage.setItem).toHaveBeenCalledWith('fluux-in-chat-reaction-notifications', 'false')
     })
   })
 
