@@ -21,6 +21,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  showInChatReactionNotifications: boolean
+  setShowInChatReactionNotifications: (enabled: boolean) => void
   themeMode: ThemeMode
   setThemeMode: (mode: ThemeMode) => void
   timeFormat: TimeFormat
@@ -62,6 +64,7 @@ export interface ArchiveOverride {
   original: ArchivingDefault
 }
 
+const IN_CHAT_REACTION_NOTIFICATIONS_KEY = 'fluux-in-chat-reaction-notifications'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -260,6 +263,14 @@ function saveArchiveOverrides(overrides: Record<string, ArchiveOverride>): void 
   try { localStorage.setItem(ARCHIVE_OVERRIDES_KEY, JSON.stringify(overrides)) } catch { /* localStorage not available */ }
 }
 
+function getInitialShowInChatReactionNotifications(): boolean {
+  try {
+    return localStorage.getItem(IN_CHAT_REACTION_NOTIFICATIONS_KEY) !== 'false'
+  } catch {
+    return true
+  }
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -387,5 +398,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     const { [account]: _removed, ...archiveOverrides } = get().archiveOverrides
     saveArchiveOverrides(archiveOverrides)
     set({ archiveOverrides })
+  },
+  showInChatReactionNotifications: getInitialShowInChatReactionNotifications(),
+
+  setShowInChatReactionNotifications: (enabled) => {
+    try { localStorage.setItem(IN_CHAT_REACTION_NOTIFICATIONS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ showInChatReactionNotifications: enabled })
   },
 }))
