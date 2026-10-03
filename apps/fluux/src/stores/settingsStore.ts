@@ -21,6 +21,8 @@ export const READING_WIDTH_MAX = 1120
 export const READING_WIDTH_STEP = 40
 
 interface SettingsState {
+  showInChatReactionNotifications: boolean
+  setShowInChatReactionNotifications: (enabled: boolean) => void
   showStatusMessage: boolean
   setShowStatusMessage: (enabled: boolean) => void
   themeMode: ThemeMode
@@ -67,6 +69,7 @@ export interface ArchiveOverride {
 }
 
 const STATUS_MESSAGE_KEY = 'fluux-status-message'
+const IN_CHAT_REACTION_NOTIFICATIONS_KEY = 'fluux-in-chat-reaction-notifications'
 const THEME_KEY = 'fluux-theme'
 const TIME_FORMAT_KEY = 'fluux-time-format'
 const FONT_SIZE_KEY = 'fluux-font-size'
@@ -294,6 +297,14 @@ function getInitialShowStatusMessage(): boolean {
   return true
 }
 
+function getInitialShowInChatReactionNotifications(): boolean {
+  try {
+    return localStorage.getItem(IN_CHAT_REACTION_NOTIFICATIONS_KEY) !== 'false'
+  } catch {
+    return true
+  }
+}
+
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   themeMode: getInitialMode(),
 
@@ -436,4 +447,10 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     set({ showStatusMessage: enabled })
   },
 
+  showInChatReactionNotifications: getInitialShowInChatReactionNotifications(),
+
+  setShowInChatReactionNotifications: (enabled) => {
+    try { localStorage.setItem(IN_CHAT_REACTION_NOTIFICATIONS_KEY, String(enabled)) } catch { /* localStorage not available */ }
+    set({ showInChatReactionNotifications: enabled })
+  },
 }))

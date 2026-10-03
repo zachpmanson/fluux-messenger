@@ -65,6 +65,11 @@ vi.mock('@/stores/reactionMentionStore', () => ({
   useReactionMentionStore: { getState: () => ({ addMention: mockAddMention }) },
 }))
 
+const mockSettings = vi.hoisted(() => ({ showInChatReactionNotifications: true }))
+vi.mock('@/stores/settingsStore', () => ({
+  useSettingsStore: { getState: () => mockSettings },
+}))
+
 const mockNavigateToConversation = vi.fn()
 const mockNavigateToRoom = vi.fn()
 vi.mock('./useNavigateToTarget', () => ({
@@ -84,6 +89,7 @@ describe('useReactionNotifications — chat reaction resolution', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockSubscribe.mockReturnValue(vi.fn())
+    mockSettings.showInChatReactionNotifications = true
     chatState.messages = new Map()
     chatState.activeConversationId = null
     connectionState.jid = 'me@example.com'
@@ -97,6 +103,8 @@ describe('useReactionNotifications — chat reaction resolution', () => {
   })
 
   it('falls back to the durable cache and raises a toast when the conversation is evicted (not active)', async () => {
+    // Disabling in-chat notices must not disable toast notifications.
+    mockSettings.showInChatReactionNotifications = false
     // conversation not resident (evicted on deactivation) and not active
     chatState.activeConversationId = 'other@example.com'
     mockGetCachedMessage.mockResolvedValue({ id: 'm1', isOutgoing: true, body: 'my earlier message' })
@@ -204,6 +212,22 @@ describe('useReactionNotifications — chat reaction resolution', () => {
 
     expect(mockAddToast).not.toHaveBeenCalled()
     expect(mockAddMention).not.toHaveBeenCalled()
+  })
+
+  it('suppresses the in-flow mention when the preference is disabled', async () => {
+    const conv = 'peer@example.com'
+    mockSettings.showInChatReactionNotifications = false
+    chatState.activeConversationId = conv
+    chatState.messages.set(conv, [
+      { id: 'm1', isOutgoing: true, body: 'older own message' },
+      { id: 'last', isOutgoing: false },
+    ])
+
+    renderHook(() => useReactionNotifications())
+    await chatHandler()({ conversationId: conv, messageId: 'm1', reactorJid: 'peer@example.com', emojis: ['🎉'], isLive: true })
+
+    expect(mockAddMention).not.toHaveBeenCalled()
+    expect(mockAddToast).not.toHaveBeenCalled()
   })
 
   it('shows a mention (not a toast) for a resident off-screen own message in the active conversation', async () => {
