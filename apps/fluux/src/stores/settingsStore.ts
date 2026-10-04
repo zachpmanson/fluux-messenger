@@ -47,7 +47,6 @@ const MOTION_KEY = 'fluux-motion'
 const TRANSPARENCY_KEY = 'fluux-transparency'
 const DENSITY_KEY = 'fluux-density'
 const STATUS_MESSAGE_KEY = 'fluux-status-message'
-const SOUND_KEY = 'fluux-sound'
 const KEEP_IN_TRAY_KEY = 'fluux-keep-in-tray'
 const COLLAPSE_LONG_KEY = 'fluux-collapse-long'
 

@@ -46,7 +46,7 @@ vi.mock('../Avatar', () => ({
 }))
 
 // Mutable density so tests can override it without re-importing.
-const settings = { densityMode: 'comfortable' as DensityMode }
+const settings = { densityMode: 'comfortable' as DensityMode, collapseLongMessages: true }
 
 vi.mock('@/stores/settingsStore', () => ({
   useSettingsStore: (selector: (s: typeof settings) => unknown) => selector(settings),
