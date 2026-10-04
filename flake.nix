@@ -33,7 +33,7 @@
 
           # Regenerate after any package-lock.json change with:
           #   nix run nixpkgs#prefetch-npm-deps -- package-lock.json
-          npmDepsHash = "sha256-xUKI9TAFTal6cPKTpTEYdq9tOM36R0CiJnUYOSUjWzI=";
+          npmDepsHash = "sha256-MxvcG5gr9oqfGfapVpkuJRxNlPC7XJxnQLhBqIvg634=";
 
           nodejs = pkgs.nodejs_24;
 
