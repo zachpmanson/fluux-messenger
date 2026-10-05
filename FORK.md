@@ -49,10 +49,10 @@ past deploy.
   Not upstreamable.
 - **Markdown gaps** — tables, `[label](url)` links, nested lists, behind a
   setting. See PR #5 / issue #2. Upstreamable; offer it to ProcessOne.
-- **Rebrand (deployment identity)** — monochrome round chat-bubble favicon
-  (`icon-variants/favicon-source.svg`), `<title>Chat</title>`, and the default round,
-  filled chat mark across login/PWA/native icons. Never upstreamable; stays in this
-  fork for chat.zachmanson.com.
+- **Rebrand (deployment identity)** — original dotgrid favicon glyph on a white
+  circular backing (`icon-variants/favicon-source.svg`), `<title>Chat</title>`, and
+  the default round, filled chat mark across login/PWA/native icons. Never
+  upstreamable; stays in this fork for chat.zachmanson.com.
 
 ## Wanted, not yet built
 
