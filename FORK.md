@@ -96,9 +96,10 @@ cherry-pick so the rebuild stays reproducible.
   likely wanted upstream.
 - **Presence status in the chat header** — issue #4, now built. UI change.
 - **Slash-command bypass** — issue #1, now built.
-- **Rebrand (deployment identity)** — dotgrid favicon (`icon-variants/favicon-source.svg`),
-  `<title>Chat</title>`, and the default round, filled chat mark across login/PWA/native
-  icons. Never upstreamable; stays in this fork for chat.zachmanson.com.
+- **Rebrand (deployment identity)** — monochrome round chat-bubble favicon
+  (`icon-variants/favicon-source.svg`), `<title>Chat</title>`, and the default round,
+  filled chat mark across login/PWA/native icons. Never upstreamable; stays in this
+  fork for chat.zachmanson.com.
 - **Composer 50vh grow** — issue #18, now built. Likes a PR feature.
 - **Status-message tooltip** — issue #19, now built. Native tooltip on the
   truncated roster status line. Likely wanted upstream.
