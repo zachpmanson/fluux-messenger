@@ -752,6 +752,8 @@
         "notificationChecking": "Sprawdzanie uprawnień...",
         "notificationDescription": "Powiadomienia pulpitu alertują o nowych wiadomościach, gdy aplikacja jest w tle.",
         "notificationDescriptionWeb": "Powiadomienia alertują o nowych wiadomościach, gdy aplikacja jest w tle.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Włącz",
         "openSystemNotificationSettings": "Otwórz systemowe ustawienia powiadomień",
         "openSystemNotificationSettingsFailed": "Nie można otworzyć systemowych ustawień powiadomień. Otwórz je w ustawieniach swojego pulpitu.",

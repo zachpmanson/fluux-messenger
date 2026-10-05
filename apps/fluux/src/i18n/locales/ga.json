@@ -752,6 +752,8 @@
         "notificationChecking": "Ag seiceáil ceada...",
         "notificationDescription": "Cuireann fógraí deisce ar an eolas thú faoi theachtaireachtaí nua nuair atá an aip sa chúlra.",
         "notificationDescriptionWeb": "Cuireann fógraí ar an eolas thú faoi theachtaireachtaí nua nuair atá an aip sa chúlra.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Cumasaigh",
         "openSystemNotificationSettings": "Oscail socruithe fógraí an chórais",
         "openSystemNotificationSettingsFailed": "Níorbh fhéidir socruithe fógraí an chórais a oscailt. Oscail iad ó shocruithe do dheasca.",

@@ -748,6 +748,8 @@
         "notificationChecking": "Õiguste kontrollimine...",
         "notificationDescription": "Töölaua teavitused hoiatavad sind uute sõnumite eest, kui rakendus on taustal.",
         "notificationDescriptionWeb": "Teavitused hoiatavad sind uute sõnumite eest, kui rakendus on taustal.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Luba",
         "openSystemNotificationSettings": "Ava süsteemi teavituste seaded",
         "openSystemNotificationSettingsFailed": "Süsteemi teavituste sätteid ei õnnestunud avada. Ava need oma töölaua sätetest.",

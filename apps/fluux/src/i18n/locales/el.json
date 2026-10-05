@@ -747,6 +747,8 @@
         "notificationChecking": "Έλεγχος αδειών...",
         "notificationDescription": "Οι ειδοποιήσεις επιφάνειας εργασίας σας ειδοποιούν για νέα μηνύματα όταν η εφαρμογή είναι στο παρασκήνιο.",
         "notificationDescriptionWeb": "Οι ειδοποιήσεις σας ειδοποιούν για νέα μηνύματα όταν η εφαρμογή είναι στο παρασκήνιο.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Ενεργοποίηση",
         "openSystemNotificationSettings": "Άνοιγμα ρυθμίσεων ειδοποιήσεων συστήματος",
         "openSystemNotificationSettingsFailed": "Δεν ήταν δυνατό το άνοιγμα των ρυθμίσεων ειδοποιήσεων συστήματος. Ανοίξτε τις από τις ρυθμίσεις της επιφάνειας εργασίας σας.",

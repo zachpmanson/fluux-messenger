@@ -746,6 +746,8 @@
         "notificationChecking": "Athuga heimild...",
         "notificationDescription": "Skjáborðstilkynningar láta þig vita af nýjum skilaboðum þegar forritið er í bakgrunni.",
         "notificationDescriptionWeb": "Tilkynningar láta þig vita af nýjum skilaboðum þegar forritið er í bakgrunni.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Virkja",
         "openSystemNotificationSettings": "Opna tilkynningastillingar kerfisins",
         "openSystemNotificationSettingsFailed": "Ekki tókst að opna tilkynningastillingar kerfisins. Opnaðu þær í stillingum skjáborðsins.",

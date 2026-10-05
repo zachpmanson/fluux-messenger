@@ -750,6 +750,8 @@
         "notificationChecking": "A verificar permissão...",
         "notificationDescription": "As notificações de ambiente de trabalho alertam-no para novas mensagens quando a aplicação está em segundo plano.",
         "notificationDescriptionWeb": "As notificações alertam-no para novas mensagens quando a aplicação está em segundo plano.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Ativar",
         "openSystemNotificationSettings": "Abrir as definições de notificações do sistema",
         "openSystemNotificationSettingsFailed": "Não foi possível abrir as definições de notificações do sistema. Abra-as nas definições do seu ambiente de trabalho.",

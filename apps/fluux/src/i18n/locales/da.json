@@ -746,6 +746,8 @@
         "notificationChecking": "Tjekker tilladelse...",
         "notificationDescription": "Skrivebordsnotifikationer advarer dig om nye beskeder, når appen er i baggrunden.",
         "notificationDescriptionWeb": "Notifikationer advarer dig om nye beskeder, når appen er i baggrunden.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Aktiver",
         "openSystemNotificationSettings": "Åbn systemets notifikationsindstillinger",
         "openSystemNotificationSettingsFailed": "Systemets notifikationsindstillinger kunne ikke åbnes. Åbn dem via indstillingerne for dit skrivebord.",

@@ -751,6 +751,8 @@
         "notificationChecking": "Kontroluje sa povolenie...",
         "notificationDescription": "Oznámenia na ploche vás upozornia na nové správy, keď je aplikácia na pozadí.",
         "notificationDescriptionWeb": "Oznámenia vás upozornia na nové správy, keď je aplikácia na pozadí.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Povoliť",
         "openSystemNotificationSettings": "Otvoriť systémové nastavenia oznámení",
         "openSystemNotificationSettingsFailed": "Systémové nastavenia oznámení sa nepodarilo otvoriť. Otvorte ich v nastaveniach svojho prostredia.",

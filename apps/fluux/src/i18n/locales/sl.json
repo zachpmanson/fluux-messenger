@@ -752,6 +752,8 @@
         "notificationChecking": "Preverjanje dovoljenja...",
         "notificationDescription": "Obvestila na namizju vas opozorijo na nova sporočila, ko je aplikacija v ozadju.",
         "notificationDescriptionWeb": "Obvestila vas opozorijo na nova sporočila, ko je aplikacija v ozadju.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Omogoči",
         "openSystemNotificationSettings": "Odpri sistemske nastavitve obvestil",
         "openSystemNotificationSettingsFailed": "Sistemskih nastavitev obvestil ni bilo mogoče odpreti. Odprite jih v nastavitvah svojega namizja.",

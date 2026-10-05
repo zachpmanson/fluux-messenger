@@ -754,6 +754,8 @@
         "notificationChecking": "جارٍ التحقق من الإذن...",
         "notificationDescription": "تنبهك إشعارات سطح المكتب بالرسائل الجديدة عندما يكون التطبيق في الخلفية.",
         "notificationDescriptionWeb": "تنبهك الإشعارات بالرسائل الجديدة عندما يكون التطبيق في الخلفية.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "تفعيل",
         "openSystemNotificationSettings": "فتح إعدادات إشعارات النظام",
         "openSystemNotificationSettingsFailed": "تعذّر فتح إعدادات إشعارات النظام. افتحها من إعدادات سطح المكتب لديك.",

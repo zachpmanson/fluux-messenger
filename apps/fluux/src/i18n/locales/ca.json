@@ -750,6 +750,8 @@
         "notificationChecking": "Comprovant permisos...",
         "notificationDescription": "Les notificacions d'escriptori t'avisen de missatges nous quan l'aplicació està en segon pla.",
         "notificationDescriptionWeb": "Les notificacions t'avisen de missatges nous quan l'aplicació està en segon pla.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Activa",
         "openSystemNotificationSettings": "Obre la configuració de notificacions del sistema",
         "openSystemNotificationSettingsFailed": "No s'ha pogut obrir la configuració de notificacions del sistema. Obriu-la des de la configuració del vostre escriptori.",

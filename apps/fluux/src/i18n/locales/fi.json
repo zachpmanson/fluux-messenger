@@ -746,6 +746,8 @@
         "notificationChecking": "Tarkistetaan käyttöoikeutta...",
         "notificationDescription": "Työpöytäilmoitukset hälyttävät uusista viesteistä, kun sovellus on taustalla.",
         "notificationDescriptionWeb": "Ilmoitukset hälyttävät uusista viesteistä, kun sovellus on taustalla.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Ota käyttöön",
         "openSystemNotificationSettings": "Avaa järjestelmän ilmoitusasetukset",
         "openSystemNotificationSettingsFailed": "Järjestelmän ilmoitusasetuksia ei voitu avata. Avaa ne työpöytäsi asetuksista.",

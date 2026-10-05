@@ -945,6 +945,8 @@
         "notificationChecking": "권한 확인 중...",
         "notificationDescription": "데스크톱 알림은 앱이 백그라운드에 있을 때 새 메시지를 알려줍니다.",
         "notificationDescriptionWeb": "알림은 앱이 백그라운드에 있을 때 새 메시지를 알려줍니다.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "활성화",
         "openSystemNotificationSettings": "시스템 알림 설정 열기",
         "openSystemNotificationSettingsFailed": "시스템 알림 설정을 열 수 없습니다. 데스크톱 설정에서 여세요.",

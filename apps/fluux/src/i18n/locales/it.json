@@ -750,6 +750,8 @@
         "notificationChecking": "Verifica permessi...",
         "notificationDescription": "Le notifiche desktop ti avvisano dei nuovi messaggi quando l'app e in background.",
         "notificationDescriptionWeb": "Le notifiche ti avvisano dei nuovi messaggi quando l'app e in background.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Attiva",
         "openSystemNotificationSettings": "Apri le impostazioni di notifica del sistema",
         "openSystemNotificationSettingsFailed": "Impossibile aprire le impostazioni di notifica del sistema. Aprile dalle impostazioni della tua scrivania.",

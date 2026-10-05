@@ -748,6 +748,8 @@
         "notificationChecking": "בודק הרשאות...",
         "notificationDescription": "התראות שולחן עבודה מתריעות על הודעות חדשות כשהאפליקציה ברקע.",
         "notificationDescriptionWeb": "התראות מתריעות על הודעות חדשות כשהאפליקציה ברקע.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "אפשר",
         "openSystemNotificationSettings": "פתח את הגדרות ההתראות של המערכת",
         "openSystemNotificationSettingsFailed": "לא ניתן היה לפתוח את הגדרות ההתראות של המערכת. פתח אותן מהגדרות שולחן העבודה שלך.",

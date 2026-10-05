@@ -746,6 +746,8 @@
         "notificationChecking": "正在检查权限…",
         "notificationDescription": "当应用在后台时，桌面通知会提醒您有新消息。",
         "notificationDescriptionWeb": "当应用在后台时，通知会提醒您有新消息。",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "启用",
         "openSystemNotificationSettings": "打开系统通知设置",
         "openSystemNotificationSettingsFailed": "无法打开系统通知设置。请从桌面环境的设置中打开。",
