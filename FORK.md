@@ -17,6 +17,30 @@ rebasing forever.
 | `feat/*` | One feature per branch, each a candidate PR to upstream | Rebased onto `main` |
 | `master` | **The deploy branch.** `nix` plus whichever `feat/*` branches aren't upstreamed yet | Repo default; what naboo builds |
 
+### Carried feature branch inventory
+
+`sync-upstream.sh` rebuilds `master` from every local `feat/*` branch. Keep this
+inventory aligned with those refs; each branch is a separate feature candidate
+for upstream:
+
+| Branch | Feature |
+| --- | --- |
+| `feat/chatbox-grow` | Composer grows up to 50vh |
+| `feat/collapse-option` | Collapse option |
+| `feat/css-adjustments` | CSS adjustments |
+| `feat/header-presence` | Presence status in the chat header |
+| `feat/hover-independent-row-highlight` | Independent row hover highlight |
+| `feat/in-chat-reaction-notifications` | Toggle in-chat reaction notices while retaining toast notifications |
+| `feat/markdown` | Markdown tables, links, nested lists and link styling |
+| `feat/new-message-modal-height` | New-message modal height |
+| `feat/notification-audio-release` | Notification audio behavior |
+| `feat/reaction-preview-markup` | Reaction preview markup |
+| `feat/read-receipts` | Read receipts |
+| `feat/rebrand-favicon` | Deployment favicon and title |
+| `feat/slash-bypass` | Slash-command bypass |
+| `feat/square-avatars` | Square avatar option |
+| `feat/status-tooltip` | Tooltip for truncated status messages |
+
 `master` is the repository's default branch, and `~/nix` pins `?ref=master`
 explicitly.
 
@@ -82,6 +106,9 @@ cherry-pick so the rebuild stays reproducible.
 - **Composer 50vh grow** — issue #18, now built. Likes a PR feature.
 - **Status-message tooltip** — issue #19, now built. Native tooltip on the
   truncated roster status line. Likely wanted upstream.
+- **In-chat reaction-notification setting** — `feat/in-chat-reaction-notifications`;
+  hides the bottom-of-chat reaction notices while keeping toast notifications.
+  Likely wanted upstream.
 - **Link underline in messages** — issue #17, now built. Folded into the
   Markdown branch (`feat/markdown`), which owns the message-body CSS block.
 
