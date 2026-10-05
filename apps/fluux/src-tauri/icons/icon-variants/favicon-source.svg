@@ -7,9 +7,9 @@
   Consumed by generate.sh as the source for dist/public/favicon.png in every
   variant (the favicon is brand, not style-variant dependent).
 -->
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="0 0 1100 1100">
-  <circle cx="550" cy="550" r="550" fill="#FFFFFF"/>
-  <g transform="translate(550 550) scale(5.1) translate(-165 -165)">
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="1160" viewBox="0 0 1160 1160">
+  <circle cx="580" cy="580" r="580" fill="#FFFFFF"/>
+  <g transform="translate(580 580) scale(5.1) translate(-165 -165)">
     <path style="stroke-width: 15px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(0, 0, 0); fill: rgb(0, 0, 0);" d="M165,225 A60,60 0 0,0 225,165 A60,60 0 0,0 165,105 A60,60 0 0,0 105,165 L105,165 L105,225 L165,225 "/>
   </g>
 </svg>
