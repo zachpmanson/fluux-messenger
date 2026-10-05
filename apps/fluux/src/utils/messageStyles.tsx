@@ -934,10 +934,17 @@ interface GfmTok {
   children?: GfmTok[]
 }
 
+interface GfmMention {
+  text: string
+  identifier?: string
+  used: boolean
+}
+
 interface GfmCtx {
   isDarkMode?: boolean
   disableMentionFallback: boolean
   resolveMentionColor?: (identifier: string) => string | undefined
+  mentions: GfmMention[]
 }
 
 let gfmRendererSingleton: MarkdownIt | undefined
@@ -976,28 +983,54 @@ function collectGfm(tokens: GfmTok[], i: number, openType: string, closeType: st
 
 /** Split a run of plain text on @mentions, colouring each identified mention. */
 function gfmTextNodes(raw: string, ctx: GfmCtx, keyBase: number): React.ReactNode[] {
-  if (ctx.disableMentionFallback) return [raw]
-  const parts = raw.split(MENTION_REGEX)
-  const out: React.ReactNode[] = []
-  parts.forEach((part, pIdx) => {
-    if (MENTION_REGEX.test(part)) {
-      MENTION_REGEX.lastIndex = 0
-      const identifier = part.slice(1)
-      const color = ctx.resolveMentionColor?.(identifier) ?? getConsistentTextColor(identifier, ctx.isDarkMode ?? true)
-      out.push(
-        <span
-          key={`${keyBase}-m${pIdx}`}
-          className="px-1 rounded font-medium"
-          style={{ color, backgroundColor: `${color}15` }}
-          data-mention={identifier}
-        >
-          {part}
-        </span>
-      )
-    } else if (part) {
-      out.push(part)
+  const matches: Array<{ start: number; end: number; text: string; identifier?: string }> = []
+
+  // Preserve precise XEP-0372 ranges and IRC-style room-prefix mentions in GFM
+  // mode too. Markdown-it strips formatting markers before producing text
+  // tokens, so match each known mention by its visible text in the token stream.
+  for (const mention of ctx.mentions) {
+    if (mention.used || !mention.text) continue
+    const start = raw.indexOf(mention.text)
+    if (start < 0) continue
+    mention.used = true
+    matches.push({ start, end: start + mention.text.length, text: mention.text, identifier: mention.identifier })
+  }
+
+  // As in the XEP-0393 renderer, only use the @word fallback in room contexts.
+  if (!ctx.disableMentionFallback) {
+    const regex = new RegExp(MENTION_REGEX.source, 'gu')
+    for (const match of raw.matchAll(regex)) {
+      const text = match[1]
+      const start = match.index ?? 0
+      const end = start + text.length
+      if (matches.some((candidate) => start < candidate.end && end > candidate.start)) continue
+      matches.push({ start, end, text, identifier: text.slice(1) })
     }
+  }
+
+  if (matches.length === 0) return [raw]
+  matches.sort((a, b) => a.start - b.start || a.end - b.end)
+
+  const out: React.ReactNode[] = []
+  let cursor = 0
+  matches.forEach((match, index) => {
+    if (match.start < cursor) return
+    if (match.start > cursor) out.push(raw.slice(cursor, match.start))
+    const identifier = match.identifier ?? match.text.replace(/^@/, '')
+    const color = ctx.resolveMentionColor?.(identifier) ?? getConsistentTextColor(identifier, ctx.isDarkMode ?? true)
+    out.push(
+      <span
+        key={`${keyBase}-m${index}`}
+        className="px-1 rounded font-medium"
+        style={{ color, backgroundColor: `${color}15` }}
+        data-mention={identifier}
+      >
+        {match.text}
+      </span>
+    )
+    cursor = match.end
   })
+  if (cursor < raw.length) out.push(raw.slice(cursor))
   return out
 }
 
@@ -1310,7 +1343,11 @@ export function renderStyledMessage(text: string, mentions?: MentionReference[],
   // output never bypasses the fork's controls. The off branch below is the
   // unchanged XEP-0393 renderer.
   if (markdown) {
-    return renderGfm(normalizedText, { isDarkMode, disableMentionFallback, resolveMentionColor })
+    const gfmMentions = (mentionRanges ?? []).map((range) => {
+      const text = normalizedText.slice(range.begin, range.end)
+      return { text, identifier: extractMentionIdentifier(range.uri, text), used: false }
+    })
+    return renderGfm(normalizedText, { isDarkMode, disableMentionFallback, resolveMentionColor, mentions: gfmMentions })
   }
 
   // Check for code blocks first (```lang newline ... newline ```)
