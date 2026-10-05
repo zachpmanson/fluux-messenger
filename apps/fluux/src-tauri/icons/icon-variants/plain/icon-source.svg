@@ -5,7 +5,7 @@
       <stop offset="0.52" stop-color="#7C8CFF"/>
       <stop offset="1" stop-color="#A78BFA"/>
     </linearGradient>
-    <linearGradient id="bubble" x1="262" y1="315" x2="262" y2="672" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bubble" x1="294" y1="292" x2="332" y2="728" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#FFFFFF"/>
       <stop offset="1" stop-color="#EAF0FF"/>
     </linearGradient>
@@ -38,7 +38,7 @@
       <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#1A1145" flood-opacity="0.25"/>
     </filter>
     <clipPath id="tileClip"><rect x="61" y="61" width="902" height="902" rx="225"/></clipPath>
-    <clipPath id="bubbleClip"><rect x="262" y="315" width="500" height="357" rx="132"/><path d="M405 672 L332 808 L548 672 Z"/></clipPath>
+    <clipPath id="bubbleClip"><circle cx="512" cy="510" r="218"/><path d="M386 640 L332 808 L512 690 Z"/></clipPath>
   </defs>
 
   <rect x="61" y="61" width="902" height="902" rx="225" fill="url(#aurora)"/>
@@ -49,10 +49,13 @@
   </g>
   <rect x="63.5" y="63.5" width="897" height="897" rx="222.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="3"/>
 
-  <!-- Body + tail as one continuous path (no seam where they used to meet). -->
-  <path filter="url(#depth)" fill="url(#bubble)" d="M394 315 L630 315 Q762 315 762 447 L762 540 Q762 672 630 672 L548 672 L332 808 L405 672 L394 672 Q262 672 262 540 L262 447 Q262 315 394 315 Z"/>
+  <!-- Circular bubble and overlapping tail follow the favicon's round message mark. -->
+  <g filter="url(#depth)" fill="url(#bubble)">
+    <circle cx="512" cy="510" r="218"/>
+    <path d="M386 640 L332 808 L512 690 Z"/>
+  </g>
   <g clip-path="url(#bubbleClip)">
-    <rect x="262" y="315" width="500" height="493" fill="url(#transmit)"/>
-    <rect x="262" y="315" width="500" height="245" fill="url(#bubbleHi)"/>
+    <rect x="294" y="292" width="436" height="516" fill="url(#transmit)"/>
+    <rect x="294" y="292" width="436" height="238" fill="url(#bubbleHi)"/>
   </g>
 </svg>
