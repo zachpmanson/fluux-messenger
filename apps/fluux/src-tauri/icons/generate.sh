@@ -56,7 +56,7 @@ gen_variant() {
   sqm() { local inner=$(( ($1 * 824 + 451) / 902 )); \
           rsvg-convert -w "$inner" -h "$inner" "$SQ" -o "$TMP/_m.png"; \
           magick "$TMP/_m.png" -background none -gravity center -extent "${1}x${1}" "$2"; }
-  # favicon: dedicated brand source (white tile + zoomed round chat mark),
+  # favicon: dedicated brand source (white circle + original dotgrid glyph),
   # shared by every variant — the favicon is brand, not style-variant dependent.
   fav() { rsvg-convert -w "$1" -h "$1" "$ICONS/icon-variants/favicon-source.svg" -o "$2"; }
 
