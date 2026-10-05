@@ -82,7 +82,6 @@ echo "==> Post-rebuild cherry-picks"
 git fetch origin --quiet
 POST_REBUILD_CHERRY_PICKS=(
   fix/settings-merge-fix
-  fix/hover-independent-row-highlight-snapshot
 )
 for ref in "${POST_REBUILD_CHERRY_PICKS[@]}"; do
   touched=$(git show "$ref" --format= --name-only | sed '/^$/d' | tr '\n' ' ')
