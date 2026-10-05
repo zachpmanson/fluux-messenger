@@ -752,6 +752,8 @@
         "notificationChecking": "Berechtigung wird geprüft...",
         "notificationDescription": "Desktop-Benachrichtigungen informieren Sie über neue Nachrichten, wenn die App im Hintergrund ist.",
         "notificationDescriptionWeb": "Benachrichtigungen informieren Sie über neue Nachrichten, wenn die App im Hintergrund ist.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Aktivieren",
         "openSystemNotificationSettings": "Systemeinstellungen für Benachrichtigungen öffnen",
         "openSystemNotificationSettingsFailed": "Die Systemeinstellungen für Benachrichtigungen konnten nicht geöffnet werden. Bitte öffnen Sie sie über die Einstellungen Ihrer Arbeitsumgebung.",

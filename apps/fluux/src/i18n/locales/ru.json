@@ -754,6 +754,8 @@
         "notificationChecking": "Проверка разрешения...",
         "notificationDescription": "Уведомления на рабочем столе оповещают о новых сообщениях, когда приложение свёрнуто.",
         "notificationDescriptionWeb": "Уведомления оповещают о новых сообщениях, когда приложение свёрнуто.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Включить",
         "openSystemNotificationSettings": "Открыть системные настройки уведомлений",
         "openSystemNotificationSettingsFailed": "Не удалось открыть системные настройки уведомлений. Откройте их в настройках рабочего стола.",

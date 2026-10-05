@@ -754,6 +754,8 @@
         "notificationChecking": "Verificando permisos...",
         "notificationDescription": "Las notificaciones de escritorio te alertan de nuevos mensajes cuando la aplicación está en segundo plano.",
         "notificationDescriptionWeb": "Las notificaciones te alertan de nuevos mensajes cuando la aplicación está en segundo plano.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Activar",
         "openSystemNotificationSettings": "Abrir los ajustes de notificaciones del sistema",
         "openSystemNotificationSettingsFailed": "No se han podido abrir los ajustes de notificaciones del sistema. Ábrelos desde los ajustes de tu escritorio.",

@@ -782,6 +782,8 @@
         "notificationChecking": "Vérification de la permission...",
         "notificationDescription": "Les notifications bureau vous alertent des nouveaux messages lorsque l'application est en arrière-plan.",
         "notificationDescriptionWeb": "Les notifications vous alertent des nouveaux messages lorsque l'application est en arrière-plan.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Activer",
         "openSystemNotificationSettings": "Ouvrir les réglages de notification du système",
         "openSystemNotificationSettingsFailed": "Impossible d'ouvrir les réglages de notification du système. Ouvrez-les depuis les réglages de votre bureau.",

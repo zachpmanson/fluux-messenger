@@ -752,6 +752,8 @@
         "notificationChecking": "Provjera dopuštenja...",
         "notificationDescription": "Obavijesti na radnoj površini upozoravaju vas na nove poruke kada je aplikacija u pozadini.",
         "notificationDescriptionWeb": "Obavijesti vas upozoravaju na nove poruke kada je aplikacija u pozadini.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Omogući",
         "openSystemNotificationSettings": "Otvori postavke obavijesti sustava",
         "openSystemNotificationSettingsFailed": "Sustavske postavke obavijesti nije moguće otvoriti. Otvorite ih u postavkama svoje radne površine.",

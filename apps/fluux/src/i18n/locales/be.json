@@ -754,6 +754,8 @@
         "notificationChecking": "Праверка дазволу...",
         "notificationDescription": "Апавяшчэнні на працоўным стале паведамляюць пра новыя паведамленні, калі дадатак у фоне.",
         "notificationDescriptionWeb": "Апавяшчэнні паведамляюць пра новыя паведамленні, калі дадатак у фоне.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Уключыць",
         "openSystemNotificationSettings": "Адкрыць сістэмныя налады апавяшчэнняў",
         "openSystemNotificationSettingsFailed": "Не ўдалося адкрыць сістэмныя налады апавяшчэнняў. Адкрыйце іх у наладах працоўнага стала.",

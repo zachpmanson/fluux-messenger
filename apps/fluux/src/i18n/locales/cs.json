@@ -756,6 +756,8 @@
         "notificationChecking": "Kontrola oprávnění...",
         "notificationDescription": "Oznámení na ploše vás upozorní na nové zprávy, když je aplikace na pozadí.",
         "notificationDescriptionWeb": "Oznámení vás upozorní na nové zprávy, když je aplikace na pozadí.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Povolit",
         "openSystemNotificationSettings": "Otevřít systémové nastavení oznámení",
         "openSystemNotificationSettingsFailed": "Systémové nastavení oznámení se nepodařilo otevřít. Otevřete je v nastavení svého prostředí.",
