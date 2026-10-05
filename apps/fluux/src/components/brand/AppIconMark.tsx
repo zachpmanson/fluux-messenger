@@ -34,7 +34,7 @@ export function AppIconMark({ size = 72, className }: AppIconMarkProps) {
           <stop offset="0.52" stopColor="#7C8CFF" />
           <stop offset="1" stopColor="#A78BFA" />
         </linearGradient>
-        <linearGradient id={id('bubble')} x1="262" y1="315" x2="262" y2="672" gradientUnits="userSpaceOnUse">
+        <linearGradient id={id('bubble')} x1="294" y1="292" x2="332" y2="728" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#FFFFFF" />
           <stop offset="1" stopColor="#EAF0FF" />
         </linearGradient>
@@ -67,13 +67,11 @@ export function AppIconMark({ size = 72, className }: AppIconMarkProps) {
       </g>
       <rect x="63.5" y="63.5" width="897" height="897" rx="222.5" fill="none" stroke="#FFFFFF" strokeOpacity="0.15" strokeWidth="3" />
 
-      {/* Body + tail as ONE continuous path (a rounded rect whose bottom edge
-          dips into the tail), so the two meet with no seam. */}
-      <path
-        filter={`url(#${id('depth')})`}
-        fill={`url(#${id('bubble')})`}
-        d="M394 315 L630 315 Q762 315 762 447 L762 540 Q762 672 630 672 L548 672 L332 808 L405 672 L394 672 Q262 672 262 540 L262 447 Q262 315 394 315 Z"
-      />
+      {/* Circular bubble and overlapping tail mirror the favicon's round mark. */}
+      <g filter={`url(#${id('depth')})`} fill={`url(#${id('bubble')})`}>
+        <circle cx="512" cy="510" r="218" />
+        <path d="M386 640 L332 808 L512 690 Z" />
+      </g>
     </svg>
   )
 }
