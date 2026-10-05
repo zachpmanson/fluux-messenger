@@ -753,6 +753,8 @@
         "notificationChecking": "Pārbauda atļauju...",
         "notificationDescription": "Darbvirsmas paziņojumi brīdina par jauniem ziņojumiem, kad lietotne ir fonā.",
         "notificationDescriptionWeb": "Paziņojumi brīdina par jauniem ziņojumiem, kad lietotne ir fonā.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Iespējot",
         "openSystemNotificationSettings": "Atvērt sistēmas paziņojumu iestatījumus",
         "openSystemNotificationSettingsFailed": "Neizdevās atvērt sistēmas paziņojumu iestatījumus. Atveriet tos savas darbvirsmas iestatījumos.",

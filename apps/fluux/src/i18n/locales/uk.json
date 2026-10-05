@@ -754,6 +754,8 @@
         "notificationChecking": "Перевірка дозволу...",
         "notificationDescription": "Сповіщення на робочому столі сповіщають про нові повідомлення, коли додаток у фоні.",
         "notificationDescriptionWeb": "Сповіщення повідомляють про нові повідомлення, коли додаток у фоні.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Увімкнути",
         "openSystemNotificationSettings": "Відкрити системні налаштування сповіщень",
         "openSystemNotificationSettingsFailed": "Не вдалося відкрити системні налаштування сповіщень. Відкрийте їх у налаштуваннях робочого столу.",

@@ -750,6 +750,8 @@
         "notificationChecking": "Kontrollerar behörighet...",
         "notificationDescription": "Skrivbordsaviseringar meddelar dig om nya meddelanden när appen är i bakgrunden.",
         "notificationDescriptionWeb": "Aviseringar meddelar dig om nya meddelanden när appen är i bakgrunden.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Aktivera",
         "openSystemNotificationSettings": "Öppna systemets aviseringsinställningar",
         "openSystemNotificationSettingsFailed": "Det gick inte att öppna systemets aviseringsinställningar. Öppna dem från skrivbordets inställningar.",

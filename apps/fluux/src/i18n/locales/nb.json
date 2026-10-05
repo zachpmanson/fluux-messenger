@@ -750,6 +750,8 @@
         "notificationChecking": "Sjekker tillatelse...",
         "notificationDescription": "Skrivebordsvarsler varsler deg om nye meldinger når appen er i bakgrunnen.",
         "notificationDescriptionWeb": "Varsler gir deg beskjed om nye meldinger når appen er i bakgrunnen.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Aktiver",
         "openSystemNotificationSettings": "Åpne systemets varslingsinnstillinger",
         "openSystemNotificationSettingsFailed": "Kunne ikke åpne systemets varslingsinnstillinger. Åpne dem fra innstillingene for skrivebordet ditt.",

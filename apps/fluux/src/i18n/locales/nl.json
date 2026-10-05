@@ -750,6 +750,8 @@
         "notificationChecking": "Toestemming controleren...",
         "notificationDescription": "Desktopmeldingen waarschuwen je voor nieuwe berichten wanneer de app op de achtergrond staat.",
         "notificationDescriptionWeb": "Meldingen waarschuwen je voor nieuwe berichten wanneer de app op de achtergrond staat.",
+        "inChatReactionNotifications": "Show in-chat reaction notifications",
+        "inChatReactionNotificationsDescription": "Show reaction notices above the message composer. Toast notifications and reactions on messages are not affected.",
         "requestPermission": "Inschakelen",
         "openSystemNotificationSettings": "Systeeminstellingen voor meldingen openen",
         "openSystemNotificationSettingsFailed": "De systeeminstellingen voor meldingen konden niet worden geopend. Open ze via de instellingen van je bureaublad.",
