@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Copy a built icon variant's assets over the live app-icon locations.
- * Variant is chosen by VITE_FLUUX_ICON_STYLE (default 'hollow'); 'plain' opts
- * into the glass bubble. Runs on predev / prebuild / pretauri:* so a build's
+ * Variant is chosen by VITE_FLUUX_ICON_STYLE (default 'plain'); 'hollow' opts
+ * into the outlined bubble. Runs on predev / prebuild / pretauri:* so a build's
  * native + PWA + favicon icons match the login mark's variant.
  *
  * Pure file copy from committed dist trees — no rasterizer or git needed.
@@ -16,9 +16,9 @@ const repoRoot = resolve(here, '..')
 const appRoot = resolve(repoRoot, 'apps/fluux')
 
 const raw = process.env.VITE_FLUUX_ICON_STYLE
-const style = raw === 'plain' ? 'plain' : 'hollow'
+const style = raw === 'hollow' ? 'hollow' : 'plain'
 if (raw && raw !== 'plain' && raw !== 'hollow') {
-  console.warn(`[icon-variant] unknown VITE_FLUUX_ICON_STYLE="${raw}"; using hollow`)
+  console.warn(`[icon-variant] unknown VITE_FLUUX_ICON_STYLE="${raw}"; using plain`)
 }
 
 const dist = resolve(appRoot, 'src-tauri/icons/icon-variants', style, 'dist')
