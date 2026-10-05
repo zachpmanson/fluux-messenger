@@ -691,10 +691,10 @@ describe('LoginScreen — icon-style variant', () => {
     vi.unstubAllEnvs()
   })
 
-  it('defaults to the hollow mark when the flag is unset', () => {
+  it('defaults to the plain mark when the flag is unset', () => {
     render(<LoginScreen />)
-    expect(document.querySelector('svg.hollow-icon-mark')).not.toBeNull()
-    expect(document.querySelector('svg.app-icon-mark')).toBeNull()
+    expect(document.querySelector('svg.app-icon-mark')).not.toBeNull()
+    expect(document.querySelector('svg.hollow-icon-mark')).toBeNull()
   })
 
   it('renders the plain glass mark when VITE_FLUUX_ICON_STYLE=plain', () => {
@@ -704,9 +704,9 @@ describe('LoginScreen — icon-style variant', () => {
     expect(document.querySelector('svg.hollow-icon-mark')).toBeNull()
   })
 
-  it('falls back to the hollow mark for an unknown flag value', () => {
+  it('falls back to the plain mark for an unknown flag value', () => {
     vi.stubEnv('VITE_FLUUX_ICON_STYLE', 'sparkly')
     render(<LoginScreen />)
-    expect(document.querySelector('svg.hollow-icon-mark')).not.toBeNull()
+    expect(document.querySelector('svg.app-icon-mark')).not.toBeNull()
   })
 })

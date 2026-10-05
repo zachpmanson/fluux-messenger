@@ -418,7 +418,7 @@ export function LoginScreen({ claimConnection }: LoginScreenProps) {
             />
             {/* Soft neutral shadow so the icon stays defined on pale/white
                 backgrounds (the halo glows on dark but doesn't define an edge on light). */}
-            {import.meta.env.VITE_FLUUX_ICON_STYLE === 'plain' ? (
+            {import.meta.env.VITE_FLUUX_ICON_STYLE !== 'hollow' ? (
               <AppIconMark
                 size={72}
                 className="relative [filter:drop-shadow(0_6px_16px_rgba(26,32,64,0.22))]"
