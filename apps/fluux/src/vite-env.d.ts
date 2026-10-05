@@ -9,7 +9,7 @@ declare const __FLUUX_ANOMALY__: boolean
 // Environment variables (VITE_* prefix)
 interface ImportMetaEnv {
   readonly VITE_SHOW_LOGO?: string
-  /** Selects the app-icon treatment: 'plain' glass bubble or 'hollow' outline (default). */
+  /** Selects the app-icon treatment: 'plain' glass bubble (default) or 'hollow' outline. */
   readonly VITE_FLUUX_ICON_STYLE?: 'plain' | 'hollow' | string
 }
 
