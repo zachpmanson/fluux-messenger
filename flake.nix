@@ -28,12 +28,12 @@
         packages.default = self.packages.${system}.fluux;
         packages.fluux = pkgs.buildNpmPackage {
           pname = "fluux";
-          version = "0.17.2";
+          version = "0.18.1";
           src = ./.;
 
           # Regenerate after any package-lock.json change with:
           #   nix run nixpkgs#prefetch-npm-deps -- package-lock.json
-          npmDepsHash = "sha256-DZNJzWTH/n/vqQG79w6Lqo3u16EafCF2Y5h+Abw3jt0=";
+          npmDepsHash = "sha256-DFaEYgb/IKU27XoOJo099IEho/vw8DZYFEasdK2S16E=";
 
           nodejs = pkgs.nodejs_24;
 
