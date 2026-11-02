@@ -35,6 +35,7 @@ describe('useSoundNotification', () => {
       state = 'running'
       currentTime = 0
       destination = {}
+      close() { return Promise.resolve() }
       createOscillator() { oscillators(); return { connect() {}, start() {}, stop() {}, frequency: {}, type: '' } }
       createGain() { return { connect() {}, gain: { setValueAtTime() {}, exponentialRampToValueAtTime() {}, linearRampToValueAtTime() {} } } }
     }
