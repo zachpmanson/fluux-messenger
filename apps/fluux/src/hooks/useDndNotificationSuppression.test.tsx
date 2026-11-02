@@ -9,6 +9,7 @@ import { chatNotificationFixture, roomNotificationFixture, resetNotificationFixt
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
+import { clearNotifiedEventMemory } from '@/utils/notifiedEventMemory'
 
 // --- Shared spies for assertion ---
 
@@ -109,6 +110,7 @@ const mockUsePresence = vi.mocked(usePresence)
 const mockUseEvents = vi.mocked(useEvents)
 
 beforeEach(() => {
+  clearNotifiedEventMemory()
   resetNotificationFixtures()
   vi.clearAllMocks()
   mockPresenceStatus = 'online'
