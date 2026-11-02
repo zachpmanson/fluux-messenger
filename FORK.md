@@ -74,9 +74,12 @@ edit), so a main-based branch can't carry it — try and it conflicts at its
 alphabetical rebuild slot. Such commits live on a dedicated ref and are
 re-applied by `sync-upstream.sh` after it assembles master:
 
-- **`fix/settings-merge-fix`** — the 2026-08-25 settingsStore/AppearanceSettings
-  restack repair (reordering + JSX structure). Context: collapse/markdown/
-  read-receipts/slash/avatar/status toggles all at once.
+- **`fix/settings-merge-fix`** — the merged-settings regression guard. As of the
+  2026-11-02 rebuild, the stale settingsStore/AppearanceSettings reorder repair
+  has been superseded by compatibility resolutions on the carried branches.
+  This ref now carries tests for all fork preferences, including reloads from
+  their existing storage keys, alongside upstream reading/banner/archive state.
+  Do not replay the old repair over upstream's newer settings APIs.
 `sync-upstream.sh` lists them in `POST_REBUILD_CHERRY_PICKS` and cherry-picks
 each onto the rebuilt master (skip-if-already-reflected, so folding one into a
 carried branch later degrades gracefully). Never merge them in; always the
@@ -107,14 +110,6 @@ cherry-pick so the rebuild stays reproducible.
   Likely wanted upstream.
 - **Link underline in messages** — issue #17, now built. Folded into the
   Markdown branch (`feat/markdown`), which owns the message-body CSS block.
-
-## Wanted, not yet built
-
-- **Read receipts (XEP-0333)** — issue #3. Upstream lists 0333 and 0184 as
-  "planned", so this is net-new SDK work and very likely wanted upstream.
-- **Presence status in the chat header** — issue #4. Protocol side already
-  exists; this is a UI change.
-- **Slash-command bypass** — issue #1.
 
 ## Syncing
 
