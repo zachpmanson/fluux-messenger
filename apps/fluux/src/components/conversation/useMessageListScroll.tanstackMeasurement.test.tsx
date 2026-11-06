@@ -169,6 +169,20 @@ function fixture() {
   }
 }
 
+it('settles React presentation updates while a message interaction is held', () => {
+  const scope = fixture()
+  act(() => {
+    expect(scope.api.beginInteractionHold(scope.rows[48].rowId)).toBe(true)
+    scope.api.setInteractionMenuOpen(true)
+  })
+  settle()
+  for (let i = 0; i < 5; i++) {
+    scope.resizeViewport(300 + i * 10)
+    settle()
+  }
+  expect(scope.api.interactionMenuOpen).toBe(true)
+})
+
 // Native navigation wins even when compositor pixels precede the application's scroll event.
 it('observes native movement before resuming a disengaged message hold', () => {
   const release = PositioningController.prototype.releaseInteractionHold
