@@ -37,6 +37,7 @@ for upstream:
 | `feat/reaction-preview-markup` | Reaction preview markup |
 | `feat/read-receipts` | Read receipts |
 | `feat/rebrand-favicon` | Deployment favicon and title |
+| `feat/scroll-fab-render-guard` | Deduplicate scroll-to-bottom presentation updates before React dispatch, retaining urgent transition promotion |
 | `feat/slash-bypass` | Slash-command bypass |
 | `feat/square-avatars` | Square avatar option |
 | `feat/status-tooltip` | Tooltip for truncated status messages |
