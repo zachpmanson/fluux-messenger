@@ -78,11 +78,20 @@ function fixture() {
   const loadNewer = vi.fn()
   const liveEdgeMeasurements = vi.fn()
 
+  let conversationId = 'room'
+  let renderCount = 0
+  let suspend!: () => void
+  let resolveSuspension!: () => void
+  let suspensionResolved = false
+  const suspension = new Promise<void>(resolve => { resolveSuspension = resolve })
   function Harness() {
+    renderCount++
+    const [suspended, setSuspended] = React.useState(false)
+    suspend = () => setSuspended(true)
     const scrollRef = React.useRef<HTMLDivElement | null>(null)
     const currentVirtualizer = useTanstackMessageVirtualizer({ items, indexById, scrollRef, estimateSize: 100 })
     const currentApi = useMessageListScroll({
-      conversationId: 'room', messageCount: rows.length,
+      conversationId, messageCount: rows.length,
       firstMessageId: rows[0].rowId, lastMessageId: rows.at(-1)!.rowId,
       rowGrowthSignature: '', windowAtLiveEdge: true, virtualizer: currentVirtualizer,
       onScrollToTop: loadOlder, onLoadNewer: loadNewer, onLiveEdgeMeasured: liveEdgeMeasurements,
@@ -110,6 +119,7 @@ function fixture() {
       setContainer(node)
     }, [setContainer])
     React.useLayoutEffect(() => { virtualizer = currentVirtualizer; api = currentApi })
+    if (suspended && !suspensionResolved) throw suspension
     return <div ref={setScroller} data-message-list onScroll={event => {
       scrollEvents.push(event.currentTarget.scrollTop)
       currentApi.handleScroll(event)
@@ -126,11 +136,23 @@ function fixture() {
     </div>
   }
 
-  const view = render(<Harness />)
+  const renderHarness = () => <React.Suspense fallback={<div>Suspended</div>}><Harness /></React.Suspense>
+  const view = render(renderHarness())
   settle()
   expect(scroller.scrollTop).toBe(4700)
   return {
     rows, writes, scrollEvents, loadOlder, loadNewer, liveEdgeMeasurements, scroller, totalHeight,
+    suspend: () => suspend(),
+    resolveSuspension: () => act(async () => {
+      suspensionResolved = true
+      resolveSuspension()
+      await suspension
+    }),
+    switchConversation: (id: string) => act(() => {
+      conversationId = id
+      view.rerender(renderHarness())
+    }),
+    get renderCount() { return renderCount },
     get virtualizer() { return virtualizer },
     get api() { return api },
     move: (value: number, deliver = false) => {
@@ -168,6 +190,112 @@ function fixture() {
     unmount: view.unmount,
   }
 }
+
+it.each([false, true])('does not dispatch redundant FAB updates for a stable hold (pending transition: %s)', pendingTransition => {
+  const scope = fixture()
+  const before = scope.renderCount
+  act(() => {
+    if (pendingTransition) React.startTransition(() => scope.api.setInteractionMenuOpen(true))
+    else scope.api.setInteractionMenuOpen(true)
+    expect(scope.api.beginInteractionHold(scope.rows[48].rowId)).toBe(true)
+  })
+  // One urgent retain/menu commit, plus the menu transition when requested separately.
+  // A functional equality guard inside the FAB updater still causes an extra render here.
+  expect(scope.renderCount - before).toBe(pendingTransition ? 2 : 1)
+  expect(scope.api.showScrollToBottom).toBe(false)
+  expect(scope.api.interactionMenuOpen).toBe(true)
+  settle()
+  for (const open of [false, true, false]) {
+    const beforeMenu = scope.renderCount
+    act(() => scope.api.setInteractionMenuOpen(open))
+    expect(scope.renderCount - beforeMenu).toBe(1)
+    expect(scope.api.showScrollToBottom).toBe(false)
+  }
+  settle()
+})
+
+it.each([
+  { finalShow: false, transition: false },
+  { finalShow: true, transition: false },
+  { finalShow: false, transition: true },
+  { finalShow: true, transition: true },
+])('preserves opposite batched FAB requests (final: $finalShow, transition: $transition)', ({ finalShow, transition }) => {
+  const scope = fixture()
+  // releaseInteractionHold refreshes presentation even when there is no hold. Use it to measure
+  // consecutive native positions without a pin loop or synthetic scroll event taking the pixels.
+  const refresh = (show: boolean) => {
+    scope.move(show ? 1000 : 4700)
+    scope.api.releaseInteractionHold(false)
+  }
+  act(() => {
+    refresh(true)
+    if (transition) React.startTransition(() => refresh(false))
+    else refresh(false)
+    refresh(true)
+    if (!finalShow) refresh(false)
+  })
+  expect(scope.api.showScrollToBottom).toBe(finalShow)
+  // Check that deduplication agrees with committed state, not just with a stale render closure.
+  act(() => refresh(!finalShow))
+  expect(scope.api.showScrollToBottom).toBe(!finalShow)
+  act(() => refresh(finalShow))
+  expect(scope.api.showScrollToBottom).toBe(finalShow)
+})
+
+it.each([false, true])('promotes an urgent FAB request past a suspended transition (show: %s)', async show => {
+  const scope = fixture()
+  const refresh = (value: boolean) => {
+    scope.move(value ? 1000 : 4700)
+    scope.api.releaseInteractionHold(false)
+  }
+  if (!show) act(() => refresh(true))
+  expect(scope.api.showScrollToBottom).toBe(!show)
+  act(() => React.startTransition(() => {
+    scope.suspend()
+    refresh(show)
+  }))
+  // The requested value belongs to a render that has not committed.
+  expect(scope.api.showScrollToBottom).toBe(!show)
+  if (show) act(() => refresh(true))
+  else scope.switchConversation('urgent-conversation-entry')
+  // Check BEFORE resolving the suspended transition: the urgent request must not be deduplicated
+  // against merely queued state. Conversation entry is an independent writer of the hidden value.
+  expect(scope.api.showScrollToBottom).toBe(show)
+  await scope.resolveSuspension()
+  expect(scope.api.showScrollToBottom).toBe(show)
+  settle()
+})
+
+it.each(['scroll', 'bottom navigation', 'conversation entry'] as const)('keeps FAB deduplication in sync after %s hides it', writer => {
+  const scope = fixture()
+  const refreshAway = () => {
+    scope.move(1000)
+    scope.api.releaseInteractionHold(false)
+  }
+  act(refreshAway)
+  expect(scope.api.showScrollToBottom).toBe(true)
+  if (writer === 'scroll') scope.move(4700, true)
+  else if (writer === 'bottom navigation') scope.toBottom()
+  else scope.switchConversation('another-room')
+  settle()
+  expect(scope.api.showScrollToBottom).toBe(false)
+  act(refreshAway)
+  expect(scope.api.showScrollToBottom).toBe(true)
+})
+
+it('settles React presentation updates while a message interaction is held', () => {
+  const scope = fixture()
+  act(() => {
+    expect(scope.api.beginInteractionHold(scope.rows[48].rowId)).toBe(true)
+    scope.api.setInteractionMenuOpen(true)
+  })
+  settle()
+  for (let i = 0; i < 5; i++) {
+    scope.resizeViewport(300 + i * 10)
+    settle()
+  }
+  expect(scope.api.interactionMenuOpen).toBe(true)
+})
 
 // Native navigation wins even when compositor pixels precede the application's scroll event.
 it('observes native movement before resuming a disengaged message hold', () => {

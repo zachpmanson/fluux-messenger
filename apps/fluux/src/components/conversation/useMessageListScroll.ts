@@ -615,7 +615,20 @@ export function useMessageListScroll({
   // REACT STATE - Only for things that need to trigger UI updates
   // ==========================================================================
 
-  const [showScrollToBottom, setShowScrollToBottom] = useState(false)
+  const [showScrollToBottom, updateShowScrollToBottom] = useState(false)
+  const requestedShowScrollToBottomRef = useRef(false)
+  const committedShowScrollToBottomRef = useRef(false)
+  useLayoutEffect(() => {
+    committedShowScrollToBottomRef.current = showScrollToBottom
+  }, [showScrollToBottom])
+  const setShowScrollToBottom = useCallback((show: boolean) => {
+    // Layout reconciliation runs after every commit. React cannot always eagerly bail out of
+    // same-value dispatches when this fiber has pending work (e.g. virtualizer updates).
+    // A queued transition is not a commit: an urgent request must still be able to promote it.
+    if (requestedShowScrollToBottomRef.current === show && committedShowScrollToBottomRef.current === show) return
+    requestedShowScrollToBottomRef.current = show
+    updateShowScrollToBottom(show)
+  }, [])
   const [interactionMenuOpen, setInteractionMenuOpen] = useState(false)
   // Whether the first-new-message divider currently sits ABOVE the viewport (scrolled past it, or
   // it hasn't scrolled into view yet). Drives the jump-to-last-read pill. Recomputed in the same
@@ -642,7 +655,7 @@ export function useMessageListScroll({
     const scroller = scrollerRef.current
     if (!scroller) return
     const show = shouldShowScrollToBottomFab(distanceBelowMessages(scroller), AT_BOTTOM_THRESHOLD, pinBottomClaim().isHeld(), positioningControllerRef.current?.hasInteractionHold())
-    setShowScrollToBottom(prev => prev !== show ? show : prev)
+    setShowScrollToBottom(show)
   })
 
 
@@ -681,7 +694,7 @@ export function useMessageListScroll({
     // At the bottom the newest message is visible → 0 new below the fold (anchor is the last row).
     setBottomVisibleMessageId(bottomAnchor?.messageId ?? null)
     scrollPersistenceRef.current?.clearSavedPosition(conversationId)
-  }, [assumeAtBottom, conversationId])
+  }, [assumeAtBottom, conversationId, setShowScrollToBottom])
 
   // ==========================================================================
   // CALLBACK REFS: scroll container + content wrapper
@@ -1446,7 +1459,7 @@ export function useMessageListScroll({
     // transiently large distFromBottom before the loop re-pins, which would otherwise flash the FAB
     // on open-at-bottom (intermittent race). The loop settles AT the bottom, so the FAB stays hidden.
     const shouldShowFab = shouldShowScrollToBottomFab(distanceBelowMessages(el), AT_BOTTOM_THRESHOLD, pinBottomClaim().isHeld(), positioningControllerRef.current?.hasInteractionHold())
-    setShowScrollToBottom(prev => prev !== shouldShowFab ? shouldShowFab : prev)
+    setShowScrollToBottom(shouldShowFab)
 
     if (firstNewMessageId) {
       const v = latestRef.current.virtualizer
@@ -1788,6 +1801,7 @@ export function useMessageListScroll({
     readPointerId,
     resetLiveEdgeRepaintDebt,
     resetPendingInput,
+    setShowScrollToBottom,
     staticMode,
     targetMessageId,
     windowAtLiveEdge,
