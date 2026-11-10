@@ -54,6 +54,7 @@ describe('useEventsSoundNotification', () => {
         createOscillator: () => ({ connect: vi.fn(), frequency: { value: 0 }, type: 'sine', start: oscillatorStart, stop: vi.fn() }),
         createGain: () => ({ connect: vi.fn(), gain: param }),
         resume: () => Promise.resolve(),
+        close: () => Promise.resolve(),
       }
     } as unknown as typeof AudioContext
   })

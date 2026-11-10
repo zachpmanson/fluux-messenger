@@ -10,6 +10,7 @@ import { chatNotificationFixture, roomNotificationFixture, resetNotificationFixt
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { clearNotifiedEventMemory } from '@/utils/notifiedEventMemory'
+import { useSettingsStore } from '@/stores/settingsStore'
 
 // --- Shared spies for assertion ---
 
@@ -113,6 +114,7 @@ beforeEach(() => {
   clearNotifiedEventMemory()
   resetNotificationFixtures()
   vi.clearAllMocks()
+  useSettingsStore.setState({ soundEnabled: true })
   mockPresenceStatus = 'online'
   createOscillatorSpy.mockClear()
   audioContextCreateCount = 0
@@ -201,7 +203,63 @@ describe('DND notification suppression', () => {
   })
 
   describe('AudioContext lifecycle', () => {
-    it('should close the AudioContext one second after the last sound', () => {
+    it('closes message output when its last tone ends, without waiting for a timer', () => {
+      vi.useFakeTimers()
+      renderHook(() => useSoundNotification())
+      act(() => {
+        mockNotificationHandlers.onConversationMessage?.({}, {})
+      })
+      const last = createOscillatorSpy.mock.results.at(-1)!.value as OscillatorNode
+      act(() => { last.onended?.call(last, new Event('ended')) })
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('closes message output immediately on unmount', () => {
+      vi.useFakeTimers()
+      const { unmount } = renderHook(() => useSoundNotification())
+      act(() => {
+        mockNotificationHandlers.onConversationMessage?.({}, {})
+      })
+      unmount()
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
+      act(() => { vi.advanceTimersByTime(1000) })
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('closes message output when sound is disabled', () => {
+      vi.useFakeTimers()
+      const { unmount } = renderHook(() => useSoundNotification())
+      act(() => { mockNotificationHandlers.onConversationMessage?.({}, {}) })
+      act(() => { useSettingsStore.setState({ soundEnabled: false }) })
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
+      act(() => { mockNotificationHandlers.onConversationMessage?.({}, {}) })
+      expect(audioContextCreateCount).toBe(1)
+      unmount()
+      act(() => { useSettingsStore.setState({ soundEnabled: true }) })
+    })
+
+    it.each(['end', 'unmount', 'disable'])('closes event output on %s without a timer', (action) => {
+      vi.useFakeTimers()
+      mockUseEvents.mockReturnValue({ subscriptionRequests: [], pendingCount: 0 } as unknown as ReturnType<typeof useEvents>)
+      const { rerender, unmount } = renderHook(() => useEventsSoundNotification())
+      mockUseEvents.mockReturnValue({
+        subscriptionRequests: [{ from: 'new@example.com' }], pendingCount: 1,
+      } as unknown as ReturnType<typeof useEvents>)
+      rerender()
+      if (action === 'end') {
+        const last = createOscillatorSpy.mock.results.at(-1)!.value as OscillatorNode
+        act(() => { last.onended?.call(last, new Event('ended')) })
+      } else if (action === 'disable') {
+        act(() => { useSettingsStore.setState({ soundEnabled: false }) })
+      } else {
+        unmount()
+      }
+      expect(closeAudioContextSpy).toHaveBeenCalledTimes(1)
+      unmount()
+      act(() => { useSettingsStore.setState({ soundEnabled: true }) })
+    })
+
+    it('should close the AudioContext one second after the last sound if ended never arrives', () => {
       vi.useFakeTimers()
       renderHook(() => useSoundNotification())
 
