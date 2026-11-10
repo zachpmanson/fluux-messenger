@@ -3,76 +3,43 @@ import { usePresence, useConnectionStatus } from '@fluux/sdk'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { useNotificationEvents } from './useNotificationEvents'
 import { announcedByPush } from './useNativePush'
+import { createAudioNotificationPlayer, type AudioNotificationPlayer } from '@/utils/audioNotificationPlayer'
 
 /**
  * Creates a notification sound using Web Audio API.
  * Generates a pleasant two-tone "ding" sound.
  */
-function createNotificationSound(): () => void {
-  let audioContext: AudioContext | null = null
-  let closeTimer: ReturnType<typeof setTimeout> | null = null
+function createNotificationSound(): AudioNotificationPlayer {
+  return createAudioNotificationPlayer((audioContext) => {
+    const now = audioContext.currentTime
 
-  return () => {
-    if (typeof window === 'undefined' || typeof window.AudioContext === 'undefined') {
-      return
-    }
+    // First tone (higher pitch)
+    const osc1 = audioContext.createOscillator()
+    const gain1 = audioContext.createGain()
+    osc1.connect(gain1)
+    gain1.connect(audioContext.destination)
+    osc1.frequency.value = 830 // G#5
+    osc1.type = 'sine'
+    gain1.gain.setValueAtTime(0.3, now)
+    gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15)
+    osc1.start(now)
+    osc1.stop(now + 0.15)
 
-    try {
-      // Create or reuse AudioContext
-      if (!audioContext) {
-        audioContext = new window.AudioContext()
-      }
+    // Second tone (slightly lower, delayed)
+    const osc2 = audioContext.createOscillator()
+    const gain2 = audioContext.createGain()
+    osc2.connect(gain2)
+    gain2.connect(audioContext.destination)
+    osc2.frequency.value = 622 // D#5
+    osc2.type = 'sine'
+    gain2.gain.setValueAtTime(0, now + 0.08)
+    gain2.gain.linearRampToValueAtTime(0.25, now + 0.1)
+    gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.3)
+    osc2.start(now + 0.08)
+    osc2.stop(now + 0.3)
 
-      // Resume if suspended (required after user interaction)
-      if (audioContext.state === 'suspended') {
-        void audioContext.resume().catch(() => {
-          // Some browsers may reject resume() until user gesture is trusted
-        })
-      }
-
-      const now = audioContext.currentTime
-
-      // First tone (higher pitch)
-      const osc1 = audioContext.createOscillator()
-      const gain1 = audioContext.createGain()
-      osc1.connect(gain1)
-      gain1.connect(audioContext.destination)
-      osc1.frequency.value = 830 // G#5
-      osc1.type = 'sine'
-      gain1.gain.setValueAtTime(0.3, now)
-      gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15)
-      osc1.start(now)
-      osc1.stop(now + 0.15)
-
-      // Second tone (slightly lower, delayed)
-      const osc2 = audioContext.createOscillator()
-      const gain2 = audioContext.createGain()
-      osc2.connect(gain2)
-      gain2.connect(audioContext.destination)
-      osc2.frequency.value = 622 // D#5
-      osc2.type = 'sine'
-      gain2.gain.setValueAtTime(0, now + 0.08)
-      gain2.gain.linearRampToValueAtTime(0.25, now + 0.1)
-      gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.3)
-      osc2.start(now + 0.08)
-      osc2.stop(now + 0.3)
-
-      // Release the audio device after the sound, so that an idle tab does not
-      // hold an output stream open (Bluetooth multipoint issue). A new context
-      // is created by the next sound.
-      if (closeTimer) clearTimeout(closeTimer)
-      closeTimer = setTimeout(() => {
-        const ctx = audioContext
-        audioContext = null
-        closeTimer = null
-        void ctx?.close().catch(() => {
-          // The context may already be closed or closing
-        })
-      }, 1000)
-    } catch {
-      // Web Audio API not available or blocked
-    }
-  }
+    return osc2
+  })
 }
 
 /** Same post-reconnect wait as the notification banner (useDesktopNotifications). */
@@ -87,7 +54,7 @@ export function useSoundNotification(): void {
   const soundEnabled = useSettingsStore((s) => s.soundEnabled)
   const presenceStatusRef = useRef(presenceStatus)
   const soundEnabledRef = useRef(soundEnabled)
-  const playSoundRef = useRef<(() => void) | null>(null)
+  const playSoundRef = useRef<AudioNotificationPlayer | null>(null)
 
   useEffect(() => {
     presenceStatusRef.current = presenceStatus
@@ -99,14 +66,15 @@ export function useSoundNotification(): void {
 
   // Initialize sound player
   useEffect(() => {
-    if (typeof window !== 'undefined' && typeof window.AudioContext !== 'undefined') {
+    if (soundEnabled && typeof window !== 'undefined' && typeof window.AudioContext !== 'undefined') {
       playSoundRef.current = createNotificationSound()
     }
 
     return () => {
+      playSoundRef.current?.dispose()
       playSoundRef.current = null
     }
-  }, [])
+  }, [soundEnabled])
 
   // After each move into 'online', a reconnect backlog gets one chime when the wait ends.
   const { status } = useConnectionStatus()
@@ -117,7 +85,7 @@ export function useSoundNotification(): void {
 
   const playNow = () => {
     if (presenceStatusRef.current === 'dnd' || !soundEnabledRef.current) return
-    playSoundRef.current?.()
+    playSoundRef.current?.play()
   }
 
   useEffect(() => {
