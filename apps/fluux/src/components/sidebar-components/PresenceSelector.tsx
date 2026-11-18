@@ -9,6 +9,7 @@ import { TextInput } from '../ui/TextInput'
 import { Tooltip } from '../Tooltip'
 import { DEGRADED_STATUS_GRACE_MS, useConnectionStep } from '../ConnectionStep'
 import { PRESENCE_COLORS } from '@/constants/ui'
+import { getPresenceColor } from '@/utils/presence'
 
 const presenceOptions: { value: PresenceStatus; labelKey: string; color: string }[] = [
   { value: 'online', labelKey: 'presence.online', color: PRESENCE_COLORS.online },
@@ -23,7 +24,7 @@ interface PresenceSelectorProps {
 
 export function PresenceSelector({ isOpen: isOpenProp, onOpenChange }: PresenceSelectorProps) {
   const { t } = useTranslation()
-  const { presenceStatus: presenceShow, statusMessage, setPresence } = usePresence()
+  const { presenceStatus: presenceShow, presenceShow: actualShow, statusMessage, setPresence } = usePresence()
   const [isOpenInternal, setIsOpenInternal] = useState(false)
 
   // Use controlled state if prop is provided, otherwise use internal state
@@ -133,7 +134,7 @@ export function PresenceSelector({ isOpen: isOpenProp, onOpenChange }: PresenceS
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-1.5 px-2 py-1 text-xs rounded-full bg-fluux-hover hover:bg-fluux-bg border border-transparent hover:border-fluux-muted/30 transition-colors group min-w-0 max-w-full overflow-hidden"
         >
-          <span className={`size-2 rounded-full flex-shrink-0 ${currentOption.color}`} />
+          <span className={`size-2 rounded-full flex-shrink-0 ${getPresenceColor(presenceShow, actualShow)}`} />
           <span className="text-fluux-muted group-hover:text-fluux-text truncate min-w-0">
             {statusMessage || t(currentOption.labelKey)}
           </span>

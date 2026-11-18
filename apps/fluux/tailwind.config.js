@@ -54,6 +54,7 @@ export default {
           'green': 'var(--fluux-status-success)',
           'yellow': 'var(--fluux-status-warning)',
           'presence-away': 'var(--fluux-presence-away)',
+          'presence-xa': 'var(--fluux-presence-xa)',
           'presence-dnd': 'var(--fluux-presence-dnd)',
           'red': 'var(--fluux-status-error)',
           // Error AS TEXT/icon. Split from `red` (status-error): that token is the

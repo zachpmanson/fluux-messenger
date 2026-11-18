@@ -537,7 +537,8 @@
 
   /* Avatar presence */
   --fluux-presence-online: var(--fluux-status-success);
-  --fluux-presence-away: #FF8C00;
+  --fluux-presence-away: #FDD835;
+  --fluux-presence-xa: #FF8C00;
   --fluux-presence-dnd: #FF6B70;
   --fluux-presence-offline: var(--fluux-base-60);
 
@@ -580,8 +581,7 @@
      so they must target the host element directly. */
 }
 
-/* Away has a shape cue so red-green colour vision does not have to distinguish
-   the orange fill from online green at conversation-list sizes. */
+/* Inactive presence has a shape cue independent of the yellow/orange fill. */
 .presence-away {
   border-radius: 25%;
 }
@@ -629,7 +629,8 @@
      directly and are unaffected. */
   --fluux-status-success: #197740;
   --fluux-status-warning: #89600A;
-  --fluux-presence-away: #A64B00;
+  --fluux-presence-away: #806800;
+  --fluux-presence-xa: #A64B00;
   --fluux-presence-dnd: #C8252A;
   --fluux-status-error: #C8252A;
 

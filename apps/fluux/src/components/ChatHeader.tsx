@@ -12,6 +12,7 @@ import { Avatar } from './Avatar'
 import { useWindowDrag, useAnchoredMenu } from '@/hooks'
 import { getTranslatedStatusText } from '@/utils/statusText'
 import { useSettingsStore } from '@/stores/settingsStore'
+import { getContactPresenceShow } from '@/utils/presence'
 import { Tooltip } from './Tooltip'
 import { ConnectionStepSlot } from './ConnectionStep'
 import { UpdateStatus } from './UpdateStatus'
@@ -122,6 +123,7 @@ export function ChatHeader({
           avatarUrl={contact?.avatar}
           size="header"
           presence={fullContact?.presence ?? 'offline'}
+          presenceShow={getContactPresenceShow(fullContact)}
           presenceBorderColor="border-fluux-bg"
         />
       )}

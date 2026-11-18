@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Camera, Pencil, Trash2 } from 'lucide-react'
-import type { PresenceStatus } from '@fluux/sdk'
+import type { PresenceStatus, PresenceShow } from '@fluux/sdk'
 import { Avatar } from '../../Avatar'
 import { Tooltip } from '../../Tooltip'
 import { TextInput } from '../../ui/TextInput'
-import { APP_OFFLINE_PRESENCE_COLOR, PRESENCE_COLORS } from '@/constants/ui'
+import { getPresenceColor } from '@/utils/presence'
 
 interface OwnProfileHeroProps {
   jid: string
@@ -14,6 +14,7 @@ interface OwnProfileHeroProps {
   ownNickname: string | null
   ownAvatar: string | null
   presenceShow: PresenceStatus
+  actualShow?: PresenceShow
   statusMessage: string | null
   isConnected: boolean
   onOpenAvatarModal: () => void
@@ -29,6 +30,7 @@ export function OwnProfileHero({
   ownNickname,
   ownAvatar,
   presenceShow,
+  actualShow,
   statusMessage,
   isConnected,
   onOpenAvatarModal,
@@ -129,7 +131,7 @@ export function OwnProfileHero({
     }
   }
 
-  const presenceColor = isConnected ? PRESENCE_COLORS[presenceShow] : APP_OFFLINE_PRESENCE_COLOR
+  const presenceColor = getPresenceColor(presenceShow, actualShow, !isConnected)
 
   return (
     <div className="px-4 py-5 md:px-6 md:py-6 border-b border-fluux-bg">
@@ -150,6 +152,8 @@ export function OwnProfileHero({
                 avatarUrl={ownAvatar || undefined}
                 size="xl"
                 presence={presenceShow}
+                presenceShow={actualShow}
+                forceOffline={!isConnected}
                 presenceBorderColor="border-fluux-chat"
                 fallbackColor="var(--fluux-bg-accent)"
               />

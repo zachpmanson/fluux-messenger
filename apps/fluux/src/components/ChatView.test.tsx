@@ -299,7 +299,8 @@ vi.mock('@/utils/statusText', () => ({
   getTranslatedStatusText: () => 'Online',
 }))
 
-vi.mock('@/utils/presence', () => ({
+vi.mock('@/utils/presence', async (importOriginal) => ({
+  ...await importOriginal<typeof import('@/utils/presence')>(),
   getTranslatedShowText: () => 'Online',
 }))
 

@@ -67,6 +67,20 @@ describe('ContactSelector', () => {
     vi.clearAllMocks()
   })
 
+  it('keeps a roster XA search result orange rather than using simplified away yellow', () => {
+    const bob = mockContacts[1]
+    bob.resources = new Map([['desktop', { priority: 0, show: 'xa' }]])
+    try {
+      const { container } = render(<ContactSelector selectedContacts={[]} onSelectionChange={mockOnSelectionChange} />)
+      fireEvent.focus(screen.getByPlaceholderText('Search contacts...'))
+      fireEvent.change(screen.getByPlaceholderText('Search contacts...'), { target: { value: 'bob' } })
+      expect(document.querySelector('[data-testid="contact-suggestions"] .bg-fluux-presence-xa')).toBeInTheDocument()
+      expect(container.querySelector('.bg-fluux-presence-away')).not.toBeInTheDocument()
+    } finally {
+      delete bob.resources
+    }
+  })
+
   describe('rendering', () => {
     it('should render search input with placeholder', () => {
       render(

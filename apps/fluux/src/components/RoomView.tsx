@@ -2,7 +2,7 @@ import { iosHaptic } from '@/platform/ios/haptics'
 import { getActiveMessageListController } from './conversation/activeMessageListController'
 import { isSpamModerated } from '@/utils/spamModeration'
 import { SpamModerationOption } from './SpamModerationOption'
-import type { GapInterval, MessageRowRef } from '@fluux/sdk'
+import type { GapInterval, MessageRowRef, PresenceShow } from '@fluux/sdk'
 import React, { useState, useRef, useEffect, useCallback, useId, useImperativeHandle, useMemo, memo, type RefObject } from 'react'
 import { flushSync } from 'react-dom'
 import { shallow } from 'zustand/shallow'
@@ -1278,6 +1278,7 @@ export const RoomMessageList = memo(function RoomMessageList({
         isIrcGateway={room.isIrcGateway === true}
         occupant={sender.occupant}
         avatarPresence={sender.avatarPresence}
+        avatarPresenceShow={sender.avatarPresenceShow}
         senderAvatar={sender.senderAvatar}
         resolvedSenderName={sender.resolvedSenderName}
         senderRole={sender.senderRole}
@@ -1391,6 +1392,7 @@ interface RoomMessageBubbleWrapperProps {
   isIrcGateway: boolean
   occupant: RoomOccupant | undefined
   avatarPresence: 'online' | 'away' | 'dnd' | 'offline' | undefined
+  avatarPresenceShow: PresenceShow | null | undefined
   senderAvatar: string | undefined
   resolvedSenderName: string
   senderRole: RoomRole | undefined
@@ -1468,6 +1470,7 @@ const RoomMessageBubbleWrapper = memo(function RoomMessageBubbleWrapper({
   isIrcGateway,
   occupant,
   avatarPresence,
+  avatarPresenceShow,
   senderAvatar,
   resolvedSenderName,
   senderRole,
@@ -1728,6 +1731,7 @@ const RoomMessageBubbleWrapper = memo(function RoomMessageBubbleWrapper({
         avatarIdentifier={resolvedSenderName}
         avatarFallbackColor={senderColor}
         avatarPresence={avatarPresence}
+        avatarPresenceShow={avatarPresenceShow}
         senderJid={senderBareJid}
         senderContact={contact}
         senderRole={senderRole}

@@ -45,8 +45,8 @@ vi.mock('@fluux/sdk/react', () => ({
 
 // Mock Avatar component
 vi.mock('./Avatar', () => ({
-  Avatar: ({ name, presence }: { name: string; presence?: string }) => (
-    <div data-testid="avatar" data-name={name} data-presence={presence}>
+  Avatar: ({ name, presence, presenceShow }: { name: string; presence?: string; presenceShow?: string | null }) => (
+    <div data-testid="avatar" data-name={name} data-presence={presence} data-show={presenceShow}>
       Avatar: {name}
     </div>
   ),
@@ -91,6 +91,13 @@ describe('ChatHeader', () => {
       )
 
       expect(screen.getByText('Alice Smith')).toBeInTheDocument()
+    })
+
+    it('passes raw XA through the subscribed full contact rather than the identity-only prop', () => {
+      const contact = setupContact({ presence: 'away', resources: new Map([['desktop', { priority: 0, show: 'xa' }]]) })
+      render(<ChatHeader name={contact.name} type="chat" contact={{ jid: contact.jid, name: contact.name }} jid={contact.jid} />)
+      expect(screen.getByTestId('avatar')).toHaveAttribute('data-presence', 'away')
+      expect(screen.getByTestId('avatar')).toHaveAttribute('data-show', 'xa')
     })
 
     it('renders contact avatar with presence', () => {

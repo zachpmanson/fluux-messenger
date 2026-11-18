@@ -25,7 +25,7 @@ export function ProfileSettings() {
     clearOwnAvatar,
     clearOwnNickname,
   } = useConnection()
-  const { presenceStatus: presenceShow, statusMessage } = usePresence()
+  const { presenceStatus: presenceShow, presenceShow: actualShow, statusMessage } = usePresence()
 
   const [showAvatarModal, setShowAvatarModal] = useState(false)
   const [showPasswordModal, setShowPasswordModal] = useState(false)
@@ -48,6 +48,7 @@ export function ProfileSettings() {
         ownNickname={ownNickname}
         ownAvatar={ownAvatar}
         presenceShow={presenceShow}
+        actualShow={actualShow}
         statusMessage={statusMessage}
         isConnected={isConnected}
         onOpenAvatarModal={() => setShowAvatarModal(true)}

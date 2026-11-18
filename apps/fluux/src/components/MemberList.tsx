@@ -1,4 +1,5 @@
-import { useRoster, type PresenceStatus } from '@fluux/sdk'
+import { useRoster, type PresenceStatus, type PresenceShow } from '@fluux/sdk'
+import { getContactPresenceShow } from '@/utils/presence'
 import { useChatStore, useConnectionStore } from '@fluux/sdk/react'
 import { detectRenderLoop } from '@/utils/renderLoopDetector'
 import { Avatar } from './Avatar'
@@ -36,6 +37,7 @@ function MemberListBody() {
               jid: c.jid,
               name: c.name,
               presence: forceOffline ? 'offline' : c.presence,
+              presenceShow: getContactPresenceShow(c),
               status: c.statusMessage,
               avatar: c.avatar,
             }))}
@@ -49,6 +51,7 @@ function MemberListBody() {
               jid: c.jid,
               name: c.name,
               presence: forceOffline ? 'offline' : c.presence,
+              presenceShow: getContactPresenceShow(c),
               status: c.statusMessage,
               avatar: c.avatar,
             }))}
@@ -63,6 +66,7 @@ interface Member {
   jid: string
   name: string
   presence: PresenceStatus
+  presenceShow?: PresenceShow | null
   status?: string
   avatar?: string
 }
@@ -92,6 +96,7 @@ function MemberItem({ member }: { member: Member }) {
         avatarUrl={member.avatar}
         size="sm"
         presence={member.presence}
+        presenceShow={member.presenceShow}
         presenceBorderColor="border-fluux-sidebar"
       />
 

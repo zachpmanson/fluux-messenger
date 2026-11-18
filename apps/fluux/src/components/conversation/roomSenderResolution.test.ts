@@ -85,8 +85,22 @@ describe('resolveRoomSender', () => {
     expect(s.occupant).toBe(alice)
     expect(s.senderAvatar).toBe('blob:a')
     expect(s.avatarPresence).toBe('away')
+    expect(s.avatarPresenceShow).toBe('away')
     expect(s.resolvedSenderName).toBe('alice')
   })
+  it('preserves raw XA while keeping the simplified room presence API', () => {
+    const r = room({ occupants: new Map([['alice', occ('alice', { show: 'xa' })]]) })
+    const resolved = resolveRoomSender(msg({}), r, new Map(), undefined)
+    expect(resolved.avatarPresence).toBe('away')
+    expect(resolved.avatarPresenceShow).toBe('xa')
+    const notJoined = resolveRoomSender(msg({}), { ...r, joined: false }, new Map(), undefined)
+    expect(notJoined.avatarPresence).toBeUndefined()
+    expect(notJoined.avatarPresenceShow).toBeUndefined()
+    const absent = resolveRoomSender(msg({ nick: 'ghost' }), r, new Map(), undefined)
+    expect(absent.avatarPresence).toBe('offline')
+    expect(absent.avatarPresenceShow).toBeUndefined()
+  })
+
   it('falls back to occupant-id match when nick is not a current occupant', () => {
     const bob = { nick: 'bob2', occupantId: 'oid-bob', role: 'participant', affiliation: 'none', show: 'online' } as any
     const r = room({

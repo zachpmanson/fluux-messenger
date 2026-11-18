@@ -85,6 +85,13 @@ const props = {
 describe('ContactProfileView', () => {
   beforeEach(() => vi.clearAllMocks())
 
+  it('keeps the avatar and direct status dot on the same raw XA palette', () => {
+    const xaContact: Contact = { ...contact, presence: 'away', resources: new Map([['desktop', { priority: 0, show: 'xa' }]]) }
+    const { container } = render(<ContactProfileView {...props} contact={xaContact} />)
+    expect(container.querySelectorAll('.bg-fluux-presence-xa')).toHaveLength(3)
+    expect(container.querySelector('.bg-fluux-presence-away')).toBeNull()
+  })
+
   it('shows the card grid and no tab bar', () => {
     render(<ContactProfileView {...props} />)
     expect(screen.getByText('Team')).toBeInTheDocument()

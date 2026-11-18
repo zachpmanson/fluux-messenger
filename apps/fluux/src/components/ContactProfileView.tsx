@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ArrowLeft } from 'lucide-react'
 import { type Contact, type ProfileDetails, useBlocking, useXMPPContext } from '@fluux/sdk'
 import { useBlockingStore, useConnectionStore, useLastActivity } from '@fluux/sdk/react'
-import { APP_OFFLINE_PRESENCE_COLOR, PRESENCE_COLORS } from '@/constants/ui'
+import { getContactPresenceShow, getPresenceColor } from '@/utils/presence'
 import { getTranslatedStatusText } from '@/utils/statusText'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { useWindowDrag } from '@/hooks'
@@ -77,7 +77,7 @@ export function ContactProfileView({
     isInRoster && !forceOffline && contact.presence === 'offline' ? contact.jid : null
   )
 
-  const presenceColor = forceOffline ? APP_OFFLINE_PRESENCE_COLOR : PRESENCE_COLORS[contact.presence]
+  const presenceColor = getPresenceColor(contact.presence, getContactPresenceShow(contact), forceOffline)
   const showStatusMessage = useSettingsStore((s) => s.showStatusMessage)
   const statusText = forceOffline ? t('presence.offline') : getTranslatedStatusText(contact, t, showStatusMessage)
 

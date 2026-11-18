@@ -6,6 +6,7 @@ import { iosHaptic } from '@/platform/ios/haptics'
  * the common bubble structure.
  */
 import { useState, useMemo, useRef, useEffect, useContext, memo, type CSSProperties, type ReactNode } from 'react'
+import type { PresenceShow } from '@fluux/sdk'
 import { useTranslation } from 'react-i18next'
 import { CornerUpRight, AlertCircle, RefreshCw, Shield, ShieldCheck, ShieldX, ShieldAlert, Ear, UserX } from 'lucide-react'
 import { formatMessagePreview, formatXMPPError, getBareJid, type BaseMessage, type MentionReference, type Contact, type ContactIdentity, type RoomRole, type RoomAffiliation } from '@fluux/sdk'
@@ -88,6 +89,7 @@ export interface MessageBubbleProps {
   avatarIdentifier: string
   avatarFallbackColor?: string  // Optional color matching nick text for visual consistency
   avatarPresence?: 'online' | 'away' | 'dnd' | 'offline'
+  avatarPresenceShow?: PresenceShow | null
   /** JID to show in the click popover */
   senderJid?: string
   /** Contact or identity object for showing info in popover */
@@ -265,6 +267,7 @@ function arePropsEqual(prev: MessageBubbleProps, next: MessageBubbleProps): bool
   if (prev.avatarIdentifier !== next.avatarIdentifier) return false
   if (prev.avatarFallbackColor !== next.avatarFallbackColor) return false
   if (prev.avatarPresence !== next.avatarPresence) return false
+  if (prev.avatarPresenceShow !== next.avatarPresenceShow) return false
   if (prev.senderJid !== next.senderJid) return false
   if (prev.senderContact !== next.senderContact) return false
   if (prev.senderRole !== next.senderRole) return false
@@ -335,6 +338,7 @@ export const MessageBubble = memo(function MessageBubble({
   avatarIdentifier,
   avatarFallbackColor,
   avatarPresence,
+  avatarPresenceShow,
   senderJid,
   senderContact,
   senderRole,
@@ -623,6 +627,7 @@ export const MessageBubble = memo(function MessageBubble({
               fallbackColor={avatarFallbackColor}
               size={avatarSize}
               presence={avatarPresence}
+              presenceShow={avatarPresenceShow}
               presenceBorderColor="border-fluux-chat"
             />
           </div>
