@@ -34,9 +34,9 @@ vi.mock('./types', () => ({
 }))
 
 vi.mock('../Avatar', () => ({
-  Avatar: ({ name }: { name: string }) => {
+  Avatar: ({ name, presenceShow }: { name: string; presenceShow?: string | null }) => {
     avatarRenders.count++
-    return <div data-testid="avatar">{name}</div>
+    return <div data-testid="avatar" data-show={presenceShow}>{name}</div>
   },
 }))
 
@@ -103,6 +103,14 @@ describe('ContactList id-only subscription', () => {
     render(<ContactList onSelectContact={() => {}} />)
 
     expect(avatarRenders.count).toBe(3)
+  })
+
+  it('passes the selected raw XA resource through a self-subscribing roster row', () => {
+    const alice = makeContact('alice@example.com', { presence: 'away', resources: new Map([['desktop', { priority: 0, show: 'xa' }]]) })
+    mockContacts = new Map([[alice.jid, alice]])
+    mockEntries = ['away alice@example.com']
+    const { getByTestId } = render(<ContactList />)
+    expect(getByTestId('avatar')).toHaveAttribute('data-show', 'xa')
   })
 
   it('memoizes rows: re-rendering the parent with unchanged entries re-renders no row', () => {

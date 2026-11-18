@@ -11,6 +11,7 @@ import { Tooltip } from '../Tooltip'
 import { useSidebarZone, ContactTooltipContent } from './types'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { getTranslatedStatusText } from '@/utils/statusText'
+import { getContactPresenceShow } from '@/utils/presence'
 import { detectRenderLoop } from '@/utils/renderLoopDetector'
 import { MessageCircle, Trash2, Pencil, Server, Users, Search } from 'lucide-react'
 import { TextInput } from '../ui/TextInput'
@@ -411,6 +412,7 @@ const ContactItem = memo(function ContactItem({
             avatarUrl={contact.avatar}
             size={avatarSize}
             presence={forceOffline ? 'offline' : contact.presence}
+            presenceShow={getContactPresenceShow(contact)}
             forceOffline={forceOffline}
           />
 

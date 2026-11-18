@@ -7,6 +7,7 @@ import {
   DEGRADED_STATUS_GRACE_MS,
 } from './PresenceSelector'
 import { EscapeModal } from '@/test-utils/escapeModal'
+import type { PresenceStatus, PresenceShow } from '@fluux/sdk'
 
 // Issue #515 reverted the top-of-layout ConnectionBanner (it lived in normal
 // flow, so every appearance reflowed the whole UI). The sidebar user-menu chip
@@ -15,6 +16,8 @@ import { EscapeModal } from '@/test-utils/escapeModal'
 // another so the layout never moves. Degraded states only surface after a
 // grace delay: fast silent SM resumptions show nothing at all.
 
+let mockPresenceStatus: PresenceStatus = 'online'
+let mockPresenceShow: PresenceShow | undefined
 let mockStatus = 'online'
 let mockIsVerifying = false
 let mockReconnectTargetTime: number | null = null
@@ -51,18 +54,30 @@ vi.mock('@fluux/sdk/react', () => ({
 vi.mock('@fluux/sdk', () => ({
   useXMPP: () => ({ client: { cancelReconnect } }),
   usePresence: () => ({
-    presenceStatus: 'online',
+    presenceStatus: mockPresenceStatus,
+    presenceShow: mockPresenceShow,
     statusMessage: '',
     setPresence: vi.fn(),
   }),
 }))
 
 beforeEach(() => {
+  mockPresenceStatus = 'online'
+  mockPresenceShow = undefined
   mockStatus = 'online'
   mockIsVerifying = false
   mockReconnectTargetTime = null
   mockReconnectAttempt = 0
   cancelReconnect.mockClear()
+})
+
+it('shows automatic XA in orange without adding a selectable XA action', () => {
+  mockPresenceStatus = 'away'
+  mockPresenceShow = 'xa'
+  const { container } = render(<PresenceSelector isOpen />)
+  expect(container.querySelector('button .bg-fluux-presence-xa')).toBeInTheDocument()
+  expect(container.querySelectorAll('.bg-fluux-presence-away')).toHaveLength(1)
+  expect(screen.queryByText('presence.xa')).not.toBeInTheDocument()
 })
 
 describe('StatusDisplay (user-menu chip)', () => {

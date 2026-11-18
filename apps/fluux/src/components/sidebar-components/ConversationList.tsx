@@ -10,6 +10,7 @@ import {
   type Conversation,
 } from '@fluux/sdk'
 import { formatLocalizedPreview } from '@/utils/messagePreviewText'
+import { getContactPresenceShow } from '@/utils/presence'
 import { shouldReplaceOnSelect } from '@/utils/navigationHistory'
 import { useChatStore, useConnectionStore, useRosterStore, useRoomStore } from '@fluux/sdk/react'
 import { Avatar, TypingIndicator } from '../Avatar'
@@ -304,6 +305,7 @@ export const ConversationItem = memo(function ConversationItem({
               avatarUrl={contact?.avatar}
               size={avatarSize}
               presence={contact?.presence ?? 'offline'}
+              presenceShow={getContactPresenceShow(contact)}
               forceOffline={forceOffline}
               overlay={isTyping && !isActive ? <TypingIndicator /> : undefined}
             />

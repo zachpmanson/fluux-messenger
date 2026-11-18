@@ -198,6 +198,7 @@ const OccupantRow = memo(function OccupantRow({
           avatarUrl={isMe ? (ownAvatar || undefined) : displayAvatar}
           size="sm"
           presence={getPresenceFromShow(group.bestPresence)}
+          presenceShow={group.bestPresence}
           presenceBorderColor="border-fluux-chat"
           presenceHalo
           fallbackColor={isMe ? 'var(--fluux-bg-accent)' : identityColor}

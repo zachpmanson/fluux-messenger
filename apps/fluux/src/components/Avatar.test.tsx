@@ -7,6 +7,7 @@
  */
 import { describe, it, expect, vi, test, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import type { PresenceShow } from '@fluux/sdk'
 import { Avatar, getConsistentTextColor } from './Avatar'
 
 // Mock the SDK color generation
@@ -127,13 +128,46 @@ describe('Avatar', () => {
   describe('Presence Indicator', () => {
     it.each([
       { presence: 'away' as const },
-      { presence: 'online' as const, presenceShow: 'xa' as const },
       { presence: 'online' as const, presenceShow: 'away' as const },
     ])('gives away a colour-independent shape cue: %j', (props) => {
       const { container } = render(<Avatar identifier="alice" {...props} />)
       const indicator = container.querySelector('.absolute.border-2') as HTMLElement
       expect(indicator).toHaveClass('presence-away', 'bg-fluux-presence-away')
       expect(indicator.style.backgroundColor).toBe('var(--fluux-presence-away)')
+    })
+
+    it('gives XA its own orange token in class, inline fill and halo', () => {
+      const { container, rerender } = render(<Avatar identifier="alice" presence="away" presenceShow="away" presenceHalo />)
+      const indicator = () => container.querySelector('.absolute.border-2') as HTMLElement
+      expect(indicator()).toHaveClass('bg-fluux-presence-away')
+      rerender(<Avatar identifier="alice" presence="away" presenceShow="xa" presenceHalo />)
+      expect(indicator()).toHaveClass('bg-fluux-presence-xa', 'presence-away')
+      expect(indicator()).not.toHaveClass('bg-fluux-presence-away')
+      expect(indicator().style.backgroundColor).toBe('var(--fluux-presence-xa)')
+      expect(indicator().style.boxShadow).toBe('0 0 5px var(--fluux-presence-xa)')
+      rerender(<Avatar identifier="alice" presence="away" presenceShow="xa" forceOffline />)
+      expect(indicator()).toHaveClass('bg-slate-500')
+      expect(indicator()).not.toHaveClass('presence-away')
+      expect(indicator().style.backgroundColor).toBe('')
+    })
+
+    it.each([
+      { presence: 'online' as const, colorClass: 'bg-fluux-green', cssVariable: '--fluux-presence-online' },
+      { presence: 'away' as const, colorClass: 'bg-fluux-presence-away', cssVariable: '--fluux-presence-away' },
+      { presence: 'offline' as const, colorClass: 'bg-fluux-gray', cssVariable: '--fluux-presence-offline' },
+    ])('retains the $presence indicator when raw show is unknown', ({ presence, colorClass, cssVariable }) => {
+      const { container } = render(<Avatar identifier="alice" presence={presence} presenceShow={'invalid-network-show' as PresenceShow} />)
+      const indicator = container.querySelector('.absolute.border-2') as HTMLElement
+      expect(indicator).toBeInTheDocument()
+      expect(indicator).toHaveClass(colorClass)
+      expect(indicator.style.backgroundColor).toBe(`var(${cssVariable})`)
+    })
+
+    it('does not resurrect explicitly offline contacts from stale XA metadata', () => {
+      const { container } = render(<Avatar identifier="alice" presence="offline" presenceShow="xa" />)
+      const indicator = container.querySelector('.absolute.border-2') as HTMLElement
+      expect(indicator).toHaveClass('bg-fluux-gray')
+      expect(indicator.style.backgroundColor).toBe('var(--fluux-presence-offline)')
     })
 
     it.each(['online', 'dnd', 'offline'] as const)('keeps %s circular', (presence) => {

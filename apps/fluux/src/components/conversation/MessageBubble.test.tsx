@@ -46,8 +46,8 @@ vi.mock('./EncryptedPlaceholder', () => ({
 // Avatar mock that exposes the size prop via data-size for density assertions.
 // Does NOT render the name as text to avoid duplicates with the nick header.
 vi.mock('../Avatar', () => ({
-  Avatar: ({ size, name, avatarUrl, identifier }: { name?: string; size?: string; avatarUrl?: string; identifier?: string }) => (
-    <div data-testid="avatar" data-size={size ?? 'md'} data-name={name} data-avatar-url={avatarUrl} data-identifier={identifier} />
+  Avatar: ({ size, name, avatarUrl, identifier, presenceShow }: { name?: string; size?: string; avatarUrl?: string; identifier?: string; presenceShow?: string }) => (
+    <div data-testid="avatar" data-size={size ?? 'md'} data-name={name} data-avatar-url={avatarUrl} data-identifier={identifier} data-show={presenceShow} />
   ),
 }))
 
@@ -404,6 +404,14 @@ describe('MessageBubble', () => {
       expect(row.querySelector('[data-message-toolbar]')).toHaveClass('opacity-100')
       rerender(<MessageBubble {...props} />)
       expect(row.querySelector('[data-message-toolbar]')).toHaveClass('opacity-0')
+    })
+
+    it('updates the memoized avatar for away to XA without changing simplified presence', () => {
+      const props = createDefaultProps({ avatarPresence: 'away', avatarPresenceShow: 'away' })
+      const { rerender } = render(<MessageBubble {...props} />)
+      expect(screen.getByTestId('avatar')).toHaveAttribute('data-show', 'away')
+      rerender(<MessageBubble {...props} avatarPresenceShow="xa" />)
+      expect(screen.getByTestId('avatar')).toHaveAttribute('data-show', 'xa')
     })
 
     it('updates the memoized row when keyboard selection changes', () => {

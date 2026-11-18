@@ -1,11 +1,12 @@
 import { getBareJid, getPresenceFromShow, canModerate, canBan, getRoomModerationId } from '@fluux/sdk'
 import { whisperCounterpartPresent } from './'
 import { auroraSenderColor, nickColorSeed } from '@/utils/senderColor'
-import type { Room, RoomMessage, RoomRole, RoomAffiliation, ContactIdentity, RoomOccupant } from '@fluux/sdk'
+import type { Room, RoomMessage, RoomRole, RoomAffiliation, ContactIdentity, RoomOccupant, PresenceShow } from '@fluux/sdk'
 
 export interface ResolvedRoomSender {
   occupant: RoomOccupant | undefined
   avatarPresence: 'online' | 'away' | 'dnd' | 'offline' | undefined
+  avatarPresenceShow: PresenceShow | null | undefined
   senderAvatar: string | undefined
   resolvedSenderName: string
   senderRole: RoomRole | undefined
@@ -182,6 +183,7 @@ export function resolveRoomSender(
   return {
     occupant,
     avatarPresence: room.joined ? (occupant ? getPresenceFromShow(occupant.show) : 'offline') : undefined,
+    avatarPresenceShow: room.joined && occupant ? occupant.show ?? null : undefined,
     senderAvatar: avatar.avatarUrl, resolvedSenderName,
     senderRole: occupant?.role,
     senderAffiliation: occupant?.affiliation,

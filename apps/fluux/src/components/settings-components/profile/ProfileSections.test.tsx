@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { render, screen, fireEvent, within } from '@testing-library/react'
-import type { ResourcePresence } from '@fluux/sdk'
+import type { ResourcePresence, PresenceShow, PresenceStatus } from '@fluux/sdk'
 import { setPlatformForTesting } from '@/platform'
 import { AccountSection } from './AccountSection'
 import { DevicesSection } from './DevicesSection'
@@ -15,18 +15,20 @@ const state = vi.hoisted(() => ({
   supportsPasswordChange: true,
   ownResources: new Map<string, ResourcePresence>(),
   jid: 'me@example.test/current',
+  presenceStatus: 'online' as PresenceStatus,
+  presenceShow: undefined as PresenceShow | undefined,
 }))
 const navigateToSettings = vi.hoisted(() => vi.fn())
 vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (key: string) => key }) }))
 vi.mock('@fluux/sdk', () => ({
   useConnection: () => state,
-  usePresence: () => ({ presenceStatus: 'online', statusMessage: null }),
+  usePresence: () => ({ presenceStatus: state.presenceStatus, presenceShow: state.presenceShow, statusMessage: null }),
   getBareJid: (jid: string) => jid.split('/')[0],
   getLocalPart: (jid: string) => jid.split('@')[0],
   getClientType: () => 'desktop',
 }))
 vi.mock('@/hooks/useRouteSync', () => ({ useRouteSync: () => ({ navigateToSettings }) }))
-vi.mock('./OwnProfileHero', () => ({ OwnProfileHero: () => <div>Identity</div> }))
+vi.mock('./OwnProfileHero', () => ({ OwnProfileHero: ({ actualShow }: { actualShow?: PresenceShow }) => <div data-testid="identity" data-show={actualShow}>Identity</div> }))
 vi.mock('./ProfileDetailsSection', () => ({ ProfileDetailsSection: () => <div>Personal details</div> }))
 vi.mock('../../AvatarCropModal', () => ({ AvatarCropModal: () => null }))
 vi.mock('../../ChangePasswordModal', () => ({ ChangePasswordModal: () => null }))
@@ -38,6 +40,8 @@ beforeEach(() => {
   restorePlatform = setPlatformForTesting({ shell: 'web', os: 'linux' })
   Object.assign(state, {
     isConnected: true,
+    presenceStatus: 'online',
+    presenceShow: undefined,
     connectionMethod: 'proxy',
     authMechanism: 'SCRAM-SHA-256-PLUS',
     webPushStatus: 'registered',
@@ -50,6 +54,13 @@ beforeEach(() => {
 afterEach(() => restorePlatform?.())
 
 describe('profile hierarchy', () => {
+  it('threads automatic raw XA alongside the simplified own-profile status', () => {
+    state.presenceStatus = 'away'
+    state.presenceShow = 'xa'
+    render(<ProfileSettings />)
+    expect(screen.getByTestId('identity')).toHaveAttribute('data-show', 'xa')
+  })
+
   it('puts account information before the device list', () => {
     render(<ProfileSettings />)
     const account = screen.getByRole('heading', { name: 'profile.account' })

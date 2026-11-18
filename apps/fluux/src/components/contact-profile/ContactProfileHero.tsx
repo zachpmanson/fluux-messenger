@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { MessageCircle, Pencil } from 'lucide-react'
 import { type Contact } from '@fluux/sdk'
 import { Avatar } from '../Avatar'
+import { getContactPresenceShow } from '@/utils/presence'
 import { Tooltip } from '../Tooltip'
 import { TextInput } from '../ui/TextInput'
 
@@ -73,6 +74,7 @@ export function ContactProfileHero({
             avatarUrl={contact.avatar}
             size="lg"
             presence={forceOffline ? 'offline' : contact.presence}
+            presenceShow={getContactPresenceShow(contact)}
             presenceBorderColor="border-fluux-chat"
             forceOffline={forceOffline}
           />

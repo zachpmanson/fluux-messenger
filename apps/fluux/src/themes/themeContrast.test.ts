@@ -177,14 +177,26 @@ function themeTokens(theme: ThemeDefinition, mode: 'dark' | 'light'): Record<str
   return { ...base, ...(theme.variables[mode] ?? {}) }
 }
 
-describe('Builtin theme away presence contrast', () => {
+describe('Builtin theme inactive presence contrast', () => {
+  it('uses yellow for away while retaining the existing orange XA fills in both modes', () => {
+    expect(dark['--fluux-presence-xa']).toBe('#FF8C00')
+    expect(light['--fluux-presence-xa']).toBe('#A64B00')
+    for (const tokens of [dark, light]) {
+      const [red, green, blue] = resolve_('var(--fluux-presence-away)', tokens)
+      expect(green).toBeGreaterThan(red * 0.75)
+      expect(red).toBeGreaterThanOrEqual(green)
+      expect(blue).toBeLessThan(green * 0.5)
+    }
+  })
   for (const theme of builtinThemes) {
     for (const mode of ['dark', 'light'] as const) {
       for (const surface of ['sidebar-bg', 'chat-bg', 'bg-primary'] as const) {
-        it(`[${theme.id}/${mode}] away clears 3:1 on ${surface}`, () => {
-          const r = contrast('var(--fluux-presence-away)', `var(--fluux-${surface})`, themeTokens(theme, mode))
-          expect(r).toBeGreaterThanOrEqual(3)
-        })
+        for (const show of ['away', 'xa'] as const) {
+          it(`[${theme.id}/${mode}] ${show} clears 3:1 on ${surface}`, () => {
+            const r = contrast(`var(--fluux-presence-${show})`, `var(--fluux-${surface})`, themeTokens(theme, mode))
+            expect(r).toBeGreaterThanOrEqual(3)
+          })
+        }
       }
     }
   }

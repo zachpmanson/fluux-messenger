@@ -2,10 +2,10 @@ import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { TextInput } from './ui/TextInput'
 import { useTranslation } from 'react-i18next'
-import { useRoster, matchNameOrJid, chatStore } from '@fluux/sdk'
+import { useRoster, matchNameOrJid, chatStore, type PresenceStatus, type PresenceShow } from '@fluux/sdk'
 import { useConnectionStore } from '@fluux/sdk/react'
 import { X } from 'lucide-react'
-import { APP_OFFLINE_PRESENCE_COLOR, PRESENCE_COLORS } from '@/constants/ui'
+import { getContactPresenceShow, getPresenceColor } from '@/utils/presence'
 import { anchorMenuToTrigger } from '@/hooks/useAnchoredMenu'
 import { getFloatingViewport, limitFloatingHeight } from '@/hooks/floatingViewport'
 
@@ -48,7 +48,8 @@ interface UnifiedContact {
   jid: string
   name: string
   isExtra?: boolean
-  presence?: string
+  presence?: PresenceStatus
+  presenceShow?: PresenceShow | null
 }
 
 /**
@@ -119,6 +120,7 @@ export function ContactSelector({
         jid: contact.jid,
         name: contact.name,
         presence: contact.presence,
+        presenceShow: getContactPresenceShow(contact),
       }))
 
     // Sort roster entries by recent activity
@@ -425,9 +427,7 @@ export function ContactSelector({
                 {filteredContacts.map((contact, index) => {
                   const presenceColor = contact.isExtra
                     ? 'bg-fluux-muted/50'
-                    : forceOffline
-                      ? APP_OFFLINE_PRESENCE_COLOR
-                      : PRESENCE_COLORS[contact.presence as keyof typeof PRESENCE_COLORS]
+                    : getPresenceColor(contact.presence ?? 'offline', contact.presenceShow, forceOffline)
                   return (
                     <div
                       key={contact.jid}

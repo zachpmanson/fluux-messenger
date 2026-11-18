@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react'
 import { generateConsistentColorHexSync, type PresenceStatus, type PresenceShow } from '@fluux/sdk'
-import { APP_OFFLINE_PRESENCE_COLOR, PRESENCE_COLORS } from '@/constants/ui'
+import { APP_OFFLINE_PRESENCE_COLOR, PRESENCE_COLORS, PRESENCE_CSS_VARS } from '@/constants/ui'
+import { resolvePresenceDisplay } from '@/utils/presence'
 import { ensureContrastWithWhite } from '@/utils/contrastColor'
 
 /**
@@ -57,9 +58,9 @@ export interface AvatarProps {
 
   /**
    * Presence show value (away, dnd, xa, chat) for more detailed status.
-   * Used to determine the presence color when presence is 'online'.
+   * Refines the simplified status for display; explicit offline still wins.
    */
-  presenceShow?: PresenceShow
+  presenceShow?: PresenceShow | null
 
 
   /**
@@ -123,20 +124,6 @@ export interface AvatarProps {
    * @default 'circle'
    */
   shape?: 'circle' | 'square'
-}
-
-/**
- * Convert PresenceShow to PresenceStatus for color mapping
- */
-function getPresenceStatusFromShow(show: PresenceShow | undefined): PresenceStatus {
-  if (!show) return 'online'
-  switch (show) {
-    case 'chat': return 'online'
-    case 'away': return 'away'
-    case 'xa': return 'away'
-    case 'dnd': return 'dnd'
-    default: return 'online'
-  }
 }
 
 /**
@@ -328,18 +315,11 @@ export function Avatar({
   // Determine presence color
   // Uses CSS custom properties for smooth color transitions between states
   const isOffline = forceOffline
-  const resolvedPresence = presenceShow ? getPresenceStatusFromShow(presenceShow) : presence
+  const resolvedPresence = resolvePresenceDisplay(presence, presenceShow)
   const presenceColor = resolvedPresence
     ? (isOffline ? APP_OFFLINE_PRESENCE_COLOR : PRESENCE_COLORS[resolvedPresence])
     : undefined
 
-  // Map presence to CSS variable for smooth transition
-  const PRESENCE_CSS_VARS: Record<PresenceStatus, string> = {
-    online: 'var(--fluux-presence-online)',
-    away: 'var(--fluux-presence-away)',
-    dnd: 'var(--fluux-presence-dnd)',
-    offline: 'var(--fluux-presence-offline)',
-  }
   const presenceBgStyle = resolvedPresence && !isOffline
     ? { backgroundColor: resolvedPresence === 'dnd' ? 'transparent' : PRESENCE_CSS_VARS[resolvedPresence] }
     : undefined

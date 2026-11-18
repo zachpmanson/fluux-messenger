@@ -34,9 +34,9 @@ vi.mock('./conversation', async (importOriginal) => {
   const actual = await importOriginal<typeof import('./conversation')>()
   return {
     ...actual,
-    MessageBubble: ({ message }: { message: { id: string } }) => {
+    MessageBubble: ({ message, avatarPresenceShow }: { message: { id: string }; avatarPresenceShow?: string }) => {
       bubbleRenders[message.id] = (bubbleRenders[message.id] ?? 0) + 1
-      return null
+      return <span data-testid={message.id} data-show={avatarPresenceShow} />
     },
   }
 })
@@ -123,6 +123,19 @@ const ROOM_PROPS = {
 }
 
 describe('RoomMessageList per-occupant row memo (presence-churn regression guard)', () => {
+  it('carries away to XA through the memoized wrapper while unrelated rows bail', () => {
+    const alice = occ('alice', 'away'), bob = occ('bob')
+    const messages = [roomMsg('a1', 'alice'), roomMsg('b1', 'bob')]
+    const initial = { ...stubRoom, occupants: new Map([['alice', alice], ['bob', bob]]) }
+    const { rerender, getByTestId } = render(<RoomMessageList {...ROOM_PROPS} room={initial} messages={messages} />)
+    expect(getByTestId('a1')).toHaveAttribute('data-show', 'away')
+    const bobRenders = bubbleRenders.b1
+    const changed = { ...initial, occupants: new Map([['alice', occ('alice', 'xa')], ['bob', bob]]) }
+    rerender(<RoomMessageList {...ROOM_PROPS} room={changed} messages={messages} />)
+    expect(getByTestId('a1')).toHaveAttribute('data-show', 'xa')
+    expect(bubbleRenders.b1).toBe(bobRenders)
+  })
+
   it('Test 1: presence FLAP of alice re-renders only alice rows; bob and carol rows bail', () => {
     // Three occupants, 2 messages each.
     const A0 = occ('alice')

@@ -15,7 +15,8 @@ import { useChat, useRoom, useRoster, matchNameOrJid, getLocalPart, searchStore,
 import { formatLocalizedPreview } from '@/utils/messagePreviewText'
 import { detectRenderLoop } from '@/utils/renderLoopDetector'
 import { useChatStore, useConnectionStore, useRoomStore } from '@fluux/sdk/react'
-import type { PresenceStatus, RoomActivityTone } from '@fluux/sdk'
+import type { PresenceStatus, PresenceShow, RoomActivityTone } from '@fluux/sdk'
+import { getContactPresenceShow } from '@/utils/presence'
 import type { SidebarView } from './Sidebar'
 import { Avatar } from './Avatar'
 import { RoomAvatar } from './RoomAvatar'
@@ -55,6 +56,7 @@ interface CommandItem {
   action: () => void
   keywords?: string[]
   presence?: PresenceStatus
+  presenceShow?: PresenceShow | null
 }
 
 interface ItemGroup {
@@ -349,6 +351,7 @@ function CommandPaletteContent({
         action: () => selectConversation(conv.id),
         keywords: [getLocalPart(conv.id), 'message', 'chat'],
         presence: contact?.presence ?? 'offline',
+        presenceShow: getContactPresenceShow(contact),
       })
     }
 
@@ -380,6 +383,7 @@ function CommandPaletteContent({
         },
         keywords: [getLocalPart(contact.jid), 'contact', 'roster'],
         presence: contact.presence,
+        presenceShow: getContactPresenceShow(contact),
       })
     }
 
@@ -684,6 +688,7 @@ function CommandPaletteContent({
                             name={item.label}
                             avatarUrl={item.avatarUrl}
                             presence={item.presence}
+                            presenceShow={item.presenceShow}
                             forceOffline={forceOffline}
                             presenceBorderColor="border-fluux-chat"
                           />

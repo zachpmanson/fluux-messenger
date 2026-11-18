@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { OccupantPanel } from './OccupantPanel'
-import type { Room, RoomOccupant, Contact } from '@fluux/sdk'
+import { getBestPresenceShow, getPresenceFromShow, type Room, type RoomOccupant, type Contact } from '@fluux/sdk'
 import { useIgnoreStore } from '@fluux/sdk/react'
 import { ignoreStore, type IgnoreState } from '@fluux/sdk/stores'
 import { auroraSenderColor } from '@/utils/senderColor'
@@ -44,8 +44,8 @@ vi.mock('@/hooks', () => ({
 
 // Mock Avatar component — exposes fallbackColor and fallbackTextColor as data attrs for assertions
 vi.mock('./Avatar', () => ({
-  Avatar: ({ name, presence, fallbackColor, fallbackTextColor }: { name: string; presence?: string; fallbackColor?: string; fallbackTextColor?: string }) => (
-    <div data-testid="avatar" data-name={name} data-presence={presence} data-fallback-color={fallbackColor} data-fallback-text-color={fallbackTextColor}>
+  Avatar: ({ name, presence, presenceShow, fallbackColor, fallbackTextColor }: { name: string; presence?: string; presenceShow?: string; fallbackColor?: string; fallbackTextColor?: string }) => (
+    <div data-testid="avatar" data-name={name} data-presence={presence} data-show={presenceShow} data-fallback-color={fallbackColor} data-fallback-text-color={fallbackTextColor}>
       Avatar: {name}
     </div>
   ),
@@ -58,12 +58,10 @@ vi.mock('./conversation/UserInfoPopover', () => ({
 
 // Mock @fluux/sdk functions
 vi.mock('@fluux/sdk', async () => {
-  const actual = await vi.importActual('@fluux/sdk')
+  const actual = await vi.importActual<typeof import('@fluux/sdk')>('@fluux/sdk')
   return {
     ...actual,
-    getPresenceFromShow: (show: string | undefined) => show || 'online',
     getBareJid: (jid: string) => jid.split('/')[0],
-    getBestPresenceShow: (shows: (string | undefined)[]) => shows[0],
     generateConsistentColorHexSync: () => '#abc123',
     useBlocking: () => ({
       blockedJids: [],
@@ -144,6 +142,36 @@ const createContact = (overrides: Partial<Contact> = {}): Contact => ({
 })
 
 describe('OccupantPanel', () => {
+  it('passes grouped raw XA to its avatar without replacing room grouping semantics', () => {
+    const room = createRoom({ occupants: new Map([['Alice', createOccupant({ nick: 'Alice', show: 'xa' })]]) })
+    const { getByTestId } = render(<OccupantPanel room={room} contactsByJid={new Map()} onClose={vi.fn()} />)
+    expect(getByTestId('avatar')).toHaveAttribute('data-show', 'xa')
+  })
+
+  it('uses the real SDK winner for grouped connections and rerenders away to XA', () => {
+    const createGroupedRoom = (phoneShow: 'away' | 'xa') => createRoom({
+      occupants: new Map([
+        ['Alice A', createOccupant({ nick: 'Alice A', jid: 'alice@example.com/desktop', show: 'xa' })],
+        ['Alice Z', createOccupant({ nick: 'Alice Z', jid: 'alice@example.com/phone', show: phoneShow })],
+      ]),
+    })
+    expect(getBestPresenceShow(['xa', 'away'])).toBe('away')
+    expect(getPresenceFromShow('xa')).toBe('away')
+
+    const { getAllByTestId, rerender } = render(<OccupantPanel room={createGroupedRoom('away')} contactsByJid={new Map()} onClose={vi.fn()} />)
+    expect(getAllByTestId('avatar')).toHaveLength(1)
+    const avatar = () => getAllByTestId('avatar')[0]
+    expect(avatar()).toHaveAttribute('data-name', 'Alice A')
+    expect(avatar()).toHaveAttribute('data-show', 'away')
+    expect(avatar()).toHaveAttribute('data-presence', 'away')
+
+    rerender(<OccupantPanel room={createGroupedRoom('xa')} contactsByJid={new Map()} onClose={vi.fn()} />)
+    expect(getAllByTestId('avatar')).toHaveLength(1)
+    expect(avatar()).toHaveAttribute('data-name', 'Alice A')
+    expect(avatar()).toHaveAttribute('data-show', 'xa')
+    expect(avatar()).toHaveAttribute('data-presence', 'away')
+  })
+
   describe('Offline members', () => {
     const members = (count: number): NonNullable<Room['affiliatedMembers']> =>
       Array.from({ length: count }, (_, i) => ({

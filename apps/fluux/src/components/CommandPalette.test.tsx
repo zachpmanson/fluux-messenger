@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest'
 import { render, screen, fireEvent, act, within } from '@testing-library/react'
 import { CommandPalette } from './CommandPalette'
 import { useAdvancedModeStore } from '@/stores/advancedModeStore'
+import type { PresenceStatus, ResourcePresence } from '@fluux/sdk'
 
 // Mock scrollIntoView which is not implemented in jsdom
 beforeAll(() => {
@@ -33,7 +34,7 @@ const defaultContacts = [
   { jid: 'diana@example.com', name: 'Diana Prince' },
 ]
 
-let mockContacts = defaultContacts
+let mockContacts: Array<{ jid: string; name: string; presence?: PresenceStatus; resources?: Map<string, ResourcePresence> }> = defaultContacts
 
 const mockSetActiveConversation = vi.fn()
 const mockSetActiveRoom = vi.fn()
@@ -169,6 +170,17 @@ describe('CommandPalette', () => {
     mockActiveConversationId = null
     mockActiveRoomJid = null
     useAdvancedModeStore.setState({ advancedMode: false })
+  })
+
+  it('preserves raw XA in both conversation and contact search projections', () => {
+    mockContacts = [
+      { jid: 'alice@example.com', name: 'Extended Alice', presence: 'away', resources: new Map([['desktop', { priority: 0, show: 'xa' }]]) },
+      { jid: 'charlie@example.com', name: 'Extended Charlie', presence: 'away', resources: new Map([['desktop', { priority: 0, show: 'xa' }]]) },
+    ]
+    const { container } = render(<CommandPalette {...defaultProps} />)
+    fireEvent.change(screen.getByPlaceholderText('Go to...'), { target: { value: 'Extended' } })
+    expect(container.querySelectorAll('.bg-fluux-presence-xa')).toHaveLength(2)
+    expect(container.querySelector('.bg-fluux-presence-away')).toBeNull()
   })
 
   describe('Rendering', () => {
