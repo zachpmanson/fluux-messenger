@@ -424,11 +424,11 @@
      tuned that way). */
   --fluux-badge-strong: var(--fluux-status-error);
 
-  /* Avatar presence */
-  --fluux-presence-online: var(--fluux-status-success);
-  --fluux-presence-away: #FDD835;
+  /* Presence badges share Conversations' palette across light and dark. */
+  --fluux-presence-online: #23A559;
+  --fluux-presence-away: #FAC914;
   --fluux-presence-xa: #FF8C00;
-  --fluux-presence-dnd: #FF6B70;
+  --fluux-presence-dnd: #E9001B;
   --fluux-presence-offline: var(--fluux-base-60);
 
   /* Buttons */
@@ -513,14 +513,11 @@
   /* Status colors as text/icon labels (toasts, settings status, edit/encryption
      labels) fail WCAG AA at full brightness on the light surfaces (Pattern C:
      green ~2.6:1, yellow ~1.6:1, red ~3.8:1). Darkened to clear AA as text; used
-     as fills (toast border, danger button, online presence dots) they only gain
+     as fills (toast border, danger button) they only gain
      contrast against white. Syntax-highlight greens reference --fluux-color-*
      directly and are unaffected. */
   --fluux-status-success: #197740;
   --fluux-status-warning: #89600A;
-  --fluux-presence-away: #806800;
-  --fluux-presence-xa: #A64B00;
-  --fluux-presence-dnd: #C8252A;
   --fluux-status-error: #C8252A;
 
   /* Own-message ("you") name — brand-indigo darkened for WCAG AA on the white

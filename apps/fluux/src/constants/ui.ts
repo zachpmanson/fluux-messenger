@@ -12,7 +12,7 @@ import type { PresenceStatus } from '@fluux/sdk'
 export type PresenceDisplayStatus = PresenceStatus | 'xa'
 
 export const PRESENCE_COLORS: Record<PresenceDisplayStatus, string> = {
-  online: 'bg-fluux-green',
+  online: 'bg-fluux-presence-online',
   away: 'bg-fluux-presence-away presence-away',
   xa: 'bg-fluux-presence-xa presence-away',
   dnd: 'presence-dnd',
