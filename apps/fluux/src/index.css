@@ -426,8 +426,8 @@
 
   /* Presence badges share Conversations' palette across light and dark. */
   --fluux-presence-online: #23A559;
-  --fluux-presence-away: #FAC914;
-  --fluux-presence-xa: #FF8C00;
+  --fluux-presence-away: #FF8C00;
+  --fluux-presence-xa: #FAC914;
   --fluux-presence-dnd: #E9001B;
   --fluux-presence-offline: var(--fluux-base-60);
 

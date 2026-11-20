@@ -236,8 +236,8 @@ Per-widget overrides for surgical changes. Most default to semantic values; away
 | `--fluux-badge-bg`           | `bg-accent`          | Unread count badge fill       |
 | `--fluux-badge-text`         | `text-on-accent`     | Unread count badge text       |
 | `--fluux-presence-online`    | `#23A559`            | Online indicator              |
-| `--fluux-presence-away`      | `#FAC914`            | Away indicator fill (yellow)  |
-| `--fluux-presence-xa`        | `#FF8C00`            | Extended-away indicator fill (orange) |
+| `--fluux-presence-away`      | `#FF8C00`            | Away indicator fill (orange)  |
+| `--fluux-presence-xa`        | `#FAC914`            | Extended-away indicator fill (yellow) |
 | `--fluux-presence-dnd`       | `#E9001B`            | Do not disturb indicator ring |
 | `--fluux-presence-offline`   | `base-60`            | Offline indicator             |
 | `--fluux-button-primary-bg`  | `interactive-accent` | Primary button                |

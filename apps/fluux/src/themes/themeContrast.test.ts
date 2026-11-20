@@ -178,7 +178,7 @@ function themeTokens(theme: ThemeDefinition, mode: 'dark' | 'light'): Record<str
 }
 
 describe('Builtin theme presence palette', () => {
-  const palette = { online: '#23A559', away: '#FAC914', xa: '#FF8C00', dnd: '#E9001B' }
+  const palette = { online: '#23A559', away: '#FF8C00', xa: '#FAC914', dnd: '#E9001B' }
 
   for (const theme of builtinThemes) {
     for (const mode of ['dark', 'light'] as const) {
