@@ -53,6 +53,7 @@ export default {
           // Status (semantic purpose, not color)
           'green': 'var(--fluux-status-success)',
           'yellow': 'var(--fluux-status-warning)',
+          'presence-online': 'var(--fluux-presence-online)',
           'presence-away': 'var(--fluux-presence-away)',
           'presence-xa': 'var(--fluux-presence-xa)',
           'presence-dnd': 'var(--fluux-presence-dnd)',

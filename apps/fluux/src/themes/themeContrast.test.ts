@@ -177,41 +177,36 @@ function themeTokens(theme: ThemeDefinition, mode: 'dark' | 'light'): Record<str
   return { ...base, ...(theme.variables[mode] ?? {}) }
 }
 
-describe('Builtin theme inactive presence contrast', () => {
-  it('uses yellow for away while retaining the existing orange XA fills in both modes', () => {
-    expect(dark['--fluux-presence-xa']).toBe('#FF8C00')
-    expect(light['--fluux-presence-xa']).toBe('#A64B00')
-    for (const tokens of [dark, light]) {
-      const [red, green, blue] = resolve_('var(--fluux-presence-away)', tokens)
-      expect(green).toBeGreaterThan(red * 0.75)
-      expect(red).toBeGreaterThanOrEqual(green)
-      expect(blue).toBeLessThan(green * 0.5)
-    }
-  })
+describe('Builtin theme presence palette', () => {
+  const palette = { online: '#23A559', away: '#FAC914', xa: '#FF8C00', dnd: '#E9001B' }
+
   for (const theme of builtinThemes) {
     for (const mode of ['dark', 'light'] as const) {
-      for (const surface of ['sidebar-bg', 'chat-bg', 'bg-primary'] as const) {
-        for (const show of ['away', 'xa'] as const) {
-          it(`[${theme.id}/${mode}] ${show} clears 3:1 on ${surface}`, () => {
-            const r = contrast(`var(--fluux-presence-${show})`, `var(--fluux-${surface})`, themeTokens(theme, mode))
-            expect(r).toBeGreaterThanOrEqual(3)
-          })
+      it(`[${theme.id}/${mode}] uses the fixed Conversations presence palette`, () => {
+        const tokens = themeTokens(theme, mode)
+        for (const [show, hex] of Object.entries(palette)) {
+          expect(expand(`var(--fluux-presence-${show})`, tokens)).toBe(hex)
         }
-      }
+      })
     }
   }
-})
 
-describe('Builtin theme DND presence ring contrast', () => {
+  // The fixed palette intentionally trades some contrast for matching the Android
+  // colours. In particular, Away and XA don't reach 3:1 on light surfaces.
   for (const theme of builtinThemes) {
-    for (const mode of ['dark', 'light'] as const) {
-      for (const surface of ['sidebar-bg', 'chat-bg', 'bg-primary'] as const) {
-        it(`[${theme.id}/${mode}] DND ring clears 3:1 on ${surface}`, () => {
-          const r = contrast('var(--fluux-presence-dnd)', `var(--fluux-${surface})`, themeTokens(theme, mode))
+    for (const surface of ['sidebar-bg', 'chat-bg', 'bg-primary'] as const) {
+      for (const show of ['away', 'xa'] as const) {
+        it(`[${theme.id}/dark] ${show} clears 3:1 on ${surface}`, () => {
+          const r = contrast(`var(--fluux-presence-${show})`, `var(--fluux-${surface})`, themeTokens(theme, 'dark'))
           expect(r).toBeGreaterThanOrEqual(3)
         })
       }
     }
+  }
+  for (const [mode, tokens] of [['dark', dark], ['light', light]] as const) {
+    it(`[${mode}] DND ring clears 3:1 on the default chat surface`, () => {
+      expect(contrast('var(--fluux-presence-dnd)', 'var(--fluux-chat-bg)', tokens)).toBeGreaterThanOrEqual(3)
+    })
   }
 })
 

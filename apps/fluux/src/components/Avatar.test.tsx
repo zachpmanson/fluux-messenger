@@ -153,7 +153,7 @@ describe('Avatar', () => {
     })
 
     it.each([
-      { presence: 'online' as const, colorClass: 'bg-fluux-green', cssVariable: '--fluux-presence-online' },
+      { presence: 'online' as const, colorClass: 'bg-fluux-presence-online', cssVariable: '--fluux-presence-online' },
       { presence: 'away' as const, colorClass: 'bg-fluux-presence-away', cssVariable: '--fluux-presence-away' },
       { presence: 'offline' as const, colorClass: 'bg-fluux-gray', cssVariable: '--fluux-presence-offline' },
     ])('retains the $presence indicator when raw show is unknown', ({ presence, colorClass, cssVariable }) => {

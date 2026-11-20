@@ -22,7 +22,7 @@ describe('presence indicator classes', () => {
   })
 
   it.each([null, undefined, 'chat'] as const)('keeps %s online green', show => {
-    expect(getShowColor(show)).toBe('bg-fluux-green')
+    expect(getShowColor(show)).toBe('bg-fluux-presence-online')
   })
 
   it('falls back to the simplified status for unvalidated network show strings', () => {
@@ -31,7 +31,7 @@ describe('presence indicator classes', () => {
     expect(resolvePresenceDisplay('away', unknownShow)).toBe('away')
     expect(resolvePresenceDisplay('dnd', unknownShow)).toBe('dnd')
     expect(resolvePresenceDisplay('offline', unknownShow)).toBe('offline')
-    expect(getPresenceColor('online', unknownShow)).toBe('bg-fluux-green')
+    expect(getPresenceColor('online', unknownShow)).toBe('bg-fluux-presence-online')
     expect(getPresenceColor('away', unknownShow)).toBe('bg-fluux-presence-away presence-away')
     expect(getShowColor(unknownShow)).toBe('bg-fluux-muted')
     expect(getShowColor(unknownShow, true)).toBe('bg-slate-500')
