@@ -34,7 +34,7 @@ for upstream:
 | `feat/markdown` | Markdown tables, links, nested lists and link styling |
 | `feat/new-message-modal-height` | New-message modal height |
 | `feat/notification-audio-release` | Notification audio behavior |
-| `feat/presence-colors` | Yellow away and orange extended-away indicators, preserving raw resource/MUC show for display |
+| `feat/presence-colors` | Presence palette shared with Conversations, preserving raw resource/MUC show for display |
 | `feat/reaction-preview-markup` | Reaction preview markup |
 | `feat/read-receipts` | Read receipts |
 | `feat/rebrand-favicon` | Deployment favicon and title |
@@ -100,8 +100,8 @@ cherry-pick so the rebuild stays reproducible.
 - **Read receipts (XEP-0333/0184)** — issue #3, now built. Net-new SDK work;
   likely wanted upstream.
 - **Presence status in the chat header** — issue #4, now built. UI change.
-- **Presence colors** — `feat/presence-colors`; normal away is yellow and extended
-  away is orange across contacts, rooms, profiles and device indicators. UI-only:
+- **Presence colors** — `feat/presence-colors`; normal away is orange and extended
+  away is yellow across contacts, rooms, profiles and device indicators. UI-only:
   the SDK's simplified presence status and resource priority rules are unchanged.
 - **Slash-command bypass** — issue #1, now built.
 - **Rebrand (deployment identity)** — favicon from the dotgrid diamond mark
